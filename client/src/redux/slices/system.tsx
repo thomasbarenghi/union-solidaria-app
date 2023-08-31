@@ -22,7 +22,7 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     setCurrentRoute: (state, action: PayloadAction<string>) => {
-        console.log("setCurrentRoute", action.payload);
+      console.log("setCurrentRoute", action.payload);
       state.currentRoute = action.payload;
     },
   },
