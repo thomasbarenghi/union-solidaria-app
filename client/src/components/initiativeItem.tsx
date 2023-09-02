@@ -15,14 +15,14 @@ export default function InitiativeItem({ title, image, location }: Props) {
   };
 
   return (
-    <div className="flex flex-col w-full" onClick={handleClick}>
+    <div className="cursor-pointer flex flex-col w-full" onClick={handleClick}>
       <div className="flex flex-col gap-2 w-full ">
-        <div className="relative l w-full  aspect-[3/4]">
+        <div className="relative l w-full  aspect-[1/1]">
           <Image
             src={image}
             fill
             alt="Vercel Logo"
-            className="object-cover aspect-[3/4] rounded-2xl"
+            className="object-cover aspect-[1/1] rounded-2xl"
           />
         </div>
         <div className="flex flex-col gap-2">

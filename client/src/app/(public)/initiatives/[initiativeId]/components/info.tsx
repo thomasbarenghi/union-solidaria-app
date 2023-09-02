@@ -65,10 +65,10 @@ function InitiativeDateInfo() {
 
 export default function Info() {
   return (
-    <div className="px-6 py-14 flex flex-col gap-6">
+    <section className="flex flex-col gap-6 lg:gap-10">
       <OrganizationInfo />
       <InitiativeGeneralInfo />
       <InitiativeDateInfo />
-    </div>
+    </section>
   );
 }

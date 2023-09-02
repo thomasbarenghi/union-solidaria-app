@@ -1,4 +1,5 @@
 export { default as Header } from "./header";
+export { default as Footer } from "./footer";
 export { default as BottomBar } from "./bottomBar";
 export { default as Search } from "./search";
 export { default as Hero } from "./hero";
@@ -8,5 +9,6 @@ export { default as InitiativeItem } from "./initiativeItem";
 export { default as ProfileAction } from "./profileAction";
 export { default as Popover } from "./popover";
 export { default as ModalBoxForPopover } from "./modalBoxForPopover";
-export { default as VerticalNav } from "./verticalNav";
+export { default as Nav } from "./nav";
 export { default as HamburgerMenu } from "./hamburgerMenu";
+export { default as Input } from "./input";

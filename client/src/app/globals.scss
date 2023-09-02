@@ -221,7 +221,7 @@ $line-height-titulos: 130%;
   }
 
   .primaryButton {
-    @apply rounded-3xl border-none bg-[#1D4ED8] px-8 py-4 font-semibold leading-[100%] text-white;
+    @apply rounded-3xl border-none bg-green-800 px-8 py-4 font-semibold leading-[100%] text-white;
   }
 
   .secondaryButton {
@@ -255,6 +255,14 @@ $line-height-titulos: 130%;
     @apply relative  py-[40px];
   }
 
+  .col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .row-center {
+    @apply flex flex-col items-center justify-center;
+  }
+
   .gridContainer {
     @apply flex w-full flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
   }
@@ -281,5 +289,25 @@ $line-height-titulos: 130%;
   /* Estilo del fondo del desplazamiento */
   .scrollbar-hide::-webkit-scrollbar-track {
     background-color: transparent;
+  }
+}
+
+//Del proyecto
+
+@layer base {
+  .section-padding-1 {
+    @apply px-6 py-20 sm:px-10 md:px-14 lg:px-16 xl:px-24;
+  }
+
+  .container-section > section {
+    @apply container;
+  }
+
+  .article-layout-1 {
+    @apply flex flex-col items-center justify-center w-full gap-20;
+  }
+
+  .grid-layout-3 {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-10;
   }
 }

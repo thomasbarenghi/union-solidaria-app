@@ -1,20 +1,23 @@
 import "./globals.scss";
-import type { Metadata } from "next";
+import React from "react";
+import Provider from "@/services/provider";
+import { Toaster } from "sonner";
 
-export const metadata: Metadata = {
-  title: "...",
-  description: "...",
-  themeColor: "#166534",
-};
-
-type Props = {
-  children: React.ReactNode;
-};
-
-export default function RootLayout({ children }: Props) {
+export default function RootLayout(props: any) {
   return (
     <html lang="en">
-      <body className="">{children}</body>
+      <body className="">
+        <Provider>
+          <Toaster
+            richColors
+            position="bottom-left"
+            toastOptions={{
+              className: "max-w-[85vw] xs:max-w-none ",
+            }}
+          />
+          {props.children}
+        </Provider>
+      </body>
     </html>
   );
 }

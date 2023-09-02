@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { VerticalNav } from "@/components";
+import { Nav } from "@/components";
 
 type HamburgerMenuProps = {
   childrenTrigger?: JSX.Element;
@@ -54,7 +54,7 @@ export default function HamburgerMenu({
               <div className="seccion1-x-padding flex w-full flex-col gap-5">
                 <div className="flex w-full flex-col gap-2">
                   <p className="smalltext text-green-800">MENU</p>
-                  <VerticalNav
+                  <Nav
                     items={itemsNav}
                     itemClassName="titulo-3 font-normal"
                   />

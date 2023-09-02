@@ -34,18 +34,18 @@ function ContentItem({ title, description }: ContentItem) {
 
 export default function Marketing() {
   return (
-    <div className="px-6 pb-14 flex flex-col gap-10">
+    <section className="flex flex-col gap-10">
       <h1 className="titulo-3 font-light">
-        Únete a Nuestra{" "}
-        <b className="font-semibold"> Revolución de Solidaridad</b>
+        Únete a nuestra{" "}
+        <b className="font-semibold"> revolución de solidaridad</b>
       </h1>
-      <div className="flex flex-col gap-10">
+      <div className="grid-layout-3">
         {contentData.map((item: ContentItem) => {
           return (
             <ContentItem title={item.title} description={item.description} />
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,8 +1,12 @@
 import Image from "next/image";
 
-export default function Search() {
+type Props = {
+  className?: string;
+};
+
+export default function Search({ className }: Props) {
   return (
-    <div className="flex items-center justify-center w-full px-6">
+    <div className={`${className} flex items-center justify-center w-full`} >
       <div className="flex px-5 py-4  gap-2 w-full bg-green-50 rounded-full">
         <Image
           src="/icon/sidebar/search.svg"

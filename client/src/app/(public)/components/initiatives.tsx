@@ -36,11 +36,11 @@ const initiatives = [
 
 export default function Initiatives() {
   return (
-    <div className="px-6 py-14 flex flex-col gap-6">
+    <section className="w-full flex flex-col gap-6">
       <h1 className="w-full titulo-3 font-light">
         Iniciativas <b className="font-semibold">destacadas</b>
       </h1>
       <InitiativeGrid initiatives={initiatives.slice(0, 4)} />
-    </div>
+    </section>
   );
 }

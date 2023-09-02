@@ -6,8 +6,10 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Initiatives />
-      <Marketing />
+      <article className="section-padding-1 container-section article-layout-1">
+        <Initiatives />
+        <Marketing />
+      </article>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { HamburgerMenu, Popover, VerticalNav } from "@/components";
+import { HamburgerMenu, Popover, Nav } from "@/components";
 import Link from "next/link";
 import { useState } from "react";
 import { createPortal } from "react-dom";
@@ -53,7 +53,7 @@ export default function ProfileAction() {
         <div>
           <div className="hidden lg:flex">
             <Popover childrenTrigger={childrenTrigger}>
-              <VerticalNav items={itemsNav} />
+              <Nav items={itemsNav} />
             </Popover>
           </div>
           <div className="flex lg:hidden">

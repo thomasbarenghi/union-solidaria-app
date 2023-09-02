@@ -36,12 +36,12 @@ const initiatives = [
 
 export default function Initiatives() {
   return (
-    <div className="px-6 py-14 flex flex-col gap-6">
+    <section className=" flex flex-col gap-6">
       <h1 className="w-full titulo-3 font-light">
         Iniciativas cerca de{" "}
         <b className="font-semibold">Moron, Buenos Aires</b>
       </h1>
       <InitiativeGrid initiatives={initiatives} />
-    </div>
+    </section>
   );
 }

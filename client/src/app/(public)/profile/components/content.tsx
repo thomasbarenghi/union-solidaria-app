@@ -14,8 +14,8 @@ const tabsContent = [
 
 export default function Content() {
   return (
-    <div className="px-6 py-14 flex flex-col gap-6">
+    <section className=" flex flex-col gap-6">
       <Tabs content={tabsContent} />
-    </div>
+    </section>
   );
 }

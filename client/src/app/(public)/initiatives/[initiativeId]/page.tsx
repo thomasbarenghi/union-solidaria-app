@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Info />
+      <article className="section-padding-1 container-section article-layout-1">
+        <Info />
+      </article>
     </>
   );
 }
