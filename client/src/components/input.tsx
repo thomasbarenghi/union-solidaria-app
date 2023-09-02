@@ -21,9 +21,6 @@ type InputProps = {
 };
 
 export default function Input(props: InputProps) {
-  
-
-
   return (
     <label
       htmlFor={props.name}

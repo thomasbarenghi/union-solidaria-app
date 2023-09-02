@@ -54,10 +54,7 @@ export default function HamburgerMenu({
               <div className="seccion1-x-padding flex w-full flex-col gap-5">
                 <div className="flex w-full flex-col gap-2">
                   <p className="smalltext text-green-800">MENU</p>
-                  <Nav
-                    items={itemsNav}
-                    itemClassName="titulo-3 font-normal"
-                  />
+                  <Nav items={itemsNav} itemClassName="titulo-3 font-normal" />
                 </div>
                 <div>
                   <p className="smalltext text-green-800">CONTACTO</p>

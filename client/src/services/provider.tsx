@@ -10,13 +10,11 @@ interface Props {
 export default function AppProvider({ children }: Props) {
   return (
     <>
-
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            {children}
-          </PersistGate>
-        </Provider>
-
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          {children}
+        </PersistGate>
+      </Provider>
     </>
   );
 }

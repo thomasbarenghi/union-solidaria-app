@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <Hero />
       <article className="section-padding-1 container-section article-layout-1">
-      <Initiatives />
+        <Initiatives />
       </article>
     </>
   );

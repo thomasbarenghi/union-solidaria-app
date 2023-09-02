@@ -23,7 +23,9 @@ export default function Hero({
     >
       <div className="absolute h-full w-full top-0 left-0 z-[1]  bg-[#0000005e] "></div>
       <Image fill src={imageSrc} alt="Vercel Logo" className="object-cover" />
-      <section className={`z-[20] w-full flex flex-col ${gap} mt-6`}>{children}</section>
+      <section className={`z-[20] w-full flex flex-col ${gap} mt-6`}>
+        {children}
+      </section>
     </article>
   );
 }

@@ -27,9 +27,11 @@ export default function Nav({
 }: VerticalNavProps) {
   const divFlexStyles =
     mode === "vertical" ? `flex flex-col ${gap}` : `flex ${gap}`;
-  const divCenterAbsolute = centerAbsolute ? "absolute left-[50%]  w-max  translate-x-[-50%]" : "";
+  const divCenterAbsolute = centerAbsolute
+    ? "absolute left-[50%]  w-max  translate-x-[-50%]"
+    : "";
   return (
-    <div className={ `${divFlexStyles} ${divCenterAbsolute}  ${className}`}>
+    <div className={`${divFlexStyles} ${divCenterAbsolute}  ${className}`}>
       {items.map((item, index) => (
         <>
           {item.visible && (

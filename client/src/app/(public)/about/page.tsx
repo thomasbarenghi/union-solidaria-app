@@ -4,9 +4,9 @@ import Content from "./components/content";
 export default function Home() {
   return (
     <>
-      <Hero  />
+      <Hero />
       <article className="section-padding-1 container-section article-layout-1">
-      <Content  />
+        <Content />
       </article>
     </>
   );

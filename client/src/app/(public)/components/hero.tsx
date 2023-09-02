@@ -11,7 +11,7 @@ export default function HeroSec() {
         <h1 className="text-center lg:text-start   w-full titulo-2 font-light text-white">
           Tu ayuda puede <b className="font-semibold">hacer la diferencia.</b>
         </h1>
-        <Search className="max-w-[350px] "/>
+        <Search className="max-w-[350px] " />
       </div>
     </Hero>
   );

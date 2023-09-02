@@ -21,9 +21,7 @@ const AccordionItem = ({
     key={item.question}
   >
     <div onClick={onClick}>
-      <button className={`bodyText ${itemStyles}`} >
-        {item.question}
-      </button>
+      <button className={`bodyText ${itemStyles}`}>{item.question}</button>
     </div>
     {showDescription && (
       <div>

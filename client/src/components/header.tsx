@@ -31,34 +31,30 @@ type Props = {
 };
 
 export default function Header({ theme, layout = "full" }: Props) {
-
   return (
     <header
       className={`py-8 flex fixed z-50 section-padding-1 justify-center w-full bg-transparent`}
     >
       <div className="w-full  justify-between items-center flex 2xl:container">
-      <Image
-        src={`/icon/logo-${theme === "dark" ? "dark" : "light"}.svg`}
-        alt="Vercel Logo"
-        width={185}
-        height={35}
-      />
-      {
-        layout === "full" && (
+        <Image
+          src={`/icon/logo-${theme === "dark" ? "dark" : "light"}.svg`}
+          alt="Vercel Logo"
+          width={185}
+          height={35}
+        />
+        {layout === "full" && (
           <>
-                <Nav
-        items={itemsNav}
-        className="hidden lg:flex"
-        mode="horizontal"
-        gap="gap-6"
-        centerAbsolute={true}
-        textStyles="text-white font-light"
-      />
-      <ProfileAction />
+            <Nav
+              items={itemsNav}
+              className="hidden lg:flex"
+              mode="horizontal"
+              gap="gap-6"
+              centerAbsolute={true}
+              textStyles="text-white font-light"
+            />
+            <ProfileAction />
           </>
-        )
-      }
-
+        )}
       </div>
     </header>
   );
