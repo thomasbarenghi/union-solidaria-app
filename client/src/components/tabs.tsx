@@ -35,7 +35,7 @@ export default function Tabs({ content }: TabsFn) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div>
+    <div className="w-full flex flex-col gap-6">
       <div className="flex gap-4">
         {content.map((tab, index) => (
           <TabItem

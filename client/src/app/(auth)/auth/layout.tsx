@@ -8,8 +8,8 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <>
-      <Header theme="dark" />
-      <main className="flex flex-col min-h-screen pb-[100px] ">{children}</main>
+      <Header theme="dark" layout="simple" />
+      <main className="flex flex-col min-h-screen">{children}</main>
     </>
   );
 }

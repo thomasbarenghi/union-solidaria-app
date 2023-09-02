@@ -27,14 +27,14 @@ const itemsNav = [
 
 type Props = {
   theme?: "dark" | "light";
+  layout?: "simple" | "full";
 };
 
-export default function Header({ theme }: Props) {
-  const [styles, setStyles] = useState("pt-7");
+export default function Header({ theme, layout = "full" }: Props) {
 
   return (
     <header
-      className={`${styles} flex fixed z-50 section-padding-1 justify-center w-full bg-transparent`}
+      className={`py-8 flex fixed z-50 section-padding-1 justify-center w-full bg-transparent`}
     >
       <div className="w-full  justify-between items-center flex 2xl:container">
       <Image
@@ -43,7 +43,10 @@ export default function Header({ theme }: Props) {
         width={185}
         height={35}
       />
-      <Nav
+      {
+        layout === "full" && (
+          <>
+                <Nav
         items={itemsNav}
         className="hidden lg:flex"
         mode="horizontal"
@@ -52,6 +55,10 @@ export default function Header({ theme }: Props) {
         textStyles="text-white font-light"
       />
       <ProfileAction />
+          </>
+        )
+      }
+
       </div>
     </header>
   );

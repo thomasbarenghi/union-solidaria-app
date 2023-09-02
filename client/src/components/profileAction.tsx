@@ -18,7 +18,7 @@ export default function ProfileAction() {
     },
     {
       name: "Iniciativas",
-      href: "/iniciatives",
+      href: "/initiatives",
       visible: true,
     },
     {

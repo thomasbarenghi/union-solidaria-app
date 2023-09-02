@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./faqs.scss";
 
 @layer base {
   h1,
@@ -300,11 +301,11 @@ $line-height-titulos: 130%;
   }
 
   .container-section > section {
-    @apply container;
+    @apply xl:container;
   }
 
   .article-layout-1 {
-    @apply flex flex-col items-center justify-center w-full gap-20;
+    @apply flex flex-col items-center justify-center w-full gap-16;
   }
 
   .grid-layout-3 {
