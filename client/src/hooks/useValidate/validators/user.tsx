@@ -72,6 +72,12 @@ export const isValidEmail = (value: string): validResponse => {
 };
 
 export const isValidPassword = (value: string): validResponse => {
+
+  return {
+    isValid: true,
+    error: "",
+  };
+
   if (!value || value.trim() === "") {
     return {
       isValid: false,

@@ -1,11 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import Router from "next/router";
 import { toast } from "sonner";
 import { AuthClass, UserClass } from "@/types";
 import { toastSuccess, toastError } from "@/utils/toastStyles";
-import { clientMutator, clientQuerier } from "@/utils/requests";
-import { axiosPutter } from "@/utils/requests";
+import { axiosPutter, axiosPoster } from "@/utils/requests";
 import { sessionBuilder } from "@/utils/state";
+import Endpoints from "@/constants/endpoints";
 
 const initialState = {
   auth: {} as AuthClass,
@@ -29,19 +28,24 @@ export const setSession = createAsyncThunk(
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
     }
-  },
+  }
 );
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (credentials: any) => {
+  async (credentials: { email: string; password: string }) => {
     try {
-      const data = {} as any;
-      return data.createSession;
+      console.log("credentials", credentials);
+      const data = axiosPoster({
+        url: Endpoints.LOGIN,
+        body: credentials,
+      }) as any;
+      
+      return data
     } catch (err: any) {
       throw new Error("Error al loguear el usuario", err);
     }
-  },
+  }
 );
 
 export const register = createAsyncThunk(
@@ -55,7 +59,7 @@ export const register = createAsyncThunk(
       console.error("Error al crear el usuario", err);
       throw new Error("Error al crear el usuario", err);
     }
-  },
+  }
 );
 
 export const editUser = createAsyncThunk(
@@ -71,14 +75,14 @@ export const editUser = createAsyncThunk(
       const res = await axiosPutter(
         "/rest/users/edit",
         userData,
-        "multipart/form-data",
+        "multipart/form-data"
       );
       return res.data;
     } catch (err: any) {
       console.error("Error al crear el usuario", err);
       throw new Error("Error al crear el usuario", err);
     }
-  },
+  }
 );
 
 export const changePassword = createAsyncThunk(
@@ -93,7 +97,7 @@ export const changePassword = createAsyncThunk(
       console.error("Error al cambiar contraseña", err);
       throw new Error("Error al cambiar contraseña", err);
     }
-  },
+  }
 );
 
 const postsSlice = createSlice({
@@ -125,18 +129,20 @@ const postsSlice = createSlice({
       })
       .addCase(login.pending, (state, action) => {})
       .addCase(login.fulfilled, (state, action) => {
-        Router.push(
-          `/client?id=${action.payload.userId}&status=ok&session=${action.payload.id}&loginMethod=local`,
-        );
+        console.log("register.fulfilled", action.payload, action.payload.userId);
+        // Router.push(
+        //   `/client?id=${action.payload.userId}&status=ok&session=${action.payload.sessionId}`
+        // );
       })
       .addCase(login.rejected, (state, action) => {
         console.error("Rejected login", action.payload);
         toast.error("Verifica las credenciales", toastError);
       })
       .addCase(register.fulfilled, (state, action) => {
-        const query: string = Router.asPath.split("register")[1] || "";
+        //   const query: string = Router.asPath.split("register")[1] || "";
+        console.log("register.fulfilled", action.payload, action.payload.userId);
         toast.success("Registro exitoso", toastSuccess);
-        Router.push(`/auth/${query}`);
+        //   Router.push(`/auth/${query}`);
       })
       .addCase(register.rejected, (state, action) => {
         console.error("Rejected register", action);

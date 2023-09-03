@@ -81,7 +81,7 @@ export const submitManager = async ({
     throw new Error("Formulario invalido");
   }
 
-  await dispatch(actionToDispatch(formValues));
+  return await dispatch(actionToDispatch(formValues));
 
   //reset form
   //e.currentTarget.reset();

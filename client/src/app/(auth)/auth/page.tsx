@@ -9,8 +9,10 @@ import Link from "next/link";
 import Head from "next/head";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const validate = useValidate();
   const [formValues, setFormValues] = useState({});
@@ -27,7 +29,7 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      await submitManager({
+      const response = await submitManager({
         e,
         formValues,
         errors,
@@ -35,6 +37,9 @@ export default function Home() {
         actionToDispatch: login,
         setFormValues,
       });
+      router.push(
+        `/?id=${response.payload.userId}&session=${response.payload.sessionId}`
+      );
     } catch (error) {
       console.error(error);
       toast.error("Verifica los campos del formulario");
