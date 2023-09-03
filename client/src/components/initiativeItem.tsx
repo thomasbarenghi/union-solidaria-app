@@ -1,3 +1,4 @@
+import Routes from "@/constants/routes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -5,13 +6,14 @@ type Props = {
   title: string;
   image: string;
   location: string;
+  id: string;
 };
 
-export default function InitiativeItem({ title, image, location }: Props) {
+export default function InitiativeItem({ title, image, location, id }: Props) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/initiatives/1");
+    router.push(Routes.INITIATIVES + "/" + id);
   };
 
   return (

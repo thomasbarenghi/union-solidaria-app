@@ -15,7 +15,7 @@ export default function ProfileAction() {
     },
     {
       name: "Mi cuenta",
-      href: "/" + currentUser?.username,
+      href: "/@" + currentUser?.username,
       visible: true,
     },
     {

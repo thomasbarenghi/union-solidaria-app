@@ -14,7 +14,7 @@ interface ThunkApiConfig {
 }
 
 export const getCurrentUser = createAsyncThunk(
-  "users/setCurrentUser",
+  "users/getCurrentUser",
   async (username: string) => {
     return await axiosGetter({
       url: Endpoints.USERS + "/" + username,

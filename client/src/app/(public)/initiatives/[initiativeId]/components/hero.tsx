@@ -1,17 +1,20 @@
 "use client";
 import { Search, Hero } from "@/components";
+import { useAppSelector } from "@/redux/hooks";
+import { currentInitiativeSelector } from "@/redux/selectors/initiatives";
 
 export default function HeroSec() {
+  const currentInitiative = useAppSelector(currentInitiativeSelector);
   return (
-    <Hero imageSrc="https://images.unsplash.com/photo-1577049205905-e4d91edc0a00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80">
+    <Hero imageSrc={currentInitiative?.thumbnail}>
       <>
         <div className="py-10 flex flex-col gap-3">
           <div>
             <h1 className=" w-full titulo-3 font-medium text-white">
-              Todos por los capibara
+              {currentInitiative?.title}
             </h1>
             <p className="font-light bodyText text-white">
-              Tigre, Buenos Aires
+              {currentInitiative?.locations}
             </p>
           </div>
           <button className="bg-green-800 w-max text-white font-medium rounded-full px-7 py-3">
