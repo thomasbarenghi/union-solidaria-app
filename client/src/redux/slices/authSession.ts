@@ -1,17 +1,13 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "sonner";
-import { AuthClass, UserClass } from "@/types";
-import { toastSuccess, toastError } from "@/utils/toastStyles";
-import { axiosPutter, axiosPoster } from "@/utils/requests";
+import { axiosPutter, axiosPoster, axiosGetter } from "@/utils/requests";
 import { sessionBuilder } from "@/utils/state";
 import Endpoints from "@/constants/endpoints";
+import { AuthClass, UserClass } from "@/types";
+import { toast } from "sonner";
 
 const initialState = {
   auth: {} as AuthClass,
-  session: {
-    current: {} as UserClass,
-    loading: false,
-  },
+  session: {} as UserClass,
 };
 
 interface ThunkApiConfig {
@@ -22,43 +18,27 @@ interface ThunkApiConfig {
 export const setSession = createAsyncThunk(
   "auth/setSession",
   async (userId: string) => {
-    try {
-      const data = {} as any;
-      return data.findUserById;
-    } catch (err: any) {
-      throw new Error("Error al loguear el usuario", err);
-    }
+    return await axiosGetter({
+      url: Endpoints.USERS + "/" + userId,
+    });
   }
 );
 
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials: { email: string; password: string }) => {
-    try {
-      console.log("credentials", credentials);
-      const data = axiosPoster({
-        url: Endpoints.LOGIN,
-        body: credentials,
-      }) as any;
-      
-      return data
-    } catch (err: any) {
-      throw new Error("Error al loguear el usuario", err);
-    }
+    return axiosPoster({
+      url: Endpoints.LOGIN,
+      body: credentials,
+    });
   }
 );
 
 export const register = createAsyncThunk(
   "auth/register",
   async (userData: any) => {
-    try {
-      const data = {} as any;
-      //if (errors) console.error("Error al crear el usuario", errors);
-      return data.createUser;
-    } catch (err: any) {
-      console.error("Error al crear el usuario", err);
-      throw new Error("Error al crear el usuario", err);
-    }
+    const data = {} as any;
+    return data.createUser;
   }
 );
 
@@ -67,7 +47,7 @@ export const editUser = createAsyncThunk(
   async (userData: any, { getState }: ThunkApiConfig) => {
     try {
       const state = getState();
-      userData.userId = state.authSession.session.current.id;
+      userData.userId = state.authSession.session.id;
       userData.filenamePi = userData.profileImage
         ? userData.profileImage.name
         : "";
@@ -88,15 +68,10 @@ export const editUser = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   "auth/changePassword",
   async (userData: any, { getState }: ThunkApiConfig) => {
-    try {
-      const state = getState();
-      userData.userId = state.authSession.session.current.id;
-      const data = {} as any;
-      return data;
-    } catch (err: any) {
-      console.error("Error al cambiar contraseña", err);
-      throw new Error("Error al cambiar contraseña", err);
-    }
+    const state = getState();
+    userData.userId = state.authSession.session.id;
+    const data = {} as any;
+    return data;
   }
 );
 
@@ -114,60 +89,30 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setSession.pending, (state, action) => {
-        if (action.meta.arg === state.session.current.id) {
-          state.session.loading = false;
-        } else {
-          state.session.loading = true;
-        }
-      })
       .addCase(setSession.fulfilled, (state, action) => {
-        state.session.current = sessionBuilder(action.payload);
-      })
-      .addCase(setSession.rejected, (state, action) => {
-        console.error("Rejected setSession", action.payload);
-      })
-      .addCase(login.pending, (state, action) => {})
-      .addCase(login.fulfilled, (state, action) => {
-        console.log("register.fulfilled", action.payload, action.payload.userId);
-        // Router.push(
-        //   `/client?id=${action.payload.userId}&status=ok&session=${action.payload.sessionId}`
-        // );
+        state.session = action.payload.user;
       })
       .addCase(login.rejected, (state, action) => {
-        console.error("Rejected login", action.payload);
-        toast.error("Verifica las credenciales", toastError);
+        toast.error("Verifica las credenciales");
       })
       .addCase(register.fulfilled, (state, action) => {
-        //   const query: string = Router.asPath.split("register")[1] || "";
-        console.log("register.fulfilled", action.payload, action.payload.userId);
-        toast.success("Registro exitoso", toastSuccess);
-        //   Router.push(`/auth/${query}`);
+        toast.success("Registro exitoso");
       })
       .addCase(register.rejected, (state, action) => {
-        console.error("Rejected register", action);
-        toast.error("Verifica los datos", toastError);
-      })
-      .addCase(editUser.pending, (state, action) => {
-        toast("Editando usuario");
+        toast.error("Verifica los datos");
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        state.session.current = sessionBuilder(action.payload);
-        toast.success("Edición exitosa", toastSuccess);
+        state.session = sessionBuilder(action.payload);
+        toast.success("Edición exitosa");
       })
       .addCase(editUser.rejected, (state, action) => {
-        console.error("Rejected editUser", action);
-        toast.error("Verifica los datos", toastError);
-      })
-      .addCase(changePassword.pending, (state, action) => {
-        toast("Editando contraseña");
+        toast.error("Verifica los datos");
       })
       .addCase(changePassword.fulfilled, (state, action) => {
-        toast.success("Edición exitosa", toastSuccess);
+        toast.success("Edición exitosa");
       })
       .addCase(changePassword.rejected, (state, action) => {
-        console.error("Rejected changePassword", action);
-        toast.error("Verifica los datos", toastError);
+        toast.error("Verifica los datos");
       });
   },
 });

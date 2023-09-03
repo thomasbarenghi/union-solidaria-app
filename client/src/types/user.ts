@@ -7,7 +7,8 @@ export class UserClass {
   email: string;
   isSuperAdmin: boolean;
   softDelete: boolean;
-  coverImage: string;
+  bannerImage: string;
+  role: "volunteer" | "organization";
 
   constructor(
     id: string,
@@ -19,6 +20,7 @@ export class UserClass {
     isSuperAdmin: boolean,
     softDelete: boolean,
     coverImage: string,
+    role: "volunteer" | "organization" = "volunteer"
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -28,7 +30,8 @@ export class UserClass {
     this.email = email;
     this.isSuperAdmin = isSuperAdmin;
     this.softDelete = softDelete;
-    this.coverImage = coverImage;
+    this.bannerImage = coverImage;
+    this.role = role;
   }
 
   getId(): string {
@@ -60,7 +63,7 @@ export class UserClass {
   }
 
   getCoverImage(): string {
-    return this.coverImage;
+    return this.bannerImage;
   }
 
   getFirstName(): string {

@@ -1,34 +1,36 @@
 import { HamburgerMenu, Popover, Nav } from "@/components";
 import Link from "next/link";
-import { useState } from "react";
-import { createPortal } from "react-dom";
 import Image from "next/image";
+import Routes from "@/constants/routes";
+import { useAppSelector } from "@/redux/hooks";
+import { currentUserSelector } from "@/redux/selectors/users";
 
 export default function ProfileAction() {
+  const currentUser = useAppSelector(currentUserSelector);
   const itemsNav = [
     {
       name: "Inicio",
-      href: "/",
+      href: Routes.HOME,
       visible: true,
     },
     {
       name: "Mi cuenta",
-      href: "/profile",
+      href: "/" + currentUser?.username,
       visible: true,
     },
     {
       name: "Iniciativas",
-      href: "/initiatives",
+      href: Routes.INITIATIVES,
       visible: true,
     },
     {
       name: "Ayuda",
-      href: "/help",
+      href: Routes.HELP,
       visible: true,
     },
     {
       name: "Cerrar sesión",
-      href: "/auth/logout",
+      href: Routes.LOGOUT,
       visible: true,
     },
   ];
@@ -65,7 +67,7 @@ export default function ProfileAction() {
         </div>
       ) : (
         <button className="button terceryButton hidden lg:flex">
-          <Link href={"/auth"}>Iniciar sesión</Link>
+          <Link href={Routes.LOGIN} >Iniciar sesión</Link>
         </button>
       )}
     </>

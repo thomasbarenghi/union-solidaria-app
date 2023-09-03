@@ -1,20 +1,21 @@
 import Image from "next/image";
 import { Nav } from "@/components";
+import Routes from "@/constants/routes";
 
 const navContent = [
   {
     name: "Acerca de",
-    href: "/about",
+    href: Routes.ABOUT,
     visible: true,
   },
   {
     name: "Ayuda",
-    href: "/help",
+    href: Routes.HELP,
     visible: true,
   },
   {
     name: "Legal",
-    href: "/legal",
+    href: Routes.LEGAL,
     visible: true,
   },
 ];

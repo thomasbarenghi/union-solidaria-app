@@ -1,23 +1,13 @@
 export class AuthClass {
-  isLogged: boolean;
-  loginMethod: string;
   sessionId: string;
-  constructor(
-    isLogged: boolean = false,
-    loginMethod: string = "",
-    sessionId: string = "",
-  ) {
-    this.isLogged = isLogged;
-    this.loginMethod = loginMethod;
+  isLogged: boolean;
+  constructor(isLogged: boolean = false, sessionId: string = "") {
     this.sessionId = sessionId;
+    this.isLogged = isLogged;
   }
 
   getIsLogged(): boolean {
     return this.isLogged;
-  }
-
-  getLoginMethod(): string {
-    return this.loginMethod;
   }
 
   getSessionId(): string {
@@ -25,6 +15,6 @@ export class AuthClass {
   }
 
   static deserialize(data: AuthClass): AuthClass {
-    return new AuthClass(data.isLogged, data.loginMethod, data.sessionId);
+    return new AuthClass(data.isLogged, data.sessionId);
   }
 }

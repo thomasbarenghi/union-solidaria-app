@@ -18,7 +18,7 @@ type axiosPoster = {
 export const axiosPoster = async ({ url, body }: axiosPoster) => {
   console.log("axiosPoster body", body);
   const { data: res } = await axios.post(serverUrl + url, body || {});
-console.log("axiosPoster res", res);
+  console.log("axiosPoster res", res);
   return res as any;
 };
 
@@ -48,4 +48,3 @@ export const axiosDeleter = async ({ url, headers }: axiosDeleter) => {
 
   return res;
 };
-

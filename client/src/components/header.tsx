@@ -1,26 +1,27 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Nav, ProfileAction } from "@/components";
+import Routes from "@/constants/routes";
 
 const itemsNav = [
   {
     name: "Inicio",
-    href: "/",
+    href: Routes.HOME,
     visible: true,
   },
   {
     name: "Nosotros",
-    href: "/about",
+    href: Routes.ABOUT,
     visible: true,
   },
   {
     name: "Iniciativas",
-    href: "/initiatives",
+    href: Routes.INITIATIVES,
     visible: true,
   },
   {
     name: "Ayuda",
-    href: "/help",
+    href: Routes.HELP,
     visible: true,
   },
 ];

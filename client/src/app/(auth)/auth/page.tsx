@@ -10,6 +10,7 @@ import Head from "next/head";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Routes from "@/constants/routes";
 
 export default function Home() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function Home() {
         setFormValues,
       });
       router.push(
-        `/?id=${response.payload.userId}&session=${response.payload.sessionId}`
+        `/?userId=${response.payload.userId}&sessionId=${response.payload.sessionId}`
       );
     } catch (error) {
       console.error(error);
@@ -81,7 +82,7 @@ export default function Home() {
         <p className="mt-6 w-full text-center font-light">
           ¿No tienes una cuenta?{" "}
           <Link
-            href={`/auth/register`}
+            href={Routes.REGISTER}
             className="font-medium text-emerald-800"
           >
             Regístrate

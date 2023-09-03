@@ -9,6 +9,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { useState } from "react";
 import { toast } from "sonner";
+import Routes from "@/constants/routes";
 
 export default function Home() {
   const [step, setStep] = useState<number>(1);
@@ -118,7 +119,7 @@ export default function Home() {
         </form>
         <p className="mt-6 w-full text-center font-light">
           ¿Ya tienes una cuenta?{" "}
-          <Link href="/auth" className="font-medium text-emerald-800">
+          <Link href={Routes.LOGIN} className="font-medium text-emerald-800">
             Ingresar
           </Link>
         </p>

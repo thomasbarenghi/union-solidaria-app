@@ -4,9 +4,13 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { debounce } from "lodash";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { setAuth, setSession, resetReducer } from "@/redux/slices/authSession";
-import { AuthClass, UserClass } from "@/types";
-import { VERIFY_SESSION } from "@/graphql/queries";
-import { clientQuerier } from "@/utils/requests";
+import { AuthClass } from "@/types";
+import { axiosGetter } from "@/utils/requests/axios";
+import Endpoints from "@/constants/endpoints";
+import {
+  currentAuthSelector,
+  currentUserSelector,
+} from "@/redux/selectors/users";
 
 type Props = {
   children: ReactNode;
@@ -17,68 +21,48 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const {
-    session: { current: sSession },
-    auth: sAuth,
-  } = useAppSelector((state) => state.authSession);
-
-  const loginMethodQy = searchParams.get("loginMethod");
-  const userIdQy = searchParams.get("id");
-  const statusQy = searchParams.get("status");
-  const sessionQy = searchParams.get("session");
-
-  const session = UserClass.deserialize(sSession);
-  const auth = AuthClass.deserialize(sAuth);
-  const userId = session?.getId() || (userIdQy ?? "");
+  const currentUser = useAppSelector(currentUserSelector);
+  const currentAuth = useAppSelector(currentAuthSelector);
+  const userId = (searchParams.get("userId") as string) || currentUser?.id;
+  const sessionId =
+    (searchParams.get("sessionId") as string) || currentAuth?.sessionId;
 
   const verifySession = async (data: AuthClass) => {
+    console.log("Verificando sesión", data), userId;
     try {
-      if (data.isLogged && userId) {
-        const { data: verifData, errors } = await clientQuerier(
-          VERIFY_SESSION,
-          {
-            userId: userId,
+      if (data.isLogged && userId && data.sessionId) {
+        const res = await axiosGetter({
+          url: Endpoints.VERIFY,
+          headers: {
+            sessionId: data.sessionId,
           },
-        );
+        });
 
-        if (verifData.verifySession === true) {
-          dispatch(setAuth(data));
-          await dispatch(setSession(userId as string));
-        } else {
-          console.log("Debes iniciar sesión primero");
-          dispatch(resetReducer());
-        }
-      } else {
-        console.log("Debes iniciar sesión primero");
+        console.log("res", res);
+
+        dispatch(setAuth(data));
+        await dispatch(setSession(userId as string));
+        // } else {
+        //   dispatch(resetReducer());
+        //   console.log("Debes iniciar sesión primero");
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      console.log(error.message, data, userId);
       dispatch(resetReducer());
       alert("Error al verificar la sesión");
-      router.push("/");
+      //router.push("/");
     }
   };
 
   const setAuthFn = async () => {
-    const authObj = new AuthClass(
-      statusQy === "ok" ? true : false,
-      loginMethodQy as string,
-      sessionQy as string,
-    );
-
+    const authObj = new AuthClass(true, sessionId as string);
     verifySession(authObj);
   };
 
   const systemHoc = () => {
-    if (auth?.getIsLogged()) {
-      verifySession(auth);
-    } else if (
-      !auth?.isLogged &&
-      loginMethodQy &&
-      userIdQy &&
-      statusQy &&
-      sessionQy
-    ) {
+    if (currentAuth?.isLogged) {
+      verifySession(currentAuth);
+    } else if (!currentAuth?.isLogged && userId && sessionId) {
       setAuthFn();
     } else {
       router.push("/");
@@ -87,16 +71,7 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
 
   const delayedSystemStart = useMemo(
     () => debounce(() => systemHoc(), 500),
-    [
-      pathname,
-      userId,
-      auth?.getIsLogged(),
-      loginMethodQy,
-      userIdQy,
-      statusQy,
-      searchParams,
-      session?.getId(),
-    ],
+    [pathname, userId, currentAuth?.isLogged, userId, searchParams, sessionId]
   );
 
   useEffect(() => {
@@ -107,12 +82,10 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
     return cancelDebounce;
   }, [delayedSystemStart]);
 
-  // Rutas protegidas
-  console.log(auth?.getIsLogged(), userId, auth);
-  if (!auth?.getIsLogged() || auth?.getIsLogged() == undefined || !userId) {
+  if (!currentAuth?.isLogged || currentAuth?.isLogged == undefined || !userId) {
     return null;
   } else {
-    return <main>{children}</main>;
+    return <>{children}</>;
   }
 };
 
