@@ -71,7 +71,7 @@ const SecurityHOC: React.FC<Props> = ({ children }) => {
 
   const delayedSystemStart = useMemo(
     () => debounce(() => systemHoc(), 500),
-    [pathname, userId, currentAuth?.isLogged, userId, searchParams, sessionId]
+    [pathname, userId, currentAuth?.isLogged, userId, searchParams, sessionId],
   );
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export class UserClass {
     isSuperAdmin: boolean,
     softDelete: boolean,
     coverImage: string,
-    role: "volunteer" | "organization" = "volunteer"
+    role: "volunteer" | "organization" = "volunteer",
   ) {
     this.id = id;
     this.firstName = firstName;

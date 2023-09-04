@@ -13,9 +13,7 @@ export default function AppProvider({ children }: Props) {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Querier>
-          {children}
-          </Querier>
+          <Querier>{children}</Querier>
         </PersistGate>
       </Provider>
     </>

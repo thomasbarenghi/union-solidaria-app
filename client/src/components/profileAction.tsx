@@ -67,7 +67,7 @@ export default function ProfileAction() {
         </div>
       ) : (
         <button className="button terceryButton hidden lg:flex">
-          <Link href={Routes.LOGIN} >Iniciar sesión</Link>
+          <Link href={Routes.LOGIN}>Iniciar sesión</Link>
         </button>
       )}
     </>

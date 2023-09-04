@@ -21,7 +21,7 @@ export const setSession = createAsyncThunk(
     return await axiosGetter({
       url: Endpoints.USERS + "/" + userId,
     });
-  }
+  },
 );
 
 export const login = createAsyncThunk(
@@ -31,7 +31,7 @@ export const login = createAsyncThunk(
       url: Endpoints.LOGIN,
       body: credentials,
     });
-  }
+  },
 );
 
 export const register = createAsyncThunk(
@@ -39,7 +39,7 @@ export const register = createAsyncThunk(
   async (userData: any) => {
     const data = {} as any;
     return data.createUser;
-  }
+  },
 );
 
 export const editUser = createAsyncThunk(
@@ -55,14 +55,14 @@ export const editUser = createAsyncThunk(
       const res = await axiosPutter(
         "/rest/users/edit",
         userData,
-        "multipart/form-data"
+        "multipart/form-data",
       );
       return res.data;
     } catch (err: any) {
       console.error("Error al crear el usuario", err);
       throw new Error("Error al crear el usuario", err);
     }
-  }
+  },
 );
 
 export const changePassword = createAsyncThunk(
@@ -72,7 +72,7 @@ export const changePassword = createAsyncThunk(
     userData.userId = state.authSession.session.id;
     const data = {} as any;
     return data;
-  }
+  },
 );
 
 const postsSlice = createSlice({

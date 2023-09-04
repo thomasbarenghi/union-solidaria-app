@@ -19,7 +19,7 @@ export const getInitiatives = createAsyncThunk(
     return await axiosGetter({
       url: Endpoints.INITIATIVES,
     });
-  }
+  },
 );
 
 export const getCurrentInitiative = createAsyncThunk(
@@ -29,7 +29,7 @@ export const getCurrentInitiative = createAsyncThunk(
     return await axiosGetter({
       url: Endpoints.INITIATIVES + "/" + id,
     });
-  }
+  },
 );
 
 const usersSlice = createSlice({

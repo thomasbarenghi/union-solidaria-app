@@ -25,7 +25,7 @@ export default function Querier({ children }: Props) {
   const username = pathname.slice(2) ?? currentUser?.username;
 
   useEffect(() => {
-    if(!pathname.startsWith("/@")) return;
+    if (!pathname.startsWith("/@")) return;
     dispatch(getCurrentUser(username));
   }, [username]);
 
@@ -35,9 +35,10 @@ export default function Querier({ children }: Props) {
   }, []);
 
   const currentInitiative = useAppSelector(currentInitiativeSelector);
-  const initiativeId = pathname.replace("/initiatives/", "") ?? currentInitiative?.id;
+  const initiativeId =
+    pathname.replace("/initiatives/", "") ?? currentInitiative?.id;
   useEffect(() => {
-    if(!pathname.startsWith("/initiatives/")) return;
+    if (!pathname.startsWith("/initiatives/")) return;
     dispatch(getCurrentInitiative(initiativeId));
   }, [initiativeId]);
 

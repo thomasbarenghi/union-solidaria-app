@@ -19,7 +19,7 @@ export const getCurrentUser = createAsyncThunk(
     return await axiosGetter({
       url: Endpoints.USERS + "/" + username,
     });
-  }
+  },
 );
 
 const usersSlice = createSlice({

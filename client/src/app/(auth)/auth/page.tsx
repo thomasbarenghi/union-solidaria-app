@@ -39,7 +39,7 @@ export default function Home() {
         setFormValues,
       });
       router.push(
-        `/?userId=${response.payload.userId}&sessionId=${response.payload.sessionId}`
+        `/?userId=${response.payload.userId}&sessionId=${response.payload.sessionId}`,
       );
     } catch (error) {
       console.error(error);
@@ -81,10 +81,7 @@ export default function Home() {
         </form>
         <p className="mt-6 w-full text-center font-light">
           ¿No tienes una cuenta?{" "}
-          <Link
-            href={Routes.REGISTER}
-            className="font-medium text-emerald-800"
-          >
+          <Link href={Routes.REGISTER} className="font-medium text-emerald-800">
             Regístrate
           </Link>
         </p>
