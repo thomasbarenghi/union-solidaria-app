@@ -1,12 +1,10 @@
 "use client";
 import { Input } from "@/components";
-import AuthBase from "../authBase";
 import { useAppDispatch } from "@/redux/hooks";
 import { register } from "@/redux/slices/authSession";
 import { changeManager, submitManager } from "@/utils/forms/validateAndSend";
 import useValidate from "@/hooks/useValidate";
 import Link from "next/link";
-import Head from "next/head";
 import { useState } from "react";
 import { toast } from "sonner";
 import Routes from "@/constants/routes";
@@ -48,12 +46,8 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Registrarse | Spaces</title>
-        <meta name="theme-color" content="#1e40af" />
-      </Head>
-      <AuthBase image="https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80">
+
+      <div>
         <h1 className="titulo-3 mb-6 font-normal">
           Registrate en <span className="font-semibold">U.S.</span>
         </h1>
@@ -123,7 +117,7 @@ export default function Home() {
             Ingresar
           </Link>
         </p>
-      </AuthBase>
-    </>
+        </div>
+
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Header, BottomBar, Footer } from "@/components";
+import { Header, Footer } from "@/components";
 
 type Props = {
   children: React.ReactNode;
@@ -7,11 +7,10 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <main className="flex flex-col min-h-screen">
+    <>
       <Header />
-      {children}
-      {/* <BottomBar /> */}
+      <main className="flex flex-col min-h-screen">{children}</main>
       <Footer />
-    </main>
+    </>
   );
 }

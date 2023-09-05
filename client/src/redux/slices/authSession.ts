@@ -83,8 +83,8 @@ const postsSlice = createSlice({
       state.auth = action.payload;
     },
     resetReducer: (state) => {
-      state.auth = initialState.auth;
-      state.session = initialState.session;
+      state.auth.isLogged = false; 
+      state.session = {} as UserClass;
     },
   },
   extraReducers: (builder) => {

@@ -1,6 +1,5 @@
 const Routes = {
   HOME: "/",
-
   ABOUT: "/about",
   INITIATIVES: "/initiatives",
   HELP: "/help",
@@ -9,8 +8,7 @@ const Routes = {
   REGISTER: "/auth/register",
   LEGAL: "/legal",
   FAQS: "/faqs",
-  CLIENT_HOME: "/cl/discover",
-  // Otras rutas de tu aplicación
+  EDIT_ACCOUNT: "/account",
 };
 
 export default Routes;
