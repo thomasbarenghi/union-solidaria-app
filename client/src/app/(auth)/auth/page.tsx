@@ -37,7 +37,7 @@ export default function Home() {
         setFormValues,
       });
       router.push(
-        `/?userId=${response.payload.userId}&sessionId=${response.payload.sessionId}`
+        `/?userId=${response.payload.userId}&sessionId=${response.payload.sessionId}`,
       );
     } catch (error) {
       console.error(error);

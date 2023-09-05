@@ -83,7 +83,7 @@ const postsSlice = createSlice({
       state.auth = action.payload;
     },
     resetReducer: (state) => {
-      state.auth.isLogged = false; 
+      state.auth.isLogged = false;
       state.session = {} as UserClass;
     },
   },

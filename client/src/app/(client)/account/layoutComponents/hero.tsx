@@ -5,10 +5,5 @@ import { currentUserSelector } from "@/redux/selectors/users";
 
 export default function HeroSec() {
   const currentUser = useAppSelector(currentUserSelector);
-  return (
-    <UsersHero
-      user={currentUser}
-      withButton={false}
-    />
-  );
+  return <UsersHero user={currentUser} withButton={false} />;
 }

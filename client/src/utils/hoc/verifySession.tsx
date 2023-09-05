@@ -36,7 +36,7 @@ export const verifySession = async ({
         pathname,
         isLogged: true,
         setPageVisible,
-    
+
         router,
       });
     }

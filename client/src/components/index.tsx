@@ -1,4 +1,4 @@
-"use client"
+"use client";
 export { default as Header } from "./header";
 export { default as Footer } from "./footer";
 export { default as BottomBar } from "./bottomBar";
@@ -18,5 +18,3 @@ export { default as AccordionItem } from "./accordionItem";
 export { default as MarkdownRenderer } from "./markdownRenderer";
 export { default as UsersHero } from "./usersHero";
 export { default as HelpHero } from "./helpHero";
-
-

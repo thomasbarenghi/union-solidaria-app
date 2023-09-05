@@ -46,78 +46,76 @@ export default function Home() {
   };
 
   return (
-
-      <div>
-        <h1 className="titulo-3 mb-6 font-normal">
-          Registrate en <span className="font-semibold">U.S.</span>
-        </h1>
-        <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
-          {step === 1 && (
-            <div id="step1" className="flex w-full flex-col gap-4">
-              <Input
-                type="text"
-                name="firstName"
-                label="Nombre"
-                placeholder="Nombre"
-                className="w-full"
-                error={errors.firstName}
-                onChange={handleChange}
-              />
-              <Input
-                type="text"
-                name="lastName"
-                label="Apellidos"
-                placeholder="Apellidos"
-                className="w-full"
-                error={errors.lastName}
-                onChange={handleChange}
-              />
-              <button type="button" className="primaryButton" onClick={onClick}>
-                Siguiente
-              </button>
-            </div>
-          )}
-          {step === 2 && (
-            <div id="step2" className="flex w-full flex-col gap-4">
-              <Input
-                type="email"
-                name="email"
-                label="Correo electrónico"
-                placeholder="Correo electrónico"
-                className="w-full"
-                error={errors.email}
-                onChange={handleChange}
-              />
-              <Input
-                type="text"
-                name="username"
-                label="Nombre de usuario"
-                placeholder="Nombre de usuario"
-                onChange={handleChange}
-                className="w-full"
-                error={errors.username}
-              />
-              <Input
-                type="password"
-                name="password"
-                label="Contraseña"
-                placeholder="Contraseña"
-                error={errors.password}
-                onChange={handleChange}
-              />
-              <button type="submit" className={`primaryButton `}>
-                Registrarse
-              </button>
-            </div>
-          )}
-        </form>
-        <p className="mt-6 w-full text-center font-light">
-          ¿Ya tienes una cuenta?{" "}
-          <Link href={Routes.LOGIN} className="font-medium text-emerald-800">
-            Ingresar
-          </Link>
-        </p>
-        </div>
-
+    <div>
+      <h1 className="titulo-3 mb-6 font-normal">
+        Registrate en <span className="font-semibold">U.S.</span>
+      </h1>
+      <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
+        {step === 1 && (
+          <div id="step1" className="flex w-full flex-col gap-4">
+            <Input
+              type="text"
+              name="firstName"
+              label="Nombre"
+              placeholder="Nombre"
+              className="w-full"
+              error={errors.firstName}
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              name="lastName"
+              label="Apellidos"
+              placeholder="Apellidos"
+              className="w-full"
+              error={errors.lastName}
+              onChange={handleChange}
+            />
+            <button type="button" className="primaryButton" onClick={onClick}>
+              Siguiente
+            </button>
+          </div>
+        )}
+        {step === 2 && (
+          <div id="step2" className="flex w-full flex-col gap-4">
+            <Input
+              type="email"
+              name="email"
+              label="Correo electrónico"
+              placeholder="Correo electrónico"
+              className="w-full"
+              error={errors.email}
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              name="username"
+              label="Nombre de usuario"
+              placeholder="Nombre de usuario"
+              onChange={handleChange}
+              className="w-full"
+              error={errors.username}
+            />
+            <Input
+              type="password"
+              name="password"
+              label="Contraseña"
+              placeholder="Contraseña"
+              error={errors.password}
+              onChange={handleChange}
+            />
+            <button type="submit" className={`primaryButton `}>
+              Registrarse
+            </button>
+          </div>
+        )}
+      </form>
+      <p className="mt-6 w-full text-center font-light">
+        ¿Ya tienes una cuenta?{" "}
+        <Link href={Routes.LOGIN} className="font-medium text-emerald-800">
+          Ingresar
+        </Link>
+      </p>
+    </div>
   );
 }

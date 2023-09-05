@@ -16,9 +16,7 @@ export default function RootLayout(props: any) {
               className: "max-w-[85vw] xs:max-w-none ",
             }}
           />
-          <HOC>
-          {props.children}
-          </HOC>
+          <HOC>{props.children}</HOC>
         </Provider>
       </body>
     </html>
