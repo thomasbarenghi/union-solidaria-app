@@ -8,7 +8,7 @@ import LocationInfo from './locationInfo'
 import DateTime from './dateTime'
 import Multimedia from './multimedia'
 import { serverUrl } from '@/utils/constants/env.const'
-
+ 
 async function postData(form: any) {
   try {
     const res = await axios.post(`${serverUrl}/api/initiatives`, form, {
