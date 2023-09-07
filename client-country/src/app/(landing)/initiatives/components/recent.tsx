@@ -7,7 +7,7 @@ import { fetcher } from '@/services/fetcher.service'
 import useSWR from 'swr'
 
 export default function RecentSec() {
-  const { data, error } = useSWR(Endpoints.INITIATIVES, fetcher)
+  const { data } = useSWR(Endpoints.INITIATIVES, fetcher)
   return (
     <section className='flex w-full items-center justify-center'>
       <div className='container flex flex-col gap-4'>

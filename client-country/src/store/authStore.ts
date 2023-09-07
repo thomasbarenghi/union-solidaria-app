@@ -8,8 +8,8 @@ interface AuthState {
   isLogged: boolean
   sessionId: string
   userId: string
-  loginLocal: (body: { email: string; password: string }) => Promise<void>
-  verifySession: (body: { sessionId: string; userId: string }) => Promise<void>
+  loginLocal: (body: { email: string, password: string }) => Promise<void>
+  verifySession: (body: { sessionId: string, userId: string }) => Promise<void>
 }
 
 const useAuthStore = create<AuthState>()((set, get) => ({
@@ -20,14 +20,13 @@ const useAuthStore = create<AuthState>()((set, get) => ({
     try {
       const { data } = await axios.post(`${serverUrl}/auth/login`, body)
       set({ isLogged: true, sessionId: data.sessionId, userId: data.userId })
-      useUserStore.getState().getLoggedUser(data.userId)
+      await useUserStore.getState().getLoggedUser(data.userId)
     } catch (error) {
       console.log(error)
     }
   },
   verifySession: async (body) => {
-    const res = await fetch('')
-    set({ isLogged: true })
+
   }
 }))
 

@@ -8,7 +8,7 @@ const options: RequestInit = {
 }
 
 async function createDonationToPlatform(payment: IDonationPayment): Promise<IPaymentResponse> {
-  const url = `${serverUrl as string}${Endpoints.DONATION_TO_PLATFORM}`
+  const url = `${serverUrl}${Endpoints.DONATION_TO_PLATFORM}`
   const request = await fetch(url, { ...options, body: JSON.stringify(payment) })
 
   if (!request.ok) {

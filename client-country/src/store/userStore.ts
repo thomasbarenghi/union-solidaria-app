@@ -38,13 +38,8 @@ const useUserStore = create<UserState>()(
           console.log(error)
         }
       },
-      getUsers: async () => {
-        const res = await fetch('')
-        const users = await res.json()
-      },
-      createUser: async (userData) => {
-        const res = await fetch('')
-      }
+      getUsers: async () => {},
+      createUser: async (userData) => {}
     }),
     {
       name: 'users-storage', // name of the item in the storage (must be unique)

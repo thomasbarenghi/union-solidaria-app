@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import { ArrowCircleIcon, FormInput, Submit, VisibilityOffIcon, VisibilityOnIcon } from '@/components'
 
 const dataInputVoluntary = [
@@ -112,7 +113,7 @@ function RegisterPage() {
               icon_1={data.icon_1}
               icon_2={data.icon_2}
             />
-          ))
+        ))
         : selectRegister === 'organization' &&
           dataOrgnizationInput.map((data) => (
             <FormInput

@@ -1,7 +1,5 @@
 import { Heading } from '@/components'
 import Image from 'next/image'
-import aboutImage from '../../../../public/assets/about-image.webp'
-import logoImage from '../../../../public/assets/logo.webp'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -16,14 +14,12 @@ function AboutPage() {
       <div className='relative flex h-48 w-full items-center justify-center bg-white/50'>
         <Image
           className='-z-10 object-cover'
-          src={aboutImage}
+          src='/assets/about-image.webp'
           fill
-          placeholder='blur'
-          blurDataURL=''
           sizes='100vw'
           alt='image de personas apoyando una iniciativa'
         />
-        <Image src={logoImage} width={100} height={100} alt='logo de la plataforma' />
+        <Image src='/assets/logo.webp' width={100} height={100} alt='logo de la plataforma' />
       </div>
       <article className='p-section 2xl:container'>
         <section className='space-y-3 p-4'>

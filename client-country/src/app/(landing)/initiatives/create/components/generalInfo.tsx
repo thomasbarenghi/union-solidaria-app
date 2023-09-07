@@ -1,16 +1,13 @@
 import { FormInput, Heading, MultipleSelectCheckmarks } from '@/components'
-import { FormProps } from './form'
 import { UseFormRegister } from 'react-hook-form'
 
-type GeneralInfoProps = {
+interface GeneralInfoProps {
   setLanguages: (languages: string[]) => void
   languages: string[]
   setThemes: (themes: string[]) => void
   themes: string[]
   setOpportunities: (opportunities: string[]) => void
   opportunities: string[]
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  formValues: FormProps
   categories: string[]
   setCategories: (categories: string[]) => void
   errors: any
@@ -24,8 +21,6 @@ export default function GeneralInfo({
   languages,
   themes,
   opportunities,
-  handleChange,
-  formValues,
   categories,
   setCategories,
   errors,
@@ -43,11 +38,8 @@ export default function GeneralInfo({
           name='title'
           label='Titulo de la iniciativa'
           placeholder='Titulo de la iniciativa'
-          required={false}
-          value={formValues.title}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               maxLength: { value: 60, message: 'Maximo 60 caracteres' },
               minLength: { value: 5, message: 'Minimo 5 caracteres' },
@@ -61,11 +53,8 @@ export default function GeneralInfo({
           name='description'
           label='Descripcion de la iniciativa'
           placeholder='Descripcion de la iniciativa'
-          required={false}
-          value={formValues.description}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               maxLength: { value: 500, message: 'Maximo 500 caracteres' },
               minLength: { value: 50, message: 'Minimo 50 caracteres' },
@@ -79,11 +68,8 @@ export default function GeneralInfo({
           name='deadLine'
           label='Fecha limite de inscripcion'
           placeholder='Fecha limite de inscripcion'
-          required={false}
-          value={formValues.deadLine}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               required: { value: true, message: 'Este campo es requerido' },
               validate: (value: string) => {

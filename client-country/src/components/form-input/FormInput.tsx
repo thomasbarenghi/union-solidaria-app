@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { RegisterOptions, UseFormRegister } from 'react-hook-form'
 
-type InputProps = {
+interface InputProps {
   type: string
   name: string
   label?: string
@@ -19,9 +19,9 @@ type InputProps = {
   step?: string
   required?: boolean
   rows?: number
-  selectOptions?: { value: string; label: string }[]
+  selectOptions?: Array<{ value: string, label: string }>
   handleSelectChange?: (e: any) => void
-  selectSelected?: { value: string; label: string }
+  selectSelected?: { value: string, label: string }
   autoComplete?: 'on' | 'off'
   hookForm?: {
     register: UseFormRegister<any>
@@ -62,8 +62,8 @@ export default function FormInput(props: InputProps) {
               name={props.name}
               value={props.value}
               prefix={props.prefix}
-              onChange={(e: any) => {
-                hookForm?.onChange(e)
+              onChange={async(e: any) => {
+                await hookForm?.onChange(e)
                 if (props.onChange) props.onChange(e)
               }}
               placeholder={props.placeholder}
@@ -73,7 +73,7 @@ export default function FormInput(props: InputProps) {
               autoComplete={props.autoComplete || 'off'}
             />
             <button onClick={handleChange}>
-              {props.icon_1 && props.icon_2 ? (changeIcon === false ? props.icon_2 : props.icon_1) : props.icon_1}
+              {props.icon_1 && props.icon_2 ? (!changeIcon ? props.icon_2 : props.icon_1) : props.icon_1}
             </button>
           </div>
         ) : props.type === 'file' ? (
@@ -82,8 +82,8 @@ export default function FormInput(props: InputProps) {
               {...hookForm}
               type='file'
               name={props.name}
-              onChange={(e: any) => {
-                hookForm?.onChange(e)
+              onChange={async(e: any) => {
+                await hookForm?.onChange(e)
                 if (props.onChange) props.onChange(e)
               }}
               className={`${props.className} ${styles.input}`}
@@ -91,7 +91,7 @@ export default function FormInput(props: InputProps) {
               required={props.required}
             />
             <button onClick={handleChange}>
-              {props.icon_1 && props.icon_2 ? (changeIcon === false ? props.icon_2 : props.icon_1) : props.icon_1}
+              {props.icon_1 && props.icon_2 ? (!changeIcon ? props.icon_2 : props.icon_1) : props.icon_1}
             </button>
           </div>
         ) : (
@@ -100,8 +100,8 @@ export default function FormInput(props: InputProps) {
             defaultValue={props.defaultValue}
             name={props.name}
             value={props.value}
-            onChange={(e: any) => {
-              hookForm?.onChange(e)
+            onChange={async(e: any) => {
+              await hookForm?.onChange(e)
               if (props.onChange) props.onChange(e)
             }}
             placeholder={props.placeholder}

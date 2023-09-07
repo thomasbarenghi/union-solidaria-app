@@ -1,10 +1,9 @@
 'use client'
-import { useAppSelector } from '@/redux/hooks'
+import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { currentActiveUserSelector, currentUserSelector } from '@/redux/selectors/users'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { getCurrentUser } from '@/redux/slices/users'
-import { useAppDispatch } from '@/redux/hooks'
 
 export default function Content() {
   const dispatch = useAppDispatch()
@@ -16,9 +15,12 @@ export default function Content() {
   const isOrg = currentActiveUser?.role === 'organization'
 
   useEffect(() => {
-    if (!pathname.startsWith('/@')) return
-    dispatch(getCurrentUser(username))
-  }, [username])
+    const init = async () => {
+      if (!pathname.startsWith('/@')) return
+      await dispatch(getCurrentUser(username))
+    }
+    void init()
+  }, [dispatch, pathname, username])
 
   return (
     <section className='flex min-h-[100vh] w-full flex-col gap-6 bg-white '>

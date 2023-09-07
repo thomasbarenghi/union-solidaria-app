@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 
 function InitiativesPage() {
   return (
-    <div className='flex flex-col gap-10 py-7'>
+    <main className='gap-main p-section'>
       <HeroSec />
       <FeaturedSec />
       <RecentSec />
-    </div>
+    </main>
   )
 }
 

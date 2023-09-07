@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 
-type PromoItemProps = {
+interface PromoItemProps {
   iconSrc: string
   text: string
   className?: string

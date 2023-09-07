@@ -1,16 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosPutter, axiosPoster, axiosGetter } from '@/utils/requests'
+import { axiosGetter } from '@/utils/requests'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { UserClass } from '@/types/index'
 import { toast } from 'sonner'
 
-const initialState = {
-  currentUser: {} as UserClass
+interface UserState {
+  currentUser: UserClass
 }
 
-interface ThunkApiConfig {
-  dispatch: Function
-  getState: Function
+const initialState: UserState = {
+  currentUser: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    username: '',
+    profileImage: '',
+    email: '',
+    isSuperAdmin: false,
+    softDelete: false,
+    bannerImage: '',
+    role: 'volunteer'
+  }
 }
 
 export const getCurrentUser = createAsyncThunk('users/getCurrentUser', async (username: string) => {
@@ -34,7 +44,5 @@ const usersSlice = createSlice({
       })
   }
 })
-
-export const {} = usersSlice.actions
 
 export default usersSlice.reducer

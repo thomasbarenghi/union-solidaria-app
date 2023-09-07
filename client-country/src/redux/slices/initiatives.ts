@@ -1,16 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosPutter, axiosPoster, axiosGetter } from '@/utils/requests'
+import { axiosGetter } from '@/utils/requests'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { toast } from 'sonner'
 
 const initialState = {
   currentInitiative: {} as any,
   initiatives: [] as any[]
-}
-
-interface ThunkApiConfig {
-  dispatch: Function
-  getState: Function
 }
 
 export const getInitiatives = createAsyncThunk('users/getInitiatives', async (_) => {
@@ -47,7 +42,5 @@ const usersSlice = createSlice({
       })
   }
 })
-
-export const {} = usersSlice.actions
 
 export default usersSlice.reducer

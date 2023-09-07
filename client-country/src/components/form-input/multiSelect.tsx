@@ -6,7 +6,7 @@ import { Select } from '@mui/base/Select'
 import { Option } from '@mui/base/Option'
 import clsx from 'clsx'
 
-type Props = {
+interface Props {
   names: string[]
   placeholder: string
   setSelected: (selected: string[]) => void
@@ -65,7 +65,7 @@ export default function UnstyledSelectMultiple({
             </Option>
             {names.map((name) => (
               <Option className='flex !h-max items-center gap-1 !p-0' key={name} value={name}>
-                <Checkbox className='!p-0' checked={selectedValue?.indexOf(name) > -1} />
+                <Checkbox className='!p-0' checked={selectedValue?.includes(name)} />
                 <ListItemText className='!m-0 !p-0 text-base' primary={name} />
               </Option>
             ))}

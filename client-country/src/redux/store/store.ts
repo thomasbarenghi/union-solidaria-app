@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import rootReducer from '../rootReducer'
@@ -9,9 +9,7 @@ const persistConfig = {
   whitelist: ['authSession', 'client'],
   debug: true
 }
-const persistMiddleware = getDefaultMiddleware({
-  serializableCheck: false
-})
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({

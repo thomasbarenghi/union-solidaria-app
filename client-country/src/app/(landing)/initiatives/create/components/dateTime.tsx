@@ -1,15 +1,12 @@
 import { FormInput, Heading } from '@/components'
-import { FormProps } from './form'
 import { UseFormRegister } from 'react-hook-form'
 
-type DateTimeProps = {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  formValues: FormProps
+interface DateTimeProps {
   errors: any
   register: UseFormRegister<any>
 }
 
-export default function DateTime({ handleChange, formValues, errors, register }: DateTimeProps) {
+export default function DateTime({ errors, register }: DateTimeProps) {
   return (
     <div className='flex w-full flex-col gap-4'>
       <div className='flex flex-col gap-2'>
@@ -23,10 +20,8 @@ export default function DateTime({ handleChange, formValues, errors, register }:
           label='Fecha de inicio'
           placeholder='Fecha de inicio'
           required={false}
-          value={formValues.startDate}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               required: { value: true, message: 'Este campo es requerido' },
               validate: (value: string) => {
@@ -47,10 +42,8 @@ export default function DateTime({ handleChange, formValues, errors, register }:
           label='Fecha de finalizacion'
           placeholder='Fecha de finalizacion'
           required={false}
-          value={formValues.endDate}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               required: { value: true, message: 'Este campo es requerido' },
               validate: (value: string) => {
@@ -71,10 +64,8 @@ export default function DateTime({ handleChange, formValues, errors, register }:
           label='Hora de inicio'
           placeholder='Hora de inicio'
           required={false}
-          value={formValues.startHour}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               pattern: {
                 value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
@@ -91,10 +82,8 @@ export default function DateTime({ handleChange, formValues, errors, register }:
           label='Hora de finalizacion'
           placeholder='Hora de finalizacion'
           required={false}
-          value={formValues.endHour}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               pattern: {
                 value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
@@ -111,10 +100,8 @@ export default function DateTime({ handleChange, formValues, errors, register }:
           label='Informacion Extra'
           placeholder='Informacion Extra'
           required={false}
-          value={formValues.extraInfo}
-          onChange={handleChange}
           hookForm={{
-            register: register,
+            register,
             validations: {
               maxLength: { value: 80, message: 'Maximo 80 caracteres' },
               minLength: { value: 5, message: 'Minimo 5 caracteres' },
