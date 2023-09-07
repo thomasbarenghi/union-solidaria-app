@@ -18,6 +18,7 @@ interface ThunkApiConfig {
 export const setSession = createAsyncThunk(
   "auth/setSession",
   async (userId: string) => {
+    console.log("userId", userId);
     return await axiosGetter({
       url: Endpoints.USERS + "/" + userId,
     });
@@ -26,11 +27,13 @@ export const setSession = createAsyncThunk(
 
 export const login = createAsyncThunk(
   "auth/login",
-  async (credentials: { email: string; password: string }) => {
-    return axiosPoster({
+  async (credentials: { email: string; password: string }, {dispatch}) => {
+    const data = await axiosPoster({
       url: Endpoints.LOGIN,
       body: credentials,
     });
+    await dispatch(setSession(data.userId));
+    return data;
   },
 );
 
