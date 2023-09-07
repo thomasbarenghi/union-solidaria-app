@@ -19,20 +19,4 @@
   .gap-main {
     @apply gap-10 lg:gap-14 xl:gap-14;
   }
-
-  article {
-    @apply w-full;
-  }
-
-  main {
-    @apply flex w-full flex-col items-center justify-center;
-  }
-
-  main > section {
-    @apply w-full 2xl:container;
-  }
-
-  footer {
-    @apply flex min-h-[200px] w-full flex-col items-center justify-center bg-pink-100;
-  }
 }

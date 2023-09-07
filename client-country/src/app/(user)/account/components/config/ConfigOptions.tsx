@@ -1,4 +1,5 @@
 import { DonationIcon, EditProfileIcon, ErrorIcon, LogoutIcon, NominationIcon, NotificationIcon } from '@/components'
+import Routes from '@/utils/constants/routes.const'
 import Link from 'next/link'
 
 function ConfigOptions() {
@@ -6,7 +7,7 @@ function ConfigOptions() {
     <>
       <ul className='text-lg text-blue-700'>
         <li>
-          <Link href='#' className='flex items-center gap-x-3 px-3 py-4'>
+          <Link href={Routes.EDIT_ACCOUNT} className='flex items-center gap-x-3 px-3 py-4'>
             <EditProfileIcon className='fill-blue-700' /> Editar Perfil
           </Link>
         </li>

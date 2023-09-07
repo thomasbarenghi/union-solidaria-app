@@ -1,8 +1,10 @@
 const Endpoints = {
-  LOGIN: '/auth/login',
-  VERIFY: '/auth/verify',
-  USERS: '/users',
-  INITIATIVES: '/initiatives',
+  LOGIN: '/api/auth/login',
+  VERIFY: '/api/auth/verify',
+  USERS: '/api/users',
+  INITIATIVES: '/api/initiatives',
+  INITIATIVES_BY_USER: (userId: string) => `/api/initiatives/user/${userId}`,
+  USER_BY_ID: (userId: string) => `/api/users/${userId}`,
   DONATION_TO_PLATFORM: '/api/create-checkout-session'
 }
 

@@ -16,7 +16,7 @@ function AccordionItem({ title, content }: Props) {
   const toggleOpen = () => setIsOpen((prevIsOpen) => !prevIsOpen)
 
   const classes = {
-    item: clsx('cursor-pointer text-xs text-black'),
+    item: clsx('cursor-pointer text-sm text-black'),
     title: clsx('flex items-center justify-between gap-x-8 border-b border-solid border-black px-4 py-2'),
     content: clsx('bg-pink-100 p-4'),
     icon: clsx('fill-current transition-transform duration-300', isOpen && '-rotate-180')

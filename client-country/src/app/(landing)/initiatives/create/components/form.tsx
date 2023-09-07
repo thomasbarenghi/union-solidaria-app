@@ -8,10 +8,11 @@ import LocationInfo from './locationInfo'
 import DateTime from './dateTime'
 import Multimedia from './multimedia'
 import { serverUrl } from '@/utils/constants/env.const'
+import Endpoints from '@/utils/constants/endpoints.const'
 
 async function postData(form: any) {
   try {
-    const res = await axios.post(`${serverUrl}/api/initiatives`, form, {
+    const res = await axios.post(serverUrl + Endpoints.INITIATIVES, form, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -72,7 +73,7 @@ export default function FormSec() {
       ownerId: '64f6ac5dbd10725027c83414',
       startDate: new Date(data.startDate).toISOString(),
       endDate: new Date(data.endDate).toISOString(),
-      thumbnail: data.thumbnail,
+      thumbnail: data.thumbnail[0],
       deadLine: new Date(data.deadLine).toISOString()
     }
     console.log(errors, formData)

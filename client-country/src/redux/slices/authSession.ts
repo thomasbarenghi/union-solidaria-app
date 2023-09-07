@@ -47,6 +47,8 @@ export const login = createAsyncThunk(
       body: credentials
     })
     await dispatch(setSession(data.userId))
+    console.log('data login', data)
+    await dispatch(setAuth({ isLogged: true, sessionId: data.sessionId }))
     return data
   }
 )

@@ -6,7 +6,8 @@ const Routes = {
   LOGOUT: '/logout',
   LOGIN: '/login',
   REGISTER: '/register',
-  ACCOUNT: '/account'
+  ACCOUNT: '/account',
+  EDIT_ACCOUNT: '/account/edit'
 }
 
 export default Routes

@@ -4,13 +4,13 @@ import ConsultForm from './components/ConsultForm'
 
 function HelpPage() {
   return (
-    <main className='p-section space-y-8'>
+    <main className='mx-auto max-w-screen-lg space-y-8 p-4'>
       <Heading>Ayuda</Heading>
-      <section className='space-y-6'>
+      <section className=' space-y-6'>
         <Heading as='h2'>Preguntas frecuentes</Heading>
         <Accordion />
       </section>
-      <section className='space-y-6'>
+      <section className=' space-y-6'>
         <Heading as='h2'>¿Tienes otra consulta?</Heading>
         <ConsultForm />
       </section>
