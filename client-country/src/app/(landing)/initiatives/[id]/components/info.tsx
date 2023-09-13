@@ -3,8 +3,7 @@ import { LocationIcon, CalendarIcon, TimeIcon, InfoIcon } from '@/components'
 interface Props {
   info: {
     desc: string
-    // change date type to Date
-    date: string
+    date: Date
     time: string
     location: string
   }
@@ -29,7 +28,7 @@ const InitiativeInfo = (props: Props) => {
           {Object.keys(infoIcons).map((key, index) => (
             <li key={index} className='flex items-center justify-start  gap-3'>
               <div className='w-4'>{infoIcons[key as InfoKeys]}</div>
-              <p className='text-sm'>{info[key as InfoKeys]}</p>
+              <p className='text-sm'>{info[key as InfoKeys].toLocaleString()}</p>
             </li>
           ))}
         </ul>

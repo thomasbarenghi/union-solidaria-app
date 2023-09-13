@@ -1,12 +1,31 @@
-import { FormInput, Heading } from '@/components'
-import { UseFormRegister } from 'react-hook-form'
+import { FormInput, Heading, UnstyledSelect } from '@/components'
+import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
+import { useState } from 'react'
 
 interface LocationInfoProps {
   errors: any
   register: UseFormRegister<any>
+  control: Control<any>
+  setValue: UseFormSetValue<any>
 }
 
-export default function LocationInfo({ errors, register }: LocationInfoProps) {
+export default function LocationInfo({ errors, register, control, setValue }: LocationInfoProps) {
+  const [country, setCountry] = useState<string>('Argentina')
+
+  const activeProvinces = () => {
+    switch (country) {
+      case 'Argentina':
+        return argentinaProvinces.slice(1)
+      case 'Uruguay':
+        return uruguayProvinces.slice(1)
+      case 'Colombia':
+        return colombiaProvinces.slice(1)
+      default:
+        return []
+    }
+  }
+
   return (
     <div className='flex w-full flex-col gap-4'>
       <div className='flex flex-col gap-2'>
@@ -14,11 +33,48 @@ export default function LocationInfo({ errors, register }: LocationInfoProps) {
         <hr />
       </div>
       <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
+        <Controller
+          name='country'
+          control={control}
+          rules={{ required: { value: true, message: 'Este campo es requerido' } }}
+          render={({ field }) => (
+            <UnstyledSelect
+              field={field}
+              name='country'
+              label='Elige un pais'
+              setSelected={(selected) => {
+                setValue('country', selected)
+                setCountry(selected)
+              }}
+              names={countries.slice(1)}
+              placeholder='Elige un pais'
+              error={errors?.country?.message}
+            />
+          )}
+        />
+        <Controller
+          name='province'
+          control={control}
+          rules={{ required: { value: true, message: 'Este campo es requerido' } }}
+          render={({ field }) => (
+            <UnstyledSelect
+              field={field}
+              name='province'
+              label='Elige una provincia/estado/departamento'
+              setSelected={(selected) => {
+                setValue('province', selected)
+              }}
+              names={activeProvinces()}
+              placeholder='Elige una provincia/estado/departamento'
+              error={errors?.province?.message}
+            />
+          )}
+        />
         <FormInput
           type='text'
-          name='locations'
-          label='Direccion'
-          placeholder='Direccion'
+          name='adress'
+          label='Direccion de encuentro'
+          placeholder='Direccion de encuentro'
           required={false}
           hookForm={{
             register,
@@ -30,7 +86,7 @@ export default function LocationInfo({ errors, register }: LocationInfoProps) {
               required: { value: true, message: 'Este campo es requerido' }
             }
           }}
-          error={errors?.locations?.message}
+          error={errors?.adress?.message}
         />
       </div>
     </div>

@@ -1,6 +1,5 @@
-import HeroSec from './components/hero'
+import SearchSection from './components/search'
 import FeaturedSec from './components/featured'
-import RecentSec from './components/recent'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -11,10 +10,9 @@ export const metadata: Metadata = {
 
 function InitiativesPage() {
   return (
-    <main className='gap-main p-section'>
-      <HeroSec />
+    <main className='gap-10 flex flex-col p-section'>
+      <SearchSection />
       <FeaturedSec />
-      <RecentSec />
     </main>
   )
 }

@@ -29,6 +29,7 @@ interface InputProps {
   }
   icon_1?: React.ReactNode
   icon_2?: React.ReactNode
+  setIconVisibility?: (e: boolean) => void
 }
 
 export default function FormInput(props: InputProps) {
@@ -36,6 +37,7 @@ export default function FormInput(props: InputProps) {
   const handleChange = () => {
     event?.preventDefault()
     setChangeIcon(!changeIcon)
+    if (props.setIconVisibility) props.setIconVisibility(!changeIcon)
   }
   const styles = {
     wrapperInput: clsx('flex justify-between rounded-md border border-solid border-gray-600 px-4 py-3'),

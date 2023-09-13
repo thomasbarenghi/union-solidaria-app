@@ -21,7 +21,7 @@ const PublicationCard = ({
   return (
     <div className='max-w-2xl overflow-hidden rounded-xl bg-gray-100 px-4 py-4 shadow'>
       <div className='flex items-center px-3 py-3'>
-        <div className='block'>
+        <div className='block sm:inline-flex'>
           <div className='flex items-center justify-center'>
             <Image className='rounded-full ' src={avatar} width={40} height={40} alt='Avatar' />
             <Link href='#' className='mx-2 inline-flex text-lg font-bold text-blue-500 '>
@@ -48,6 +48,7 @@ const PublicationCard = ({
           <p className='mt-2 text-black'>{description}</p>
         </div>
       </div>
+
       <div className='inline-flex items-end justify-end'>
         <div className='text-right text-xs font-semibold leading-[14px] text-black'>Hace 4 horas</div>
       </div>

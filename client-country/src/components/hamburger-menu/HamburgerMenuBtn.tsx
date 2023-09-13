@@ -1,26 +1,23 @@
 interface Props {
   menuOpened: boolean
-  setMenuOpen: () => void
+  toggleMenu: () => void
 }
 
-function HamburgerMenuBtn({ menuOpened, setMenuOpen }: Props) {
+function HamburgerMenuBtn({ menuOpened, toggleMenu }: Props) {
   return (
-    <button
-      onClick={() => setMenuOpen()}
-      className='z-20 fixed top-2 right-4 p-3 bg-transparent w-11 h-11 rounded-md'
-    >
+    <button onClick={toggleMenu} className='z-50 h-5 w-7 rounded-md bg-transparent'>
       <div
-        className={`bg-blue-700 h-0.5 rounded-md w-full transition-all
-            ${menuOpened ? 'rotate-45 translate-y-0.5' : ''}
+        className={`h-0.5 w-full rounded-md bg-blue-700 transition-all
+            ${menuOpened ? 'translate-y-0.5 rotate-45' : ''}
           `}
       />
       <div
-        className={`bg-blue-700 h-0.5 rounded-md w-full my-1
+        className={`my-1 h-0.5 w-full rounded-md bg-blue-700
             ${menuOpened ? 'hidden' : ''}
           `}
       />
       <div
-        className={`bg-blue-700 h-0.5 rounded-md w-full transition-all
+        className={`h-0.5 w-full rounded-md bg-blue-700 transition-all
             ${menuOpened ? '-rotate-45' : ''}
           `}
       />

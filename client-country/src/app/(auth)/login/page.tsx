@@ -76,11 +76,13 @@
 // }
 
 import { LoginForm } from './components'
+import GoogleButton from './google'
 
 export default function LoginPage() {
   return (
     <div>
       <LoginForm />
+      <GoogleButton />
     </div>
   )
 }

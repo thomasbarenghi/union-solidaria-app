@@ -27,7 +27,7 @@ const myVolunteers = [
 ]
 const MyVolunteers = () => {
   return (
-    <div className='container mx-auto w-full flex-grow px-4 py-4 sm:py-16'>
+    <div className='sm:container-[1148px] container mx-auto flex flex-grow items-center justify-center px-4 py-4 sm:py-16'>
       <div className='w-full self-stretch px-4 md:w-4/5'>
         <div className='flex-no-wrap scrolling-touch mb-8 flex items-start overflow-x-scroll'>
           {myVolunteers.map((element, index) => (

@@ -87,6 +87,9 @@ const config: Config = {
       boxShadow: {
         ms: '2px 2px 6px 0px',
         initiativeItem: '0px 2px 6px 0px #B0B0B0'
+      },
+      screens: {
+        '2lg': '1148px'
       }
     }
   },

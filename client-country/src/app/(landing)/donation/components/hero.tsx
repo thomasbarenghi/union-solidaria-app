@@ -12,11 +12,9 @@ export default function HeroSec() {
           fill
         />
       </div>
-      <div className='p-section flex w-full flex-col gap-5 pb-0 2xl:container'>
-        <div className='flex flex-col gap-1'>
-          <Heading>La solidaridad nos mantiene y la unión nos hace más grandes</Heading>
-          <Heading as='h2'>¿Estás listo/a para marcar la diferencia?</Heading>
-        </div>
+      <div className='mx-auto flex w-full max-w-screen-lg flex-col gap-4 p-4'>
+        <Heading>La solidaridad nos mantiene y la unión nos hace más grandes</Heading>
+        <Heading as='h2'>¿Estás listo/a para marcar la diferencia?</Heading>
         <p>
           Tu donación es una inversión en un mundo más solidario y compasivo. Al unirte a nuestra causa, te conviertes
           en parte de una comunidad que trabaja incansablemente para construir un futuro mejor. <br />

@@ -1,48 +1,40 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { axiosGetter } from '@/utils/requests'
-import Endpoints from '@/utils/constants/endpoints.const'
-import { UserClass } from '@/types/index'
-import { toast } from 'sonner'
+import { createSlice } from '@reduxjs/toolkit'
+import { UserInterface } from '@/interfaces'
 
 interface UserState {
-  currentUser: UserClass
+  activeUser: UserInterface
 }
 
 const initialState: UserState = {
-  currentUser: {
+  activeUser: {
     id: '',
     firstName: '',
     lastName: '',
+    birthday: '',
+    phone: '',
+    email: '',
+    role: 'volunteer',
+    password: '',
+    bannerImage: '',
     username: '',
     profileImage: '',
-    email: '',
-    isSuperAdmin: false,
-    softDelete: false,
-    bannerImage: '',
-    role: 'volunteer'
+    orgName: '',
+    posts: [],
+    reviews: []
   }
 }
-
-export const getCurrentUser = createAsyncThunk('users/getCurrentUser', async (username: string) => {
-  console.log('username', username)
-  return await axiosGetter({
-    url: Endpoints.USERS + '/' + username
-  })
-})
 
 const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload.user
-      })
-      .addCase(getCurrentUser.rejected, (state, action) => {
-        toast.error('Ocurrió un error al cargar el usuario')
-      })
-  }
+  reducers: {
+    updateActiveUser: (state, action) => {
+      state.activeUser = action.payload
+    }
+  },
+  extraReducers: (builder) => {}
 })
+
+export const { updateActiveUser } = usersSlice.actions
 
 export default usersSlice.reducer

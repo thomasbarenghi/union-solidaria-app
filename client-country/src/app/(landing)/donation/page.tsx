@@ -1,6 +1,6 @@
-import HeroSec from './components/hero'
-import DonateSec from './components/donateForm'
 import type { Metadata } from 'next'
+import DonateSec from './components/donateForm'
+import HeroSec from './components/hero'
 
 export const metadata: Metadata = {
   title: 'Donaciones',
@@ -11,12 +11,8 @@ export const metadata: Metadata = {
 function DonationPage() {
   return (
     <main className='gap-main'>
-      <article>
-        <HeroSec />
-      </article>
-      <article className='px-section 2xl:container'>
-        <DonateSec />
-      </article>
+      <HeroSec />
+      <DonateSec />
     </main>
   )
 }

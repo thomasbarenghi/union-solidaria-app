@@ -3,15 +3,13 @@ import { FormInput, PrimaryButton } from '@/components'
 import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch } from '@/redux/hooks'
-import { login } from '@/redux/slices/authSession'
+import { usePostLocalLoginMutation } from '@/redux/services/authSession.service'
+import Routes from '@/utils/constants/routes.const'
 
 function LoginForm() {
   const router = useRouter()
-  const dispatch = useAppDispatch()
   const [visibility] = useState(false)
-  // const close = () => setVisibility(false)
-  // const open = () => setVisibility(true)
+  const [login] = usePostLocalLoginMutation()
   const formRef = useRef<HTMLFormElement>(null)
   const {
     register,
@@ -24,10 +22,10 @@ function LoginForm() {
   const onSubmit = async (data: any) => {
     console.log(data)
     try {
-      await dispatch(login(data))
-      router.push('/')
+      await login(data).unwrap()
+      router.push(Routes.HOME)
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 

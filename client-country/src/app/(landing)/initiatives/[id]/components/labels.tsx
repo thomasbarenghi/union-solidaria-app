@@ -27,7 +27,7 @@ export default function Labels(props: Props) {
           key={index}
           bgColor='pink'
           icon={labelIcons[key as LabelsKeys]}
-          title={labels[key as LabelsKeys].toString()}
+          title={(labels[key as LabelsKeys] || '').toString()}
         />
       ))}
     </section>

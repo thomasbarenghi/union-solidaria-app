@@ -9,9 +9,9 @@ interface HeaderProps {
 
 function HeaderContainer({ titleHeader, path }: HeaderProps) {
   return (
-    <div className='flex justify-between gap-5 py-4'>
+    <div className='flex max-w-4xl justify-between gap-5 py-4 sm:flex items-start sm:justify-start'>
       <h1 className='mx-auto text-xl font-semibold text-blue-600'>{titleHeader}</h1>
-      <Link href={path} className='flex items-center gap-4 '>
+      <Link href={path} className='flex items-center justify-center gap-4 sm:hidden '>
         <span className='text-base font-normal leading-4 text-blue-500'>ver todas</span>
         <Image src='/icon/arrow-righ.svg' width={15} height={15} alt='arrow-right' />
       </Link>

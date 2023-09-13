@@ -1,4 +1,4 @@
-import FormSec from './components/form'
+import FormSec from './form'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 function EditPage() {
   return (
-    <main className='p-section gap-main'>
+    <main className='w-full gap-main'>
       <FormSec />
     </main>
   )
