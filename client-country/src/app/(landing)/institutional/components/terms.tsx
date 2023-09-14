@@ -1,7 +1,7 @@
 export default function Terms() {
   return (
-    <div className='mx-auto w-11/12'>
-      <h4 className='py-3 text-base font-semibold'>Terminos y condiciones</h4>
+    <div className='mx-auto mb-10 w-11/12 lg:w-9/12 2lg:mt-12'>
+      <h4 className='py-3 text-base font-semibold 2lg:text-4xl 2lg:text-pink-500'>Terminos y condiciones</h4>
       <p>
         Estos términos y condiciones describen las reglas y regulaciones para el uso del sitio web de Unión Solidaria,
         ubicado en www.unionsolidaria.com.

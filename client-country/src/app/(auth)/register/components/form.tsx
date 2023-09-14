@@ -52,6 +52,7 @@ export default function Form() {
       cleanForm()
     } catch (error) {
       console.log(error)
+      alert('Error al crear usuario')
     }
   }
 

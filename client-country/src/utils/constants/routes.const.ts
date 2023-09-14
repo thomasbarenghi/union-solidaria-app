@@ -2,6 +2,8 @@ const Routes = {
   HOME: '/',
   ABOUT: '/about',
   INITIATIVES: '/initiatives',
+  CREATE_INITIATIVE: '/initiatives/create',
+  INDIVIDUAL_INITIATIVE: (id: string) => `/initiatives/${id}`,
   HELP: '/help',
   LOGOUT: '/logout',
   LOGIN: '/login',
@@ -12,7 +14,9 @@ const Routes = {
   DASHBOARD: '/dashboard',
   FEED: '/feed',
   INSTITUTIONAL: '/institutional',
-  DONATION: '/donation'
+  DONATION: '/donation',
+  INSTITUTIONAL_TYC: '/institutional/TYC',
+  INSTITUTIONAL_PDP: '/institutional/PDP'
 }
 
 export default Routes

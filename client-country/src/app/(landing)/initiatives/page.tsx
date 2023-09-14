@@ -3,9 +3,7 @@ import FeaturedSec from './components/featured'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Iniciativas',
-  description: '...',
-  themeColor: '#000000'
+  title: 'Iniciativas | Unión Solidaria'
 }
 
 function InitiativesPage() {

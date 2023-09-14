@@ -1,6 +1,11 @@
 import { Heading } from '@/components'
 import { pinkBlurDataURL } from '@/utils/constants/images.const'
 import Image from 'next/image'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Acerca de | Unión Solidaria'
+}
 
 function AboutPage() {
   return (

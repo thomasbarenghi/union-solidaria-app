@@ -1,12 +1,8 @@
-import store from '@/redux/store'
-import { currentUsersApi } from '@/redux/services/users.service'
-import Volunteer from './components/volunteer'
-import Organization from './components/organization'
+import Content from './components/content'
+import type { Metadata } from 'next'
 
-async function getUser(username: string) {
-  const userRequest = currentUsersApi.endpoints.getUsersByUsername.initiate(username)
-  const { data } = await store.dispatch(userRequest)
-  return data.user
+export const metadata: Metadata = {
+  title: 'Usuario | Unión Solidaria'
 }
 
 interface Props {
@@ -14,10 +10,5 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  const user = await getUser(params.username)
-  return (
-    <div className='flex min-h-screen w-screen flex-col'>
-      {user.role === 'volunteer' ? <Volunteer user={user} /> : <Organization user={user} />}
-    </div>
-  )
+  return <Content name={params.username} />
 }

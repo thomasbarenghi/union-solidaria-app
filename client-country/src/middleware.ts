@@ -5,7 +5,7 @@ import { verifySession } from './services/verify-session.service'
 
 export async function middleware(req: NextRequest) {
   const { hasLoginQueryParams, sid, uid } = checkLoginQueryParams(req.nextUrl.searchParams)
-  const privateRoutes = [Routes.ACCOUNT, Routes.DASHBOARD, Routes.FEED]
+  const privateRoutes = [Routes.ACCOUNT, Routes.DASHBOARD, Routes.FEED, Routes.DONATION, Routes.CREATE_INITIATIVE]
   const isPathPrivate = privateRoutes.includes(req.nextUrl.pathname)
   const sessionId = req.cookies.get('sessionId')?.value || ''
   const isSessionValid = await verifySession(sessionId)
@@ -21,5 +21,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/account', '/dashboard', '/feed', '/login', '/register']
+  matcher: ['/account', '/dashboard', '/feed', '/login', '/register', '/initiatives/create', '/donation']
 }

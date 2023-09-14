@@ -26,6 +26,7 @@ function LoginForm() {
       router.push(Routes.HOME)
     } catch (error) {
       console.log(error)
+      alert('Error al iniciar sesión')
     }
   }
 

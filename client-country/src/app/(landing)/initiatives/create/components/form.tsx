@@ -9,6 +9,8 @@ import DateTime from './dateTime'
 import Multimedia from './multimedia'
 import { usePostInitiativesMutation } from '@/redux/services/initiatives.service'
 import { currentUserSelector } from '@/redux/selectors/users'
+import { useRouter } from 'next/navigation'
+import Routes from '@/utils/constants/routes.const'
 
 export interface FormProps {
   title: string
@@ -29,6 +31,7 @@ export interface FormProps {
 }
 
 export default function FormSec() {
+  const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const { id } = useAppSelector(currentUserSelector)
   const [addPost] = usePostInitiativesMutation()
@@ -52,18 +55,23 @@ export default function FormSec() {
   }
 
   const onSubmit = async (data: any) => {
-    const formData = {
-      ...data,
-      ownerId: id,
-      startDate: new Date(data.startDate).toISOString(),
-      endDate: new Date(data.endDate).toISOString(),
-      thumbnail: data.thumbnail[0],
-      deadLine: new Date(data.deadLine).toISOString()
+    try {
+      const formData = {
+        ...data,
+        ownerId: id,
+        startDate: new Date(data.startDate).toISOString(),
+        endDate: new Date(data.endDate).toISOString(),
+        thumbnail: data.thumbnail[0],
+        deadLine: new Date(data.deadLine).toISOString()
+      }
+      console.log(errors, formData)
+      const res = await addPost(formData).unwrap()
+      console.log(res.id, res)
+      cleanForm()
+      router.push(Routes.INDIVIDUAL_INITIATIVE(res.id))
+    } catch (err) {
+      alert('Error al crear la iniciativa')
     }
-    console.log(errors, formData)
-    const res = await addPost(formData)
-    console.log(res)
-    cleanForm()
   }
 
   return (

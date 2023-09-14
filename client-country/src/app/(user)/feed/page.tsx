@@ -1,6 +1,11 @@
 import { SearchBar, MyVolunteers, LatestUpdatesCards } from './components'
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Feed | Unión Solidaria'
+}
 
 interface HeaderProps {
   titleHeader: string

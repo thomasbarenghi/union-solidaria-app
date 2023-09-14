@@ -40,7 +40,7 @@ const HamburgerMenu = () => {
   return (
     <>
       {createPortal(
-        <div className='2lg:hidden sticky top-0 z-50 flex w-full items-center justify-between bg-pink-100 px-4 py-3'>
+        <div className='sticky top-0 z-50 flex w-full items-center justify-between bg-pink-100 px-4 py-3 2lg:hidden'>
           <Image src='/assets/logo.webp' width={32} height={32} alt='Logo Uninón Solidaria' />
           <HamburgerMenuBtn menuOpened={menuOpened} toggleMenu={() => setMenuOpen((state) => !state)} />
           <AnimatePresence initial={false} mode='wait' onExitComplete={() => null}>

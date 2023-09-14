@@ -36,7 +36,7 @@ export default function HeroSec(props: Props) {
             height={30}
             className='aspect-square rounded-full object-cover'
           />
-          <p className='text-sm text-blue-300'>{owner || 'Nombre de la organizacion'}</p>
+          <p className='text-sm text-blue-300'>{owner || 'Todos Juntos Somos Mas'}</p>
         </div>
       </div>
     </section>

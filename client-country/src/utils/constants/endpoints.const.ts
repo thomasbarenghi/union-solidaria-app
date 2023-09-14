@@ -7,7 +7,7 @@ const Endpoints = {
   INITIATIVES_BY_ID: (id: string) => `/api/initiatives/${id}`,
   USER_BY_ID: (userId: string) => `/api/users/${userId}`,
   REVIEWS: '/api/reviews',
-  DONATION_TO_PLATFORM: '/api/create-checkout-session'
+  DONATION_TO_PLATFORM: '/api/stripe/create-checkout-session'
 }
 
 export default Endpoints

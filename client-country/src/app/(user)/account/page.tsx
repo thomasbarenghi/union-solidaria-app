@@ -4,9 +4,7 @@ import type { Metadata } from 'next'
 import Main from './components/edit/main'
 
 export const metadata: Metadata = {
-  title: 'Cuenta',
-  description: '...',
-  themeColor: '#000000'
+  title: 'Cuenta | Unión Solidaria'
 }
 
 function AccountPage() {

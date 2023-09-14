@@ -1,18 +1,16 @@
 import type { Metadata } from 'next'
-import HeroSec from './components/hero'
+// import HeroSec from './components/hero'
 import InitiativesSec from './components/initiatives'
 import PromoSec from './components/promo'
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: '...',
-  themeColor: '#000000'
+  title: 'Home | Unión Solidaria'
 }
 
 function Home() {
   return (
     <main className='mx-auto grid max-w-screen-md gap-y-10 p-4'>
-      <HeroSec />
+      {/* <HeroSec /> */}
       <PromoSec />
       <InitiativesSec />
     </main>

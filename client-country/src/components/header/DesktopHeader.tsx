@@ -1,7 +1,7 @@
 'use client'
 import { Backdrop, ButtonLink, LogoutIcon, ProfileIcon, SettingIcon } from '@/components'
 import { useAppSelector } from '@/redux/hooks'
-import { currentAuthSelector } from '@/redux/selectors/users'
+import { currentAuthSelector, currentUserSelector } from '@/redux/selectors/users'
 import Routes from '@/utils/constants/routes.const'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import { createPortal } from 'react-dom'
 function DesktopHeader() {
   const [openOptions, setOpenOptions] = useState(false)
   const user = useAppSelector(currentAuthSelector)
+  const currentUser = useAppSelector(currentUserSelector)
   const pathname = usePathname()
 
   if (pathname === '/login' || pathname === '/register') {
@@ -20,7 +21,7 @@ function DesktopHeader() {
 
   return (
     <header className='sticky top-0 z-40 hidden bg-pink-100 py-3 2lg:block'>
-      <div className='mx-auto flex max-w-screen-xl items-center justify-between px-4'>
+      <div className='mx-auto flex max-w-screen-xl items-center justify-between 2lg:px-4'>
         <Link href={Routes.HOME}>
           <Image
             width={148}
@@ -47,7 +48,7 @@ function DesktopHeader() {
           </ul>
         </nav>
         {!user.isLogged && (
-          <div>
+          <div className='flex items-center'>
             <ButtonLink variant='primary' href={Routes.LOGIN}>
               Inicia sesión
             </ButtonLink>
@@ -64,12 +65,12 @@ function DesktopHeader() {
             <Backdrop onClick={() => setOpenOptions(false)}>
               <div className='fixed right-16 top-20 rounded bg-pink-100 shadow-md shadow-gray-500'>
                 <div className='px-8 py-4 text-xl font-bold'>
-                  ¡Hola, <span className='text-blue-500'>Usuario</span>!
+                  ¡Hola, <span className='text-blue-500'>{currentUser.firstName}</span>!
                 </div>
                 <hr className='h-[1px] w-full bg-gray-500' />
                 <ul className='text-lg text-blue-700'>
                   <li>
-                    <Link href='/initiatives/@username' className='flex items-center gap-x-3 px-3 py-4'>
+                    <Link href={`/@${currentUser.username}`} className='flex items-center gap-x-3 px-3 py-4'>
                       <ProfileIcon className='h-6 w-6 fill-current' /> Perfil
                     </Link>
                   </li>

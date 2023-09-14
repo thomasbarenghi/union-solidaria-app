@@ -2,9 +2,7 @@ import FormSec from './components/form'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Crear iniciativa',
-  description: '...',
-  themeColor: '#000000'
+  title: 'Crear iniciativa | Unión Solidaria'
 }
 
 function FormPage() {

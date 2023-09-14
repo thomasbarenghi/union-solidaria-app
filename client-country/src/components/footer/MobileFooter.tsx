@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 function MobileFooter() {
   return (
-    <div className='space-y-1 py-6 text-center text-xs text-blue-600 md:hidden'>
+    <div className='space-y-1 py-6 text-center text-xs text-blue-600 2lg:hidden'>
       <h6 className='flex items-center justify-center'>
         Copyright © 2023
         <Image

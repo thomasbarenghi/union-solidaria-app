@@ -90,6 +90,9 @@ const config: Config = {
       },
       screens: {
         '2lg': '1148px'
+      },
+      borderWidth: {
+        3: '3px' // Aquí estamos definiendo un ancho de borde de 3px
       }
     }
   },

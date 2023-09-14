@@ -1,6 +1,11 @@
 import { Heading } from '@/components'
 import Accordion from './components/Accordion'
 import ConsultForm from './components/ConsultForm'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Ayuda | Unión Solidaria'
+}
 
 function HelpPage() {
   return (

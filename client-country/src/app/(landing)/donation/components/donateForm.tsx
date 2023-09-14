@@ -5,12 +5,15 @@ import { createDonationToPlatform } from '@/services'
 import Slider from '@mui/material/Slider'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useAppSelector } from '@/redux/hooks'
+import { currentUserSelector } from '@/redux/selectors/users'
 
 function Donation() {
   const router = useRouter()
   const min = 0
   const max = 1000
   const [value, setValue] = useState(min)
+  const { id } = useAppSelector(currentUserSelector)
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number)
@@ -20,7 +23,7 @@ function Donation() {
     try {
       const payment: IDonationPayment = {
         amount: value,
-        userId: 'stripetest',
+        userId: id,
         initiativeId: 'globalDonation'
       }
 
@@ -28,6 +31,7 @@ function Donation() {
       router.push(sessionUrl)
     } catch (error) {
       console.log(error)
+      alert('Error al crear donacion')
     }
   }
 

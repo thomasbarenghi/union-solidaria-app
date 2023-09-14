@@ -1,7 +1,7 @@
 export default function Privacy() {
   return (
-    <div className='mx-auto w-11/12'>
-      <h4 className='py-3 text-base font-semibold'>Politica de privacidad</h4>
+    <div className='mx-auto mb-10 w-11/12 lg:w-9/12 2lg:mt-12'>
+      <h4 className='py-3 text-base font-semibold 2lg:text-4xl 2lg:text-pink-500'>Politica de privacidad</h4>
       <p>
         El sitio web Unión Solidaria es propiedad de Unión Solidaria, que es un controlador de datos de tus datos
         personales.

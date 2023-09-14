@@ -3,9 +3,7 @@ import DonateSec from './components/donateForm'
 import HeroSec from './components/hero'
 
 export const metadata: Metadata = {
-  title: 'Donaciones',
-  description: '...',
-  themeColor: '#000000'
+  title: 'Donar | Unión Solidaria'
 }
 
 function DonationPage() {
