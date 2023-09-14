@@ -1,5 +1,5 @@
 'use client'
-import { Backdrop, ButtonLink, HeartIcon } from '@/components'
+import { Backdrop, ButtonLink, HeartIcon, LogoutIcon, ProfileIcon, SettingIcon } from '@/components'
 import Routes from '@/utils/constants/routes.const'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
@@ -8,6 +8,9 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import HamburgerMenuBtn from './HamburgerMenuBtn'
 import MenuLinks from './MenuLinks'
+import Link from 'next/link'
+import { currentAuthSelector, currentUserSelector } from '@/redux/selectors/users'
+import { useAppSelector } from '@/redux/hooks'
 
 const menuAnimation = {
   hidden: {
@@ -32,7 +35,8 @@ const menuAnimation = {
 
 const HamburgerMenu = () => {
   const [menuOpened, setMenuOpen] = useState(false)
-
+  const session = useAppSelector(currentAuthSelector)
+  const currentUser = useAppSelector(currentUserSelector)
   const pathname = usePathname()
   if (pathname === '/login' || pathname === '/register') {
     return null
@@ -61,11 +65,37 @@ const HamburgerMenu = () => {
                     <h2 className='text-xl font-semibold text-blue-700'>Unión Solidaria</h2>
                   </div>
                   <MenuLinks menuOpen={() => setMenuOpen(false)} />
-                  <div className='flex grow flex-col items-center gap-y-4 pb-24 pt-6'>
-                    <ButtonLink variant='primary' href={Routes.LOGIN}>
-                      Iniciar sesión
-                    </ButtonLink>
-                    <ButtonLink href={Routes.REGISTER}>Registrate</ButtonLink>
+                  <div className='flex grow w-full flex-col items-center gap-y-4 pb-24 pt-6'>
+                    {session.isLogged ? (
+                      <ul className='text-lg w-full px-2 text-blue-700'>
+                        <li>
+                          <Link href={`/@${currentUser.username}`} className='flex items-center gap-x-3 px-3 py-4'>
+                            <ProfileIcon className='h-6 w-6 fill-current' /> Perfil
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href={Routes.ACCOUNT} className='flex items-center gap-x-3 px-3 py-4'>
+                            <SettingIcon className='h-6 w-6 fill-current' /> Configuración
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            className='flex items-center gap-x-3 px-3 py-4 font-bold text-blue-500'
+                            href={Routes.LOGOUT}
+                          >
+                            <LogoutIcon className='h-6 w-6 fill-current' /> Cerrar sesión
+                          </Link>
+                        </li>
+                      </ul>
+                    ) : (
+                      <>
+                        <ButtonLink variant='primary' href={Routes.LOGIN}>
+                          Iniciar sesión
+                        </ButtonLink>
+                        <ButtonLink href={Routes.REGISTER}>Registrate</ButtonLink>
+                      </>
+                    )}
+
                     <ButtonLink
                       variant='secondary'
                       iconLeft={<HeartIcon className='h-3 w-3 fill-blue-700' />}
