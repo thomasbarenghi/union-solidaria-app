@@ -1,102 +1,79 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { getRequest, postRequest, putRequest } from '@/services/apiRequests.service'
-import Endpoints from '@/utils/constants/endpoints.const'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthInterface, UserInterface } from '@/interfaces'
-import { toast } from 'sonner'
+import { PURGE } from 'redux-persist'
 
-const initialState = {
-  auth: {} as AuthInterface,
-  session: {} as UserInterface
+interface AuthState {
+  auth: AuthInterface
+  session: UserInterface
 }
 
-interface ThunkApiConfig {
-  dispatch: Function
-  getState: Function
+const initialState: AuthState = {
+  auth: {
+    isLogged: false,
+    sessionId: ''
+  },
+  session: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    birthday: '',
+    phone: '',
+    email: '',
+    role: 'volunteer',
+    password: '',
+    bannerImage: '',
+    username: '',
+    profileImage: '',
+    orgName: '',
+    posts: [],
+    reviews: []
+  }
 }
 
-export const setSession = createAsyncThunk(
-  'auth/setSession',
-  async (userId: string) => await getRequest(Endpoints.USERS + '/' + userId)
-)
-
-export const login = createAsyncThunk(
-  'auth/login',
-  async (credentials: { email: string; password: string }) => await postRequest(Endpoints.LOGIN, credentials)
-)
-
-export const register = createAsyncThunk('auth/register', async (userData: any) => {
-  const data = {} as any
-  return data.createUser
-})
-
-export const editUser = createAsyncThunk('auth/editUser', async (userData: any, { getState }: ThunkApiConfig) => {
-  try {
-    const state = getState()
-    userData.userId = state.authSession.session.id
-    userData.filenamePi = userData.profileImage ? userData.profileImage.name : ''
-    userData.filenameCi = userData.coverImage ? userData.coverImage.name : ''
-    const res = await putRequest('/rest/users/edit', userData, 'multipart/form-data')
-    return res.data
-  } catch (err: any) {
-    console.error('Error al crear el usuario', err)
-    throw new Error('Error al crear el usuario', err)
-  }
-})
-
-export const changePassword = createAsyncThunk(
-  'auth/changePassword',
-  async (userData: any, { getState }: ThunkApiConfig) => {
-    const state = getState()
-    userData.userId = state.authSession.session.id
-    const data = {} as any
-    return data
-  }
-)
-
-const postsSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    updateCurrentUser: (state, action: PayloadAction<UserInterface>) => {
+      console.log('updateCurrentUser', action)
+      state.session = {
+        ...state.session,
+        ...action.payload
+      }
+    },
     setAuth: (state, action: PayloadAction<AuthInterface>) => {
+      console.log('setAuth', action)
       state.auth = action.payload
+      // seteamos una cookie que vence en 1 dia
+      document.cookie = `sessionId=${action.payload.sessionId}; max-age=86400; path=/`
     },
     resetReducer: (state) => {
       state.auth.isLogged = false
-      state.session = {} as UserInterface
+      state.session = {
+        id: '',
+        firstName: '',
+        lastName: '',
+        birthday: '',
+        phone: '',
+        email: '',
+        role: 'volunteer',
+        password: '',
+        bannerImage: '',
+        username: '',
+        profileImage: '',
+        orgName: '',
+        posts: [],
+        reviews: []
+      }
     }
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(setSession.fulfilled, (state, action) => {
-        state.session = action.payload.data?.user ?? {} as UserInterface
-      })
-      .addCase(login.rejected, (state, action) => {
-        toast.error('Verifica las credenciales')
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        toast.success('Registro exitoso')
-      })
-      .addCase(register.rejected, (state, action) => {
-        toast.error('Verifica los datos')
-      })
-      .addCase(editUser.fulfilled, (state, action) => {
-        state.session = action.payload
-        toast.success('Edición exitosa')
-      })
-      .addCase(editUser.rejected, (state, action) => {
-        toast.error('Verifica los datos')
-      })
-      .addCase(changePassword.fulfilled, (state, action) => {
-        toast.success('Edición exitosa')
-      })
-      .addCase(changePassword.rejected, (state, action) => {
-        toast.error('Verifica los datos')
-      })
+    builder.addCase(PURGE, () => initialState)
   }
 })
 
-export const { setAuth, resetReducer } = postsSlice.actions
+export const { setAuth, resetReducer, updateCurrentUser } = authSlice.actions
 
-export default postsSlice.reducer
+export default authSlice.reducer

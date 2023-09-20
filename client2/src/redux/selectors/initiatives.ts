@@ -1,5 +1,5 @@
 'use client'
-import { RootState } from '../store/store'
+import { RootState } from '../store'
 
 export const currentInitiativeSelector = (state: RootState) =>
   state?.initiatives?.currentInitiative

@@ -24,15 +24,17 @@ const ProfileAction = () => {
 
   return (
     <>
-      {currentUser.id !== undefined ? (
-        <DynamicPopover childrenTrigger={childrenTrigger} backdrop='opaque'>
-          <Nav items={itemsNavBuilder(currentUser)} />
-        </DynamicPopover>
-      ) : (
-        <Link className='button primaryButton hidden lg:flex' href={Routes.LOGIN}>
-          Iniciar sesión
-        </Link>
-      )}
+      {currentUser.id !== undefined
+        ? (
+          <DynamicPopover childrenTrigger={childrenTrigger} backdrop='opaque'>
+            <Nav items={itemsNavBuilder(currentUser)} />
+          </DynamicPopover>
+          )
+        : (
+          <Link className='button primaryButton hidden lg:flex' href={Routes.LOGIN}>
+            Iniciar sesión
+          </Link>
+          )}
     </>
   )
 }

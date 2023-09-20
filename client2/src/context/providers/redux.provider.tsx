@@ -1,6 +1,6 @@
 'use client'
 import { Provider } from 'react-redux'
-import store, { persistor } from '@/redux/store/store'
+import store, { persistor } from '@/redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
 
 interface Props {

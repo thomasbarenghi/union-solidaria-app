@@ -23,7 +23,7 @@ interface InputProps {
   hookForm?: {
     register: UseFormRegister<any>
     validations: RegisterOptions
-    onChange: (e: any) => void
+    onChange?: any
   }
   icon1?: React.ReactNode
   icon2?: React.ReactNode
@@ -41,7 +41,7 @@ const FormInput = ({
   defaultValue,
   value,
   prefix,
-  onChange,
+  onChange = () => {},
   error,
   step,
   required,
