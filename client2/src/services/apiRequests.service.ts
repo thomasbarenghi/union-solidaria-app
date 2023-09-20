@@ -1,60 +1,30 @@
-import axios, { AxiosResponse } from "axios";
-import { serverUrl } from "@/utils/constants/env.const";
+import axios, { AxiosResponse } from 'axios'
+import { serverUrl } from '@/utils/constants/env.const'
 
-export async function putRequest(
-  url: string,
-  data: any,
-  contentType: string,
-): Promise<any> {
-  try {
-    const response: AxiosResponse = await axios.put(
-      `${serverUrl}${url}`,
-      data,
-      {
-        headers: {
-          "Content-Type": contentType,
-        },
-      },
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const putRequest = async (url: string, data: any, contentType: string): Promise<any> => {
+  const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
+    headers: {
+      'Content-Type': contentType
+    }
+  })
+  return response.data
 }
 
-export async function postRequest(url: string, body: any = {}): Promise<any> {
-  try {
-    const response: AxiosResponse = await axios.post(
-      `${serverUrl}${url}`,
-      body,
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const postRequest = async (url: string, body: any = {}): Promise<any> => {
+  const response: AxiosResponse = await axios.post(`${serverUrl}${url}`, body)
+  return response.data
 }
 
-export async function getRequest(url: string, headers: any = {}): Promise<any> {
-  try {
-    const response: AxiosResponse = await axios.get(`${serverUrl}${url}`, {
-      headers: headers,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const getRequest = async (url: string, headers: any = {}): Promise<any> => {
+  const response: AxiosResponse = await axios.get(`${serverUrl}${url}`, {
+    headers
+  })
+  return response.data
 }
 
-export async function deleteRequest(
-  url: string,
-  headers: any = {},
-): Promise<any> {
-  try {
-    const response: AxiosResponse = await axios.delete(`${serverUrl}${url}`, {
-      headers: headers,
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+export const deleteRequest = async (url: string, headers: any = {}): Promise<any> => {
+  const response: AxiosResponse = await axios.delete(`${serverUrl}${url}`, {
+    headers
+  })
+  return response.data
 }

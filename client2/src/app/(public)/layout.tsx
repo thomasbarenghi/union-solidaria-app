@@ -1,16 +1,16 @@
-import { Header, Footer } from "@/components";
+import { Header, Footer } from '@/components'
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export default function RootLayout({ children }: Props) {
-  return (
-    <main className="flex flex-col min-h-screen">
-      <Header />
-      {children}
-      {/* <BottomBar /> */}
-      <Footer />
-    </main>
-  );
+interface Props {
+  children: React.ReactNode
 }
+
+const RootLayout = ({ children }: Props) => (
+  <main className='flex min-h-screen flex-col'>
+    <Header />
+    {children}
+    {/* <BottomBar /> */}
+    <Footer />
+  </main>
+)
+
+export default RootLayout

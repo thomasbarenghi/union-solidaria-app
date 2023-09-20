@@ -1,39 +1,32 @@
-import { InitiativeInterface } from "@/interfaces";
-import Routes from "@/utils/constants/routes.const";
-import Image from "next/image";
-import Link from "next/link";
+import { InitiativeInterface } from '@/interfaces'
+import Routes from '@/utils/constants/routes.const'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
-  item: InitiativeInterface;
-  key: number;
+  item: InitiativeInterface
+  key: number
 }
 
-export default function InitiativeItem({ item, key }: Props) {
-  return (
-    <Link href={Routes.INDIVIDUAL_INITIATIVE(item.id)}>
-      <div className="cursor-pointer flex flex-col w-full" key={key}>
-        <div className="flex flex-col gap-2 w-full ">
-          <div className="relative l w-full  aspect-[1/1]">
-            <Image
-              src={item.thumbnail}
-              fill
-              alt="Vercel Logo"
-              className="object-cover aspect-[1/1] rounded-2xl"
-            />
+const InitiativeItem = ({ item, key }: Props) => (
+  <Link href={Routes.INDIVIDUAL_INITIATIVE(item.id)}>
+    <div className='flex w-full cursor-pointer flex-col' key={key}>
+      <div className='flex w-full flex-col gap-2 '>
+        <div className='l relative aspect-[1/1]  w-full'>
+          <Image src={item.thumbnail} fill alt='Vercel Logo' className='aspect-[1/1] rounded-2xl object-cover' />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <div>
+            <h1 className='bodyText font-medium'>{item.title}</h1>
+            <p className='text-sm font-light'>
+              {item.country}, {item.province}{' '}
+            </p>
           </div>
-          <div className="flex flex-col gap-2">
-            <div>
-              <h1 className="bodyText font-medium">{item.title}</h1>
-              <p className="text-sm font-light">
-                {item.country}, {item.province}{" "}
-              </p>
-            </div>
-            <button className="border-b w-max text-green-800 border-green-800 text-sm">
-              Inscríbete ahora
-            </button>
-          </div>
+          <button className='w-max border-b border-green-800 text-sm text-green-800'>Inscríbete ahora</button>
         </div>
       </div>
-    </Link>
-  );
-}
+    </div>
+  </Link>
+)
+
+export default InitiativeItem

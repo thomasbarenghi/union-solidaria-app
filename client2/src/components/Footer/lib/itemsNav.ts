@@ -1,19 +1,19 @@
-import Routes from "@/utils/constants/routes.const";
+import Routes from '@/utils/constants/routes.const'
 
 export const itemsNav = [
   {
-    name: "Acerca de",
+    name: 'Acerca de',
     href: Routes.ABOUT,
-    visible: true,
+    visible: true
   },
   {
-    name: "Ayuda",
+    name: 'Ayuda',
     href: Routes.HELP,
-    visible: true,
+    visible: true
   },
   {
-    name: "Legal",
+    name: 'Legal',
     href: Routes.LEGAL,
-    visible: true,
-  },
-];
+    visible: true
+  }
+]

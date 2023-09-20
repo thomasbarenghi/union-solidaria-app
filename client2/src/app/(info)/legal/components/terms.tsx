@@ -1,5 +1,5 @@
-import { MarkdownRenderer } from "@/components";
+import { MarkdownRenderer } from '@/components'
 
-export default function Privacy() {
-  return <MarkdownRenderer documentRoute="/documents/legal_terms.md" />;
-}
+const Terms = () => <MarkdownRenderer documentRoute='/documents/legal_terms.md' />
+
+export default Terms

@@ -1,6 +1,6 @@
-"use client";
-import { SWRConfig } from "swr";
+'use client'
+import { SWRConfig } from 'swr'
 
-export default function SWRProvider({ children }: React.PropsWithChildren<{}>) {
-  return <SWRConfig>{children}</SWRConfig>;
-}
+const SWRProvider = ({ children }: React.PropsWithChildren<{}>) => <SWRConfig>{children}</SWRConfig>
+
+export default SWRProvider

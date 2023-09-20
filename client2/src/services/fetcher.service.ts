@@ -1,4 +1,4 @@
-import { serverUrl } from "@/utils/constants/env.const";
+import { serverUrl } from '@/utils/constants/env.const'
 
-export const fetcher = (url: string) =>
-  fetch(`${serverUrl}${url}`).then((res) => res.json());
+export const fetcher = async (url: string) =>
+  await fetch(`${serverUrl}${url}`).then(async (res) => await res.json())

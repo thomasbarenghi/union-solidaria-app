@@ -1,23 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { UserInterface } from "@/interfaces";
-import { toast } from "sonner";
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  currentUser: {} as UserInterface,
-};
-
-interface ThunkApiConfig {
-  dispatch: Function;
-  getState: Function;
+  currentUser: {}
 }
 
 const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
-});
+  extraReducers: (builder) => {}
+})
 
-export const {} = usersSlice.actions;
-
-export default usersSlice.reducer;
+export default usersSlice.reducer

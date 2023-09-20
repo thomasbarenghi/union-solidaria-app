@@ -1,10 +1,10 @@
 export interface IDonationPayment {
-  amount: number;
-  userId: string;
-  initiativeId: string;
+  amount: number
+  userId: string
+  initiativeId: string
 }
 
 export interface IPaymentResponse {
-  sessionUrl: string;
-  message: string;
+  sessionUrl: string
+  message: string
 }
