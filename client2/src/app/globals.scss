@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -62,7 +62,7 @@
   menuitem,
   summary {
     //word-break: break-word;
-    font-family: "Outfit", sans-serif;
+    font-family: 'Outfit', sans-serif;
     //box-sizing: border-box;
   }
 }
@@ -304,10 +304,10 @@ $line-height-titulos: 130%;
   }
 
   .article-layout-1 {
-    @apply flex flex-col items-center justify-center w-full gap-16;
+    @apply flex w-full flex-col items-center justify-center gap-16;
   }
 
   .grid-layout-3 {
-    @apply grid grid-cols-1 lg:grid-cols-3 gap-10;
+    @apply grid grid-cols-1 gap-10 lg:grid-cols-3;
   }
 }

@@ -20,7 +20,7 @@ const Content = ({ username }: { username: string }) => {
     <section className='flex w-full flex-col gap-6 '>
       <div>
         {isCurrent && isOrg && (
-          <div className='flex justify-between items-center'>
+          <div className='flex items-center justify-between'>
             <p className='titulo-3 semibold'>Mis iniciativas organizadas</p>
             <Link className='primaryButton' href={Routes.CREATE_INITIATIVE}>
               Crear nueva iniciativa

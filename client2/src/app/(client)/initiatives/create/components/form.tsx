@@ -74,7 +74,7 @@ const FormSec = () => {
   }
 
   return (
-    <section className='flex items-center  justify-center w-full'>
+    <section className='flex w-full  items-center justify-center'>
       <form
         className='flex w-full flex-col gap-8'
         onSubmit={() => {
@@ -87,7 +87,7 @@ const FormSec = () => {
         <LocationInfo errors={errors} register={register} control={control} setValue={setValue} />
         <DateTime errors={errors} register={register} />
         <Multimedia errors={errors} register={register} />
-        <button type='submit' className='w-max primaryButton'>
+        <button type='submit' className='primaryButton w-max'>
           Crear iniciativa
         </button>
       </form>

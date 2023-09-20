@@ -11,12 +11,12 @@ export const questionsAnswers: QuestionAnswer[] = [
   },
   {
     question: 'What is the maximum file upload size?',
-    answer:
-      'No more than 2GB. All files in your account must fit your allotted storage space.'
+    answer: 'No more than 2GB. All files in your account must fit your allotted storage space.'
   },
   {
     question: 'How do I reset my password?',
-    answer: 'Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.'
+    answer:
+      'Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.'
   },
   {
     question: 'Can I cancel my subscription?',

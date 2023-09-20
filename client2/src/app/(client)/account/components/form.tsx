@@ -62,7 +62,7 @@ const FormSec = () => {
         <GeneralInfo errors={errors} register={register} currentUser={currentUser} />
         <Multimedia errors={errors} register={register} />
         <SecurityInfo errors={errors} register={register} getValues={getValues} />
-        <button type='submit' className='w-max primaryButton'>
+        <button type='submit' className='primaryButton w-max'>
           Guardar Cambios
         </button>
       </form>
