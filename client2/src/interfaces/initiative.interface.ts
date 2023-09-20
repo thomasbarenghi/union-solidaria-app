@@ -8,7 +8,7 @@ export interface InitiativeInterface {
   startDate: Date
   endDate: Date
   galery: string
-  thumbnail: any
+  thumbnail: string
   volunteers: any[]
   categories: string[]
   opportunities: string[]

@@ -14,7 +14,7 @@ interface InputProps {
   defaultValue?: string
   value?: string
   prefix?: string
-  onChange?: any
+  onChange?: (e: any) => void
   error?: string | any
   step?: string
   required?: boolean

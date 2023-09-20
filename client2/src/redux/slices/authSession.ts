@@ -70,7 +70,7 @@ const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(setSession.fulfilled, (state, action) => {
-        state.session = action.payload.user
+        state.session = action.payload.data?.user ?? {} as UserInterface
       })
       .addCase(login.rejected, (state, action) => {
         toast.error('Verifica las credenciales')

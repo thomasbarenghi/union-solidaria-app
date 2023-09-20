@@ -21,7 +21,8 @@
         }
       ],
    "multiline-ternary": "off",
-   "@typescript-eslint/member-delimiter-style" : "off"
+   "@typescript-eslint/member-delimiter-style" : "off",
+   "@typescript-eslint/no-explicit-any": "warn"
     // "@typescript-eslint/space-before-function-paren": "off",
     // "space-before-function-paren": "off",
     // "@typescript-eslint/strict-boolean-expressions": "off",

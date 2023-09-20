@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+import { InitiativeInterface } from '@/interfaces'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  currentInitiative: {} as any,
-  initiatives: [] as any[]
+  currentInitiative: {} as InitiativeInterface,
+  initiatives: [] as InitiativeInterface[]
 }
 
 const usersSlice = createSlice({

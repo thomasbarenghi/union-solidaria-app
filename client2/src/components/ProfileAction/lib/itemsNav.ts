@@ -1,6 +1,7 @@
+import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
 
-export const itemsNavBuilder = (currentUser: any) => [
+export const itemsNavBuilder = (currentUser: UserInterface) => [
   {
     name: 'Inicio',
     href: Routes.HOME,
