@@ -1,0 +1,2 @@
+export const pinkBlurDataURL =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8kv+/HgAHJALD9naw4QAAAABJRU5ErkJggg==";

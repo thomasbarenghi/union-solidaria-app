@@ -1,0 +1,16 @@
+{
+  "extends": ["next/core-web-vitals", "./node_modules/ts-standard/eslintrc.json"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    // "@typescript-eslint/explicit-function-return-type": "off",
+    // "@typescript-eslint/space-before-function-paren": "off",
+    // "space-before-function-paren": "off",
+    // "@typescript-eslint/strict-boolean-expressions": "off",
+    // "@typescript-eslint/prefer-nullish-coalescing": "off",
+    // "@typescript-eslint/no-misused-promises": "off",
+    // "multiline-ternary": "off",
+    // "@typescript-eslint/restrict-template-expressions": "off"
+  }
+}
