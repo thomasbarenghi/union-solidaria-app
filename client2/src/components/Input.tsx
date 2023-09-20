@@ -23,7 +23,6 @@ interface InputProps {
   hookForm?: {
     register: UseFormRegister<any>
     validations: RegisterOptions
-    onChange?: any
   }
   icon1?: React.ReactNode
   icon2?: React.ReactNode
@@ -67,10 +66,12 @@ const FormInput = ({
     error: clsx('gap-estilo4 smalltext ml-2 flex font-medium text-red-700 dark:text-red-800')
   }
 
+  const HookForm = hookForm?.register(name, hookForm?.validations)
+
   const hookFormProps = {
-    ...hookForm?.register(name, hookForm.validations),
+    ...HookForm,
     onChange: async (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      await hookForm?.onChange(e)
+      await HookForm?.onChange(e)
       if (onChange != null) onChange(e)
     }
   }

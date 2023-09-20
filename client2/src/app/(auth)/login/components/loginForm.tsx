@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client'
 import { Input } from '@/components'
 import { useState, useRef } from 'react'
@@ -31,13 +32,7 @@ const LoginForm = () => {
   }
 
   return (
-    <form
-      className='mx-auto flex max-w-sm flex-col items-center gap-4'
-      onSubmit={() => {
-        void handleSubmit(onSubmit)
-      }}
-      ref={formRef}
-    >
+    <form className='mx-auto flex max-w-sm flex-col items-center gap-4' onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <Input
         type='email'
         name='email'

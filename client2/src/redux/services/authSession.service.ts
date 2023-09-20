@@ -26,6 +26,7 @@ export const authSessionApi = createApi({
         const { data } = await queryFulfilled
         await dispatch(setAuth({ isLogged: true, sessionId: data.sessionId }))
         await dispatch(currentUsersApi.endpoints.getCurrentUser.initiate(data.userId))
+        console.log('data', data)
       }
     }),
     getVerifySession: builder.query<InitiativeInterface, InitiativeInterface>({

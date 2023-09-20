@@ -1,7 +1,14 @@
 import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
 
-export const itemsNavBuilder = (currentUser: UserInterface) => [
+export interface ItemNavInterface {
+  name: string
+  href: string
+  visible: boolean
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default' | undefined
+}
+
+export const itemsNavBuilder = (currentUser: UserInterface): ItemNavInterface[] => [
   {
     name: 'Inicio',
     href: Routes.HOME,
@@ -9,7 +16,7 @@ export const itemsNavBuilder = (currentUser: UserInterface) => [
   },
   {
     name: 'Mi cuenta',
-    href: Routes.PROFILE(currentUser?.id),
+    href: Routes.PROFILE(currentUser?.username),
     visible: true
   },
   {
@@ -25,6 +32,7 @@ export const itemsNavBuilder = (currentUser: UserInterface) => [
   {
     name: 'Cerrar sesión',
     href: Routes.LOGOUT,
-    visible: true
+    visible: true,
+    color: 'danger'
   }
 ]

@@ -237,7 +237,7 @@ $line-height-titulos: 130%;
   }
 
   .listContainer {
-    @apply seccion1-x relative z-[2] w-full max-w-[100vw] rounded-r-3xl rounded-t-3xl bg-slate-50;
+    @apply seccion1-x relative z-[2] w-full max-w-[100vw] rounded-r-3xl rounded-t-3xl bg-white;
     @apply flex flex-col gap-6;
     @apply mt-[-20px] py-[40px];
   }

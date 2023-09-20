@@ -10,7 +10,7 @@ interface GeneralInfoProps {
 const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
-      <h1 className='titulo3 font-semibold'>Información general</h1>
+      <h1 className='subtitulo'>Información general</h1>
       <hr />
     </div>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

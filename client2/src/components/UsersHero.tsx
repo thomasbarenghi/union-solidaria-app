@@ -12,7 +12,7 @@ interface Props {
 }
 
 const UsersHero = ({ user, withButton, buttonText, buttonAction, buttonLink = '' }: Props) => (
-  <Hero imageSrc={user?.bannerImage} height='min-h-[50vh] '>
+  <Hero imageSrc={user?.bannerImage} height='min-h-[50vh] !rounded-none'>
     <div className='flex items-center justify-between'>
       <div className='flex items-center gap-4'>
         <Image

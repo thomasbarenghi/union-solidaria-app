@@ -1,6 +1,11 @@
+'use client'
 import Image from 'next/image'
-import { Nav, ProfileAction } from '@/components'
+import { ProfileAction } from '@/components'
 import { itemsNav } from './lib/itemsNav'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link } from '@nextui-org/react'
+import NextLink from 'next/link'
+import clsx from 'clsx'
+import { useState } from 'react'
 
 interface Props {
   theme?: 'dark' | 'light'
@@ -8,27 +13,62 @@ interface Props {
 }
 
 const Header = ({ theme = 'light', layout = 'full' }: Props) => {
-  const logoSrc = `/icon/logo-${theme === 'dark' ? 'dark' : 'light'}.svg`
+  const [bgColor, setBgColor] = useState('bg-none')
+  const [logo, setLogo] = useState(theme === 'dark' ? '/icon/logo-dark.svg' : '/icon/logo-light.svg')
+  const [textColor, setTextColor] = useState('text-white')
+  const [blur, setBlur] = useState(false)
+  const stylesNavbar = clsx('section-padding-1 fixed py-6', bgColor)
+
+  const handleScroll = (position: number) => {
+    const isScrolled = position > 0
+    setBgColor(isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent')
+    setTextColor(isScrolled ? 'text-black' : 'text-white')
+    setLogo(isScrolled ? '/icon/logo-dark.svg' : '/icon/logo-light.svg')
+    setBlur(isScrolled)
+  }
+
+  const renderNavItems = () =>
+    itemsNav.map((item, index) => (
+      <NavbarItem key={index}>
+        <Link color='foreground' className={textColor} href={item.href} as={NextLink}>
+          {item.name}
+        </Link>
+      </NavbarItem>
+    ))
 
   return (
-    <header className='section-padding-1 fixed z-50 flex w-full justify-center bg-transparent py-8'>
-      <div className='flex w-full items-center justify-between 2xl:container'>
-        <Image src={logoSrc} alt='Vercel Logo' width={185} height={35} />
-        {layout === 'full' && (
-          <div className='flex items-center'>
-            <Nav
-              items={itemsNav}
-              className='hidden lg:flex'
-              mode='horizontal'
-              gap='gap-6'
-              centerAbsolute
-              textStyles='text-white font-light'
-            />
-            <ProfileAction />
-          </div>
-        )}
-      </div>
-    </header>
+    <Navbar
+      className={stylesNavbar}
+      classNames={{
+        wrapper: 'p-0 h-auto w-full max-w-full flex justify-between  2xl:container',
+        base: 'bg-transparent',
+        menuItem: 'text-white ',
+        content: 'w-auto !grow-0',
+        brand: 'max-w-[185px] '
+      }}
+      isBlurred={blur}
+      shouldHideOnScroll
+      onScrollPositionChange={(position) => handleScroll(position)}
+    >
+      <NavbarBrand>
+        <Image src={logo} alt='Vercel Logo' width={165} height={35} />
+      </NavbarBrand>
+      {layout === 'full' && (
+        <>
+          <NavbarContent
+            className='absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform gap-4 p-0 sm:flex'
+            justify='center'
+          >
+            {renderNavItems()}
+          </NavbarContent>
+          <NavbarContent>
+            <NavbarItem>
+              <ProfileAction />
+            </NavbarItem>
+          </NavbarContent>
+        </>
+      )}
+    </Navbar>
   )
 }
 

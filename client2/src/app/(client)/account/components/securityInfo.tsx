@@ -10,7 +10,7 @@ interface GeneralInfoProps {
 const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
-      <h1 className='titulo3 font-semibold'>Contraseña</h1>
+      <h1 className='subtitulo'>Contraseña</h1>
       <hr />
     </div>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

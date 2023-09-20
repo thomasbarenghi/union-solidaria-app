@@ -8,21 +8,19 @@ interface Props {
   id: string
 }
 
-export default function HeroSec ({ id }: Props) {
+const HeroSec = ({ id }: Props) => {
   const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id), fetcher)
   return (
     <Hero imageSrc={data?.thumbnail}>
-      <div className='py-10 flex flex-col gap-3'>
+      <div className='flex flex-col gap-3 py-10'>
         <div>
-          <h1 className=' w-full titulo-3 font-medium text-white'>
-            {data?.title}
-          </h1>
-          <p className='font-light bodyText text-white'>{data?.locations}</p>
+          <h1 className=' titulo-3 w-full font-medium text-white'>{data?.title}</h1>
+          <p className='bodyText font-light text-white'>{data?.locations}</p>
         </div>
-        <button className='bg-green-800 w-max text-white font-medium rounded-full px-7 py-3'>
-          Inscríbete ahora
-        </button>
+        <button className='w-max rounded-full bg-green-800 px-7 py-3 font-medium text-white'>Inscríbete ahora</button>
       </div>
     </Hero>
   )
 }
+
+export default HeroSec
