@@ -7,7 +7,7 @@ export interface UserInterface {
   email: string
   role: 'volunteer' | 'organization'
   password: string
-  bannerImage?: null | string
+  bannerImage: string
   username: string
   profileImage: string
   orgName: null | string
