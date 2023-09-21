@@ -1,5 +1,5 @@
 {
-  "name": "us-app",
+  "name": "union-solidaria-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,12 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
-    "husky": "^8.0.3"
+    "husky": "^8.0.0"
   }
 }
