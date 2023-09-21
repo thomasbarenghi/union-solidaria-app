@@ -1,6 +1,7 @@
+'use client'
 import { InitiativeItem } from '@/components'
 import { InitiativeInterface } from '@/interfaces'
-import Skeleton from './skeleton'
+import Skeleton from './Skeleton'
 
 interface Props {
   initiatives: InitiativeInterface[]
@@ -12,7 +13,7 @@ const InitiativeGrid = ({ initiatives, isLoading = false }: Props) => (
     {isLoading ? (
       <Skeleton />
     ) : (
-      initiatives?.map((item: InitiativeInterface, index) => <InitiativeItem item={item} key={index} />)
+      initiatives?.map((item: InitiativeInterface, index: number) => <InitiativeItem item={item} key={item.id} />)
     )}
   </div>
 )

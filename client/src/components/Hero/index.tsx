@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Skeleton from './skeleton'
+import Skeleton from './Skeleton'
 
 interface Props {
   imageSrc: string

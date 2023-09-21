@@ -1,41 +1,32 @@
 'use client'
-import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
 import { useAppSelector } from '@/redux/hooks'
 import { currentUserSelector } from '@/redux/selectors/users'
-import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
-import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarItem } from '@nextui-org/react'
-
-const DropdownItems = ({ items }: { items: ItemNavInterface[] }) => (
-  <DropdownMenu aria-label='Profile Actions' variant='flat'>
-    {items?.map((item: ItemNavInterface, index: number) => (
-      <DropdownItem key={index} color={item.color ?? 'default'}>
-        <Link href={item.href}>{item.name}</Link>
-      </DropdownItem>
-    ))}
-  </DropdownMenu>
-)
+import { NavbarItem } from '@nextui-org/react'
+import { DynamicPopover } from '..'
+import Image from 'next/image'
+import Menu from './Menu'
+import Link from 'next/link'
 
 const ProfileAction = () => {
   const currentUser = useAppSelector(currentUserSelector)
-  const items = itemsNavBuilder(currentUser)
+
+  const childrenTrigger = (
+    <Image
+      alt='Profile image'
+      width={50}
+      height={50}
+      className='aspect-square h-[50px] min-w-[50px]  rounded-full border border-white object-cover p-1'
+      src={currentUser.profileImage}
+    />
+  )
+
   return (
     <>
       {currentUser.id !== '' ? (
-        <Dropdown placement='bottom-end'>
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              as='button'
-              className='transition-transform'
-              color='default'
-              name={currentUser.firstName}
-              size='md'
-              src={currentUser.profileImage}
-            />
-          </DropdownTrigger>
-          <DropdownItems items={items} />
-        </Dropdown>
+        <DynamicPopover childrenTrigger={childrenTrigger} backdrop='transparent'>
+          <Menu />
+        </DynamicPopover>
       ) : (
         <NavbarItem>
           <Link className='button primaryButton smalltext hidden lg:flex' href={Routes.LOGIN}>

@@ -6,7 +6,6 @@ import Terms from './terms'
 const Content = () => (
   <section className='section-padding-1 flex w-full flex-col gap-2'>
     <Tabs
-      aria-label='Options'
       className='w-full whitespace-nowrap'
       classNames={{
         cursor: 'bg-green-800',

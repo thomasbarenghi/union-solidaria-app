@@ -5,12 +5,11 @@ import Link from 'next/link'
 
 interface Props {
   item: InitiativeInterface
-  key: number
 }
 
-const InitiativeItem = ({ item, key }: Props) => (
-  <Link href={Routes.INDIVIDUAL_INITIATIVE(item.id)}>
-    <div className='flex w-full cursor-pointer flex-col' key={key}>
+const InitiativeItem = ({ item }: Props) => (
+  <div className='flex w-full cursor-pointer flex-col' key={item.id}>
+    <Link href={Routes.INDIVIDUAL_INITIATIVE(item.id)}>
       <div className='flex w-full flex-col gap-2 '>
         <div className='l relative aspect-[1/1]  w-full'>
           <Image src={item.thumbnail} fill alt='Vercel Logo' className='aspect-[1/1] rounded-2xl object-cover' />
@@ -25,8 +24,8 @@ const InitiativeItem = ({ item, key }: Props) => (
           <button className='w-max border-b border-green-800 text-sm text-green-800'>Inscríbete ahora</button>
         </div>
       </div>
-    </div>
-  </Link>
+    </Link>
+  </div>
 )
 
 export default InitiativeItem

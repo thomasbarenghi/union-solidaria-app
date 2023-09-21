@@ -12,8 +12,8 @@ const Content = ({ username }: { username: string }) => {
   const { data: currentActiveUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
   const { data: initiatives, isLoading: isLoadingInitiatives } = useSWR(Endpoints.INITIATIVES)
   const currentUser = useAppSelector(currentUserSelector)
-  const isCurrent = currentActiveUser?.user.username === currentUser?.username
-  const isOrg = currentActiveUser?.user.role === 'organization'
+  const isCurrent = currentActiveUser?.user?.username === currentUser?.username
+  const isOrg = currentActiveUser?.user?.role === 'organization'
 
   return (
     <section className='flex w-full flex-col gap-6 '>

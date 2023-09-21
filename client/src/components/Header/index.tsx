@@ -47,11 +47,11 @@ const Header = ({ theme = 'light', layout = 'full' }: Props) => {
         brand: 'max-w-[185px] '
       }}
       isBlurred={blur}
-      shouldHideOnScroll
+      shouldHideOnScroll={false}
       onScrollPositionChange={(position) => handleScroll(position)}
     >
       <NavbarBrand>
-        <Image src={logo} alt='Vercel Logo' width={165} height={35} />
+        <Image src={logo} alt='Logo' width={165} height={35} />
       </NavbarBrand>
       {layout === 'full' && (
         <>
