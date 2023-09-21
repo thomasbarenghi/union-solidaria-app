@@ -1,7 +1,6 @@
 'use client'
 import useSWR from 'swr'
 import { Hero } from '@/components'
-import { fetcher } from '@/services/fetcher.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const HeroSec = ({ id }: Props) => {
-  const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id), fetcher)
+  const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id))
   return (
     <Hero imageSrc={data?.thumbnail}>
       <div className='flex flex-col gap-3 py-10'>

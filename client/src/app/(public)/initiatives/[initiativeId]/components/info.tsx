@@ -1,6 +1,5 @@
 'use client'
 import useSWR from 'swr'
-import { fetcher } from '@/services/fetcher.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Image from 'next/image'
 import { InitiativeInterface } from '@/interfaces'
@@ -61,7 +60,7 @@ const InitiativeDateInfo = ({ currentInitiative }: { currentInitiative: Initiati
 }
 
 const Info = ({ id }: { id: string }) => {
-  const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id), fetcher)
+  const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id))
   return (
     <section className='flex flex-col gap-6 lg:gap-10'>
       <OrganizationInfo />

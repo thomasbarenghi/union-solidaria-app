@@ -1,45 +1,43 @@
 'use client'
 import { InitiativeGrid } from '@/components'
 import { useAppSelector } from '@/redux/hooks'
-import { initiativesSelector } from '@/redux/selectors/initiatives'
 import { currentUserSelector } from '@/redux/selectors/users'
-import { fetcher } from '@/services/fetcher.service'
+import { Skeleton } from '@nextui-org/react'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Routes from '@/utils/constants/routes.const'
 import Link from 'next/link'
 import useSWR from 'swr'
 
 const Content = ({ username }: { username: string }) => {
-  const { data: currentActiveUser } = useSWR(Endpoints.USER_BY_ID(username), fetcher)
+  const { data: currentActiveUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
+  const { data: initiatives, isLoading: isLoadingInitiatives } = useSWR(Endpoints.INITIATIVES)
   const currentUser = useAppSelector(currentUserSelector)
   const isCurrent = currentActiveUser?.user.username === currentUser?.username
   const isOrg = currentActiveUser?.user.role === 'organization'
-  const initiatives = useAppSelector(initiativesSelector)
 
   return (
     <section className='flex w-full flex-col gap-6 '>
-      <div>
-        {isCurrent && isOrg && (
-          <div className='flex items-center justify-between'>
-            <p className='titulo-3 semibold'>Mis iniciativas organizadas</p>
-            <Link className='primaryButton' href={Routes.CREATE_INITIATIVE}>
-              Crear nueva iniciativa
-            </Link>
-          </div>
-        )}
-        {isCurrent && !isOrg && <p className='titulo-3 semibold'>Mis iniciativas</p>}
-        {!isCurrent && !isOrg && (
+      <div className='flex items-center justify-between'>
+        <Skeleton className='rounded-full' isLoaded={!isLoading}>
           <p className='titulo-3 semibold'>
-            Iniciativas en las <span className='font-semibold'>que participa</span>
+            {isCurrent
+              ? isOrg
+                ? 'Mis iniciativas organizadas'
+                : 'Mis iniciativas'
+              : isOrg
+                ? 'Iniciativas de la organización'
+                : 'Iniciativas en las que participa'}
           </p>
-        )}
-        {!isCurrent && !isOrg && (
-          <p className='titulo-3 semibold'>
-            Iniciativas de <span className='font-semibold'>la organizacion</span>
-          </p>
-        )}
+        </Skeleton>
+        <Skeleton isLoaded={!isLoading} className='rounded-full'>
+          {isCurrent && isOrg && (
+            <button className='primaryButton relative'>
+              <Link href={Routes.CREATE_INITIATIVE}>Crear nueva iniciativa</Link>
+            </button>
+          )}
+        </Skeleton>
       </div>
-      <InitiativeGrid initiatives={initiatives.slice(0, 4)} />
+      <InitiativeGrid initiatives={initiatives?.slice(0, 4)} isLoading={isLoadingInitiatives} />
     </section>
   )
 }

@@ -5,13 +5,13 @@ import { useAppSelector } from '@/redux/hooks'
 import { currentUserSelector } from '@/redux/selectors/users'
 import useSWR from 'swr'
 import Endpoints from '@/utils/constants/endpoints.const'
-import { fetcher } from '@/services/fetcher.service'
 
 const HeroSec = ({ username }: { username: string }) => {
-  const { data: currentActiveUser } = useSWR(Endpoints.USER_BY_ID(username), fetcher)
+  const { data: currentActiveUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
   const currentUser = useAppSelector(currentUserSelector)
   return (
     <UsersHero
+      isLoading={isLoading}
       user={currentActiveUser?.user}
       withButton={currentActiveUser?.user?.id === currentUser?.id}
       buttonText='Editar cuenta'
