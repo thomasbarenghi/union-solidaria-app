@@ -1,27 +1,25 @@
-"use client";
-import { Search, Hero } from "@/components";
-import { useAppSelector } from "@/redux/hooks";
-import { currentInitiativeSelector } from "@/redux/selectors/initiatives";
+'use client'
+import useSWR from 'swr'
+import { Hero } from '@/components'
+import Endpoints from '@/utils/constants/endpoints.const'
 
-export default function HeroSec() {
-  const currentInitiative = useAppSelector(currentInitiativeSelector);
-  return (
-    <Hero imageSrc={currentInitiative?.thumbnail}>
-      <>
-        <div className="py-10 flex flex-col gap-3">
-          <div>
-            <h1 className=" w-full titulo-3 font-medium text-white">
-              {currentInitiative?.title}
-            </h1>
-            <p className="font-light bodyText text-white">
-              {currentInitiative?.locations}
-            </p>
-          </div>
-          <button className="bg-green-800 w-max text-white font-medium rounded-full px-7 py-3">
-            Inscríbete ahora
-          </button>
-        </div>
-      </>
-    </Hero>
-  );
+interface Props {
+  id: string
 }
+
+const HeroSec = ({ id }: Props) => {
+  const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(id))
+  return (
+    <Hero imageSrc={data?.thumbnail}>
+      <div className='flex flex-col gap-3 py-10'>
+        <div>
+          <h1 className=' titulo-3 w-full font-medium text-white'>{data?.title}</h1>
+          <p className='bodyText font-light text-white'>{data?.locations}</p>
+        </div>
+        <button className='w-max rounded-full bg-green-800 px-7 py-3 font-medium text-white'>Inscríbete ahora</button>
+      </div>
+    </Hero>
+  )
+}
+
+export default HeroSec

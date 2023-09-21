@@ -1,15 +1,15 @@
-import Hero from "./components/hero";
-import Initiatives from "./components/initiatives";
-import Marketing from "./components/marketing";
+import HeroSection from './components/hero'
+import InitiativesSection from './components/initiatives'
+import MarketingSection from './components/marketing'
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <article className="section-padding-1 container-section article-layout-1">
-        <Initiatives />
-        <Marketing />
-      </article>
-    </>
-  );
-}
+const Home = () => (
+  <>
+    <HeroSection />
+    <article className='section-padding-1 container-section article-layout-1'>
+      <InitiativesSection />
+      <MarketingSection />
+    </article>
+  </>
+)
+
+export default Home

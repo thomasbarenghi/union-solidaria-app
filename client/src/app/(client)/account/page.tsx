@@ -1,25 +1,17 @@
-"use client";
-import Edit from "./components/edit";
-import Security from "./components/security";
-import { Tabs } from "@/components";
+'use client'
+import Edit from './components/form'
+import HeroSec from './components/hero'
 
-export default function Page() {
-  const tabsContent = [
-    {
-      title: "Editar perfil",
-      content: <Edit />,
-    },
-    {
-      title: "Editar contraseña",
-      content: <Security />,
-    },
-  ];
-
-  return (
-    <>
-      <section className="w-full flex flex-col gap-6">
-        <Tabs content={tabsContent} />
+const Account = () => (
+  <>
+    <HeroSec />
+    <article className='section-padding-1 container-section article-layout-1 listContainer'>
+      <section className='flex w-full flex-col gap-6'>
+        <h1 className='titulo-3 font-semibold'>Editar perfil</h1>
+        <Edit />
       </section>
-    </>
-  );
-}
+    </article>
+  </>
+)
+
+export default Account

@@ -1,42 +1,40 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosPutter, axiosPoster, axiosGetter } from "@/utils/requests";
-import Endpoints from "@/constants/endpoints";
-import { UserClass } from "@/types";
-import { toast } from "sonner";
+import { createSlice } from '@reduxjs/toolkit'
+import { UserInterface } from '@/interfaces'
 
-const initialState = {
-  currentUser: {} as UserClass,
-};
-
-interface ThunkApiConfig {
-  dispatch: Function;
-  getState: Function;
+interface UserState {
+  activeUser: UserInterface
 }
 
-export const getCurrentUser = createAsyncThunk(
-  "users/getCurrentUser",
-  async (username: string) => {
-    return await axiosGetter({
-      url: Endpoints.USERS + "/" + username,
-    });
-  },
-);
+const initialState: UserState = {
+  activeUser: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    birthday: '',
+    phone: '',
+    email: '',
+    role: 'volunteer',
+    password: '',
+    bannerImage: '',
+    username: '',
+    profileImage: '',
+    orgName: '',
+    posts: [],
+    reviews: []
+  }
+}
 
 const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload.user;
-      })
-      .addCase(getCurrentUser.rejected, (state, action) => {
-        toast.error("Ocurrió un error al cargar el usuario");
-      });
+  reducers: {
+    updateActiveUser: (state, action) => {
+      state.activeUser = action.payload
+    }
   },
-});
+  extraReducers: (builder) => {}
+})
 
-export const {} = usersSlice.actions;
+export const { updateActiveUser } = usersSlice.actions
 
-export default usersSlice.reducer;
+export default usersSlice.reducer

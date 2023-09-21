@@ -1,13 +1,13 @@
-import Hero from "./components/hero";
-import Content from "./components/content";
+import HeroSection from './components/hero'
+import MissionVisionSection from './components/content'
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <article className="section-padding-1 container-section article-layout-1">
-        <Content />
-      </article>
-    </>
-  );
-}
+const About = () => (
+  <>
+    <HeroSection />
+    <article className='section-padding-1 container-section article-layout-1'>
+      <MissionVisionSection />
+    </article>
+  </>
+)
+
+export default About

@@ -1,17 +1,19 @@
-"use client";
-import { InitiativeGrid } from "@/components";
-import { useAppSelector } from "@/redux/hooks";
-import { initiativesSelector } from "@/redux/selectors/initiatives";
+'use client'
+import useSWR from 'swr'
+import { InitiativeGrid } from '@/components'
+import Endpoints from '@/utils/constants/endpoints.const'
 
-export default function Initiatives() {
-  const initiatives = useAppSelector(initiativesSelector);
+const InitiativesSection = () => {
+  const { data, isLoading } = useSWR(Endpoints.INITIATIVES)
+
   return (
-    <section className=" flex flex-col gap-6">
-      <h1 className="w-full titulo-3 font-light">
-        Iniciativas cerca de{" "}
-        <b className="font-semibold">Moron, Buenos Aires</b>
+    <section className='w-full flex flex-col gap-6'>
+      <h1 className='titulo-3 w-full font-light'>
+        Iniciativas cerca de <b className='font-semibold'>Moron, Buenos Aires</b>
       </h1>
-      <InitiativeGrid initiatives={initiatives} />
+      <InitiativeGrid initiatives={data} isLoading={isLoading} />
     </section>
-  );
+  )
 }
+
+export default InitiativesSection

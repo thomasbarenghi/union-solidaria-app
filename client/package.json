@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "client2",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,31 +9,39 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/base": "^5.0.0-beta.16",
+    "@nextui-org/react": "^2.1.13",
     "@reduxjs/toolkit": "^1.9.5",
-    "@types/lodash": "^4.14.197",
-    "@types/node": "20.5.7",
-    "@types/react": "18.2.21",
+    "@types/lodash": "^4.14.198",
+    "@types/node": "20.6.2",
+    "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
+    "clsx": "^2.0.0",
+    "eslint": "8.49.0",
+    "eslint-config-next": "^13.5.1",
+    "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
-    "next": "13.4.19",
-    "postcss": "8.4.29",
+    "next": "13.5.1",
+    "postcss": "8.4.30",
     "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.46.1",
     "react-markdown": "^8.0.7",
     "react-redux": "^8.1.2",
-    "react-svg": "^16.1.22",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
-    "sass": "^1.66.1",
-    "sonner": "^0.7.0",
+    "sass": "^1.67.0",
+    "sonner": "^0.7.4",
     "swr": "^2.2.2",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "ts-standard": "^12.0.2"
   }
 }

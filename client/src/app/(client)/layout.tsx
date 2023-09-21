@@ -1,16 +1,15 @@
-"use client";
-import { Header, Footer } from "@/components";
+import { Header, Footer } from '@/components'
 
-type Props = {
-  children: React.ReactNode;
-};
-
-export default function RootLayout({ children }: Props) {
-  return (
-    <>
-      <Header />
-      <main className="flex flex-col min-h-screen">{children}</main>
-      <Footer />
-    </>
-  );
+interface Props {
+  children: React.ReactNode
 }
+
+const ClientLayout = ({ children }: Props) => (
+  <>
+    <Header />
+    <main className='flex min-h-screen flex-col'>{children}</main>
+    <Footer />
+  </>
+)
+
+export default ClientLayout

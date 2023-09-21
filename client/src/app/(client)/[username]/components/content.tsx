@@ -1,31 +1,45 @@
-"use client";
-import { Tabs } from "@/components";
-import { useAppSelector } from "@/redux/hooks";
-import {
-  currentActiveUserSelector,
-  currentUserSelector,
-} from "@/redux/selectors/users";
+'use client'
+import { InitiativeGrid } from '@/components'
+import { useAppSelector } from '@/redux/hooks'
+import { currentUserSelector } from '@/redux/selectors/users'
+import { Skeleton } from '@nextui-org/react'
+import Endpoints from '@/utils/constants/endpoints.const'
+import Routes from '@/utils/constants/routes.const'
+import Link from 'next/link'
+import useSWR from 'swr'
 
-const tabsContent = [
-  {
-    title: "Mis iniciativas",
-    content: <></>,
-  },
-  {
-    title: "Certificados",
-    content: <></>,
-  },
-];
-
-export default function Content() {
-  const currentActiveUser = useAppSelector(currentActiveUserSelector);
-  const currentUser = useAppSelector(currentUserSelector);
-  const isCurrent = currentActiveUser?.username === currentUser?.username;
-  const isOrg = currentActiveUser?.role === "organization";
+const Content = ({ username }: { username: string }) => {
+  const { data: currentActiveUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
+  const { data: initiatives, isLoading: isLoadingInitiatives } = useSWR(Endpoints.INITIATIVES)
+  const currentUser = useAppSelector(currentUserSelector)
+  const isCurrent = currentActiveUser?.user?.username === currentUser?.username
+  const isOrg = currentActiveUser?.user?.role === 'organization'
 
   return (
-    <section className="w-full flex flex-col gap-6 min-h-[100vh] bg-white ">
-      <Tabs content={tabsContent} />
+    <section className='flex w-full flex-col gap-6 '>
+      <div className='flex items-center justify-between'>
+        <Skeleton className='rounded-full' isLoaded={!isLoading}>
+          <p className='titulo-3 semibold'>
+            {isCurrent
+              ? isOrg
+                ? 'Mis iniciativas organizadas'
+                : 'Mis iniciativas'
+              : isOrg
+                ? 'Iniciativas de la organización'
+                : 'Iniciativas en las que participa'}
+          </p>
+        </Skeleton>
+        <Skeleton isLoaded={!isLoading} className='rounded-full'>
+          {isCurrent && isOrg && (
+            <button className='primaryButton relative'>
+              <Link href={Routes.CREATE_INITIATIVE}>Crear nueva iniciativa</Link>
+            </button>
+          )}
+        </Skeleton>
+      </div>
+      <InitiativeGrid initiatives={initiatives?.slice(0, 4)} isLoading={isLoadingInitiatives} />
     </section>
-  );
+  )
 }
+
+export default Content
