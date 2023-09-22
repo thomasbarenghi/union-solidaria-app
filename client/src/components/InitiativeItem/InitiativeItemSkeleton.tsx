@@ -5,7 +5,7 @@ const InitiativeItemSkeleton = () => (
   <div className='flex w-full cursor-pointer flex-col'>
     <div className='flex w-full flex-col gap-4 '>
       <div className='relative aspect-[1/1]  w-full'>
-        <Skeleton className='w-full h-full absolute aspect-[1/1] rounded-2xl' />
+        <Skeleton className='absolute aspect-[1/1] h-full w-full rounded-2xl' />
       </div>
       <div className='flex flex-col gap-3'>
         <div className='flex flex-col gap-2'>

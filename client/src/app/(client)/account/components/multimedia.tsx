@@ -31,7 +31,7 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
             }
           }
         }}
-        error={errors?.thumbnail?.message}
+        errorMessage={errors?.thumbnail?.message?.toString()}
       />
       <Input
         type='file'
@@ -42,7 +42,7 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
           register,
           validations: {
             required: false,
-            validate: (value: any) => {
+            validate: (value: FileList) => {
               if (value.length > 0) {
                 if (value[0].size > 5000000) {
                   return 'La imagen no debe pesar mas de 5MB'
@@ -51,7 +51,7 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
             }
           }
         }}
-        error={errors?.thumbnail?.message}
+        errorMessage={errors?.thumbnail?.message?.toString()}
       />
     </div>
   </div>

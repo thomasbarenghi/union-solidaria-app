@@ -18,7 +18,6 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
         name='startDate'
         label='Fecha de inicio'
         placeholder='Fecha de inicio'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -33,14 +32,13 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
             }
           }
         }}
-        error={errors?.startDate?.message}
+        errorMessage={errors?.startDate?.message}
       />
       <Input
         type='date'
         name='endDate'
         label='Fecha de finalizacion'
         placeholder='Fecha de finalizacion'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -55,14 +53,13 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
             }
           }
         }}
-        error={errors?.endDate?.message}
+        errorMessage={errors?.endDate?.message}
       />
       <Input
         type='text'
         name='startHour'
         label='Hora de inicio'
         placeholder='Hora de inicio'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -73,14 +70,13 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.startHour?.message}
+        errorMessage={errors?.startHour?.message}
       />
       <Input
         type='text'
         name='endHour'
         label='Hora de finalizacion'
         placeholder='Hora de finalizacion'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -91,14 +87,13 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.endHour?.message}
+        errorMessage={errors?.endHour?.message}
       />
       <Input
         type='text'
         name='extraInfo'
         label='Informacion Extra'
         placeholder='Informacion Extra'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -107,7 +102,7 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.extraInfo?.message}
+        errorMessage={errors?.extraInfo?.message}
       />
     </div>
   </div>

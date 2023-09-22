@@ -1,5 +1,5 @@
 import Hero from './components/hero'
-import Info from './components/info'
+import Content from './components/content'
 
 interface Props {
   params: {
@@ -11,7 +11,7 @@ const Home = ({ params }: Props) => (
   <>
     <Hero id={params.initiativeId} />
     <article className='section-padding-1 container-section article-layout-1'>
-      <Info id={params.initiativeId} />
+      <Content id={params.initiativeId} />
     </article>
   </>
 )

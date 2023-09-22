@@ -6,7 +6,6 @@ import Endpoints from '@/utils/constants/endpoints.const'
 import { objectToFormData } from '@/utils/functions/objectToFormData.utils'
 import { RootState } from '../store'
 import { updateCurrentUser } from '../slices/authSession'
-import { updateActiveUser } from '../slices/users'
 
 export const currentUsersApi = createApi({
   reducerPath: 'usersApi',
@@ -18,23 +17,6 @@ export const currentUsersApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    getUsers: builder.query<UserInterface[], void>({
-      query: () => Endpoints.USERS
-    }),
-    getUsersByUsername: builder.query<any, string>({
-      query: (id) => Endpoints.USER_BY_ID(id),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled
-        await dispatch(updateActiveUser(data.user))
-      }
-    }),
-    getCurrentUser: builder.query<any, string>({
-      query: (id) => Endpoints.USER_BY_ID(id),
-      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
-        const { data } = await queryFulfilled
-        await dispatch(updateCurrentUser(data.user))
-      }
-    }),
     postUsers: builder.mutation<UserInterface, UserInterface>({
       query: (body) => ({
         url: Endpoints.USERS,
@@ -62,15 +44,16 @@ export const currentUsersApi = createApi({
         method: 'DELETE',
         body
       })
+    }),
+    getCurrentUser: builder.query<any, string>({
+      query: (id) => Endpoints.USER_BY_ID(id),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled
+        await dispatch(updateCurrentUser(data.user))
+      }
     })
   })
 })
 
-export const {
-  useGetUsersByUsernameQuery,
-  useGetUsersQuery,
-  useDeleteUsersMutation,
-  usePostUsersMutation,
-  usePutUsersMutation,
-  useGetCurrentUserQuery
-} = currentUsersApi
+export const { useDeleteUsersMutation, usePostUsersMutation, usePutUsersMutation, useGetCurrentUserQuery } =
+  currentUsersApi

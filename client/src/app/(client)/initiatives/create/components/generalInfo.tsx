@@ -1,4 +1,4 @@
-import { Input, MultiSelect } from '@/components'
+import { Input, MultiSelect, Textarea } from '@/components'
 import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { opportunities } from '@/services/mock/opportunities.service'
 import { themes } from '@/services/mock/themes.service'
@@ -30,11 +30,11 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.title?.message}
+        errorMessage={errors?.title?.message}
       />
-      <Input
-        type='textarea'
+      <Textarea
         name='description'
+        rows={1}
         label='Descripcion de la iniciativa'
         placeholder='Descripcion de la iniciativa'
         hookForm={{
@@ -45,7 +45,7 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.description?.message}
+        errorMessage={errors?.description?.message}
       />
       <Input
         type='date'
@@ -66,7 +66,7 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
             }
           }
         }}
-        error={errors?.deadLine?.message}
+        errorMessage={errors?.deadLine?.message}
       />
       <Controller
         name='opportunities'
@@ -74,19 +74,22 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
         rules={{
           required: { value: true, message: 'Este campo es requerido' },
           validate: (value) => {
-            if (value.length < 2) return 'Debe contener al menos dos oportunidades'
+            const values = value.split(',')
+            if (values.length < 2) return 'Debe contener al menos dos oportunidades'
             return true
           }
         }}
         render={({ field }) => (
           <MultiSelect
             names={opportunities.slice(1)}
-            placeholder='Oportunidades'
             name='opportunities'
             field={field}
-            setSelected={(selected) => setValue('opportunities', selected)}
+            setSelected={(selected) => {
+              setValue('opportunities', selected)
+              console.log('selected', selected)
+            }}
             label='Oportunidades'
-            error={errors?.opportunities?.message}
+            errorMessage={errors?.opportunities?.message}
           />
         )}
       />
@@ -96,7 +99,8 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
         rules={{
           required: { value: true, message: 'Este campo es requerido' },
           validate: (value) => {
-            if (value.length < 2) return 'Debe contener al menos dos tematicas'
+            const values = value.split(',')
+            if (values.length < 2) return 'Debe contener al menos dos tematicas'
             return true
           }
         }}
@@ -105,10 +109,9 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
             field={field}
             name='themes'
             names={themes.slice(1)}
-            placeholder='Tematicas'
             setSelected={(selected) => setValue('themes', selected)}
             label='Tematicas'
-            error={errors?.themes?.message}
+            errorMessage={errors?.themes?.message}
           />
         )}
       />

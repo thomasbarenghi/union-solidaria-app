@@ -1,66 +1,48 @@
 /* eslint-disable no-labels */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 'use client'
-import { Select } from '@mui/base/Select'
-import { Option } from '@mui/base/Option'
-import clsx from 'clsx'
+
+import { Select, SelectItem } from '@nextui-org/react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 interface Props {
-  names: Array<{ value: string; label: string }>
+  names: Array<{ value: string, label: string }>
+  name: string
   placeholder: string
   setSelected: (data: string) => void
+  selectedValue?: string
   label?: string
   labelClass?: string
-  error?: string | any
+  errorMessage?: string
   field?: ControllerRenderProps<FieldValues, any>
 }
 
-const SimpleSelect = ({ names, placeholder, field, label, labelClass = '', error, setSelected }: Props) => (
-  <label className={`smalltext flex w-full min-w-0 flex-col gap-1 font-normal ${labelClass}`}>
-    {label}
-    <div className='relative'>
-      <Select
-        {...field}
-        onChange={(_, newValue) => setSelected(newValue)}
-        renderValue={(selected) => {
-          if (!selected?.value) {
-            return <p className='text-gray-400'>{placeholder}</p>
-          }
-          return <p className='text-black'>{selected?.label as string}</p>
-        }}
-        className='relative w-full min-w-0 rounded-md border border-solid border-gray-600 px-4 py-3 text-start'
-        slotProps={{
-          listbox: {
-            className: ' bg-white shadow-lg w-full rounded-md border mt-2 p-3'
-          },
-          popper: {
-            disablePortal: true,
-            className: 'w-full !z-[10]'
-          },
-          root: (ownerState) => {
-            className: clsx(
-              `flex items-center justify-between bg-white ${
-                ownerState.open ? 'after:content-["▴"]' : 'after:content-["▾"]'
-              } after:float-right`
-            )
-          }
-        }}
-      >
-        <div className='flex w-full flex-col gap-2'>
-          <Option value=''>
-            <p className='font-light text-gray-800'>{placeholder}</p>
-          </Option>
-          {names.map((name, index) => (
-            <Option className='flex !h-max items-center gap-1 !p-0' key={index} value={name.value}>
-              <p className='font-light text-black'>{name.label}</p>
-            </Option>
-          ))}
-        </div>
-      </Select>
-      {error && <p className='gap-estilo4 smalltext ml-2 flex font-medium text-red-700 dark:text-red-800'>{error}</p>}
-    </div>
-  </label>
+const SimpleSelect = ({ names, name, selectedValue, label, errorMessage = '', setSelected, field }: Props) => (
+  <Select
+    {...field}
+    defaultSelectedKeys={selectedValue ? [selectedValue] : []}
+    items={names}
+    label={label}
+    labelPlacement='outside'
+    size='md'
+    name={name}
+    selectionMode='single'
+    onSelectionChange={(selected) => setSelected(Array.from(selected)[0].toString())}
+    placeholder='Selecciona una opción'
+    className='w-full'
+    classNames={{
+      trigger:
+        '!text-black placeholder:text-gray-400 placeholder:font-light !bg-white border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',
+      label: 'smalltext  gap-1 font-normal !text-black',
+      errorMessage: 'smalltext text-red-800',
+      value: 'smalltext !text-black',
+      selectorIcon: '!text-black'
+    }}
+    errorMessage={errorMessage}
+    isInvalid={errorMessage.length > 0}
+  >
+    {(obj) => <SelectItem key={obj.value}>{obj.label}</SelectItem>}
+  </Select>
 )
 
 export default SimpleSelect

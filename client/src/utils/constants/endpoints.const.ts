@@ -3,7 +3,7 @@ const Endpoints = {
   GOOGLE_LOGIN: '/api/auth/google',
   VERIFY: '/api/auth/verify',
   USERS: '/api/users',
-  INITIATIVES: '/api/initiatives',
+  INITIATIVES: (query?: string) => `/api/initiatives${query ?? ''}`,
   INITIATIVES_BY_ID: (id: string) => `/api/initiatives/${id}`,
   USER_BY_ID: (userId: string) => `/api/users/${userId}`,
   REVIEWS: '/api/reviews',
