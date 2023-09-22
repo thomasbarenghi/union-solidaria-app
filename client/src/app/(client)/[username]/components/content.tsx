@@ -25,8 +25,8 @@ const Content = ({ username }: { username: string }) => {
                 ? 'Mis iniciativas organizadas'
                 : 'Mis iniciativas'
               : isOrg
-                ? 'Iniciativas de la organización'
-                : 'Iniciativas en las que participa'}
+              ? 'Iniciativas de la organización'
+              : 'Iniciativas en las que participa'}
           </p>
         </Skeleton>
         <Skeleton isLoaded={!isLoading} className='rounded-full'>

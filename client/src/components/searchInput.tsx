@@ -8,7 +8,7 @@ interface SearchInputProps {
 }
 
 const SearchInput = ({ placeholder, name, icon = '/icon/search.svg', handleChange }: SearchInputProps) => (
-  <div className='flex w-full items-center gap-2 rounded-full border border-solid border-gray-300 px-5 py-3  bg-white'>
+  <div className='flex w-full items-center gap-2 rounded-full border border-solid border-gray-300 bg-white px-5  py-3'>
     <Image src={icon} width={16} height={16} alt='search' />
     <input
       type='text'
