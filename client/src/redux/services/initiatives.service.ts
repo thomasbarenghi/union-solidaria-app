@@ -15,23 +15,11 @@ export const initiativesApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    getInitiatives: builder.query<InitiativeInterface[], void>({
-      query: () => Endpoints.INITIATIVES
-    }),
-    getFilteredInitiatives: builder.query<InitiativeInterface[], any>({
-      query: (query) => ({
-        url: Endpoints.INITIATIVES,
-        params: query
-      })
-    }),
-    getInitiativesById: builder.query<InitiativeInterface, string>({
-      query: (id) => Endpoints.INITIATIVES_BY_ID(id)
-    }),
     postInitiatives: builder.mutation<InitiativeInterface, InitiativeInterface>({
       query: (body) => {
         const bodyFormData = objectToFormData(body)
         return {
-          url: Endpoints.INITIATIVES,
+          url: Endpoints.INITIATIVES(''),
           method: 'POST',
           body: bodyFormData
         }
@@ -57,11 +45,4 @@ export const initiativesApi = createApi({
   })
 })
 
-export const {
-  useGetInitiativesByIdQuery,
-  useGetInitiativesQuery,
-  useDeleteInitiativesMutation,
-  usePostInitiativesMutation,
-  usePutInitiativesMutation,
-  useGetFilteredInitiativesQuery
-} = initiativesApi
+export const { useDeleteInitiativesMutation, usePostInitiativesMutation, usePutInitiativesMutation } = initiativesApi
