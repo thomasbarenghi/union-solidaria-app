@@ -48,7 +48,7 @@ const LoginForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.email?.message}
+        errorMessage={errors?.email?.message?.toString()}
       />
       <div className='relative flex w-full items-center'>
         <Input
@@ -66,7 +66,7 @@ const LoginForm = () => {
               required: { value: true, message: 'Este campo es requerido' }
             }
           }}
-          error={errors?.password?.message}
+          errorMessage={errors?.password?.message?.toString()}
         />
       </div>
       <button type='submit' className='primaryButton w-full'>

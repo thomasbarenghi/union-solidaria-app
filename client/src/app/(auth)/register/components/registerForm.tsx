@@ -1,5 +1,5 @@
 'use client'
-import { Input, SimpleSelect, VisibilityOffIcon, VisibilityOnIcon } from '@/components'
+import { Input, SimpleSelect } from '@/components'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { usePostUsersMutation } from '@/redux/services/users.service'
@@ -22,8 +22,6 @@ const RegisterForm = () => {
   const router = useRouter()
   const [addUser] = usePostUsersMutation()
   const [role, setRole] = useState<string>('volunteer')
-  const [visibility, setPwdVisibility] = useState(false)
-  const [visibility2, setPwdVisibility2] = useState(false)
   const {
     register,
     formState: { errors },
@@ -80,7 +78,7 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.firstName?.message}
+        errorMessage={errors?.firstName?.message?.toString()}
       />
       <Input
         type='text'
@@ -95,7 +93,7 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.lastName?.message}
+        errorMessage={errors?.lastName?.message?.toString()}
       />
       <Input
         type='email'
@@ -112,7 +110,7 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.email?.message}
+        errorMessage={errors?.email?.message?.toString()}
       />
       <Input
         type='text'
@@ -129,7 +127,7 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.phone?.message}
+        errorMessage={errors?.phone?.message?.toString()}
       />
       <Input
         type='text'
@@ -146,14 +144,13 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.username?.message}
+        errorMessage={errors?.username?.message?.toString()}
       />
       <Input
         type='date'
         name='birthday'
         label='Fecha de nacimiento'
         placeholder='Fecha de nacimiento'
-        required={false}
         hookForm={{
           register,
           validations: {
@@ -173,7 +170,7 @@ const RegisterForm = () => {
             }
           }
         }}
-        error={errors?.birthday?.message}
+        errorMessage={errors?.birthday?.message?.toString()}
       />
       <Controller
         name='role'
@@ -181,6 +178,7 @@ const RegisterForm = () => {
         rules={{ required: { value: true, message: 'Este campo es requerido' } }}
         render={({ field }: any) => (
           <SimpleSelect
+            name='role'
             field={field}
             label='¿Que tipo de usuario eres?'
             setSelected={(selected) => {
@@ -189,7 +187,7 @@ const RegisterForm = () => {
             }}
             names={roles}
             placeholder='Selecciona una opcion'
-            error={errors?.role?.message}
+            errorMessage={errors?.role?.message?.toString()}
           />
         )}
       />
@@ -206,15 +204,14 @@ const RegisterForm = () => {
               maxLength: { value: 60, message: 'Maximo 60 caracteres' }
             }
           }}
-          error={errors?.orgName?.message}
+          errorMessage={errors?.orgName?.message?.toString()}
         />
       )}
       <Input
-        type={visibility ? 'text' : 'password'}
+        type='password'
         name='password'
         label='Contraseña'
         placeholder='Contraseña'
-        setIconVisibility={setPwdVisibility}
         hookForm={{
           register,
           validations: {
@@ -225,16 +222,13 @@ const RegisterForm = () => {
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.password?.message}
-        icon1={<VisibilityOffIcon />}
-        icon2={<VisibilityOnIcon />}
+        errorMessage={errors?.password?.message?.toString()}
       />
       <Input
-        type={visibility2 ? 'text' : 'password'}
+        type='password'
         name='repeatPassword'
         label='Repite la contraseña'
         placeholder='Repite la contraseña'
-        setIconVisibility={setPwdVisibility2}
         hookForm={{
           register,
           validations: {
@@ -250,9 +244,7 @@ const RegisterForm = () => {
             }
           }
         }}
-        error={errors?.repeatPassword?.message}
-        icon1={<VisibilityOffIcon />}
-        icon2={<VisibilityOnIcon />}
+        errorMessage={errors?.repeatPassword?.message?.toString()}
       />
       <button type='submit' className='primaryButton'>
         Crear usuario

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useAppSelector } from '@/redux/hooks'
 import { useForm } from 'react-hook-form'
 import GeneralInfo from './generalInfo'
@@ -39,15 +39,10 @@ const FormSec = () => {
     formState: { errors },
     handleSubmit,
     control,
-    setValue,
-    getValues
+    setValue
   } = useForm({
     mode: 'onChange'
   })
-
-  useEffect(() => {
-    console.log(getValues())
-  }, [errors])
 
   const cleanForm = () => {
     formRef.current?.reset()
@@ -63,7 +58,6 @@ const FormSec = () => {
         thumbnail: data.thumbnail[0],
         deadLine: new Date(data.deadLine).toISOString()
       }
-      console.log(errors, formData)
       const res = await addPost(formData).unwrap()
       console.log(res.id, res)
       cleanForm()
@@ -77,9 +71,8 @@ const FormSec = () => {
     <section className='flex w-full  items-center justify-center'>
       <form
         className='flex w-full flex-col gap-8'
-        onSubmit={() => {
-          void handleSubmit(onSubmit)
-        }}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >
         <h2 className='titulo-3'>Crear iniciativa</h2>

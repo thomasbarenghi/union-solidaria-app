@@ -28,6 +28,7 @@ const Selects = (props: Props) => {
     <>
       <div className='flex min-w-[200px] flex-row gap-3 md:flex-col '>
         <SimpleSelect
+          name='country'
           label='Pais de iniciativa'
           selectedValue={query.country}
           setSelected={(selected) => {
@@ -38,6 +39,7 @@ const Selects = (props: Props) => {
         />
         {props.query.country.length > 0 && (
           <SimpleSelect
+            name='province'
             label='Elige el estado/provincia'
             selectedValue={query.province}
             setSelected={(selected) => {
@@ -48,6 +50,7 @@ const Selects = (props: Props) => {
           />
         )}
         <SimpleSelect
+          name='opportunities'
           label='Elige una Oportunidad'
           selectedValue={query.opportunities}
           setSelected={(selected) => {
@@ -57,6 +60,7 @@ const Selects = (props: Props) => {
           placeholder='Elige una opportunities'
         />
         <SimpleSelect
+          name='themes'
           label='Elige un Tema'
           selectedValue={query.themes}
           setSelected={(selected) => {

@@ -39,6 +39,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
           rules={{ required: { value: true, message: 'Este campo es requerido' } }}
           render={({ field }) => (
             <SimpleSelect
+              name='country'
               field={field}
               label='Elige un pais'
               setSelected={(selected) => {
@@ -47,7 +48,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
               }}
               names={countries.slice(1)}
               placeholder='Elige un pais'
-              error={errors?.country?.message}
+              errorMessage={errors?.country?.message}
             />
           )}
         />
@@ -58,13 +59,14 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
           render={({ field }) => (
             <SimpleSelect
               field={field}
+              name='province'
               label='Elige una provincia/estado/departamento'
               setSelected={(selected) => {
                 setValue('province', selected)
               }}
               names={activeProvinces()}
               placeholder='Elige una provincia/estado/departamento'
-              error={errors?.province?.message}
+              errorMessage={errors?.province?.message}
             />
           )}
         />
@@ -73,7 +75,6 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
           name='adress'
           label='Direccion de encuentro'
           placeholder='Direccion de encuentro'
-          required={false}
           hookForm={{
             register,
             validations: {
@@ -84,7 +85,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
               required: { value: true, message: 'Este campo es requerido' }
             }
           }}
-          error={errors?.adress?.message}
+          errorMessage={errors?.adress?.message}
         />
       </div>
     </div>

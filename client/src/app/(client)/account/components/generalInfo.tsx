@@ -28,7 +28,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.firstName?.message}
+        errorMessage={errors?.firstName?.message?.toString()}
       />
       <Input
         type='text'
@@ -44,7 +44,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.lastName?.message}
+        errorMessage={errors?.lastName?.message?.toString()}
       />
       <Input
         type='email'
@@ -62,7 +62,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.email?.message}
+        errorMessage={errors?.email?.message?.toString()}
       />
       <Input
         type='text'
@@ -80,7 +80,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
-        error={errors?.username?.message}
+        errorMessage={errors?.username?.message?.toString()}
       />
     </div>
   </div>

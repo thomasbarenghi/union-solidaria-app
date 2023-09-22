@@ -32,7 +32,7 @@ const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
             }
           }
         }}
-        error={errors?.oldPassword?.message}
+        errorMessage={errors?.oldPassword?.message?.toString()}
       />
       <Input
         type='text'
@@ -52,7 +52,7 @@ const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
             }
           }
         }}
-        error={errors?.oldPassword?.message}
+        errorMessage={errors?.oldPassword?.message?.toString()}
       />
     </div>
   </div>

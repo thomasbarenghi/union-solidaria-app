@@ -1,4 +1,4 @@
-import { Input } from '@/components'
+import { Input, Textarea } from '@/components'
 
 const Contact = () => (
   <section className='flex w-full flex-col gap-6'>
@@ -9,7 +9,7 @@ const Contact = () => (
     <form className='flex flex-col gap-3'>
       <Input label='Nombre' type='text' name='name' placeholder='Nombre' />
       <Input label='Email' type='email' name='email' placeholder='Email' />
-      <Input label='Mensaje' type='textarea' rows={3} name='message' placeholder='Mensaje' />
+      <Textarea label='Mensaje' rows={4} name='message' placeholder='Mensaje' />
       <button className='primaryButton mt-4'>Enviar</button>
     </form>
   </section>
