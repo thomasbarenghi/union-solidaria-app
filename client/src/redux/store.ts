@@ -28,7 +28,7 @@ const store = configureStore({
       initiativesApi.middleware,
       currentUsersApi.middleware,
       authSessionApi.middleware,
-      reviewsApi.middleware as any
+      reviewsApi.middleware
     )
 })
 

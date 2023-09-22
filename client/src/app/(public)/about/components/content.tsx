@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import { missionAndVision, MissionAndVisionItem } from '../lib/missionAndVision'
 
 interface ContentItemProps {

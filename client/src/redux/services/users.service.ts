@@ -44,8 +44,16 @@ export const currentUsersApi = createApi({
         method: 'DELETE',
         body
       })
+    }),
+    getCurrentUser: builder.query<any, string>({
+      query: (id) => Endpoints.USER_BY_ID(id),
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled
+        await dispatch(updateCurrentUser(data.user))
+      }
     })
   })
 })
 
-export const { useDeleteUsersMutation, usePostUsersMutation, usePutUsersMutation } = currentUsersApi
+export const { useDeleteUsersMutation, usePostUsersMutation, usePutUsersMutation, useGetCurrentUserQuery } =
+  currentUsersApi

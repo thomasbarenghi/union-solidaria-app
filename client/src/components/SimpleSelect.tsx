@@ -6,7 +6,7 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 interface Props {
-  names: Array<{ value: string; label: string }>
+  names: Array<{ value: string, label: string }>
   name: string
   placeholder: string
   setSelected: (data: string) => void
