@@ -13,7 +13,7 @@ const Routes = {
   PROFILE: (username: string) => `/@${username}`,
   DASHBOARD: '/dashboard',
   FEED: '/feed',
-  INSTITUTIONAL: '/institutional',
+  INSTITUTIONAL: '/legal',
   DONATION: '/donation',
   INSTITUTIONAL_TYC: '/institutional/TYC',
   INSTITUTIONAL_PDP: '/institutional/PDP',
