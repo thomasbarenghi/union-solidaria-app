@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, ObjectId } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { IsNotEmpty } from 'class-validator';
 
 export type SessionDocument = HydratedDocument<Initiative>;
@@ -31,13 +31,17 @@ export class Initiative {
   @Prop({ required: false })
   galery?: string[];
 
-  @Prop({ required: false, default: 'https://res.cloudinary.com/dygpgsiei/image/upload/v1693699459/y48ke3c8mlgwjuksqmi1.webp' })
+  @Prop({
+    required: false,
+    default:
+      'https://res.cloudinary.com/dygpgsiei/image/upload/v1693699459/y48ke3c8mlgwjuksqmi1.webp',
+  })
   thumbnail?: string;
 
-  @Prop({ required: false })
-  volunteers?: string[];
+  @Prop({ required: false, default: [] })
+  volunteers?: Volunteer[];
 
-  @Prop({ required: false })
+  @Prop({ required: true })
   opportunities: string[];
 
   @Prop({ required: true })
@@ -78,6 +82,14 @@ export class Initiative {
   createdAt: Date;
 
   updatedAt: Date;
+}
+
+class Volunteer {
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  user: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ required: true })
+  status: 'pending' | 'accepted' | 'rejected';
 }
 
 export const InitiativeSchema = SchemaFactory.createForClass(Initiative);

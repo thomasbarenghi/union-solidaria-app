@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, ObjectId } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { IsNotEmpty, IsEmail } from 'class-validator';
+import { InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
+import {forwardRef} from '@nestjs/common';
 
 export type SessionDocument = HydratedDocument<User>;
 
@@ -61,8 +63,8 @@ export class User {
   @Prop({ required: false })
   posts?: string;
 
-  @Prop({ required: false })
-  subscribedVolunteers?: string;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }] })
+  subscribedInitiatives?: [mongoose.Schema.Types.ObjectId];
 
   @Prop({ required: false })
   createdInitiatives?: string;

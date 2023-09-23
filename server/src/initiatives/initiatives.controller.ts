@@ -10,6 +10,7 @@ import {
   UploadedFile,
   BadRequestException,
   Query,
+  Put,
 } from '@nestjs/common';
 import { InitiativesService } from './initiatives.service';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
@@ -17,6 +18,8 @@ import { UpdateInitiativeDto } from './dto/update-initiative.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { convertToArray } from 'src/utils/convertToArray.utils';
+import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dto';
+import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
 
 @Controller('initiatives')
 export class InitiativesController {
@@ -85,5 +88,24 @@ export class InitiativesController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.initiativesService.remove(id);
+  }
+
+  @Post('/subscribe')
+  subscribeUserToInitiative(
+    @Param('id') id: string,
+    @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
+  ) {
+    return this.initiativesService.subscribeUserToInitiative(
+      subscribeUserToInitiativeDto,
+    );
+  }
+
+  @Put('/subscription-status')
+  updateSubscriptionStatus(
+    @Body() updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
+  ) {
+    return this.initiativesService.updateSubscriptionStatus(
+      updateSubscriptionStatusDto,
+    );
   }
 }
