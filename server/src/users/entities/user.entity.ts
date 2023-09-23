@@ -60,8 +60,11 @@ export class User {
   @Prop({ required: false, default: '' })
   orgName?: string;
 
-  @Prop({ required: false, default: [] })
-  posts?: string[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    default: [],
+  })
+  posts?: mongoose.Schema.Types.ObjectId[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],

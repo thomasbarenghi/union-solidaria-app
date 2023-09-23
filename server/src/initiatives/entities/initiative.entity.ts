@@ -4,7 +4,7 @@ import { IsNotEmpty } from 'class-validator';
 
 export type SessionDocument = HydratedDocument<Initiative>;
 
-@Schema({timestamps: true})
+@Schema({ timestamps: true })
 export class Initiative {
   _id: ObjectId;
 
@@ -83,8 +83,17 @@ export class Initiative {
 
   updatedAt: Date;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+    default: [],
+  })
   reviews?: mongoose.Schema.Types.ObjectId[];
+
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    default: [],
+  })
+  posts?: mongoose.Schema.Types.ObjectId[];
 }
 
 class Volunteer {

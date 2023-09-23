@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
-import { ReviewsService } from './reviews.service';
-import { ReviewsController } from './reviews.controller';
+import { PostsService } from './posts.service';
+import { PostsController } from './posts.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Review, ReviewSchema } from './entities/review.entity';
 import { User, UserSchema } from 'src/users/entities/user.entity';
 import { Initiative, InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
+import { Post, PostSchema } from './entities/post.entity';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: Review.name, schema: ReviewSchema },
       { name: User.name, schema: UserSchema },
       { name: Initiative.name, schema: InitiativeSchema },
+      { name: Post.name, schema: PostSchema },
     ]),
   ],
-  controllers: [ReviewsController],
-  providers: [ReviewsService],
+  controllers: [PostsController],
+  providers: [PostsService],
 })
-export class ReviewsModule {}
+export class PostsModule {}

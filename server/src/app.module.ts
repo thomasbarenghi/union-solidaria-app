@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { InitiativesModule } from './initiatives/initiatives.module';
 import { AuthModule } from './auth/auth.module';
 import { ReviewsModule } from './reviews/reviews.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ReviewsModule } from './reviews/reviews.module';
     InitiativesModule,
     AuthModule,
     ReviewsModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [],
