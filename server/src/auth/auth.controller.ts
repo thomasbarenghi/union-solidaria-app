@@ -56,7 +56,7 @@ export class AuthController {
 
       delete req.session.redirectURL;
       const url = user
-        ? `${process.env.CLIENT_URL}/${slug}?userId=${user.id}&sessionId=${session.sessionId}`
+        ? `${process.env.CLIENT_URL}${slug}?userId=${user.id}&sessionId=${session.sessionId}`
         : `${process.env.CLIENT_URL}/login?failed=true`;
       return { url };
     } catch (error) {
