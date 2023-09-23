@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UploadApiErrorResponse, UploadApiResponse, v2 } from 'cloudinary';
+import { v2 } from 'cloudinary';
 import toStream = require('buffer-to-stream');
 import { SharpPipe } from 'src/cloudinary/sharp.pipe'; // Asegúrate de importar SharpPipe desde la ubicación correcta
 
@@ -9,7 +9,7 @@ export class CloudinaryService {
 
   async uploadImage(
     file: Express.Multer.File,
-  ): Promise<UploadApiResponse | UploadApiErrorResponse> {
+  ): Promise<string> {
     try {
       // Procesar la imagen con SharpPipe
       const optimizedImagePath = await this.sharpPipe.transform(file);
@@ -18,7 +18,7 @@ export class CloudinaryService {
       return new Promise((resolve, reject) => {
         const upload = v2.uploader.upload_stream((error, result) => {
           if (error) return reject(error);
-          resolve(result);
+          resolve(result.secure_url);
         });
 
         // Usar el archivo optimizado como entrada en lugar de file.buffer

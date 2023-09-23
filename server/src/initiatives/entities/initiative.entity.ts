@@ -76,12 +76,15 @@ export class Initiative {
   @IsNotEmpty({ message: 'themes is required' })
   themes: string[];
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: [] })
   donations?: string[];
 
   createdAt: Date;
 
   updatedAt: Date;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }] })
+  reviews?: mongoose.Schema.Types.ObjectId[];
 }
 
 class Volunteer {
