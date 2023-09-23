@@ -48,6 +48,14 @@ export class UsersService {
     }
   }
 
+  async findOneByEmail(email: string) {
+    try {
+      return await this.userModel.findOne({ email: email });
+    } catch (error) {
+      throw new NotFoundException();
+    }
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       return await this.userModel.findByIdAndUpdate(id, updateUserDto, {

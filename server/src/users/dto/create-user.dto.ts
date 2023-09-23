@@ -27,14 +27,13 @@ export class CreateUserDto {
   })
   password: string;
 
-  @IsNotEmpty({ message: 'bannerImage is required' })
-  bannerImage: string;
+
+  bannerImage?: string;
 
   @IsNotEmpty({ message: 'username is required' })
   username: string;
 
-  @IsNotEmpty({ message: 'profileImage is required' })
-  profileImage: string;
+  profileImage?: string;
 
   orgName?: string;
 }
