@@ -29,7 +29,7 @@ export class UsersService {
     }
 
     createUserDto.password = await encryptPassword(createUserDto.password);
-    return new this.userModel(createUserDto).save();
+    return await new this.userModel(createUserDto).save();
   }
 
   async findAll() {
@@ -43,6 +43,14 @@ export class UsersService {
   async findOne(id: string) {
     try {
       return await this.userModel.findById({ _id: id });
+    } catch (error) {
+      throw new NotFoundException();
+    }
+  }
+
+  async findOneByEmail(email: string) {
+    try {
+      return await this.userModel.findOne({ email: email });
     } catch (error) {
       throw new NotFoundException();
     }

@@ -29,7 +29,7 @@ const bootstrap = async () => {
         maxAge: 3600000,
       },
       store: new MongoDBStore({
-        collection: 'session',
+        collection: 'sessions',
         uri: process.env.MONGO_URI,
       }),
     }),
