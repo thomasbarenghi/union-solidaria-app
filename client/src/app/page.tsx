@@ -1,0 +1,20 @@
+import type { Metadata } from 'next'
+// import HeroSec from './components/hero'
+import InitiativesSec from './components/initiatives'
+import PromoSec from './components/promo'
+
+export const metadata: Metadata = {
+  title: 'Home | Unión Solidaria'
+}
+
+function Home() {
+  return (
+    <main className='mx-auto grid max-w-screen-md gap-y-10 p-4'>
+      {/* <HeroSec /> */}
+      <PromoSec />
+      <InitiativesSec />
+    </main>
+  )
+}
+
+export default Home

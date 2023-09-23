@@ -3,15 +3,19 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        hostname: 'images.unsplash.com'
       },
       {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
+        hostname: 'res.cloudinary.com'
+      }
     ],
+    disableStaticImages: true
   },
-};
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    // ignoreDuringBuilds: true
+  }
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

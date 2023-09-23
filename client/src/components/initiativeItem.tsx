@@ -1,42 +1,54 @@
-import Routes from "@/constants/routes";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+'use client'
+import { InitiativeInterface } from '@/interfaces'
+import Routes from '@/utils/constants/routes.const'
+import Image from 'next/image'
+import Link from 'next/link'
 
-type Props = {
-  title: string;
-  image: string;
-  location: string;
-  id: string;
-};
+interface Props {
+  initiative: InitiativeInterface
+}
 
-export default function InitiativeItem({ title, image, location, id }: Props) {
-  const router = useRouter();
+interface ItemProps {
+  imageSrc: string
+  text: string | null
+  icon?: boolean
+}
 
-  const handleClick = () => {
-    router.push(Routes.INITIATIVES + "/" + id);
-  };
-
+function Item({ imageSrc, text, icon = true }: ItemProps) {
+  const textStyle = icon ? 'text-gray-800' : 'text-pink-500'
   return (
-    <div className="cursor-pointer flex flex-col w-full" onClick={handleClick}>
-      <div className="flex flex-col gap-2 w-full ">
-        <div className="relative l w-full  aspect-[1/1]">
-          <Image
-            src={image}
-            fill
-            alt="Vercel Logo"
-            className="object-cover aspect-[1/1] rounded-2xl"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <div>
-            <h1 className="bodyText font-medium">{title}</h1>
-            <p className="text-sm font-light">{location}</p>
-          </div>
-          <button className="border-b w-max text-green-800 border-green-800 text-sm">
-            Inscríbete ahora
-          </button>
+    <div className='flex gap-2'>
+      {icon && <Image src={imageSrc} priority width={10} height={13} sizes='40vw' className='h-3 w-3' alt='icon' />}
+      <p className={`text-xs font-normal ${textStyle}`}>{text}</p>
+    </div>
+  )
+}
+
+export default function InitiativeItem({ initiative }: Props) {
+  return (
+    <Link
+      className='flex h-full flex-col gap-2 rounded-lg p-3 shadow-initiativeItem'
+      href={`${Routes.INITIATIVES}/${initiative?.id}`}
+    >
+      <div className='relative aspect-square '>
+        <Image
+          src={initiative.thumbnail}
+          priority
+          sizes='40vw'
+          fill
+          alt='thumbnail'
+          className='rounded-lg object-cover'
+        />
+      </div>
+      <div className='flex flex-col gap-2'>
+        <h1 className='bodyText truncate font-semibold'>{initiative.title}</h1>
+        <div className='flex flex-col gap-2'>
+          <Item imageSrc='' text={initiative.owner.orgName} icon={false} />
+          <Item imageSrc='/icon/location_on.svg' text={`${initiative.country}, ${initiative.province}`} />
+          <Item imageSrc='/icon/category.svg' text={initiative.opportunities.join(', ')} />
+          <Item imageSrc='/icon/family_link.svg' text={initiative.themes.join(', ')} />
         </div>
       </div>
-    </div>
-  );
+    </Link>
+  )
 }

@@ -1,125 +1,79 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosPutter, axiosPoster, axiosGetter } from "@/utils/requests";
-import { sessionBuilder } from "@/utils/state";
-import Endpoints from "@/constants/endpoints";
-import { AuthClass, UserClass } from "@/types";
-import { toast } from "sonner";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuthInterface, UserInterface } from '@/interfaces'
+import { PURGE } from 'redux-persist'
 
-const initialState = {
-  auth: {} as AuthClass,
-  session: {} as UserClass,
-};
-
-interface ThunkApiConfig {
-  dispatch: Function;
-  getState: Function;
+interface AuthState {
+  auth: AuthInterface
+  session: UserInterface
 }
 
-export const setSession = createAsyncThunk(
-  "auth/setSession",
-  async (userId: string) => {
-    console.log("userId", userId);
-    return await axiosGetter({
-      url: Endpoints.USERS + "/" + userId,
-    });
+const initialState: AuthState = {
+  auth: {
+    isLogged: false,
+    sessionId: ''
   },
-);
+  session: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    birthday: '',
+    phone: '',
+    email: '',
+    role: 'volunteer',
+    password: '',
+    bannerImage: '',
+    username: '',
+    profileImage: '',
+    orgName: '',
+    posts: [],
+    reviews: []
+  }
+}
 
-export const login = createAsyncThunk(
-  "auth/login",
-  async (credentials: { email: string; password: string }, {dispatch}) => {
-    const data = await axiosPoster({
-      url: Endpoints.LOGIN,
-      body: credentials,
-    });
-    await dispatch(setSession(data.userId));
-    return data;
-  },
-);
-
-export const register = createAsyncThunk(
-  "auth/register",
-  async (userData: any) => {
-    const data = {} as any;
-    return data.createUser;
-  },
-);
-
-export const editUser = createAsyncThunk(
-  "auth/editUser",
-  async (userData: any, { getState }: ThunkApiConfig) => {
-    try {
-      const state = getState();
-      userData.userId = state.authSession.session.id;
-      userData.filenamePi = userData.profileImage
-        ? userData.profileImage.name
-        : "";
-      userData.filenameCi = userData.coverImage ? userData.coverImage.name : "";
-      const res = await axiosPutter(
-        "/rest/users/edit",
-        userData,
-        "multipart/form-data",
-      );
-      return res.data;
-    } catch (err: any) {
-      console.error("Error al crear el usuario", err);
-      throw new Error("Error al crear el usuario", err);
-    }
-  },
-);
-
-export const changePassword = createAsyncThunk(
-  "auth/changePassword",
-  async (userData: any, { getState }: ThunkApiConfig) => {
-    const state = getState();
-    userData.userId = state.authSession.session.id;
-    const data = {} as any;
-    return data;
-  },
-);
-
-const postsSlice = createSlice({
-  name: "auth",
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<AuthClass>) => {
-      state.auth = action.payload;
+    updateCurrentUser: (state, action: PayloadAction<UserInterface>) => {
+      console.log('updateCurrentUser', action)
+      state.session = {
+        ...state.session,
+        ...action.payload
+      }
+    },
+    setAuth: (state, action: PayloadAction<AuthInterface>) => {
+      console.log('setAuth', action)
+      state.auth = action.payload
+      // seteamos una cookie que vence en 1 dia
+      document.cookie = `sessionId=${action.payload.sessionId}; max-age=86400; path=/`
     },
     resetReducer: (state) => {
-      state.auth.isLogged = false;
-      state.session = {} as UserClass;
-    },
+      state.auth.isLogged = false
+      state.session = {
+        id: '',
+        firstName: '',
+        lastName: '',
+        birthday: '',
+        phone: '',
+        email: '',
+        role: 'volunteer',
+        password: '',
+        bannerImage: '',
+        username: '',
+        profileImage: '',
+        orgName: '',
+        posts: [],
+        reviews: []
+      }
+    }
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(setSession.fulfilled, (state, action) => {
-        state.session = action.payload.user;
-      })
-      .addCase(login.rejected, (state, action) => {
-        toast.error("Verifica las credenciales");
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        toast.success("Registro exitoso");
-      })
-      .addCase(register.rejected, (state, action) => {
-        toast.error("Verifica los datos");
-      })
-      .addCase(editUser.fulfilled, (state, action) => {
-        state.session = sessionBuilder(action.payload);
-        toast.success("Edición exitosa");
-      })
-      .addCase(editUser.rejected, (state, action) => {
-        toast.error("Verifica los datos");
-      })
-      .addCase(changePassword.fulfilled, (state, action) => {
-        toast.success("Edición exitosa");
-      })
-      .addCase(changePassword.rejected, (state, action) => {
-        toast.error("Verifica los datos");
-      });
-  },
-});
+    builder.addCase(PURGE, () => {
+      return initialState
+    })
+  }
+})
 
-export const { setAuth, resetReducer } = postsSlice.actions;
+export const { setAuth, resetReducer, updateCurrentUser } = authSlice.actions
 
-export default postsSlice.reducer;
+export default authSlice.reducer
