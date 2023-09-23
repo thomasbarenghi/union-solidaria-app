@@ -4,7 +4,7 @@ import { IsNotEmpty } from 'class-validator';
 
 export type SessionDocument = HydratedDocument<Initiative>;
 
-@Schema()
+@Schema({timestamps: true})
 export class Initiative {
   _id: ObjectId;
 

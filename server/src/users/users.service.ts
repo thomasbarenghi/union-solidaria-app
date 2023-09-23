@@ -16,21 +16,17 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto) {
-    await this.userModel
-      .findOne({
-        email: createUserDto.email,
-      })
-      .catch(() => {
-        throw new ConflictException('Email already exists');
-      });
+    const email = await this.userModel.findOne({
+      email: createUserDto.email,
+    });
 
-    await this.userModel
-      .findOne({
-        username: createUserDto.username,
-      })
-      .catch(() => {
-        throw new ConflictException('Username already exists');
-      });
+    if (email) throw new ConflictException('Email already exists');
+
+    const username = await this.userModel.findOne({
+      username: createUserDto.username,
+    });
+
+    if (username) throw new ConflictException('Username already exists');
 
     createUserDto.password = await encryptPassword(createUserDto.password);
     return await new this.userModel(createUserDto).save();

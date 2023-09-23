@@ -39,16 +39,12 @@ export class ReviewsService {
         throw new NotFoundException('Initiative author not found');
       });
 
-    await this.reviewModel
-      .findOne({
-        author: author._id,
-        initiative: initiative._id,
-      })
-      .catch(() => {
-        throw new ConflictException(
-          'You already made a review for this initiative',
-        );
-      });
+    const alreadyReviewed = await this.reviewModel.findOne({
+      author: author._id.toString(),
+      initiative: initiative._id.toString(),
+    });
+
+    if (alreadyReviewed) throw new ConflictException('Already reviewed');
 
     const isPartOfInitiative = initiative.volunteers.find(
       (member) => member.user.toString() === author._id.toString(),
@@ -64,9 +60,10 @@ export class ReviewsService {
       ...createReviewDto,
       initiative: initiative._id,
       author: author._id,
+      initiativeOwner: initiativeAuthor._id,
     });
 
-    initiative.reviews.push(initiative._id);
+    initiative.reviews.push(review._id);
     author.reviews.push(review._id);
     initiativeAuthor.reviews.push(review._id);
 

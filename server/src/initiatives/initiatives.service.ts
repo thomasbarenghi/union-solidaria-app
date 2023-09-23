@@ -21,10 +21,22 @@ export class InitiativesService {
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
   async create(createInitiativeDto: CreateInitiativeDto) {
-    await this.userModel.findById(createInitiativeDto.owner).catch(() => {
-      throw new NotFoundException('User not found');
-    });
-    return await new this.initiativeModel(createInitiativeDto).save();
+    const owner = await this.userModel
+      .findById(createInitiativeDto.owner)
+      .catch(() => {
+        throw new NotFoundException('User not found');
+      });
+
+    const initiative = await this.initiativeModel
+      .create(createInitiativeDto)
+      .catch(() => {
+        throw new BadRequestException('Unable to create initiative');
+      });
+
+    owner.createdInitiatives.push(initiative._id);
+    await owner.save();
+
+    return initiative;
   }
 
   async findAll(country, province, title, themes, opportunities) {
@@ -103,11 +115,10 @@ export class InitiativesService {
       (subscription) => subscription.user.toString() === user._id.toString(),
     );
 
-    if (existingSubscription) {
+    if (existingSubscription)
       throw new ConflictException(
         'User is already subscribed to this initiative.',
       );
-    }
 
     user.subscribedInitiatives.push(initiative._id);
     initiative.volunteers.push({ user: user._id, status: 'pending' });
