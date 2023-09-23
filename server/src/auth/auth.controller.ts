@@ -48,7 +48,6 @@ export class AuthController {
   async googleAuthRedirect(
     @Session() session,
     @Request() req,
-    @Res({ passthrough: true }) response: Response,
   ) {
     try {
       const { session, user } = req;

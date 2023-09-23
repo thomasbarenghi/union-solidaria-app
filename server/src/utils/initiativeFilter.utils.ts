@@ -9,21 +9,19 @@ export const buildQueryInitiative = (params): any => {
     query.province = params.province;
   }
 
-  if (params.name !== undefined && params.name !== '') {
-    query.title = {
-      contains: params.name,
-    };
+  if (params.title !== undefined && params.title !== '') {
+    query.title = { $regex: params.title, $options: 'i' };
   }
 
   if (params.themes !== undefined && params.themes !== '') {
     query.themes = {
-      has: params.themes,
+      $elemMatch: { $eq: params.themes },
     };
   }
 
   if (params.opportunities !== undefined && params.opportunities !== '') {
     query.opportunities = {
-      has: params.opportunities,
+      $elemMatch: { $eq: params.opportunities },
     };
   }
   return query;

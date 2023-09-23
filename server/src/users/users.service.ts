@@ -29,7 +29,7 @@ export class UsersService {
     }
 
     createUserDto.password = await encryptPassword(createUserDto.password);
-    return new this.userModel(createUserDto).save();
+    return await new this.userModel(createUserDto).save();
   }
 
   async findAll() {

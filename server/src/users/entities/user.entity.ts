@@ -56,22 +56,22 @@ export class User {
   profileImage?: string;
 
   @Prop({ required: false })
-  orgName: string;
+  orgName?: string;
 
   @Prop({ required: false })
-  posts: string;
+  posts?: string;
 
   @Prop({ required: false })
-  subscribedVolunteers: string;
+  subscribedVolunteers?: string;
 
   @Prop({ required: false })
-  createdInitiatives: string;
+  createdInitiatives?: string;
 
   @Prop({ required: false })
-  emitedReviews: string;
+  emitedReviews?: string;
 
   @Prop({ required: false })
-  donations: string;
+  donations?: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
