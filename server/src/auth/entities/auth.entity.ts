@@ -1,7 +1,7 @@
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
- export class Session{
+export class Session {
   id: string;
   expires: Date;
   session: SessionInfo;

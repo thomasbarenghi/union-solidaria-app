@@ -33,19 +33,13 @@ export class AuthService {
 
   async findSessionById(sessionId: string) {
     try {
-      const session = await this.authModel.findOne({
-        session: {
-          sessionId: sessionId,
-        },
+      const session = await this.authModel.find({
+        'session.sessionId': sessionId,
       });
-
       if (!session) return null;
-
-      const tediousObject = session[0] as object;
-      const stringTediousObject = JSON.stringify(tediousObject);
-      const jsonResponse = JSON.parse(stringTediousObject);
-
-      return jsonResponse.session.sessionId === sessionId;
+      const parsedSessionId = JSON.parse(JSON.stringify(session[0])).session
+        .sessionId;
+      return parsedSessionId === sessionId;
     } catch (error) {
       console.log('Error findSessionById', error);
       throw new Error('Error while fetching sessions: ' + error.message);

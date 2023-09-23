@@ -72,7 +72,7 @@ export class AuthController {
     @Request() req,
   ): Promise<any> {
     try {
-      const { userid, sessionid } = req.headers;
+      const { sessionid } = req.headers;
       const session = await this.authService.findSessionById(sessionid);
       if (session) {
         return res.status(200).json({ verified: true });
