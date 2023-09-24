@@ -8,8 +8,8 @@ interface Props {
 }
 
 const InitiativeItem = ({ item }: Props) => (
-  <div className='flex w-full cursor-pointer flex-col' key={item.id}>
-    <Link href={Routes.INDIVIDUAL_INITIATIVE(item.id)}>
+  <div className='relative flex w-full cursor-pointer flex-col' key={item._id}>
+    <Link href={Routes.INDIVIDUAL_INITIATIVE(item._id)}>
       <div className='flex w-full flex-col gap-2 '>
         <div className='l relative aspect-[1/1]  w-full'>
           <Image src={item.thumbnail} fill alt='Vercel Logo' className='aspect-[1/1] rounded-2xl object-cover' />
@@ -21,7 +21,7 @@ const InitiativeItem = ({ item }: Props) => (
               {item.country}, {item.province}{' '}
             </p>
           </div>
-          <button className='w-max border-b border-green-800 text-sm text-green-800'>Inscríbete ahora</button>
+          <button className='w-max border-b border-green-800 text-sm text-green-800'>Ver iniciativa</button>
         </div>
       </div>
     </Link>

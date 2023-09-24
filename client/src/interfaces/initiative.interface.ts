@@ -1,7 +1,7 @@
 import { UserInterface } from './user.interface'
 
 export interface InitiativeInterface {
-  id: string
+  _id: string
   title: string
   description: string
   deadLine: Date
@@ -9,7 +9,7 @@ export interface InitiativeInterface {
   endDate: Date
   galery: string
   thumbnail: string
-  volunteers: any[]
+  volunteers: Volunteers[]
   categories: string[]
   opportunities: string[]
   country: string
@@ -28,4 +28,9 @@ export interface InitiativeInterface {
   languages: string[]
   reviews: string[]
   owner: UserInterface
+}
+
+interface Volunteers {
+  status: 'accepted' | 'pending' | 'refused'
+  user: UserInterface
 }

@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   InternalServerErrorException,
+  Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -56,7 +57,7 @@ export class UsersController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'bannerImage', maxCount: 1 },
@@ -88,8 +89,8 @@ export class UsersController {
       if (!currentUser) throw new BadRequestException('User not found');
 
       if (
-        updateUserDto.newPassword.length >= 0 &&
-        updateUserDto.oldPassword.length >= 0
+        updateUserDto?.newPassword?.length >= 0 &&
+        updateUserDto?.oldPassword?.length >= 0
       ) {
         const newPass = await changePassword(
           updateUserDto.oldPassword,
@@ -99,8 +100,8 @@ export class UsersController {
         updateUserDto.password = newPass;
       }
 
-      delete updateUserDto.oldPassword;
-      delete updateUserDto.newPassword;
+      delete updateUserDto?.oldPassword;
+      delete updateUserDto?.newPassword;
 
       updateUserDto = removeEmptyProperties(updateUserDto);
       return await this.usersService.update(userId, updateUserDto);

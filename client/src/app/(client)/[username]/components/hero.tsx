@@ -1,21 +1,19 @@
 'use client'
 import { UsersHero } from '@/components'
-import Routes from '@/utils/constants/routes.const'
 import { useAppSelector } from '@/redux/hooks'
-import { currentUserSelector } from '@/redux/selectors/users'
+import { loggedUserSelector } from '@/redux/selectors/users'
 import useSWR from 'swr'
 import Endpoints from '@/utils/constants/endpoints.const'
 
 const HeroSec = ({ username }: { username: string }) => {
-  const { data: currentActiveUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
-  const currentUser = useAppSelector(currentUserSelector)
+  const { data: currentUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
+  const loggedUser = useAppSelector(loggedUserSelector)
   return (
     <UsersHero
       isLoading={isLoading}
-      user={currentActiveUser?.user}
-      withButton={currentActiveUser?.user?.id === currentUser?.id}
-      buttonText='Editar cuenta'
-      buttonLink={Routes.EDIT_ACCOUNT}
+      user={currentUser}
+      withAccountButton={currentUser?._id === loggedUser?._id}
+      withInitiativesButton={currentUser?.role === 'organization'}
     />
   )
 }

@@ -13,7 +13,7 @@ export const currentUsersApi = createApi({
     baseUrl,
     prepareHeaders: (headers, { getState }) => {
       headers.set('sessionId', (getState() as RootState).authSession.auth.sessionId ?? '')
-      headers.set('userId', (getState() as RootState).authSession.session.id ?? '')
+      headers.set('userId', (getState() as RootState).authSession.session._id ?? '')
     }
   }),
   endpoints: (builder) => ({
@@ -40,7 +40,7 @@ export const currentUsersApi = createApi({
     }),
     deleteUsers: builder.mutation<UserInterface, UserInterface>({
       query: (body) => ({
-        url: Endpoints.USER_BY_ID(body.id),
+        url: Endpoints.USER_BY_ID(body._id),
         method: 'DELETE',
         body
       })
@@ -49,7 +49,7 @@ export const currentUsersApi = createApi({
       query: (id) => Endpoints.USER_BY_ID(id),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled
-        await dispatch(updateCurrentUser(data.user))
+        await dispatch(updateCurrentUser(data))
       }
     })
   })

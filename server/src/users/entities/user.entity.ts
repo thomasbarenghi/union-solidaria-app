@@ -70,13 +70,13 @@ export class User {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
     default: [],
   })
-  subscribedInitiatives?: [mongoose.Schema.Types.ObjectId];
+  initiatives?: [mongoose.Schema.Types.ObjectId];
 
   @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
     default: [],
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
   })
-  createdInitiatives?: mongoose.Schema.Types.ObjectId[];
+  favorites?: [mongoose.Schema.Types.ObjectId];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],

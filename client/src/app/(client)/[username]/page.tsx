@@ -10,7 +10,7 @@ interface Props {
 const Profile = ({ params }: Props) => (
   <>
     <HeroSec username={params.username.slice(3)} />
-    <article className='section-padding-1 container-section article-layout-1 listContainer'>
+    <article className='section-padding-1 container-section !py-14 article-layout-1 listContainer'>
       <Content username={params.username.slice(3)} />
     </article>
   </>

@@ -7,7 +7,7 @@ import LocationInfo from './locationInfo'
 import DateTime from './dateTime'
 import Multimedia from './multimedia'
 import { usePostInitiativesMutation } from '@/redux/services/initiatives.service'
-import { currentUserSelector } from '@/redux/selectors/users'
+import { loggedUserSelector } from '@/redux/selectors/users'
 import { useRouter } from 'next/navigation'
 import Routes from '@/utils/constants/routes.const'
 
@@ -32,7 +32,7 @@ export interface FormProps {
 const FormSec = () => {
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
-  const { id } = useAppSelector(currentUserSelector)
+  const { _id } = useAppSelector(loggedUserSelector)
   const [addPost] = usePostInitiativesMutation()
   const {
     register,
@@ -52,16 +52,16 @@ const FormSec = () => {
     try {
       const formData = {
         ...data,
-        ownerId: id,
+        ownerId: _id,
         startDate: new Date(data.startDate).toISOString(),
         endDate: new Date(data.endDate).toISOString(),
         thumbnail: data.thumbnail[0],
         deadLine: new Date(data.deadLine).toISOString()
       }
       const res = await addPost(formData).unwrap()
-      console.log(res.id, res)
+      console.log(res._id, res)
       cleanForm()
-      router.push(Routes.INDIVIDUAL_INITIATIVE(res.id))
+      router.push(Routes.INDIVIDUAL_INITIATIVE(res._id))
     } catch (err) {
       alert('Error al crear la iniciativa')
     }

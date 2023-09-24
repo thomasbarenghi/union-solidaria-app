@@ -33,7 +33,7 @@ export class InitiativesService {
         throw new BadRequestException('Unable to create initiative');
       });
 
-    owner.createdInitiatives.push(initiative._id);
+    owner.initiatives.push(initiative._id);
     await owner.save();
 
     return initiative;
@@ -120,7 +120,7 @@ export class InitiativesService {
         'User is already subscribed to this initiative.',
       );
 
-    user.subscribedInitiatives.push(initiative._id);
+    user.initiatives.push(initiative._id);
     initiative.volunteers.push({ user: user._id, status: 'pending' });
     await user.save();
     await initiative.save();

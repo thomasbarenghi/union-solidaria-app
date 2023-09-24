@@ -5,14 +5,14 @@ import { createDonationToPlatform } from '@/services/stripe/payments.service'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useAppSelector } from '@/redux/hooks'
-import { currentUserSelector } from '@/redux/selectors/users'
+import { loggedUserSelector } from '@/redux/selectors/users'
 
 const Donation = () => {
   const router = useRouter()
   const min = 0
   const max = 1000
   const [value, setValue] = useState(min)
-  const { id } = useAppSelector(currentUserSelector)
+  const { id } = useAppSelector(loggedUserSelector)
 
   const handleChange = (newValue: number | number[]) => {
     setValue(newValue as number)

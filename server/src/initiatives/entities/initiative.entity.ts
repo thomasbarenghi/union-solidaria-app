@@ -56,9 +56,11 @@ export class Initiative {
   @IsNotEmpty({ message: 'address is required' })
   address: string;
 
-  @Prop({ required: true })
-  @IsNotEmpty({ message: 'owner is required' })
-  owner: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    default: [],
+  })
+  owner: mongoose.Schema.Types.ObjectId[];
 
   @Prop({ required: true })
   @IsNotEmpty({ message: 'startHour is required' })

@@ -29,7 +29,7 @@ export const initiativesApi = createApi({
       query: (body) => {
         const bodyFormData = objectToFormData(body)
         return {
-          url: Endpoints.INITIATIVES_BY_ID(body.id),
+          url: Endpoints.INITIATIVES_BY_ID(body._id),
           method: 'PUT',
           body: bodyFormData
         }
@@ -37,7 +37,7 @@ export const initiativesApi = createApi({
     }),
     deleteInitiatives: builder.mutation<InitiativeInterface, InitiativeInterface>({
       query: (body) => ({
-        url: Endpoints.INITIATIVES_BY_ID(body.id),
+        url: Endpoints.INITIATIVES_BY_ID(body._id),
         method: 'DELETE',
         body
       })
