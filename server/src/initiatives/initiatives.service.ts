@@ -13,6 +13,7 @@ import { Model } from 'mongoose';
 import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dto';
 import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
 import { User } from 'src/users/entities/user.entity';
+import { populateInitiative } from 'src/constants/populateInitiative.const';
 
 @Injectable()
 export class InitiativesService {
@@ -59,13 +60,7 @@ export class InitiativesService {
   async findOne(id: string): Promise<Initiative | null> {
     const result = await this.initiativeModel
       .findOne({ _id: id })
-      .populate({
-        path: 'volunteers',
-        populate: {
-          path: 'user',
-          model: 'User',
-        },
-      })
+      .populate(populateInitiative())
       .catch(() => {
         throw new NotFoundException(`Initiative not found`);
       });

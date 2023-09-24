@@ -14,7 +14,7 @@ export interface InitiativeInterface {
   opportunities: string[]
   country: string
   province: string
-  adress: string
+  address: string
   reviewsId: string[]
   postsId: string[]
   ownerId: string
