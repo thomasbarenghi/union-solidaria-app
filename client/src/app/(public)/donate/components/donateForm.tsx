@@ -12,7 +12,7 @@ const Donation = () => {
   const min = 0
   const max = 1000
   const [value, setValue] = useState(min)
-  const { id } = useAppSelector(loggedUserSelector)
+  const { _id } = useAppSelector(loggedUserSelector)
 
   const handleChange = (newValue: number | number[]) => {
     setValue(newValue as number)
@@ -22,7 +22,7 @@ const Donation = () => {
     try {
       const payment: IDonationPayment = {
         amount: value,
-        userId: id,
+        userId: _id,
         initiativeId: 'globalDonation'
       }
       const { sessionUrl } = await createDonationToPlatform(payment)
