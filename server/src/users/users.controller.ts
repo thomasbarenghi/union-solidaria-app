@@ -19,6 +19,7 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { changePassword } from 'src/utils/changePassword.utils';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { removeEmptyProperties } from 'src/utils/removeEmptyProperties.utils';
+import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
 
 @Controller('users')
 export class UsersController {
@@ -115,6 +116,16 @@ export class UsersController {
   remove(@Param('id') userId: string) {
     try {
       return this.usersService.remove(userId);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Put('favorites')
+  modifyFavorites(@Body() modifyFavoriteDto: ModifyFavoriteDto) {
+    try {
+      return this.usersService.modifyFavorites(modifyFavoriteDto);
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException();

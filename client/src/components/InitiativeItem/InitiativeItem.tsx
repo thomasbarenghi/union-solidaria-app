@@ -2,6 +2,7 @@ import { InitiativeInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
 import Image from 'next/image'
 import Link from 'next/link'
+import FavoriteChip from './FavoriteChip'
 
 interface Props {
   item: InitiativeInterface
@@ -9,6 +10,7 @@ interface Props {
 
 const InitiativeItem = ({ item }: Props) => (
   <div className='relative flex w-full cursor-pointer flex-col' key={item._id}>
+    <FavoriteChip initiative={item} />
     <Link href={Routes.INDIVIDUAL_INITIATIVE(item._id)}>
       <div className='flex w-full flex-col gap-2 '>
         <div className='l relative aspect-[1/1]  w-full'>

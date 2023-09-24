@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { serverUrl } from '@/utils/constants/env.const'
 
-export const putRequest = async (url: string, data: object, contentType: string): Promise<AxiosResponse> => {
+export const putRequest = async (url: string, data: object, contentType?: string): Promise<AxiosResponse> => {
   const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
     headers: {
       'Content-Type': contentType

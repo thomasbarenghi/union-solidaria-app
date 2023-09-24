@@ -15,6 +15,7 @@ import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative
 import { User } from 'src/users/entities/user.entity';
 import { populateInitiative } from 'src/constants/populateInitiative.const';
 
+
 @Injectable()
 export class InitiativesService {
   constructor(

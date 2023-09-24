@@ -13,7 +13,7 @@ const HeroSec = ({ username }: { username: string }) => {
       isLoading={isLoading}
       user={currentUser}
       withAccountButton={currentUser?._id === loggedUser?._id}
-      withInitiativesButton={currentUser?.role === 'organization'}
+      withInitiativesButton={currentUser?.role === 'organization' && currentUser?._id === loggedUser?._id}
     />
   )
 }

@@ -76,7 +76,7 @@ export class User {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
     default: [],
   })
-  favorites?: [mongoose.Schema.Types.ObjectId];
+  favorites?: mongoose.Schema.Types.ObjectId[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],

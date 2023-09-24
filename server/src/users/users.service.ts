@@ -11,10 +11,15 @@ import { Model } from 'mongoose';
 import { User } from './entities/user.entity';
 import { encryptPassword } from 'src/utils/bcrypt.utils';
 import { populateUser } from 'src/constants/populateUser.const';
+import { Initiative } from 'src/initiatives/entities/initiative.entity';
+import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Initiative.name) private initiativeModel: Model<Initiative>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const email = await this.userModel.findOne({
@@ -50,7 +55,9 @@ export class UsersService {
         });
     } else {
       console.log('username');
-      const user = await this.userModel.findOne({ username: id }).populate(populateUser(true, true));
+      const user = await this.userModel
+        .findOne({ username: id })
+        .populate(populateUser(true, true));
 
       if (!user) throw new NotFoundException("User doesn't exist");
       return user;
@@ -71,5 +78,39 @@ export class UsersService {
     return await this.userModel.findOneAndDelete({ _id: id }).catch(() => {
       throw new NotFoundException("User doesn't exist");
     });
+  }
+
+  async modifyFavorites(modifyFavoriteDto: ModifyFavoriteDto) {
+    const { userId, initiativeId } = modifyFavoriteDto;
+
+    const user = await this.userModel.findById(userId).catch(() => {
+      throw new NotFoundException('User not found');
+    });
+
+    const initiative = await this.initiativeModel
+      .findById(initiativeId)
+      .catch(() => {
+        throw new NotFoundException('Initiative not found');
+      });
+
+    const existingFavorite = user.favorites.find(
+      (favorite) => favorite.toString() === initiative._id.toString(),
+    );
+
+    if (existingFavorite) {
+      user.favorites = user.favorites.filter(
+        (favorite) => favorite.toString() !== initiative._id.toString(),
+      );
+    } else {
+      user.favorites.push(initiative._id);
+    }
+
+    await user.save();
+
+    return {
+      message: `Initiative ${initiative.title} ${
+        existingFavorite ? 'removed from' : 'added to'
+      } favorites`,
+    };
   }
 }
