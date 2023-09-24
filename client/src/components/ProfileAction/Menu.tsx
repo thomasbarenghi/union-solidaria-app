@@ -1,12 +1,12 @@
 'use client'
 import { useAppSelector } from '@/redux/hooks'
-import { currentUserSelector } from '@/redux/selectors/users'
+import { loggedUserSelector } from '@/redux/selectors/users'
 import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
 import clsx from 'clsx'
 import NextLink from 'next/link'
 
 const Menu = () => {
-  const currentUser = useAppSelector(currentUserSelector)
+  const currentUser = useAppSelector(loggedUserSelector)
   const items: ItemNavInterface[] = itemsNavBuilder(currentUser)
   const dangerStyle = clsx('text-red-800', 'hover:!bg-red-100', 'hover:text-red-800')
   return (

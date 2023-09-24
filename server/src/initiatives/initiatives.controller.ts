@@ -8,9 +8,9 @@ import {
   Delete,
   UseInterceptors,
   UploadedFile,
-  BadRequestException,
   Query,
   Put,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { InitiativesService } from './initiatives.service';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
@@ -36,12 +36,8 @@ export class InitiativesController {
   ) {
     try {
       if (thumbnail) {
-        const response = await this.cloudinaryService
-          .uploadImage(thumbnail)
-          .catch(() => {
-            throw new BadRequestException('Invalid file type.');
-          });
-        createInitiativeDto.thumbnail = response.secure_url;
+        createInitiativeDto.thumbnail =
+          await this.cloudinaryService.uploadImage(thumbnail);
       }
 
       createInitiativeDto.themes = convertToArray(createInitiativeDto.themes);
@@ -63,18 +59,28 @@ export class InitiativesController {
     @Query('themes') themes: string,
     @Query('opportunities') opportunities: string,
   ) {
-    return this.initiativesService.findAll(
-      country,
-      province,
-      title,
-      themes,
-      opportunities,
-    );
+    try {
+      return this.initiativesService.findAll(
+        country,
+        province,
+        title,
+        themes,
+        opportunities,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.initiativesService.findOne(id);
+    try {
+      return this.initiativesService.findOne(id);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Patch(':id')
@@ -82,30 +88,49 @@ export class InitiativesController {
     @Param('id') id: string,
     @Body() updateInitiativeDto: UpdateInitiativeDto,
   ) {
-    return this.initiativesService.update(id, updateInitiativeDto);
+    try {
+      return this.initiativesService.update(id, updateInitiativeDto);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.initiativesService.remove(id);
+    try {
+      return this.initiativesService.remove(id);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Post('/subscribe')
   subscribeUserToInitiative(
-    @Param('id') id: string,
     @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ) {
-    return this.initiativesService.subscribeUserToInitiative(
-      subscribeUserToInitiativeDto,
-    );
+    try {
+      return this.initiativesService.subscribeUserToInitiative(
+        subscribeUserToInitiativeDto,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Put('/subscription-status')
   updateSubscriptionStatus(
     @Body() updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ) {
-    return this.initiativesService.updateSubscriptionStatus(
-      updateSubscriptionStatusDto,
-    );
+    try {
+      return this.initiativesService.updateSubscriptionStatus(
+        updateSubscriptionStatusDto,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 }

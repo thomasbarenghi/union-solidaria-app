@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { IsNotEmpty, IsEmail } from 'class-validator';
 import { InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
-import {forwardRef} from '@nestjs/common';
+import { forwardRef } from '@nestjs/common';
 
 export type SessionDocument = HydratedDocument<User>;
 
@@ -57,22 +57,34 @@ export class User {
   })
   profileImage?: string;
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: '' })
   orgName?: string;
 
-  @Prop({ required: false })
-  posts?: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    default: [],
+  })
+  posts?: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }] })
-  subscribedInitiatives?: [mongoose.Schema.Types.ObjectId];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
+    default: [],
+  })
+  initiatives?: [mongoose.Schema.Types.ObjectId];
 
-  @Prop({ required: false })
-  createdInitiatives?: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
+    default: [],
+  })
+  favorites?: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ required: false })
-  emitedReviews?: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+    default: [],
+  })
+  reviews?: mongoose.Schema.Types.ObjectId[];
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: '' })
   donations?: string;
 }
 

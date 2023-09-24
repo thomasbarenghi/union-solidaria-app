@@ -1,8 +1,8 @@
 import {
   Injectable,
+  BadRequestException,
   NotFoundException,
-  InternalServerErrorException,
-  NotAcceptableException
+  ConflictException,
 } from '@nestjs/common';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
 import { UpdateInitiativeDto } from './dto/update-initiative.dto';
@@ -13,6 +13,8 @@ import { Model } from 'mongoose';
 import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dto';
 import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
 import { User } from 'src/users/entities/user.entity';
+import { populateInitiative } from 'src/constants/populateInitiative.const';
+
 
 @Injectable()
 export class InitiativesService {
@@ -21,137 +23,135 @@ export class InitiativesService {
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
   async create(createInitiativeDto: CreateInitiativeDto) {
-    try {
-      console.log(createInitiativeDto);
-      return await new this.initiativeModel(createInitiativeDto).save();
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException();
-    }
+    const owner = await this.userModel
+      .findById(createInitiativeDto.owner)
+      .catch(() => {
+        throw new NotFoundException('User not found');
+      });
+
+    const initiative = await this.initiativeModel
+      .create(createInitiativeDto)
+      .catch(() => {
+        throw new BadRequestException('Unable to create initiative');
+      });
+
+    owner.initiatives.push(initiative._id);
+    await owner.save();
+
+    return initiative;
   }
 
   async findAll(country, province, title, themes, opportunities) {
-    try {
-      console.log(country, province, title, themes, opportunities);
-      const query = buildQueryInitiative({
-        country,
-        province,
-        title,
-        opportunities,
-        themes,
-      });
-      return await this.initiativeModel.find({
+    const query = buildQueryInitiative({
+      country,
+      province,
+      title,
+      opportunities,
+      themes,
+    });
+    return await this.initiativeModel
+      .find({
         ...query,
+      })
+      .catch(() => {
+        throw new BadRequestException();
       });
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException();
-    }
   }
 
   async findOne(id: string): Promise<Initiative | null> {
-    try {
-      const result = await this.initiativeModel.findOne({ _id: id }).populate({
-        path: 'volunteers',
-        populate: {
-          path: 'user',
-          model: 'User',
-        },
+    const result = await this.initiativeModel
+      .findOne({ _id: id })
+      .populate(populateInitiative())
+      .catch(() => {
+        throw new NotFoundException(`Initiative not found`);
       });
 
-      if (!result) {
-        throw new NotFoundException(`Initiative ${id} not found`);
-      }
+    if (!result) throw new NotFoundException(`Initiative ${id} not found`);
 
-      return result;
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException();
-    }
+    return result;
   }
 
   async update(
     id: string,
     updateInitiativeDto: UpdateInitiativeDto,
   ): Promise<Initiative> {
-    try {
-      return await this.initiativeModel.findByIdAndUpdate(
-        id,
-        updateInitiativeDto,
-        {
-          new: true,
-        },
-      );
-    } catch (error) {
-      throw new NotFoundException();
-    }
+    return await this.initiativeModel.findByIdAndUpdate(
+      id,
+      updateInitiativeDto,
+      {
+        new: true,
+      },
+    );
   }
 
   async remove(id: string) {
-    try {
-      return await this.initiativeModel.findOneAndDelete({ _id: id });
-    } catch (error) {
-      throw new InternalServerErrorException();
-    }
+    return await this.initiativeModel
+      .findOneAndDelete({ _id: id })
+      .catch(() => {
+        throw new NotFoundException(`Initiative not found`);
+      });
   }
 
   async subscribeUserToInitiative(
     subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ): Promise<object> {
-    try {
-      const { userId, initiativeId } = subscribeUserToInitiativeDto;
+    const { userId, initiativeId } = subscribeUserToInitiativeDto;
 
-      const initiative = await this.initiativeModel.findById(initiativeId);
-      const user = await this.userModel.findById(userId);
-      if (!initiative || !user) {
-        throw new Error('Initiative not found or user not found.');
-      }
+    const initiative = await this.initiativeModel
+      .findById(initiativeId)
+      .catch(() => {
+        throw new NotFoundException('Initiative not found');
+      });
 
-      const existingSubscription = initiative.volunteers.find(
-        (subscription) => subscription.user.toString() === user._id.toString(),
+    const user = await this.userModel.findById(userId).catch(() => {
+      throw new NotFoundException('User not found');
+    });
+
+    const existingSubscription = initiative.volunteers.find(
+      (subscription) => subscription.user.toString() === user._id.toString(),
+    );
+
+    if (existingSubscription)
+      throw new ConflictException(
+        'User is already subscribed to this initiative.',
       );
 
-      if (existingSubscription) {
-        throw new NotAcceptableException('User is already subscribed to this initiative.');
-      }
+    user.initiatives.push(initiative._id);
+    initiative.volunteers.push({ user: user._id, status: 'pending' });
+    await user.save();
+    await initiative.save();
 
-      user.subscribedInitiatives.push(initiative._id);
-      initiative.volunteers.push({ user: user._id, status: 'pending' });
-      await user.save();
-      await initiative.save();
-
-      return {
-        message: `User ${user._id} subscribed to initiative ${initiative._id} successfully.`,
-      };
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException();
-    }
+    return {
+      message: `User ${user._id} subscribed to initiative ${initiative._id} successfully.`,
+    };
   }
 
   async updateSubscriptionStatus(
     updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ): Promise<object> {
     const { userId, initiativeId, status } = updateSubscriptionStatusDto;
-    const initiative = await this.initiativeModel.findById(initiativeId);
-    const user = await this.userModel.findById(userId);
+    const initiative = await this.initiativeModel
+      .findById(initiativeId)
+      .catch(() => {
+        throw new NotFoundException('Initiative not found');
+      });
 
-    if (!initiative || !user) {
-      throw new Error('Initiative not found or user not found.');
-    }
+    const user = await this.userModel.findById(userId).catch(() => {
+      throw new NotFoundException('User not found');
+    });
 
     const subscription = initiative.volunteers.find(
       (subscription) => subscription.user.toString() === user._id.toString(),
     );
 
     if (!subscription) {
-      throw new Error('User is not subscribed to this initiative.');
+      throw new ConflictException('User is not subscribed to this initiative.');
     }
 
     subscription.status = status;
-     initiative.save();
-     return {
-        message: `User ${user._id} subscription status updated to ${status} successfully.`,
-     }
+    initiative.save();
+    return {
+      message: `User ${user._id} subscription status updated to ${status} successfully.`,
+    };
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuthInterface, UserInterface } from '@/interfaces'
+import { AuthInterface, InitiativeInterface, UserInterface } from '@/interfaces'
 import { PURGE } from 'redux-persist'
 
 interface AuthState {
@@ -15,7 +15,7 @@ const initialState: AuthState = {
     sessionId: ''
   },
   session: {
-    id: '',
+    _id: '',
     firstName: '',
     lastName: '',
     birthday: '',
@@ -28,7 +28,9 @@ const initialState: AuthState = {
     profileImage: '',
     orgName: '',
     posts: [],
-    reviews: []
+    reviews: [],
+    favorites: [],
+    initiatives: []
   }
 }
 
@@ -49,24 +51,18 @@ const authSlice = createSlice({
       // seteamos una cookie que vence en 1 dia
       document.cookie = `sessionId=${action.payload.sessionId}; max-age=86400; path=/`
     },
+    modifyFavorites: (state, action: PayloadAction<{ item: InitiativeInterface; actionType: 'add' | 'remove' }>) => {
+      const { item, actionType } = action.payload
+      if (actionType === 'add') {
+        state.session.favorites.push(item)
+      } else {
+        state.session.favorites = state.session.favorites.filter((favorite) => favorite._id !== item._id)
+      }
+    },
+
     resetReducer: (state) => {
       state.auth.isLogged = false
-      state.session = {
-        id: '',
-        firstName: '',
-        lastName: '',
-        birthday: '',
-        phone: '',
-        email: '',
-        role: 'volunteer',
-        password: '',
-        bannerImage: '',
-        username: '',
-        profileImage: '',
-        orgName: '',
-        posts: [],
-        reviews: []
-      }
+      state.session = initialState.session
     }
   },
   extraReducers: (builder) => {
@@ -74,6 +70,6 @@ const authSlice = createSlice({
   }
 })
 
-export const { setAuth, resetReducer, updateCurrentUser } = authSlice.actions
+export const { setAuth, resetReducer, updateCurrentUser, modifyFavorites } = authSlice.actions
 
 export default authSlice.reducer

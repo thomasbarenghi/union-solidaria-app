@@ -32,7 +32,7 @@ const SearchSection = ({ query, setQuery }: Props) => {
     <section className='flex w-full flex-col items-center justify-center gap-4'>
       <div className='flex w-full justify-between gap-4'>
         <div className='w-[400px] max-w-[400px] '>
-          <SearchInput name='name' placeholder='Buscar' handleChange={handleSearchChange} />
+          <SearchInput name='title' placeholder='Buscar' handleChange={handleSearchChange} />
         </div>
         <Modal>
           <Selects handleChange={handleSelectChange} query={query} />

@@ -1,26 +1,21 @@
-'use client'
-import { Tabs, Tab } from '@nextui-org/react'
+import { TabBar } from '@/components'
 import Privacy from './privacy'
 import Terms from './terms'
 
+const items = [
+  {
+    title: 'Términos y condiciones',
+    content: <Terms />
+  },
+  {
+    title: 'Política de privacidad',
+    content: <Privacy />
+  }
+]
+
 const Content = () => (
-  <section className='section-padding-1 flex w-full flex-col gap-2'>
-    <Tabs
-      className='w-full whitespace-nowrap'
-      classNames={{
-        cursor: 'bg-green-800',
-        tab: 'text-base',
-        tabList: 'p-0'
-      }}
-      variant='underlined'
-    >
-      <Tab key='TYC' title='Términos y condiciones' className='px-0'>
-        <Terms />
-      </Tab>
-      <Tab key='PDP' title='Política de privacidad'>
-        <Privacy />
-      </Tab>
-    </Tabs>
+  <section className='section-padding-1 flex min-h-[100vh] w-full flex-col gap-2'>
+    <TabBar items={items} variant='underlined' />
   </section>
 )
 

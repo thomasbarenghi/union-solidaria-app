@@ -1,10 +1,10 @@
 'use client'
 import { UsersHero } from '@/components'
 import { useAppSelector } from '@/redux/hooks'
-import { currentUserSelector } from '@/redux/selectors/users'
+import { loggedUserSelector } from '@/redux/selectors/users'
 
 const HeroSec = () => {
-  const currentUser = useAppSelector(currentUserSelector)
+  const currentUser = useAppSelector(loggedUserSelector)
   return <UsersHero user={currentUser} withButton={false} />
 }
 

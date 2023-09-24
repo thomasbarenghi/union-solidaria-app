@@ -32,7 +32,7 @@ const InitiativeDateInfo = ({ currentInitiative }: { currentInitiative: Initiati
           title='Fecha limite de inscripción'
         />
         <DateInfoItem icon='/icon/calendar.svg' text={date} title='Vigencia' />
-        <DateInfoItem icon='/icon/location.svg' text={currentInitiative?.adress} title='Lugar de encuentro' />
+        <DateInfoItem icon='/icon/location.svg' text={currentInitiative?.address} title='Lugar de encuentro' />
         <DateInfoItem icon='/icon/info.svg' text={currentInitiative?.extraInfo} title='Información extra' />
       </div>
     </div>
