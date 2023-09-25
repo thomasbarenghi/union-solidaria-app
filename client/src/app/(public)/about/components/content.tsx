@@ -6,11 +6,10 @@ import { missionAndVision, MissionAndVisionItem } from '../lib/missionAndVision'
 interface ContentItemProps {
   title: string
   description: string
-  key: number
 }
 
-const ContentItem = ({ title, description, key }: ContentItemProps) => (
-  <div className='flex flex-col gap-1' key={key}>
+const ContentItem = ({ title, description }: ContentItemProps) => (
+  <div className='flex flex-col gap-1'>
     <TextElement type='subtitle' as='h3' className='!font-semibold'>
       {title}
     </TextElement>

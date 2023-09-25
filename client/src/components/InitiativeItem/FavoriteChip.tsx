@@ -1,5 +1,5 @@
 'use client'
-import useSWR, { useSWRConfig } from 'swr'
+import useSWR from 'swr'
 import { useAppSelector } from '@/redux/hooks'
 import { loggedUserSelector, currentAuthSelector } from '@/redux/selectors/users'
 import { putRequest } from '@/services/apiRequests.service'
@@ -12,10 +12,9 @@ interface Props {
 }
 
 const FavoriteChip = ({ initiative }: Props) => {
-  const { mutate } = useSWRConfig()
   const loggedUser = useAppSelector(loggedUserSelector)
   const auth = useAppSelector(currentAuthSelector)
-  const { data: currentUser } = useSWR(Endpoints.USER_BY_ID(loggedUser.username))
+  const { data: currentUser, mutate } = useSWR(Endpoints.USER_BY_ID(loggedUser.username))
   const isFavorite = currentUser?.favorites?.some((favorite: InitiativeInterface) => favorite._id === initiative._id)
 
   const handleFavorite = async () => {
@@ -24,7 +23,7 @@ const FavoriteChip = ({ initiative }: Props) => {
         userId: loggedUser._id,
         initiativeId: initiative._id
       })
-      await mutate(Endpoints.USER_BY_ID(loggedUser.username))
+      await mutate()
     } catch (error) {
       console.log(error)
     }
@@ -33,18 +32,20 @@ const FavoriteChip = ({ initiative }: Props) => {
   return (
     <>
       {auth.isLogged && (
-        <div className='absolute right-1 top-1 z-10 aspect-square rounded-2xl bg-white p-4'>
+        <button
+          className='absolute right-1 top-1 z-10 aspect-square rounded-2xl bg-white p-4'
+          onClick={() => {
+            void handleFavorite()
+          }}
+        >
           <Image
             src={isFavorite === true ? '/icon/heart-filled.svg' : '/icon/heart.svg'}
             alt='heart icon'
             width={24}
             height={24}
-            onClick={() => {
-              void handleFavorite()
-            }}
             className='cursor-pointer'
           />
-        </div>
+        </button>
       )}
     </>
   )
