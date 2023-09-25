@@ -4,11 +4,10 @@ import { ValuePropositionItem, valueProposition } from '../lib/valueProposition'
 interface Props {
   title: string
   description: string
-  key: number
 }
 
-const ContentItem = ({ title, description, key }: Props) => (
-  <div className='flex flex-col gap-1' key={key}>
+const ContentItem = ({ title, description }: Props) => (
+  <div className='flex flex-col gap-1'>
     <TextElement type='subtitle' as='h3' className='w-full font-semibold'>
       {title}
     </TextElement>

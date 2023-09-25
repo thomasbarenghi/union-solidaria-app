@@ -39,11 +39,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     updateCurrentUser: (state, action: PayloadAction<UserInterface>) => {
-      console.log('updateCurrentUser', action)
-      state.session = {
-        ...state.session,
-        ...action.payload
-      }
+      console.log('updateCurrentUser', action.payload)
+      state.session = action.payload as UserInterface
     },
     setAuth: (state, action: PayloadAction<AuthInterface>) => {
       console.log('setAuth', action)

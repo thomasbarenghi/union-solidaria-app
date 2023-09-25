@@ -10,7 +10,7 @@ interface Props {
 }
 
 const InitiativeItem = ({ item }: Props) => (
-  <div className='relative flex w-full cursor-pointer flex-col' key={item._id}>
+  <div className='relative flex w-full cursor-pointer flex-col'>
     <FavoriteChip initiative={item} />
     <Link href={Routes.INDIVIDUAL_INITIATIVE(item._id)}>
       <div className='flex w-full flex-col gap-2 '>

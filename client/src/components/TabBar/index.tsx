@@ -24,9 +24,9 @@ const TabBar = ({ items, variant }: TabBarProps) => (
     variant={variant}
   >
     {items?.map(
-      ({ title, content, visible = true }) =>
+      ({ title, content, visible = true }, index) =>
         visible && (
-          <Tab key={title} title={title} className='px-0'>
+          <Tab key={index} title={title} className='px-0'>
             {content}
           </Tab>
         )

@@ -10,7 +10,6 @@ interface Props {
 const ReviewItem = ({ item }: Props) => (
   <div
     className='relative flex w-full cursor-pointer flex-col gap-3 rounded-2xl border border-solid border-slate-200 p-6'
-    key={item._id}
   >
     <User
       classNames={{
