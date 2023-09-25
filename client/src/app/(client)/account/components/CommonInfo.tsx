@@ -8,7 +8,7 @@ interface GeneralInfoProps {
 }
 
 const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
-  <div className='flex w-full flex-col gap-4'>
+  <div className='flex flex-col gap-4 w-full'>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
       <Input
         type='text'

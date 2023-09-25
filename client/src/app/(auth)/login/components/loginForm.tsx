@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 'use client'
-import { Input } from '@/components'
+import { Input, Button } from '@/components'
 import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
@@ -69,9 +69,7 @@ const LoginForm = () => {
           errorMessage={errors?.password?.message?.toString()}
         />
       </div>
-      <button type='submit' className='primaryButton w-full'>
-        Iniciar sesión
-      </button>
+      <Button type='submit' title='Iniciar sesion' fullWidth />
     </form>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 import { Modal as ModalUI, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/react'
+import { Button } from '.'
 
 interface Props {
   children: React.ReactNode
@@ -36,34 +37,32 @@ const Modal = ({
 
   return (
     <>
-      <button onClick={onOpen} className='primaryButton'>
-        {triggerText}
-      </button>
+      <Button type='submit' title={triggerText} onClick={onOpen} />
       <ModalUI isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={isDismissable} size={size}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className='flex flex-col gap-1'>{title}</ModalHeader>
               <ModalBody>{children}</ModalBody>
-              <ModalFooter className='flex gap-5'>
-                <button
-                  className='terceryButton smalltext bg-white text-red-800'
+              <ModalFooter className='flex gap-1'>
+                <Button
+                  color='danger'
+                  variant='light'
+                  title={cancelText}
                   onClick={() => {
                     onClose()
                     handleCancel()
                   }}
-                >
-                  {cancelText}
-                </button>
-                <button
-                  className='primaryButton smalltext rounded-2xl'
+                />
+                <Button
+                  color='primary'
+                  variant='solid'
+                  title={confirmText}
                   onClick={() => {
                     onClose()
                     handleConfirm()
                   }}
-                >
-                  {confirmText}
-                </button>
+                />
               </ModalFooter>
             </>
           )}

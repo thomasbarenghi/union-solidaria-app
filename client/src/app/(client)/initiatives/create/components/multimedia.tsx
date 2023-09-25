@@ -1,4 +1,4 @@
-import { Input } from '@/components'
+import { Input, TextElement } from '@/components'
 import { UseFormRegister } from 'react-hook-form'
 
 interface LocationInfoProps {
@@ -9,7 +9,9 @@ interface LocationInfoProps {
 const Multimedia = ({ errors, register }: LocationInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
-      <h2 className='subtitulo'>Multimedia</h2>
+      <TextElement type='subtitle' as='h2'>
+        Multimedia
+      </TextElement>
       <hr />
     </div>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

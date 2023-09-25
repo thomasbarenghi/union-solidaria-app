@@ -1,4 +1,4 @@
-import { Hero } from '@/components'
+import { Hero, TextElement } from '@/components'
 
 const HeroSection = () => (
   <Hero
@@ -6,9 +6,9 @@ const HeroSection = () => (
     height='min-h-[45vh] '
   >
     <div className='flex w-full flex-col items-center justify-between gap-4 lg:flex-row'>
-      <h1 className='titulo-2 w-full   text-center font-light text-white lg:text-start'>
+      <TextElement type='t2' as='h1' className='w-full text-center !font-light text-white lg:text-start'>
         Tu donación puede <b className='font-semibold'>cambiar vidas</b>
-      </h1>
+      </TextElement>
     </div>
   </Hero>
 )

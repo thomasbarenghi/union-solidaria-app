@@ -1,4 +1,4 @@
-import { Input, SimpleSelect } from '@/components'
+import { Input, SimpleSelect, TextElement } from '@/components'
 import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
 import { useState } from 'react'
@@ -29,7 +29,9 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
   return (
     <div className='flex w-full flex-col gap-4'>
       <div className='flex flex-col gap-2'>
-        <h2 className='subtitulo'>Ubicacion</h2>
+        <TextElement type='subtitle' as='h2'>
+          Ubicacion
+        </TextElement>
         <hr />
       </div>
       <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

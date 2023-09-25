@@ -1,5 +1,5 @@
 'use client'
-import { Input, SimpleSelect } from '@/components'
+import { Button, Input, SimpleSelect } from '@/components'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { usePostUsersMutation } from '@/redux/services/users.service'
@@ -246,9 +246,7 @@ const RegisterForm = () => {
         }}
         errorMessage={errors?.repeatPassword?.message?.toString()}
       />
-      <button type='submit' className='primaryButton'>
-        Crear usuario
-      </button>
+      <Button type='submit' title='Crear usuario' fullWidth />
     </form>
   )
 }

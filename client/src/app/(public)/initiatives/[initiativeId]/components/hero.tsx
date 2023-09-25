@@ -1,6 +1,6 @@
 'use client'
 import useSWR from 'swr'
-import { Hero, Modal } from '@/components'
+import { Hero, Modal, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { User } from '@nextui-org/react'
 import Link from 'next/link'
@@ -17,15 +17,17 @@ const HeroSec = ({ id }: Props) => {
       <div className='flex items-center justify-between py-10'>
         <div className='flex flex-col gap-3'>
           <div className='flex flex-col gap-1'>
-            <h1 className=' titulo-3 w-full font-medium text-white'>{data?.title}</h1>
-            <p className='bodyText text-white'>
+            <TextElement type='t3' as='h1' className='w-full text-white'>
+              {data?.title}
+            </TextElement>
+            <TextElement type='base' as='p' className='text-white'>
               {data?.country}, {data?.province}
-            </p>
+            </TextElement>
           </div>
           <Link href={Routes.PROFILE(data?.owner?.username)}>
             <User
               classNames={{
-                name: '!text-white !smalltext font-medium',
+                name: '!text-white !text-sm !leading-[155%] font-medium',
                 base: 'flex gap-1 items-center justify-start cursor-pointer'
               }}
               name={data?.owner?.orgName}
@@ -35,7 +37,9 @@ const HeroSec = ({ id }: Props) => {
               }}
             />
           </Link>
-          <p className='bodyText font-light text-white'>{data?.locations}</p>
+          <TextElement type='base' as='p' className='text-white'>
+            {data?.locations}
+          </TextElement>
         </div>
         <Modal
           title='Inscribirse a la iniciativa'
@@ -48,17 +52,17 @@ const HeroSec = ({ id }: Props) => {
           size='sm'
         >
           <div className='flex flex-col gap-1'>
-            <p className='bodyText font-light text-black'>
+            <TextElement type='base' as='p'>
               Recuerda que inscribirse a una iniciativa es un compromiso, por lo que debes estar seguro de poder
               cumplirlo. Si no puedes cumplirlo, puedes cancelar tu inscripción en cualquier momento.
-            </p>
-            <p className='bodyText text-black'>
+            </TextElement>
+            <TextElement type='base' as='p'>
               Una vez que te inscribas, el dueño de la iniciativa podra aceptar o rechazar tu solicitud.
-            </p>
-            <p className='bodyText font-medium text-black'>
+            </TextElement>
+            <TextElement type='base' as='p' className='!font-medium'>
               Al inscribirte aceptas los <Link href={Routes.INSTITUTIONAL}>términos y condiciones</Link> de la
               plataforma.
-            </p>
+            </TextElement>
           </div>
         </Modal>
       </div>

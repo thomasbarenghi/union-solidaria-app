@@ -3,6 +3,7 @@ import Routes from '@/utils/constants/routes.const'
 import Image from 'next/image'
 import Link from 'next/link'
 import FavoriteChip from './FavoriteChip'
+import { TextElement } from '..'
 
 interface Props {
   item: InitiativeInterface
@@ -16,14 +17,16 @@ const InitiativeItem = ({ item }: Props) => (
         <div className='l relative aspect-[1/1]  w-full'>
           <Image src={item.thumbnail} fill alt='Vercel Logo' className='aspect-[1/1] rounded-2xl object-cover' />
         </div>
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col items-start gap-2'>
           <div>
-            <h1 className='bodyText font-medium'>{item.title}</h1>
-            <p className='text-sm font-light'>
+            <TextElement type='base' as='h1' className='!font-semibold'>
+              {item.title}
+            </TextElement>
+            <TextElement type='small' as='p'>
               {item.country}, {item.province}{' '}
-            </p>
+            </TextElement>
           </div>
-          <button className='w-max border-b border-green-800 text-sm text-green-800'>Ver iniciativa</button>
+          <p className='cursor-pointer text-sm font-semibold text-green-800'>Ver iniciativa</p>
         </div>
       </div>
     </Link>

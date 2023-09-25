@@ -28,12 +28,12 @@ const MarkdownRenderer = ({ documentRoute }: Props) => {
       <ReactMarkdown
         components={{
           h1: ({ node, ...props }) => <h1 className='text-2xl font-bold' {...props} />,
-          h2: ({ node, ...props }) => <h2 className='titulo-3 py-4' {...props} />,
-          p: ({ node, ...props }) => <p className='bodyText font-light' {...props} />,
+          h2: ({ node, ...props }) => <h2 className='py-4 text-xl font-medium leading-[140%]' {...props} />,
+          p: ({ node, ...props }) => <p className='text-base font-light leading-[155%]' {...props} />,
           br: ({ node, ...props }) => (
             <>
-              <br className='bodyText font-light' {...props} />
-              <br className='bodyText font-light' {...props} />
+              <br className='text-base  font-light leading-[155%]' {...props} />
+              <br className='text-base  font-light leading-[155%]' {...props} />
             </>
           ),
           strong: ({ node, ...props }) => <strong className='font-semibold' {...props} />

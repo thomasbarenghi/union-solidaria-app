@@ -1,8 +1,7 @@
-import { Hero } from '@/components'
+import { Button, Hero, TextElement } from '@/components'
 import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
 import Image from 'next/image'
-import Link from 'next/link'
 
 interface Props {
   user: UserInterface
@@ -22,21 +21,19 @@ const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = f
         className='aspect-square rounded-full border border-white object-cover p-1'
       />
       <div>
-        <h1 className=' subtitulo w-full font-semibold text-white'>{user?.firstName + ' ' + user?.lastName}</h1>
-        <p className=' smalltext w-full text-white'>@{user?.username}</p>
+        <TextElement type='subtitle' as='h1' className='w-full !font-semibold text-white'>
+          {user?.firstName + ' ' + user?.lastName}
+        </TextElement>
+        <TextElement type='small' as='p' className=' text-white'>
+          @{user?.username}
+        </TextElement>
       </div>
     </div>
     <div className='flex gap-2'>
       {withAccountButton === true && (
-        <Link href={Routes.ACCOUNT} className='secondaryButton'>
-          Editar cuenta
-        </Link>
+        <Button variant='flat' className='bg-green-50' title='Editar cuenta' href='/account' />
       )}
-      {withInitiativesButton === true && (
-        <Link href={Routes.ACCOUNT} className='primaryButton'>
-          Crear iniciativa
-        </Link>
-      )}
+      {withInitiativesButton === true && <Button title='Crear iniciativa' href={Routes.CREATE_INITIATIVE} />}
     </div>
   </div>
 )
