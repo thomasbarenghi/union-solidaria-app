@@ -5,6 +5,7 @@ import { loggedUserSelector } from '@/redux/selectors/users'
 import { useForm } from 'react-hook-form'
 import PasswordInfo from './PasswordInfo'
 import { usePutUsersMutation } from '@/redux/services/users.service'
+import { Button } from '@/components'
 
 const PasswordForm = () => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -27,16 +28,14 @@ const PasswordForm = () => {
   return (
     <section className='flex items-center  justify-center'>
       <form
-        className='flex w-full flex-col gap-5'
+        className='flex w-full items-start flex-col gap-5'
         onSubmit={() => {
           void handleSubmit(onSubmit)
         }}
         ref={formRef}
       >
         <PasswordInfo errors={errors} register={register} getValues={getValues} />
-        <button type='submit' className='primaryButton w-max'>
-          Guardar Cambios
-        </button>
+        <Button type='submit' title='Guardar Cambios' />
       </form>
     </section>
   )

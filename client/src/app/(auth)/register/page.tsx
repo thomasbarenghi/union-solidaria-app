@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
 import RegisterForm from './components/registerForm'
+import { TextElement } from '@/components'
 
 const Register = () => (
   <div>
-    <h1 className='titulo-3 mb-6 font-normal'>
+    <TextElement type='t3' as='h1' className='mb-6'>
       Registrate en <span className='font-semibold'>U.S.</span>
-    </h1>
+    </TextElement>
     <RegisterForm />
     <p className='mt-6 w-full text-center font-light'>
       ¿Ya tienes una cuenta?{' '}

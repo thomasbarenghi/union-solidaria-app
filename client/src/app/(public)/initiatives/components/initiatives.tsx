@@ -1,6 +1,6 @@
 'use client'
 import useSWR from 'swr'
-import { InitiativeGrid } from '@/components'
+import { InitiativeGrid, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Filters from './filters'
 import { useState } from 'react'
@@ -20,10 +20,12 @@ const InitiativesSection = () => {
   return (
     <section className='flex w-full flex-col gap-6'>
       <div className='flex flex-col gap-1'>
-        <h1 className='titulo-3 w-full font-light'>
-          Iniciativas que pueden <b className='font-semibold'>cambiar el mundo</b>
-        </h1>
-        <p className='bodyText'>Apoya a las iniciativas que más te gusten y ayudalas a cumplir sus objetivos.</p>
+        <TextElement type='t3' as='h1' className='w-full !font-semibold'>
+          Todas las iniciativas
+        </TextElement>
+        <TextElement type='base' as='p' className='w-full !font-light'>
+          Apoya a las iniciativas que más te gusten y ayudalas a cumplir sus objetivos.
+        </TextElement>
       </div>
       <Filters query={query} setQuery={setQuery} />
       <InitiativeGrid initiatives={data} isLoading={isLoading} />

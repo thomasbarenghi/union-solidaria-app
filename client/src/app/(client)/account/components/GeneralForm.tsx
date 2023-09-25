@@ -5,6 +5,7 @@ import { loggedUserSelector } from '@/redux/selectors/users'
 import { useForm } from 'react-hook-form'
 import CommonInfo from './CommonInfo'
 import { usePutUsersMutation } from '@/redux/services/users.service'
+import { Button } from '@/components'
 
 const FormSec = () => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -32,16 +33,14 @@ const FormSec = () => {
   return (
     <section className='flex items-center  justify-center'>
       <form
-        className='flex w-full flex-col gap-5'
+        className='flex w-full flex-col items-start gap-5'
         onSubmit={() => {
           void handleSubmit(onSubmit)
         }}
         ref={formRef}
       >
         <CommonInfo errors={errors} register={register} currentUser={currentUser} />
-        <button type='submit' className='primaryButton w-max'>
-          Guardar Cambios
-        </button>
+        <Button type='submit' title='Guardar Cambios' />
       </form>
     </section>
   )

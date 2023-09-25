@@ -10,6 +10,7 @@ import { usePostInitiativesMutation } from '@/redux/services/initiatives.service
 import { loggedUserSelector } from '@/redux/selectors/users'
 import { useRouter } from 'next/navigation'
 import Routes from '@/utils/constants/routes.const'
+import { Button, TextElement } from '@/components'
 
 export interface FormProps {
   title: string
@@ -75,14 +76,14 @@ const FormSec = () => {
         onSubmit={handleSubmit(onSubmit)}
         ref={formRef}
       >
-        <h2 className='titulo-3'>Crear iniciativa</h2>
+        <TextElement type='t3' as='h1' className='font-semibold'>
+          Crear iniciativa
+        </TextElement>
         <GeneralInfo errors={errors} register={register} control={control} setValue={setValue} />
         <LocationInfo errors={errors} register={register} control={control} setValue={setValue} />
         <DateTime errors={errors} register={register} />
         <Multimedia errors={errors} register={register} />
-        <button type='submit' className='primaryButton w-max'>
-          Crear iniciativa
-        </button>
+        <Button type='submit' title='Crear iniciativa' />
       </form>
     </section>
   )

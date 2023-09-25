@@ -1,5 +1,5 @@
 'use client'
-import { StripeButton, Slider } from '@/components'
+import { StripeButton, Slider, TextElement } from '@/components'
 import { IDonationPayment } from '@/interfaces'
 import { createDonationToPlatform } from '@/services/stripe/payments.service'
 import { useRouter } from 'next/navigation'
@@ -38,8 +38,12 @@ const Donation = () => {
       <div className='flex w-full flex-col gap-0'>
         <Slider min={5} max={1000} defaultValue={50} handleChange={handleChange} />
         <div className='flex w-full justify-between'>
-          <p className='smalltext font-semibold text-green-800'>${min}</p>
-          <p className='smalltext font-semibold text-green-800'>${max}</p>
+          <TextElement as='p' type='small' className='font-semibold text-green-800'>
+            ${min}
+          </TextElement>
+          <TextElement as='p' type='small' className='font-semibold text-green-800'>
+            ${max}
+          </TextElement>
         </div>
       </div>
       <StripeButton align='center' onClick={() => handleDonationPayment}>
@@ -52,13 +56,12 @@ const Donation = () => {
 const DonateSec = () => (
   <section className='flex flex-col gap-10'>
     <div className='flex flex-col gap-1'>
-      <h1 className='titulo-3 font-light'>
+      <TextElement type='t3' as='h1' className='font-light'>
         La importancia de tu donación es <b className='font-semibold'>incalculable.</b>
-      </h1>
-      <p className='bodyText'>
-        Tu donación es muy importante para nosotros, ya que nos permite seguir trabajando en nuestros proyectos y
-        programas. Además, nos ayuda a seguir creciendo y a llegar a más personas que necesitan de nuestra ayuda.
-      </p>
+      </TextElement>
+      <TextElement type='base' as='p'>
+        La importancia de tu donación es <b className='font-semibold'>incalculable.</b>
+      </TextElement>
     </div>
     <Donation />
   </section>

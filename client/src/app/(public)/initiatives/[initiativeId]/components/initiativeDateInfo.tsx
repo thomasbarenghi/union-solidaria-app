@@ -1,3 +1,4 @@
+import { TextElement } from '@/components'
 import { InitiativeInterface } from '@/interfaces'
 import { formatDate } from '@/utils/functions/formatDate.utils'
 import Image from 'next/image'
@@ -11,9 +12,9 @@ interface Props {
 const DateInfoItem = ({ icon, text, title }: Props) => (
   <div className='flex gap-2'>
     <Image src={icon} width={24} height={24} alt='Vercel Logo' />
-    <p className='bodyText font-light'>
+    <TextElement type='base' as='p'>
       <span className='font-medium'>{title}:</span> {text}
-    </p>
+    </TextElement>
   </div>
 )
 
@@ -24,7 +25,9 @@ const InitiativeDateInfo = ({ currentInitiative }: { currentInitiative: Initiati
 
   return (
     <div className='flex flex-col gap-4'>
-      <h1 className='titulo-3 w-full font-medium'>Información</h1>
+      <TextElement type='t3' as='h1'>
+        Información
+      </TextElement>
       <div className='flex flex-col gap-4'>
         <DateInfoItem
           icon='/icon/clock.svg'

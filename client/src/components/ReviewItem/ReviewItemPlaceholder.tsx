@@ -15,9 +15,8 @@ const ReviewItem = () => (
           <div className='h-[15px] w-[120px] rounded-full bg-gray-100' />
           <div className='h-[15px] w-[100px] rounded-full bg-gray-100' />
         </div>
-        <p className='bodyText font-light text-black'>
-          <div className='h-[15px] w-[75px] rounded-full bg-gray-100' />
-        </p>
+
+        <div className='h-[15px] w-[75px] rounded-full bg-gray-100' />
       </div>
     </div>
   </div>

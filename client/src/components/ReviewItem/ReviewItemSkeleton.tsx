@@ -18,9 +18,7 @@ const ReviewItem = () => (
           <Skeleton className='h-[15px] w-[120px] rounded-full' />
           <Skeleton className='h-[15px] w-[100px] rounded-full' />
         </div>
-        <p className='bodyText font-light text-black'>
-          <Skeleton className='h-[15px] w-[75px] rounded-full' />
-        </p>
+        <Skeleton className='h-[15px] w-[75px] rounded-full' />
       </div>
     </div>
   </div>

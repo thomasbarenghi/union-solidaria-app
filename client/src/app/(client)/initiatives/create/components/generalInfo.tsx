@@ -1,4 +1,4 @@
-import { Input, MultiSelect, Textarea } from '@/components'
+import { Input, MultiSelect, TextElement, Textarea } from '@/components'
 import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { opportunities } from '@/services/mock/opportunities.service'
 import { themes } from '@/services/mock/themes.service'
@@ -13,7 +13,9 @@ interface GeneralInfoProps {
 const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
-      <h2 className='subtitulo'>Información general</h2>
+      <TextElement type='subtitle' as='h2'>
+        Información general
+      </TextElement>
       <hr />
     </div>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

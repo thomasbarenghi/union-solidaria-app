@@ -8,7 +8,7 @@ import NextLink from 'next/link'
 const Menu = () => {
   const currentUser = useAppSelector(loggedUserSelector)
   const items: ItemNavInterface[] = itemsNavBuilder(currentUser)
-  const dangerStyle = clsx('text-red-800', 'hover:!bg-red-100', 'hover:text-red-800')
+  const dangerStyle = clsx('text-red-800', 'hover:!bg-red-50', 'hover:text-red-800')
   return (
     <div className='flex w-full flex-col'>
       {items.map((item, index) => (

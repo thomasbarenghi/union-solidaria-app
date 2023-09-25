@@ -1,4 +1,4 @@
-import { Input } from '@/components'
+import { Input, TextElement } from '@/components'
 import { UseFormRegister } from 'react-hook-form'
 
 interface DateTimeProps {
@@ -9,7 +9,9 @@ interface DateTimeProps {
 const DateTime = ({ errors, register }: DateTimeProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
-      <h2 className='subtitulo'>Fecha y hora</h2>
+      <TextElement type='subtitle' as='h2'>
+        Fecha y hora
+      </TextElement>
       <hr />
     </div>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>

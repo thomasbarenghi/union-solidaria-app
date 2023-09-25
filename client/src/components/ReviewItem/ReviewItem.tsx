@@ -1,6 +1,7 @@
 'use client'
 import { ReviewInterface } from '@/interfaces/review.interface'
 import { User } from '@nextui-org/react'
+import { TextElement } from '..'
 
 interface Props {
   item: ReviewInterface
@@ -13,7 +14,7 @@ const ReviewItem = ({ item }: Props) => (
   >
     <User
       classNames={{
-        name: '!text-black !smalltext font-medium',
+        name: '!text-black !text-sm font-light leading-[155%] font-medium',
         base: 'flex gap-2 items-center justify-start cursor-pointer'
       }}
       name={item?.author?.firstName + ' ' + item?.author?.lastName}
@@ -26,12 +27,16 @@ const ReviewItem = ({ item }: Props) => (
       <p className='smallText font-light text-black'>{item?.body}</p>
       <div className='flex flex-col gap-2'>
         <div>
-          <p className='bodyText font-semibold'>{item?.initiative?.title}</p>
-          <p className='smalltext font-light'>De {item?.initiativeOwner?.orgName}</p>
+          <TextElement type='base' as='p' className='font-semibold'>
+            {item?.initiative?.title}
+          </TextElement>
+          <TextElement type='small' as='p'>
+            De {item?.initiativeOwner?.orgName}
+          </TextElement>
         </div>
-        <p className='bodyText font-light text-black'>
+        <TextElement type='base' as='p'>
           {item?.rating} <span className='text-yellow-400'>★</span>
-        </p>
+        </TextElement>
       </div>
     </div>
   </div>

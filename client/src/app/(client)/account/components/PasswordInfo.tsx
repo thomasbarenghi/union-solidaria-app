@@ -8,7 +8,7 @@ interface GeneralInfoProps {
 }
 
 const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
-  <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
+  <div className='flex grid-cols-2 flex-col gap-4 w-full lg:grid'>
     <Input
       type='text'
       name='oldPassword'

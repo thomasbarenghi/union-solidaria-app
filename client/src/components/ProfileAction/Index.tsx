@@ -3,10 +3,9 @@ import Routes from '@/utils/constants/routes.const'
 import { useAppSelector } from '@/redux/hooks'
 import { currentAuthSelector, loggedUserSelector } from '@/redux/selectors/users'
 import { NavbarItem } from '@nextui-org/react'
-import { DynamicPopover } from '..'
+import { Button, DynamicPopover } from '..'
 import Image from 'next/image'
 import Menu from './Menu'
-import Link from 'next/link'
 
 const ProfileAction = () => {
   const currentUser = useAppSelector(loggedUserSelector)
@@ -17,7 +16,7 @@ const ProfileAction = () => {
       alt='Profile image'
       width={50}
       height={50}
-      className='aspect-square cursor-pointer h-[50px] min-w-[50px]  rounded-full border border-white object-cover p-1'
+      className='aspect-square h-[50px] min-w-[50px] cursor-pointer  rounded-full border border-white object-cover p-1'
       src={currentUser?.profileImage}
     />
   )
@@ -30,9 +29,7 @@ const ProfileAction = () => {
         </DynamicPopover>
       ) : (
         <NavbarItem>
-          <Link className='button primaryButton smalltext hidden lg:flex' href={Routes.LOGIN}>
-            Iniciar sesión
-          </Link>
+          <Button title='Iniciar sesión' href={Routes.LOGIN} />
         </NavbarItem>
       )}
     </>

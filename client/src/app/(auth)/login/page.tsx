@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
 import LoginForm from './components/loginForm'
+import { TextElement } from '@/components'
 
 const Login = () => (
   <div>
-    <h1 className='titulo-3 mb-6 font-normal'>
+    <TextElement type='t3' as='h1' className='mb-6'>
       Hola, bienvenido <b>de nuevo</b>
-    </h1>
+    </TextElement>
     <LoginForm />
     <p className='mt-6 w-full text-center font-light'>
       ¿No tienes una cuenta?{' '}
