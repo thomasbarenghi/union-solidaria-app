@@ -24,7 +24,7 @@ const Modal = ({ children }: Props) => {
           <div className='fixed bottom-0 right-0 z-10 '>
             <div className='m-10 rounded-large bg-white p-6 shadow-medium'>
               <div className='mb-3 flex w-full justify-between'>
-                <TextElement as='p' type='small' className='font-bold'>
+                <TextElement as='p' type='small' className='!font-bold'>
                   Filtros
                 </TextElement>
                 <Image
