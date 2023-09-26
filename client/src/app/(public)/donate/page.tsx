@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import DonateSec from './components/donateForm'
-import HeroSec from './components/hero'
+import DonateSec from './components/Form'
+import HeroSec from './components/HeroSection'
 import { Header } from '@/components'
 
 export const metadata: Metadata = {

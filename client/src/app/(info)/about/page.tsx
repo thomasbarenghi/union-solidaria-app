@@ -1,6 +1,6 @@
-import HeroSection from './components/hero'
-import MissionVisionSection from './components/content'
-import TechnologiesSection from './components/technologies'
+import HeroSection from './components/HeroSection'
+import MissionVisionSection from './components/Content'
+import TechnologiesSection from './components/TechnologiesSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

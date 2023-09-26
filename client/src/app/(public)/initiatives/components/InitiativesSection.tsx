@@ -2,7 +2,7 @@
 import useSWR from 'swr'
 import { InitiativeGrid, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
-import Filters from './filters'
+import Filters from './ilters'
 import { useState } from 'react'
 import { buildQueryString } from '@/utils/functions/buildQueryString.utils'
 

@@ -1,8 +1,8 @@
 'use client'
 import { Header } from '@/components'
-import HeroSection from './components/hero'
-import InitiativesSection from './components/initiatives'
-import MarketingSection from './components/marketing'
+import HeroSection from './components/HeroSection'
+import InitiativesSection from './components/InitiativesSection'
+import MarketingSection from './components/MarketingSection'
 // import type { Metadata } from 'next'
 import Routes from '@/utils/constants/routes.const'
 // Debe ser deprecado
