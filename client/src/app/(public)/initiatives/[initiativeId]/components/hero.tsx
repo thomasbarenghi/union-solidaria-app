@@ -60,7 +60,7 @@ const HeroSec = ({ id }: Props) => {
               Una vez que te inscribas, el dueño de la iniciativa podra aceptar o rechazar tu solicitud.
             </TextElement>
             <TextElement type='base' as='p' className='!font-medium'>
-              Al inscribirte aceptas los <Link href={Routes.INSTITUTIONAL}>términos y condiciones</Link> de la
+              Al inscribirte aceptas los <Link href={Routes.LEGAL}>términos y condiciones</Link> de la
               plataforma.
             </TextElement>
           </div>

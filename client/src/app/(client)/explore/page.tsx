@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Explore = () => (
   <>
     <HeroSection />
-    <article className='section-padding-1 container-section article-layout-1'>
+    <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
       <Content />
     </article>
   </>

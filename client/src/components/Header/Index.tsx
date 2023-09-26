@@ -7,6 +7,7 @@ import NextLink from 'next/link'
 import clsx from 'clsx'
 import { useState } from 'react'
 import Routes from '@/utils/constants/routes.const'
+import { useAppSelector } from '@/redux/hooks'
 
 interface Props {
   theme?: 'light' | 'transparent'
@@ -14,10 +15,17 @@ interface Props {
 }
 
 const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
+  const auth = useAppSelector((state) => state.authSession.auth)
   const [isScrolled, setIsScrolled] = useState(false)
   const bgColor = isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent'
   const textColor = isScrolled ? 'text-black' : theme === 'transparent' ? 'text-white' : 'text-black'
-  const logo = isScrolled ? '/icon/logo-dark.svg' : theme === 'transparent' ? '/icon/logo-light.svg' : '/icon/logo-dark.svg'
+
+  const logo = isScrolled
+    ? '/icon/logo-dark.svg'
+    : theme === 'transparent'
+      ? '/icon/logo-light.svg'
+      : '/icon/logo-dark.svg'
+
   const blur = isScrolled
   const stylesNavbar = clsx('section-padding-1 fixed py-6', bgColor)
 
@@ -61,7 +69,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
           </NavbarContent>
           <NavbarContent>
             <NavbarItem className='flex items-center gap-2'>
-              <Button title='Donar' size='md' href={Routes.DONATION} />
+              {auth.isLogged && <Button title='Donar' size='md' href={Routes.DONATION} />}
               <ProfileAction />
             </NavbarItem>
           </NavbarContent>

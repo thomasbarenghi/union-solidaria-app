@@ -28,3 +28,5 @@ export { default as ReviewItemPlaceholder } from './ReviewItem/ReviewItemPlaceho
 export { default as ReviewItemSkeleton } from './ReviewItem/ReviewItemSkeleton'
 export { default as Button } from './Button'
 export { default as TextElement } from './TextElement/TextElement'
+export { default as PublicationItem } from './PublicationItem'
+export { default as PublicationFlex } from './PublicationFlex'
