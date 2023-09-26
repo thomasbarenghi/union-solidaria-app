@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
-import LoginForm from './components/loginForm'
+import LoginForm from './components/Form'
 import { TextElement } from '@/components'
 
 const Login = () => (
