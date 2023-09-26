@@ -19,6 +19,22 @@ export const populateInitiative = () => {
       path: 'owner',
       model: 'User',
     },
+    {
+      path: 'posts',
+      model: 'Post',
+      populate: [
+        {
+          path: 'author',
+          model: 'User',
+          select: 'username firstName lastName orgName email profileImage _id ',
+        },
+        {
+          path: 'initiative',
+          model: 'Initiative',
+          select: 'title _id thumbnail',
+        },
+      ],
+    }
   ];
 
   return baseConfig;
