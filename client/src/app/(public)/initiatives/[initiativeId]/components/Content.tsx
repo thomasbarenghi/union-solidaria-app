@@ -1,10 +1,10 @@
 'use client'
 import useSWR from 'swr'
 import Endpoints from '@/utils/constants/endpoints.const'
-import InitiativeDateInfo from './initiativeDateInfo'
-import OrganizationInfo from './organizationInfo'
-import InitiativeGeneralInfo from './initiativeGeneralInfo'
-import Skeleton from './skeleton'
+import InitiativeDateInfo from './DateInfo'
+import OrganizationInfo from './OrgInfo'
+import InitiativeGeneralInfo from './GeneralInfo'
+import Skeleton from './Skeleton'
 
 const Content = ({ id }: { id: string }) => {
   const { data, isLoading } = useSWR(Endpoints.INITIATIVES_BY_ID(id))

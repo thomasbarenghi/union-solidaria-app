@@ -1,5 +1,5 @@
-import Content from './components/content'
-import HeroSec from './components/hero'
+import Content from './components/Content'
+import HeroSec from './components/HeroSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

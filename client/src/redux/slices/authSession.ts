@@ -40,6 +40,7 @@ const authSlice = createSlice({
   reducers: {
     updateCurrentUser: (state, action: PayloadAction<UserInterface>) => {
       console.log('updateCurrentUser', action.payload)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       state.session = action.payload as UserInterface
     },
     setAuth: (state, action: PayloadAction<AuthInterface>) => {

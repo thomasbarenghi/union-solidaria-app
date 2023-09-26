@@ -1,4 +1,4 @@
-import HeroSection from './components/ero'
+import HeroSection from './components/HeroSection'
 import InitiativesSection from './components/InitiativesSection'
 import type { Metadata } from 'next'
 
