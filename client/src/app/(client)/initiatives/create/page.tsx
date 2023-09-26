@@ -1,5 +1,5 @@
-import FormSec from './components/form'
-import HeroSec from './components/hero'
+import FormSec from './components/FormSection'
+import HeroSec from './components/HeroSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

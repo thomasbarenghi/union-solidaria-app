@@ -8,15 +8,10 @@ const Routes = {
   LOGOUT: '/logout',
   LOGIN: '/login',
   REGISTER: '/register',
-  ACCOUNT: '/account',
   EDIT_ACCOUNT: '/account',
   PROFILE: (username: string) => `/@${username}`,
-  DASHBOARD: '/dashboard',
-  FEED: '/feed',
-  INSTITUTIONAL: '/legal',
-  DONATION: '/donation',
-  INSTITUTIONAL_TYC: '/institutional/TYC',
-  INSTITUTIONAL_PDP: '/institutional/PDP',
+  EXPLORE: '/explore',
+  DONATION: '/donate',
   LEGAL: '/legal'
 }
 

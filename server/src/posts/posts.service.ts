@@ -25,22 +25,39 @@ export class PostsService {
     const initiative = await this.initiativeModel
       .findById(initiativeId)
       .catch(() => {
-        throw new NotFoundException('Initiative not found');
+        throw new NotFoundException('Error finding initiative');
       });
 
     const author = await this.userModel.findById(authorId).catch(() => {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Error finding user');
     });
-    createPostDto.author = author._id;
-    createPostDto.initiative = initiative._id;
-    const post = await this.postModel.create(rest).catch(() => {
-      throw new BadRequestException('Unable to create post');
-    });
+
+    if (!initiative || !author)
+      throw new NotFoundException('Initiative or user not found');
+
+    const isOwner = author._id.toString() === initiative.owner.toString();
+
+    if (!isOwner)
+      throw new BadRequestException('User is not the owner of this initiative');
+
+    const post = await this.postModel
+      .create({
+        ...rest,
+        author: author._id,
+        initiative: initiative._id,
+      })
+      .catch(() => {
+        throw new BadRequestException('Unable to create post');
+      });
 
     initiative.posts.push(post._id);
     await initiative.save();
 
     author.posts.push(post._id);
+
+    await author.save();
+
+    return post;
   }
 
   async findAll() {

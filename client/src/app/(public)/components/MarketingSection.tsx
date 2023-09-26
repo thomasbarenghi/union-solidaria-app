@@ -19,7 +19,7 @@ const ContentItem = ({ title, description }: Props) => (
 
 const Marketing = () => (
   <section className='flex flex-col gap-10'>
-    <TextElement type='t3' as='h1' className=' w-full font-light'>
+    <TextElement type='t2' as='h1' className=' w-full font-light'>
       Únete a nuestra <b className='font-semibold'> revolución de solidaridad</b>
     </TextElement>
     <div className='grid grid-cols-1 gap-10 lg:grid-cols-3'>

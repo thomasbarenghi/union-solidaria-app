@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
-import DonateSec from './components/donateForm'
-import HeroSec from './components/hero'
+import DonateSec from './components/Form'
+import HeroSec from './components/HeroSection'
+import { Header } from '@/components'
 
 export const metadata: Metadata = {
   title: 'Donar | Unión Solidaria'
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 
 const DonationPage = () => (
   <>
+    <Header />
     <HeroSec />
     <article className='section-padding-1 container-section article-layout-1'>
       <DonateSec />

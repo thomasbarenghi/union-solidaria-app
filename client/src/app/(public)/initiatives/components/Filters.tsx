@@ -2,8 +2,8 @@
 import { SearchInput } from '@/components'
 import { debounce } from 'lodash'
 import { useMemo } from 'react'
-import Selects from './selects'
-import Modal from './modal'
+import Selects from './Selects'
+import Modal from './Modal'
 
 interface Props {
   query: Record<string, string>

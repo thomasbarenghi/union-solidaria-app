@@ -2,7 +2,7 @@
 import useSWR from 'swr'
 import { InitiativeGrid, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
-import Filters from './filters'
+import Filters from './Filters'
 import { useState } from 'react'
 import { buildQueryString } from '@/utils/functions/buildQueryString.utils'
 
@@ -20,7 +20,7 @@ const InitiativesSection = () => {
   return (
     <section className='flex w-full flex-col gap-6'>
       <div className='flex flex-col gap-1'>
-        <TextElement type='t3' as='h1' className='w-full !font-semibold'>
+        <TextElement type='t2' as='h1' className='w-full !font-semibold'>
           Todas las iniciativas
         </TextElement>
         <TextElement type='base' as='p' className='w-full !font-light'>

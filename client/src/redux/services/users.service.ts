@@ -38,13 +38,6 @@ export const currentUsersApi = createApi({
         await dispatch(updateCurrentUser(data.user))
       }
     }),
-    deleteUsers: builder.mutation<UserInterface, UserInterface>({
-      query: (body) => ({
-        url: Endpoints.USER_BY_ID(body._id),
-        method: 'DELETE',
-        body
-      })
-    }),
     getCurrentUser: builder.query<any, string>({
       query: (id) => Endpoints.USER_BY_ID(id),
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
@@ -55,5 +48,4 @@ export const currentUsersApi = createApi({
   })
 })
 
-export const { useDeleteUsersMutation, usePostUsersMutation, usePutUsersMutation, useGetCurrentUserQuery } =
-  currentUsersApi
+export const { usePostUsersMutation, usePutUsersMutation, useGetCurrentUserQuery } = currentUsersApi

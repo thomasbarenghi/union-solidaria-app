@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
-import RegisterForm from './components/registerForm'
+import RegisterForm from './components/Form'
 import { TextElement } from '@/components'
 
 const Register = () => (

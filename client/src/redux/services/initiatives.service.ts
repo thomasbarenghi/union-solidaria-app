@@ -24,25 +24,8 @@ export const initiativesApi = createApi({
           body: bodyFormData
         }
       }
-    }),
-    putInitiatives: builder.mutation<InitiativeInterface, InitiativeInterface>({
-      query: (body) => {
-        const bodyFormData = objectToFormData(body)
-        return {
-          url: Endpoints.INITIATIVES_BY_ID(body._id),
-          method: 'PUT',
-          body: bodyFormData
-        }
-      }
-    }),
-    deleteInitiatives: builder.mutation<InitiativeInterface, InitiativeInterface>({
-      query: (body) => ({
-        url: Endpoints.INITIATIVES_BY_ID(body._id),
-        method: 'DELETE',
-        body
-      })
     })
   })
 })
 
-export const { useDeleteInitiativesMutation, usePostInitiativesMutation, usePutInitiativesMutation } = initiativesApi
+export const { usePostInitiativesMutation } = initiativesApi

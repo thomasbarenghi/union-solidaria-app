@@ -1,6 +1,11 @@
 import { HelpHero } from '@/components'
-import FAQs from './components/faqs'
-import Contact from './components/contact'
+import FAQs from './components/FaqsSection'
+import Contact from './components/ContactSection'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Ayuda | Union Solidaria'
+}
 
 const Help = () => (
   <>

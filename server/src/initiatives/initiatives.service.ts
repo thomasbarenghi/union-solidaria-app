@@ -15,7 +15,6 @@ import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative
 import { User } from 'src/users/entities/user.entity';
 import { populateInitiative } from 'src/constants/populateInitiative.const';
 
-
 @Injectable()
 export class InitiativesService {
   constructor(
@@ -28,6 +27,8 @@ export class InitiativesService {
       .catch(() => {
         throw new NotFoundException('User not found');
       });
+
+    if (!owner) throw new NotFoundException('User not found');
 
     const initiative = await this.initiativeModel
       .create(createInitiativeDto)

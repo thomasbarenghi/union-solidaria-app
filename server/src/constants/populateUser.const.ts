@@ -6,7 +6,11 @@ interface PopulateConfig {
   select?: string;
 }
 
-export const populateUser = (withVolunteers = false, withReviews = false) => {
+export const populateUser = (
+  withVolunteers = false,
+  withReviews = false,
+  withInitiativesPosts = false,
+) => {
   const baseConfig: PopulateConfig[] = [
     {
       path: 'initiatives',
@@ -58,6 +62,28 @@ export const populateUser = (withVolunteers = false, withReviews = false) => {
         path: 'initiative',
         model: 'Initiative',
         select: 'title _id thumbnail',
+      },
+    ];
+  }
+
+  if (withInitiativesPosts) {
+    // Si withPosts es true, incluir población adicional
+    baseConfig[0].populate = [
+      {
+        path: 'posts',
+        model: 'Post',
+        populate: [
+          {
+            path: 'author',
+            model: 'User',
+            select: 'username firstName lastName email profileImage orgName _id',
+          },
+          {
+            path: 'initiative',
+            model: 'Initiative',
+            select: 'title _id thumbnail',
+          },
+        ],
       },
     ];
   }

@@ -1,3 +1,4 @@
+import { PostInterface } from './post.interface'
 import { UserInterface } from './user.interface'
 
 export interface InitiativeInterface {
@@ -16,7 +17,7 @@ export interface InitiativeInterface {
   province: string
   address: string
   reviewsId: string[]
-  postsId: string[]
+  posts: PostInterface[]
   ownerId: string
   startHour: string
   endHour: string
