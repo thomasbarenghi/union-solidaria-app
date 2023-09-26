@@ -2,6 +2,11 @@ import Edit from './components/GeneralForm'
 import PasswordForm from './components/PasswordForm'
 import HeroSec from './components/hero'
 import { TabBar, TextElement } from '@/components'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cuenta | Union Solidaria'
+}
 
 const tabItems = [
   {

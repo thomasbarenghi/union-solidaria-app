@@ -1,5 +1,10 @@
 import Content from './components/content'
 import { HelpHero } from '@/components'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Legales | Union Solidaria'
+}
 
 const Legal = () => (
   <>

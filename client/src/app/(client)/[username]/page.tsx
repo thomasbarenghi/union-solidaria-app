@@ -1,5 +1,10 @@
 import Content from './components/content'
 import HeroSec from './components/hero'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Usuario | Union Solidaria'
+}
 
 interface Props {
   params: {
@@ -10,7 +15,7 @@ interface Props {
 const Profile = ({ params }: Props) => (
   <>
     <HeroSec username={params.username.slice(3)} />
-    <article className='section-padding-1 container-section !py-14 article-layout-1 listContainer'>
+    <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
       <Content username={params.username.slice(3)} />
     </article>
   </>

@@ -1,5 +1,10 @@
 import HeroSection from './components/hero'
 import InitiativesSection from './components/initiatives'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Iniciativas | Union Solidaria'
+}
 
 const Home = () => (
   <>

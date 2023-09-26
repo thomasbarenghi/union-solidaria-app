@@ -2,6 +2,11 @@ import { Header } from '@/components'
 import HeroSection from './components/hero'
 import InitiativesSection from './components/initiatives'
 import MarketingSection from './components/marketing'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cambiemos el mundo juntos | Union Solidaria'
+}
 
 const Home = () => (
   <>

@@ -1,5 +1,10 @@
 import Hero from './components/hero'
 import Content from './components/content'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Iniciativa | Union Solidaria'
+}
 
 interface Props {
   params: {
