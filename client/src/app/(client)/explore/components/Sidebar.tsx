@@ -23,7 +23,7 @@ const Sidebar = ({ initiatives, activeInitiativeId, setActiveInitiativeId }: Sid
             Todas
           </TextElement>
         </div>
-        {initiatives.map((initiative: InitiativeInterface) => (
+        {initiatives?.map((initiative: InitiativeInterface) => (
           <div key={initiative._id} onClick={() => setActiveInitiativeId(initiative._id)}>
             <TextElement
               type='small'
