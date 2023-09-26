@@ -14,7 +14,7 @@ const Routes = {
   DASHBOARD: '/dashboard',
   FEED: '/feed',
   INSTITUTIONAL: '/legal',
-  DONATION: '/donation',
+  DONATION: '/donate',
   INSTITUTIONAL_TYC: '/institutional/TYC',
   INSTITUTIONAL_PDP: '/institutional/PDP',
   LEGAL: '/legal'

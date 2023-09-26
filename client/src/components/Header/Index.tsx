@@ -1,30 +1,28 @@
 'use client'
 import Image from 'next/image'
-import { ProfileAction } from '@/components'
+import { Button, ProfileAction } from '@/components'
 import { itemsNav } from './lib/itemsNav'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link } from '@nextui-org/react'
 import NextLink from 'next/link'
 import clsx from 'clsx'
 import { useState } from 'react'
+import Routes from '@/utils/constants/routes.const'
 
 interface Props {
-  theme?: 'dark' | 'light'
+  theme?: 'light' | 'transparent'
   layout?: 'simple' | 'full'
 }
 
-const Header = ({ theme = 'light', layout = 'full' }: Props) => {
-  const [bgColor, setBgColor] = useState('bg-none')
-  const [logo, setLogo] = useState(theme === 'dark' ? '/icon/logo-dark.svg' : '/icon/logo-light.svg')
-  const [textColor, setTextColor] = useState('text-white')
-  const [blur, setBlur] = useState(false)
+const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const bgColor = isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent'
+  const textColor = isScrolled ? 'text-black' : theme === 'transparent' ? 'text-white' : 'text-black'
+  const logo = isScrolled ? '/icon/logo-dark.svg' : theme === 'transparent' ? '/icon/logo-light.svg' : '/icon/logo-dark.svg'
+  const blur = isScrolled
   const stylesNavbar = clsx('section-padding-1 fixed py-6', bgColor)
 
   const handleScroll = (position: number) => {
-    const isScrolled = position > 0
-    setBgColor(isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent')
-    setTextColor(isScrolled ? 'text-black' : 'text-white')
-    setLogo(isScrolled ? '/icon/logo-dark.svg' : '/icon/logo-light.svg')
-    setBlur(isScrolled)
+    setIsScrolled(position > 0)
   }
 
   const renderNavItems = () =>
@@ -62,7 +60,8 @@ const Header = ({ theme = 'light', layout = 'full' }: Props) => {
             {renderNavItems()}
           </NavbarContent>
           <NavbarContent>
-            <NavbarItem>
+            <NavbarItem className='flex items-center gap-2'>
+              <Button title='Donar' size='md' href={Routes.DONATION} />
               <ProfileAction />
             </NavbarItem>
           </NavbarContent>

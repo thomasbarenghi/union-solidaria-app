@@ -1,16 +1,39 @@
-import { Hero, TextElement } from '@/components'
+import Image from 'next/image'
+import { Button, TextElement } from '@/components'
+import Routes from '@/utils/constants/routes.const'
+import { srcData } from './heroSrcData'
 
 const HeroSection = () => (
-  <Hero
-    imageSrc='https://images.unsplash.com/photo-1472087982327-49192446ed6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-    height='min-h-[50vh]'
-  >
-    <div className='flex w-full flex-col items-start justify-between gap-4 lg:flex-row'>
-      <TextElement type='t2' as='h1' className='w-full text-center !font-light text-white lg:text-start'>
-        Tu ayuda puede <b className='font-semibold'>hacer la diferencia.</b>
+  <section className='mt-[100px] flex flex-col items-center justify-center  '>
+    <div className='flex w-[65%] flex-col items-center justify-center gap-2 '>
+      <TextElement as='h1' type='t1' className='text-center !font-light'>
+        Transforma tu vida, colabora en causas benéficas,
+        <br />
+        <b className='font-semibold'> dile “Hola” al cambio.</b>
       </TextElement>
+      <TextElement as='p' type='base' className='text-center'>
+        Conviértete en el héroe de tu propia historia al unirte a proyectos emocionantes y causas inspiradoras. Únete a
+        nuestra comunidad de voluntarios y comienza a aportar al libro de la humanidad.
+      </TextElement>
+      <Button className='mt-2' title='Explorar iniciativas' href={Routes.INITIATIVES} />
     </div>
-  </Hero>
+    <FlexImages />
+  </section>
+)
+
+interface FlexImagesProps {
+  src: string
+  height: string
+}
+
+const FlexImages = () => (
+  <div className='flex h-[450px] w-full items-end justify-between gap-5'>
+    {srcData.map((src: FlexImagesProps, index: number) => (
+      <div key={index} className={`relative flex w-full  gap-5 ${src.height} `}>
+        <Image src={src?.src} alt='Logo' fill className='object-cover' />
+      </div>
+    ))}
+  </div>
 )
 
 export default HeroSection
