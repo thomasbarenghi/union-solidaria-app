@@ -1,4 +1,3 @@
-import Hero from './components/HeroSection'
 import Content from './components/Content'
 import type { Metadata } from 'next'
 
@@ -12,13 +11,6 @@ interface Props {
   }
 }
 
-const Home = ({ params }: Props) => (
-  <>
-    <Hero id={params.initiativeId} />
-    <article className='section-padding-1 container-section article-layout-1'>
-      <Content id={params.initiativeId} />
-    </article>
-  </>
-)
+const Home = ({ params }: Props) => <Content id={params.initiativeId} />
 
 export default Home

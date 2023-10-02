@@ -12,6 +12,8 @@ interface Props {
   triggerText: string
   confirmText?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full'
+  triggerClassName?: string
+  triggerVariant?: 'flat' | 'solid' | 'bordered' | 'light' | 'faded' | 'shadow' | 'ghost'
 }
 
 const Modal = ({
@@ -23,7 +25,9 @@ const Modal = ({
   cancelText = 'Cancelar',
   confirmText = 'Ok',
   size = 'md',
-  triggerText
+  triggerText,
+  triggerClassName = '',
+  triggerVariant = 'faded'
 }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
@@ -37,7 +41,13 @@ const Modal = ({
 
   return (
     <>
-      <Button type='submit' title={triggerText} onClick={onOpen} />
+      <Button
+        type='submit'
+        title={triggerText}
+        onClick={onOpen}
+        className={triggerClassName}
+        variant={triggerVariant}
+      />
       <ModalUI isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={isDismissable} size={size}>
         <ModalContent>
           {(onClose) => (

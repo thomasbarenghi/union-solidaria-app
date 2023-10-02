@@ -10,7 +10,7 @@ export interface InitiativeInterface {
   endDate: Date
   galery: string
   thumbnail: string
-  volunteers: Volunteers[]
+  volunteers: VolunteersInterface[]
   categories: string[]
   opportunities: string[]
   country: string
@@ -31,7 +31,7 @@ export interface InitiativeInterface {
   owner: UserInterface
 }
 
-interface Volunteers {
-  status: 'accepted' | 'pending' | 'refused'
+export interface VolunteersInterface {
+  status: 'accepted' | 'pending' | 'rejected'
   user: UserInterface
 }

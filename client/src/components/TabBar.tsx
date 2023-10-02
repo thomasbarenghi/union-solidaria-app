@@ -1,5 +1,6 @@
 'use client'
 import { Tabs, Tab } from '@nextui-org/react'
+import { Key } from 'react'
 
 interface TabBarItemProps {
   title: string
@@ -10,9 +11,10 @@ interface TabBarItemProps {
 interface TabBarProps {
   items: TabBarItemProps[]
   variant: 'underlined' | 'solid' | 'light' | 'bordered'
+  onSelectionChange?: (index: Key) => void
 }
 
-const TabBar = ({ items, variant }: TabBarProps) => (
+const TabBar = ({ items, variant, onSelectionChange = (index: Key) => {} }: TabBarProps) => (
   <Tabs
     className='w-full whitespace-nowrap'
     classNames={{
@@ -22,6 +24,9 @@ const TabBar = ({ items, variant }: TabBarProps) => (
       panel: 'py-0'
     }}
     variant={variant}
+    onSelectionChange={(index) => {
+      void onSelectionChange(index)
+    }}
   >
     {items?.map(
       ({ title, content, visible = true }, index) =>
