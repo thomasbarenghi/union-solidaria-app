@@ -38,6 +38,7 @@ const Input = ({
       labelPlacement='outside'
       name={name}
       defaultValue={defaultValue}
+      autoComplete='off'
       classNames={{
         inputWrapper:
           '!bg-white !text-black border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',

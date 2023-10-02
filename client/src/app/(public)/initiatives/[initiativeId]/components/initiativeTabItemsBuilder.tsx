@@ -2,6 +2,7 @@ import { InitiativeInterface, UserInterface } from '@/interfaces'
 import InfoSection from './InfoSection/InfoSection'
 import PostSection from './PostsSection/PostSection'
 import VolunteersSection from './VolunteersSection/VolunteersSection'
+import ConfigSection from './ConfigSection/ConfigSection'
 
 export const initiativeTabItemsBuilder = (
   currentUser: UserInterface,
@@ -26,7 +27,7 @@ export const initiativeTabItemsBuilder = (
     },
     {
       title: 'Configuracion',
-      content: <> </>,
+      content: <ConfigSection initiative={data} isLoading={isLoading} />,
       visible: isOrg && isCurrent
     }
   ]
