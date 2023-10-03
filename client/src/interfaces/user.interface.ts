@@ -1,6 +1,8 @@
 import { InitiativeInterface } from '.'
 import { ReviewInterface } from './review.interface'
 
+export type Role = 'volunteer' | 'organization'
+
 export interface UserInterface {
   _id: string
   firstName: string
@@ -8,7 +10,7 @@ export interface UserInterface {
   birthday?: null | string
   phone: string
   email: string
-  role: 'volunteer' | 'organization'
+  role: Role
   initiatives: InitiativeInterface[]
   favorites: InitiativeInterface[]
   password: string
