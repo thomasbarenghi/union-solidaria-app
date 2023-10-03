@@ -14,6 +14,7 @@ import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dt
 import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
 import { User } from 'src/users/entities/user.entity';
 import { populateInitiative } from 'src/constants/populateInitiative.const';
+import { UnsubscribeUserToInitiativeDto } from './dto/unsubscribe-user-from-initiative.dto';
 
 @Injectable()
 export class InitiativesService {
@@ -134,12 +135,16 @@ export class InitiativesService {
     const initiative = await this.initiativeModel
       .findById(initiativeId)
       .catch(() => {
-        throw new NotFoundException('Initiative not found');
+        throw new BadRequestException('Error finding initiative');
       });
 
+    if (!initiative) throw new NotFoundException('Initiative not found');
+
     const user = await this.userModel.findById(userId).catch(() => {
-      throw new NotFoundException('User not found');
+      throw new BadRequestException('Error finding user');
     });
+
+    if (!user) throw new NotFoundException('User not found');
 
     const subscription = initiative.volunteers.find(
       (subscription) => subscription.user.toString() === user._id.toString(),
@@ -149,10 +154,66 @@ export class InitiativesService {
       throw new ConflictException('User is not subscribed to this initiative.');
     }
 
-    subscription.status = status;
-    initiative.save();
+    const volunteers = initiative.volunteers.map((subscription) => {
+      if (subscription.user.toString() === user._id.toString()) {
+        subscription.status = status;
+      }
+      return subscription;
+    });
+
+    initiative.volunteers = volunteers;
+    initiative.markModified('volunteers');
+    await initiative.save();
     return {
       message: `User ${user._id} subscription status updated to ${status} successfully.`,
+    };
+  }
+
+  async unsubscribeUserFromInitiative(
+    unsubscribeUserToInitiativeDto: UnsubscribeUserToInitiativeDto,
+  ): Promise<object> {
+    const { userId, initiativeId } = unsubscribeUserToInitiativeDto;
+
+    const initiative = await this.initiativeModel
+      .findById(initiativeId)
+      .catch(() => {
+        throw new BadRequestException('Error finding initiative');
+      });
+
+    if (!initiative) throw new NotFoundException('Initiative not found');
+
+    const user = await this.userModel.findById(userId).catch(() => {
+      throw new BadRequestException('Error finding user');
+    });
+
+    if (!user) throw new NotFoundException('User not found');
+
+    const subscription = initiative.volunteers.find(
+      (subscription) => subscription.user.toString() === user._id.toString(),
+    );
+
+    if (!subscription) {
+      throw new ConflictException('User is not subscribed to this initiative.');
+    }
+
+    const volunteers = initiative.volunteers.filter((subscription) => {
+      return subscription.user.toString() !== user._id.toString();
+    });
+
+    const initiatives = user.initiatives.filter((initiative) => {
+      return initiative.toString() !== initiativeId.toString();
+    });
+    user.initiatives = initiatives;
+    user.markModified('initiatives');
+    console.log(user.initiatives);
+    await user.save();
+
+    initiative.volunteers = volunteers;
+    initiative.markModified('volunteers');
+    await initiative.save();
+
+    return {
+      message: `User ${user._id} unsubscribed from initiative ${initiative._id} successfully.`,
     };
   }
 }

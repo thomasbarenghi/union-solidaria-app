@@ -3,7 +3,7 @@ import { InitiativeInterface } from '@/interfaces'
 
 const OrganizationInfo = ({ currentInitiative }: { currentInitiative: InitiativeInterface }) => (
   <div className='flex flex-col gap-2'>
-    <TextElement type='t3' as='h1'>
+    <TextElement type='t3' as='h1' className='!font-semibold'>
       Organización
     </TextElement>
     <div className='flex flex-col gap-2'>

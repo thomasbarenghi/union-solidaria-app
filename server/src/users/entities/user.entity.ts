@@ -70,7 +70,7 @@ export class User {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
     default: [],
   })
-  initiatives?: [mongoose.Schema.Types.ObjectId];
+  initiatives?: mongoose.Schema.Types.ObjectId[];
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],

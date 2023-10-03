@@ -20,6 +20,7 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { convertToArray } from 'src/utils/convertToArray.utils';
 import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dto';
 import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
+import { UnsubscribeUserToInitiativeDto } from './dto/unsubscribe-user-from-initiative.dto';
 
 @Controller('initiatives')
 export class InitiativesController {
@@ -106,7 +107,7 @@ export class InitiativesController {
     }
   }
 
-  @Post('/subscribe')
+  @Put('/subscribe')
   subscribeUserToInitiative(
     @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ) {
@@ -127,6 +128,20 @@ export class InitiativesController {
     try {
       return this.initiativesService.updateSubscriptionStatus(
         updateSubscriptionStatusDto,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Put('/unsubscribe')
+  unsubscribeUserFromInitiative(
+    @Body() unsubscribeUserFromInitiativeDto: UnsubscribeUserToInitiativeDto,
+  ) {
+    try {
+      return this.initiativesService.unsubscribeUserFromInitiative(
+        unsubscribeUserFromInitiativeDto,
       );
     } catch (error) {
       console.error(error);
