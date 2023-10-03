@@ -25,7 +25,7 @@ const InitiativeDateInfo = ({ currentInitiative }: { currentInitiative: Initiati
 
   return (
     <div className='flex flex-col gap-4'>
-      <TextElement type='t3' as='h1'>
+      <TextElement type='t3' as='h1' className='!font-semibold'>
         Información
       </TextElement>
       <div className='flex flex-col gap-4'>

@@ -200,6 +200,14 @@ export class InitiativesService {
       return subscription.user.toString() !== user._id.toString();
     });
 
+    const initiatives = user.initiatives.filter((initiative) => {
+      return initiative.toString() !== initiativeId.toString();
+    });
+    user.initiatives = initiatives;
+    user.markModified('initiatives');
+    console.log(user.initiatives);
+    await user.save();
+
     initiative.volunteers = volunteers;
     initiative.markModified('volunteers');
     await initiative.save();

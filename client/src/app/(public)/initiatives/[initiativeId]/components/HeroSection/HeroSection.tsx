@@ -21,7 +21,7 @@ const HeroSec = ({ data, isLoading, children }: Props) => {
   const chipData = statusChipBuilder(data, currentUser)
   const dateChipData = dateStatusChipBuilder(data)
   return (
-    <Hero imageSrc={data?.thumbnail} isLoading={isLoading} height='h-[45vh] '>
+    <Hero imageSrc={data?.thumbnail} isLoading={isLoading} height='h-[50vh] '>
       <div className='flex items-center justify-between py-10'>
         <div className='flex flex-col gap-2'>
           <TextElement type='t2' as='h1' className='w-full !font-semibold text-white'>
@@ -45,11 +45,21 @@ const HeroSec = ({ data, isLoading, children }: Props) => {
           </TextElement>
           <div className='flex gap-1'>
             {auth.isLogged && (
-              <Chip color={chipData.color} className='!font-semibold !text-white'>
+              <Chip
+                color={chipData.color}
+                classNames={{
+                  content: '!font-semibold !text-[12px]'
+                }}
+              >
                 {chipData.title}
               </Chip>
             )}
-            <Chip color={dateChipData.color} className='!font-semibold !text-white'>
+            <Chip
+              color={dateChipData.color}
+              classNames={{
+                content: '!font-semibold !text-[12px] '
+              }}
+            >
               {dateChipData.title}
             </Chip>
           </div>

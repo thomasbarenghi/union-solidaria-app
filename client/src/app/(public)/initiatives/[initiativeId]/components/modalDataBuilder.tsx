@@ -29,11 +29,11 @@ export const modalDataBuilder = (
   mutator?: any
 ): Response => {
   console.log('tabIndex', tabIndex)
-  const isOwner = currentUser._id === initiative.owner._id
-  const volunteer = initiative.volunteers.find((volunteer) => volunteer.user._id === currentUser._id)
+  const isOwner = currentUser._id === initiative?.owner?._id
+  const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUser?._id)
   const isVolunteer = Boolean(volunteer)
   const status = volunteer?.status
-  const ended = new Date(initiative.endDate) < new Date()
+  const ended = new Date(initiative?.endDate) < new Date()
 
   const content = {
     triggerText: '',

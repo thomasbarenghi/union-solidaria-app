@@ -50,8 +50,8 @@ const Content = ({ id }: { id: string }) => {
         )}
       </Hero>
       <article className='section-padding-1 container-section listContainer article-layout-1 !py-14'>
-        <section className='flex w-full flex-col gap-6 lg:gap-4'>
-          <TabBar variant='underlined' items={tabItems} onSelectionChange={(index) => setCurrentIndex(index)} />
+        <section className='flex w-full flex-col gap-6'>
+          <TabBar variant='underlined' items={tabItems} onSelectionChange={(index) => setCurrentIndex(index)} withHr />
         </section>
       </article>
     </>

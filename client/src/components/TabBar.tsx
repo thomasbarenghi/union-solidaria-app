@@ -12,16 +12,19 @@ interface TabBarProps {
   items: TabBarItemProps[]
   variant: 'underlined' | 'solid' | 'light' | 'bordered'
   onSelectionChange?: (index: Key) => void
+  withHr?: boolean
 }
 
-const TabBar = ({ items, variant, onSelectionChange = (index: Key) => {} }: TabBarProps) => (
+const TabBar = ({ items, variant, onSelectionChange = (index: Key) => {}, withHr = false }: TabBarProps) => (
   <Tabs
     className='w-full whitespace-nowrap'
     classNames={{
       cursor: 'bg-white',
       tab: 'text-base',
-      tabList: 'p-0 gap-6',
-      panel: 'py-0'
+      tabList: 'p-0 gap-6 ',
+      panel: 'py-0',
+      base: `${withHr ? 'border-b pb-2' : ''}`,
+      tabContent: 'group-data-[selected=true]:font-medium font-light'
     }}
     variant={variant}
     onSelectionChange={(index) => {

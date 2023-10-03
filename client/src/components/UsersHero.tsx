@@ -16,8 +16,8 @@ const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = f
       <Image
         src={user?.profileImage}
         alt='Picture of the author'
-        width={60}
-        height={60}
+        width={70}
+        height={70}
         className='aspect-square rounded-full border border-white object-cover p-1'
       />
       <div>
