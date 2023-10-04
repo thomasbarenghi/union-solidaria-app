@@ -46,18 +46,27 @@ export class UsersService {
 
   async findOne(id: string) {
     const idPattern = /^[0-9a-f]{24}$/i;
+    const emailPattern = /\S+@\S+\.\S+/;
     if (id && idPattern.test(id)) {
       return await this.userModel
         .findById(id)
-        .populate(populateUser(true, true))
+        .populate(populateUser(true, true, true))
         .catch(() => {
           throw new NotFoundException("User doesn't exist");
         });
+    } else if (id && emailPattern.test(id)) {
+      console.log('email');
+      const user = await this.userModel
+        .findOne({ email: id })
+        .populate(populateUser(true, true, true));
+
+      if (!user) throw new NotFoundException("User doesn't exist");
+      return user;
     } else {
       console.log('username');
       const user = await this.userModel
         .findOne({ username: id })
-        .populate(populateUser(true, true));
+        .populate(populateUser(true, true, true));
 
       if (!user) throw new NotFoundException("User doesn't exist");
       return user;

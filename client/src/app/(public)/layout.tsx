@@ -1,4 +1,4 @@
-import { Header, Footer } from '@/components'
+import { Footer } from '@/components'
 
 interface Props {
   children: React.ReactNode
@@ -6,9 +6,7 @@ interface Props {
 
 const RootLayout = ({ children }: Props) => (
   <main className='flex min-h-screen flex-col'>
-    <Header />
     {children}
-    {/* <BottomBar /> */}
     <Footer />
   </main>
 )

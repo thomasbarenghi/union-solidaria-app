@@ -1,3 +1,4 @@
+import { PostInterface } from './post.interface'
 import { UserInterface } from './user.interface'
 
 export interface InitiativeInterface {
@@ -9,14 +10,14 @@ export interface InitiativeInterface {
   endDate: Date
   galery: string
   thumbnail: string
-  volunteers: Volunteers[]
+  volunteers: VolunteersInterface[]
   categories: string[]
   opportunities: string[]
   country: string
   province: string
   address: string
   reviewsId: string[]
-  postsId: string[]
+  posts: PostInterface[]
   ownerId: string
   startHour: string
   endHour: string
@@ -30,7 +31,7 @@ export interface InitiativeInterface {
   owner: UserInterface
 }
 
-interface Volunteers {
-  status: 'accepted' | 'pending' | 'refused'
+export interface VolunteersInterface {
+  status: 'accepted' | 'pending' | 'rejected'
   user: UserInterface
 }

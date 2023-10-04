@@ -73,3 +73,20 @@ export const getRequest = async (url: string, headers: object = {}): Promise<Res
     success: response.ok
   }
 }
+
+export const patchRequest = async (url: string, data: object, headers: object = {}): Promise<Response> => {
+  const response = await fetch(`${serverUrl}${url}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...headers
+    },
+    body: JSON.stringify(data)
+  })
+
+  return {
+    data: await response.json(),
+    error: !response.ok,
+    success: response.ok
+  }
+}
