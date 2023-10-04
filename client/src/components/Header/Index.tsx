@@ -27,15 +27,6 @@ const Header = ({ theme = 'light', layout = 'full' }: Props) => {
     setBlur(isScrolled)
   }
 
-  const renderNavItems = () =>
-    itemsNav.map((item, index) => (
-      <NavbarItem key={index}>
-        <Link color='foreground' className={textColor} href={item.href} as={NextLink}>
-          {item.name}
-        </Link>
-      </NavbarItem>
-    ))
-
   return (
     <Navbar
       className={stylesNavbar}
@@ -59,7 +50,13 @@ const Header = ({ theme = 'light', layout = 'full' }: Props) => {
             className='absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform gap-4 p-0 sm:flex'
             justify='center'
           >
-            {renderNavItems()}
+            {itemsNav.map((item, index) => (
+              <NavbarItem key={index}>
+                <Link color='foreground' className={textColor} href={item.href} as={NextLink}>
+                  {item.name}
+                </Link>
+              </NavbarItem>
+            ))}
           </NavbarContent>
           <NavbarContent>
             <NavbarItem>
