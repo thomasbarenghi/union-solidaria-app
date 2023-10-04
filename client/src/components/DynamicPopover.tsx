@@ -8,7 +8,7 @@ interface DynamicPopoverProps {
 }
 
 const DynamicPopover = ({ childrenTrigger, children, backdrop }: DynamicPopoverProps) => (
-  <div className='hidden lg:flex'>
+  <div className='lg:flex'>
     <Popover
       key='backdrop'
       offset={10}

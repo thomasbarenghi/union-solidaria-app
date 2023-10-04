@@ -7,6 +7,7 @@ interface Props {
   className?: string
 }
 
+// This is not an abstraction
 const TextElement = ({ as = 'h1', children = '', className = '', type }: Props) => {
   const TagName = as
   const classNames = classesBuilder(type, className)

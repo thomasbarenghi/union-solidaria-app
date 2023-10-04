@@ -33,12 +33,12 @@ export const itemsNavBuilder = (currentUser: UserInterface): ItemNavInterface[] 
     label: 'Ayuda',
     href: Routes.HELP,
     visible: true
-  },
-  {
-    key: Routes.LOGOUT,
-    label: 'Cerrar sesión',
-    href: Routes.LOGOUT,
-    visible: true,
-    color: 'danger'
   }
+  // {
+  //   key: Routes.LOGOUT,
+  //   label: 'Cerrar sesión',
+  //   href: Routes.LOGOUT,
+  //   visible: true,
+  //   color: 'danger'
+  // }
 ]
