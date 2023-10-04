@@ -2,11 +2,13 @@
 import { Button, Input, SimpleSelect } from '@/components'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { usePostUsersMutation } from '@/redux/services/users.service'
 import { useRouter } from 'next/navigation'
 import Routes from '@/utils/constants/routes.const'
+import { RegisterFormValues } from '@/interfaces/forms.interface'
+import { Role } from '@/interfaces'
+import { signupUser } from '@/services/auth/signup.service'
 
-const roles = [
+const roles: Array<{ value: Role; label: string }> = [
   {
     value: 'volunteer',
     label: 'Voluntario'
@@ -20,7 +22,6 @@ const roles = [
 const RegisterForm = () => {
   const formRef = useRef<HTMLFormElement>(null)
   const router = useRouter()
-  const [addUser] = usePostUsersMutation()
   const [role, setRole] = useState<string>('volunteer')
   const {
     register,
@@ -28,14 +29,11 @@ const RegisterForm = () => {
     handleSubmit,
     setValue,
     control,
-    watch
-  } = useForm({
+    watch,
+    reset
+  } = useForm<RegisterFormValues & { repeatPassword: string }>({
     mode: 'onChange'
   })
-
-  const cleanForm = () => {
-    formRef.current?.reset()
-  }
 
   const onSubmit = async (data: any) => {
     try {
@@ -45,9 +43,9 @@ const RegisterForm = () => {
         birthday: new Date(data.birthday).toISOString()
       }
       console.log(errors, formData)
-      await addUser(formData).unwrap()
+      await signupUser(formData)
+      reset()
       router.push(Routes.LOGIN)
-      cleanForm()
     } catch (error) {
       console.log(error)
       alert('Error al crear usuario')
@@ -57,9 +55,7 @@ const RegisterForm = () => {
   return (
     <form
       className=' mx-auto my-0 grid max-w-lg grid-cols-1 justify-items-center gap-3 p-6 md:justify-items-start md:py-20'
-      onSubmit={() => {
-        void handleSubmit(onSubmit)
-      }}
+      onSubmit={handleSubmit(onSubmit)}
       ref={formRef}
     >
       <h1 className='col-span-full mb-5 self-start justify-self-start text-2xl font-bold text-pink-500 md:justify-self-center'>
@@ -246,7 +242,7 @@ const RegisterForm = () => {
         }}
         errorMessage={errors?.repeatPassword?.message?.toString()}
       />
-      <Button type='submit' title='Crear usuario' fullWidth />
+      <Button title='Crear usuario' fullWidth />
     </form>
   )
 }
