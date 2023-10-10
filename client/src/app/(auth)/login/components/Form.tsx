@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client'
 import { Input, Button } from '@/components'
 import { useState, useRef } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { signIn } from 'next-auth/react'
-import GoogleButton from './google'
 import { type LoginFormValues } from '@/interfaces/forms.interface'
 import { useRouter } from 'next/navigation'
 import Routes from '@/utils/constants/routes.const'
 import { FetchError } from '@/interfaces/error.interface'
 import { FetchLoginStatus } from '@/types/fetch-status'
+// import GoogleButton from './google'
 
 const LoginForm = () => {
   const [visibility] = useState(false)
@@ -25,7 +24,6 @@ const LoginForm = () => {
   })
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log('data')
     try {
       // 'status' and 'ok' properties of signIn method return does not work correctly
       // docs about signIn() https://next-auth.js.org/getting-started/client#using-the-redirect-false-option
@@ -97,7 +95,7 @@ const LoginForm = () => {
         </div>
         <Button type='submit' isLoading={isLoading} title='Iniciar sesion' fullWidth />
       </form>
-      <GoogleButton />
+      {/* <GoogleButton /> */}
       {errors.root !== undefined ? (
         <p className='rounded-xl border border-red-600 bg-red-600 bg-opacity-40 px-3 py-1 text-sm text-red-800'>
           {errors.root?.message}

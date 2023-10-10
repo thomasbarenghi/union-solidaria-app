@@ -60,7 +60,6 @@ const FormSec = () => {
         deadLine: new Date(data.deadLine).toISOString()
       }
       const res = await addPost(formData).unwrap()
-      console.log(res._id, res)
       cleanForm()
       router.push(Routes.INDIVIDUAL_INITIATIVE(res._id))
     } catch (err) {

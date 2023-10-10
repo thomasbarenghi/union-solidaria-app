@@ -42,7 +42,6 @@ const RegisterForm = () => {
         ...data,
         birthday: new Date(data.birthday).toISOString()
       }
-      console.log(errors, formData)
       await signupUser(formData)
       reset()
       router.push(Routes.LOGIN)

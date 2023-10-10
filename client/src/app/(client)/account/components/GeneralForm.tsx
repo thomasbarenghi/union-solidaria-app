@@ -26,7 +26,6 @@ const FormSec = () => {
       profileImage: data.profileImage[0] ?? '',
       bannerImage: data.bannerImage[0] ?? ''
     }
-    console.log(errors, formData)
     await putUser({ data: formData, userId: currentUser._id })
   }
 
