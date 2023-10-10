@@ -1,8 +1,7 @@
 // This import is necessary for type extension, otherwise an "not callable" error is displayed at '/app/api/auth/[...nextauth]/route.ts'
 import 'next-auth'
 
-// This types are declared to implement type safe Providers (Google, Github, etc.) in next auth
-// Credential provider doesn't require this interfaces, since callbacks are not part of it's authentication flow
+// This types are declared to implement type safe Providers (Credentials, Google, Github, etc.) in next auth
 declare module 'next-auth' {
   interface Profile {
     iss: string
