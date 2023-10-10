@@ -1,16 +1,23 @@
+import { FetchError } from '@/interfaces/error.interface'
+
 interface Options<S extends number> {
   url: string
   errors: Partial<Record<DefaultHandledStatus, ErrorOption>> & Omit<Record<S, ErrorOption>, DefaultHandledStatus>
   init?: RequestInit
 }
 
-type DefaultHandledStatus = 200 | 201 | 202 | 500
+type DefaultHandledStatus = 200 | 201 | 202 | 500 | 'unhandled'
 
 interface ErrorOption {
   message: string
 }
 
-export const customFetch = async <Status extends number>(options: Options<Status>) => {
+export const customFetch = async <Status extends number, DataType = any>(
+  options: Options<Status>
+): Promise<{
+  data: DataType | undefined
+  error: FetchError<Status | DefaultHandledStatus> | null
+}> => {
   const { url, init, errors } = options
   const defaultErrors = {
     200: null,
@@ -25,24 +32,31 @@ export const customFetch = async <Status extends number>(options: Options<Status
 
   try {
     const res = await fetch(url, { ...init })
-    const isErrorHandled = Object.keys(extendedErrors).includes(res.status.toString())
+    const isStatusHandled = Object.keys(extendedErrors).includes(res.status.toString())
 
-    if (!isErrorHandled) {
+    if (!isStatusHandled) {
       const data = await res.json()
       return {
-        data,
-        error: { status: 'unhandled', message: `Unhandled error, response status code ${res.status}` }
+        data: undefined,
+        error: {
+          status: 'unhandled',
+          message: `Unhandled error, response status code ${res.status} received from the server`,
+          serverError: data
+        }
       }
     }
 
-    if (extendedErrors[res.status as Status | DefaultHandledStatus] !== null) {
+    if (extendedErrors[res.status as Status | DefaultHandledStatus] === null) {
       const data = await res.json()
-      return { data, error: { status: res.status, ...extendedErrors[res.status as Status | DefaultHandledStatus] } }
+      return { data, error: null }
     }
 
     return {
       data: undefined,
-      error: { status: res.status, ...extendedErrors[res.status as Status | DefaultHandledStatus] }
+      error: {
+        status: res.status as Status | DefaultHandledStatus,
+        ...extendedErrors[res.status as Status | DefaultHandledStatus]
+      }
     }
   } catch (error) {
     console.log(error)

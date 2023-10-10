@@ -8,7 +8,7 @@ export const signupUser = async (values: RegisterFormValues) => {
   const body = { ...values, birthday: values.birthday.toISOString() }
 
   const { data, error } = await customFetch<FetchRegisterStatus>({
-    url: `${serverUrl}${Endpoints.LOGIN}`,
+    url: `${serverUrl}${Endpoints.USERS}`,
     errors: {
       400: { message: 'Bad request. Some fields are missing or has an invalid format' }
     },
