@@ -1,5 +1,6 @@
 const Endpoints = {
   LOGIN: '/api/auth/login',
+  LOGOUT: '/api/auth/logout',
   GOOGLE_LOGIN: '/api/auth/google',
   VERIFY: '/api/auth/verify',
   USERS: '/api/users',
