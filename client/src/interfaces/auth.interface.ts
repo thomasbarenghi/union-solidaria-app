@@ -11,6 +11,10 @@ export interface LoginSuccessful {
   message: string
 }
 
+export interface LogoutSuccessful {
+  message: string
+}
+
 // TODO: fix backend returned json when a user registers
 export interface RegisterSuccessful {
   __v: number
