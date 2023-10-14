@@ -16,7 +16,7 @@ const LoginForm = () => {
   const router = useRouter()
   const {
     register,
-    formState: { errors, isLoading },
+    formState: { errors, isSubmitting, isSubmitted },
     handleSubmit,
     setError
   } = useForm<LoginFormValues>({
@@ -34,21 +34,24 @@ const LoginForm = () => {
         redirect: false
       })
 
-      if (responseNextAuth?.error !== undefined) {
+      if (responseNextAuth?.error !== null) {
         const error: FetchError<FetchLoginStatus> = JSON.parse(responseNextAuth?.error as string)
         const { status, message } = error
 
         if (status === 401) {
           console.error(message)
           setError('root', { type: 'custom', message: 'Credenciales inválidas' })
+          return
         }
         if (status === 500) {
           console.error(message)
           setError('root', { type: 'custom', message: 'No se pudo lograr la conexión con el servidor' })
+          return
         }
         if (status === 'unhandled') {
           console.error(message)
           setError('root', { type: 'custom', message: 'Error inesperado, intentelo de nuevo' })
+          return
         }
       }
 
@@ -93,7 +96,9 @@ const LoginForm = () => {
             errorMessage={errors?.password?.message?.toString()}
           />
         </div>
-        <Button type='submit' isLoading={isLoading} title='Iniciar sesion' fullWidth />
+        <Button type='submit' fullWidth isLoading={isSubmitting || isSubmitted}>
+          Iniciar sesion
+        </Button>
       </form>
       {/* <GoogleButton /> */}
       {errors.root !== undefined ? (

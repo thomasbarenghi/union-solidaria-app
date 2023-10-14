@@ -25,7 +25,7 @@ const RegisterForm = () => {
   const [role, setRole] = useState<string>('volunteer')
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitted },
     handleSubmit,
     setValue,
     control,
@@ -38,11 +38,13 @@ const RegisterForm = () => {
   const onSubmit = async (data: any) => {
     try {
       delete data.repeatPassword
+      const birthday = new Date(data.birthday)
       const formData = {
         ...data,
-        birthday: new Date(data.birthday).toISOString()
+        birthday
       }
-      await signupUser(formData)
+      const { error } = await signupUser(formData)
+      if (error !== null) throw new Error(error.message)
       reset()
       router.push(Routes.LOGIN)
     } catch (error) {
@@ -241,7 +243,9 @@ const RegisterForm = () => {
         }}
         errorMessage={errors?.repeatPassword?.message?.toString()}
       />
-      <Button title='Crear usuario' fullWidth />
+      <Button type='submit' fullWidth isLoading={isSubmitting || isSubmitted}>
+        Crear usuario
+      </Button>
     </form>
   )
 }

@@ -3,12 +3,13 @@ import { Button as ButtonUI } from '@nextui-org/react'
 import Link from 'next/link'
 
 interface ButtonProps {
+  children?: React.ReactNode
   color?: 'primary' | 'default' | 'secondary' | 'success' | 'warning' | 'danger'
   variant?: 'flat' | 'solid' | 'bordered' | 'light' | 'faded' | 'shadow' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   radius?: 'sm' | 'md' | 'lg' | 'none' | 'full'
   fullWidth?: boolean
-  title: string
+  title?: string
   isDisabled?: boolean
   isLoading?: boolean
   type?: 'button' | 'submit' | 'reset'
@@ -20,6 +21,7 @@ interface ButtonProps {
 }
 
 const Button = ({
+  children,
   title,
   color = 'primary',
   variant = 'solid',
@@ -50,6 +52,7 @@ const Button = ({
     onPress={onClick}
   >
     {startContent}
+    {children}
     {title}
     {endContent}
   </ButtonUI>
