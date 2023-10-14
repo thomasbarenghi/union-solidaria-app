@@ -1,4 +1,4 @@
-export type FetchLoginStatus = 200 | 401 | 404 | 500
+export type FetchLoginStatus = 200 | 401 | 500
 
 export type FetchRegisterStatus = 201 | 400 | 500
 

@@ -1,4 +1,4 @@
-import { FetchError } from '@/interfaces/error.interface'
+import { FetchError } from '@/interfaces'
 
 interface Options<S extends number> {
   url: string
