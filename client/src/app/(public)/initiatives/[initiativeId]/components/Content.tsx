@@ -50,8 +50,14 @@ const Content = ({ id }: { id: string }) => {
         )}
       </Hero>
       <article className='section-padding-1 container-section listContainer article-layout-1 !py-14'>
-        <section className='flex w-full flex-col gap-6'>
-          <TabBar variant='underlined' items={tabItems} onSelectionChange={(index) => setCurrentIndex(index)} withHr />
+        <section className='flex w-full flex-col gap-4'>
+          <TabBar
+            onSelectionChange={(index) => setCurrentIndex(index)}
+            items={tabItems}
+            variant='solid'
+            tabContentClassName='group-data-[selected=true]:text-white p-4 '
+            cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
+          />
         </section>
       </article>
     </>

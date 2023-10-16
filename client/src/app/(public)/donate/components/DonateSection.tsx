@@ -34,7 +34,7 @@ const Donation = () => {
   }
 
   return (
-    <div className='flex w-full flex-col gap-5 lg:flex-row'>
+    <div className='flex w-full flex-col items-start gap-5 lg:flex-row'>
       <div className='flex w-full flex-col gap-0'>
         <Slider min={5} max={1000} defaultValue={50} handleChange={handleChange} />
         <div className='flex w-full justify-between'>
@@ -54,13 +54,15 @@ const Donation = () => {
 }
 
 const DonateSec = () => (
-  <section className='flex flex-col gap-10'>
+  <section className='flex items-center flex-col lg:flex-row gap-14'>
     <div className='flex flex-col gap-1'>
-      <TextElement type='t3' as='h1' className='font-light'>
-        La importancia de tu donación es <b className='font-semibold'>incalculable.</b>
+      <TextElement type='t1' as='h1' className='font-light'>
+        La importancia de <br />
+        tu donación es <b className='font-semibold'>incalculable.</b>
       </TextElement>
       <TextElement type='base' as='p'>
-        La importancia de tu donación es <b className='font-semibold'>incalculable.</b>
+        Con tu aporte vamos a costear los gastos de la plataforma, pagar a los desarrolladores y mantenernos activos
+        para seguir ofreciendo un servicio de calidad.
       </TextElement>
     </div>
     <Donation />

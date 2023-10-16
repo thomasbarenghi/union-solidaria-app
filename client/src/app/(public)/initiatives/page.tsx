@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const Home = () => (
   <>
     <HeroSection />
-    <article className='section-padding-1 container-section article-layout-1'>
+    <article className='section-padding-1 listContainer container-section article-layout-1'>
       <InitiativesSection />
     </article>
   </>
