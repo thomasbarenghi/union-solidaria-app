@@ -55,7 +55,7 @@ const Content = ({ id }: { id: string }) => {
             onSelectionChange={(index) => setCurrentIndex(index)}
             items={tabItems}
             variant='solid'
-            tabContentClassName='group-data-[selected=true]:text-white p-4 '
+            tabContentClassName='group-data-[selected=true]:text-white px-4 '
             cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
           />
         </section>

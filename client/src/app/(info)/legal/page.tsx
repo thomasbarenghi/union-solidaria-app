@@ -17,7 +17,7 @@ const Legal = () => (
           items={items}
           variant='light'
           tabClassName='bg-default-100'
-          tabContentClassName='group-data-[selected=true]:text-white p-4 text-gray-600'
+          tabContentClassName='group-data-[selected=true]:text-white px-4 text-gray-600'
           cursorClassName='group-data-[selected=true]:bg-green-800 '
           tabListClassName='text-default-500'
         />
