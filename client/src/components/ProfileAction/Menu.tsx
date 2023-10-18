@@ -4,7 +4,6 @@ import { loggedUserSelector } from '@/redux/selectors/users'
 import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
 import clsx from 'clsx'
 import NextLink from 'next/link'
-import { Button } from '@/components'
 import { signOut } from 'next-auth/react'
 
 const Menu = () => {
@@ -22,13 +21,14 @@ const Menu = () => {
           {item.label}
         </NextLink>
       ))}
-      <Button
+      <button
         onClick={async () => {
           void signOut({ redirect: false })
         }}
-        title='Cerrar sesión'
-        className={`w-full rounded-xl bg-white p-2 hover:bg-slate-100 ${dangerStyle}`}
-      />
+        className={`w-full rounded-xl bg-white p-2 text-start hover:bg-slate-100 ${dangerStyle}`}
+      >
+        Cerrar sesión
+      </button>
     </div>
   )
 }

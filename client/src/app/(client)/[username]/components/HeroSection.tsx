@@ -6,7 +6,9 @@ import useSWR from 'swr'
 import Endpoints from '@/utils/constants/endpoints.const'
 
 const HeroSec = ({ username }: { username: string }) => {
+  console.log(username)
   const { data: currentUser, isLoading } = useSWR(Endpoints.USER_BY_ID(username))
+  console.log(currentUser)
   const loggedUser = useAppSelector(loggedUserSelector)
   return (
     <UsersHero

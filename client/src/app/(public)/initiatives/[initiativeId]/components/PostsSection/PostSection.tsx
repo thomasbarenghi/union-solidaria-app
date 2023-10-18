@@ -9,7 +9,7 @@ interface Props {
 
 const PostSection = ({ data, isLoading }: Props) => (
   <div className='flex gap-6'>
-    <PublicationFlex posts={data?.posts} />
+    <PublicationFlex posts={data?.posts} isLoading={isLoading} />
     <Sidebar data={data} isLoading={isLoading} />
   </div>
 )

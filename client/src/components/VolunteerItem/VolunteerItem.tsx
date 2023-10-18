@@ -1,9 +1,9 @@
 'use client'
-import { User } from '@nextui-org/react'
+import { User, Chip } from '@nextui-org/react'
 import Routes from '@/utils/constants/routes.const'
 import Link from 'next/link'
 import { InitiativeInterface, VolunteersInterface } from '@/interfaces'
-import { Button } from '.'
+import { Button } from '..'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { useSWRConfig } from 'swr'
@@ -16,7 +16,8 @@ interface PublicationItemProps {
 const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
   const { firstName, lastName, profileImage, username } = item.user
   const { mutate } = useSWRConfig()
-
+  const chipType = item.status === 'pending' ? 'warning' : item.status === 'accepted' ? 'success' : 'danger'
+  const chipText = item.status === 'pending' ? 'Pendiente' : item.status === 'accepted' ? 'Aceptado' : 'Rechazado'
   const handleSubscription = async (status: 'pending' | 'accepted' | 'rejected') => {
     try {
       await putRequest(Endpoints.UPDATE_SUBSCRIPTION, {
@@ -41,16 +42,16 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
           }}
         />
         <div>
-          <span className='text-sm font-semibold text-slate-600'>{item.status}</span>
+          <Chip color={chipType}>{chipText}</Chip>
         </div>
       </div>
       <div>
         {item.status === 'pending' && (
-          <div>
+          <div className='flex gap-1'>
             <Button
               title='Aceptar'
               color='success'
-              variant='light'
+              variant='solid'
               size='sm'
               onClick={() => {
                 void handleSubscription('accepted')

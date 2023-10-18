@@ -23,12 +23,12 @@ export const initiativeTabItemsBuilder = (
     {
       title: 'Voluntarios',
       content: <VolunteersSection data={data} isLoading={isLoading} />,
-      visible: isOrg && isCurrent
+      visible: true// isOrg && isCurrent
     },
     {
       title: 'Configuracion',
       content: <ConfigSection initiative={data} isLoading={isLoading} />,
-      visible: isOrg && isCurrent
+      visible:  true//isOrg && isCurrent
     }
   ]
 }

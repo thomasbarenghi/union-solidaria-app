@@ -1,6 +1,6 @@
 'use client'
 import { User } from '@nextui-org/react'
-import { TextElement } from '.'
+import { TextElement } from '..'
 import { PostInterface } from '@/interfaces/post.interface'
 import Routes from '@/utils/constants/routes.const'
 import Link from 'next/link'

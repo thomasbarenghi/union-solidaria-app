@@ -14,8 +14,13 @@ const Content = ({ username }: { username: string }) => {
   const tabItems = profileTabItemsBuilder(isOrg, isCurrent, isLoading, currentUser)
 
   return (
-    <section className='flex w-full flex-col gap-6 '>
-      <TabBar variant='underlined' items={tabItems} />
+    <section className='flex w-full flex-col gap-4 '>
+      <TabBar
+        variant='solid'
+        items={tabItems}
+        tabContentClassName='group-data-[selected=true]:text-white px-4 '
+        cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
+      />
     </section>
   )
 }
