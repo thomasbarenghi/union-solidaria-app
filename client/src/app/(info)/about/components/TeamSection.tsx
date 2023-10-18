@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
 
 const TeamItem = ({ name, position, image, linkedin }: TeamMember) => (
-  <div className='flex flex-col gap-4'>
+  <div className='flex flex-col w-full gap-4'>
     <div className='relative aspect-[1/1] w-full min-w-[250px]'>
       <Image fill src={image} alt={name} className=' rounded-full object-cover' unoptimized />
     </div>
@@ -49,7 +49,7 @@ const TeamSection = () => (
         Quiero ayudar donando
       </Button>
     </div>
-    <div className='flex flex-col w-full lg:flex-row lg:max-w-none max-w-[85%] justify-end gap-10 lg:gap-5'>
+    <div className='flex flex-col w-full md:flex-row justify-between lg:max-w-none max-w-[85%] lg:justify-end gap-10 lg:gap-5'>
       {TeamMembers.map((teamMember: TeamMember, index) => (
         <TeamItem
           name={teamMember.name}

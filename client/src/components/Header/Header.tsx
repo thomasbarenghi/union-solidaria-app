@@ -52,7 +52,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
       className={stylesNavbar}
       classNames={{
         wrapper: 'p-0 h-auto w-full max-w-full flex justify-between  2xl:container',
-        base: 'bg-transparent',
+        base: 'bg-transparent min-h-[95px]',
         content: 'w-auto !grow-0',
         brand: 'max-w-[185px] ',
         item: `data-[active=true]:font-semibold font-light ${textColor}`
@@ -63,7 +63,12 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
       onScrollPositionChange={(position) => handleScroll(position)}
     >
       <div className='flex gap-3'>
-        <MobileMenu isOpen={isMenuOpen} toggle={() => setIsMenuOpen(!isMenuOpen)} theme={theme} isScrolled={isScrolled} />
+        <MobileMenu
+          isOpen={isMenuOpen}
+          toggle={() => setIsMenuOpen(!isMenuOpen)}
+          theme={theme}
+          isScrolled={isScrolled}
+        />
         <NextLink href={Routes.HOME}>
           <NavbarBrand>
             <Image src={logo} alt='Logo' width={isMobile ? 66 : 165} height={35} />
@@ -73,13 +78,14 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
       {layout === 'full' && (
         <div className='flex items-center justify-end gap-10'>
           <NavbarContent className=' hidden gap-8 p-0 lg:flex' justify='center'>
-            {itemsNav(false).map((item, index) => (
-              <NextLink key={index} href={item.href}>
-                <NavbarItem key={index} isActive={pathname === item.href}>
-                  {item.name}
-                </NavbarItem>
-              </NextLink>
-            ))}
+            {itemsNav(false).map(
+              (item, index) =>
+                item.visible && (
+                  <NextLink href={item.href} key={index}>
+                    <NavbarItem isActive={pathname === item.href}>{item.name}</NavbarItem>
+                  </NextLink>
+                )
+            )}
           </NavbarContent>
           <NavbarContent>
             <NavbarItem className='flex items-center gap-2'>

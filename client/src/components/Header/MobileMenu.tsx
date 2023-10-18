@@ -46,7 +46,7 @@ const MobileMenu = ({ isOpen, toggle, theme, isScrolled }: Props) => {
               <div className='flex w-full items-center justify-between'>
                 <Image src='/icon/mobile-logo-dark.svg' alt='logo' width={66} height={35} />
                 <div className='flex cursor-pointer items-center gap-1' onClick={toggle}>
-                  <p className='text-black'>Close</p>
+                  <p className='text-black'>Cerrar</p>
                   <Image src='/icon/cross-black.svg' alt='logo' width={40} height={40} />
                 </div>
               </div>

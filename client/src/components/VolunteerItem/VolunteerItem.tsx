@@ -18,6 +18,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
   const { mutate } = useSWRConfig()
   const chipType = item.status === 'pending' ? 'warning' : item.status === 'accepted' ? 'success' : 'danger'
   const chipText = item.status === 'pending' ? 'Pendiente' : item.status === 'accepted' ? 'Aceptado' : 'Rechazado'
+
   const handleSubscription = async (status: 'pending' | 'accepted' | 'rejected') => {
     try {
       await putRequest(Endpoints.UPDATE_SUBSCRIPTION, {
@@ -32,8 +33,8 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
   }
 
   return (
-    <div className='relative flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
-      <div className='flex items-center gap-4'>
+    <div className='relative flex flex-col sm:flex-row  w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center justify-start w-full gap-4'>
         <User
           name={firstName + ' ' + lastName}
           description={<Link href={Routes.PROFILE(username)}>{username}</Link>}
@@ -45,7 +46,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
           <Chip color={chipType}>{chipText}</Chip>
         </div>
       </div>
-      <div>
+      <div className='w-full flex justify-start sm:justify-end'>
         {item.status === 'pending' && (
           <div className='flex gap-1'>
             <Button
@@ -60,7 +61,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
             <Button
               title='Rechazar'
               color='danger'
-              variant='light'
+              variant='flat'
               size='sm'
               onClick={() => {
                 void handleSubscription('rejected')
@@ -73,7 +74,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
             <Button
               title='Expulsar'
               color='danger'
-              variant='light'
+              variant='flat'
               size='sm'
               onClick={() => {
                 void handleSubscription('rejected')

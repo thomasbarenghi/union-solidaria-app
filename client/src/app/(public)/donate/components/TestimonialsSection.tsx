@@ -28,7 +28,7 @@ const TestimonialsSection = () => (
         Personas que confian en nosotros y nos apoyan para seguir haciendo el bien.
       </TextElement>
     </div>
-    <div className='flex max-w-[85%] sm:max-w-full lg:max-w-[75%] flex-col gap-10 md:flex-row '>
+    <div className='flex max-w-[85%] md:max-w-[95%] lg:max-w-[75%] flex-col gap-10 md:flex-row '>
       {testimonials.map((testimonial, index) => (
         <TestimonialItem testimonial={testimonial} key={index} />
       ))}

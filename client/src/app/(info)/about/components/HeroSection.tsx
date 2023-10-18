@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const HeroSection = () => (
   <section className='section-padding-x-1 mt-[95px] flex  justify-center bg-gradient-to-r from-[#e0e7ff] to-[#ccfbf1] '>
-    <div className=' flex flex-col lg:flex-row w-full gap-8 lg:gap-[60px]  py-14 xl:container '>
+    <div className=' flex flex-col lg:flex-row w-full gap-4 lg:gap-[60px]  py-14 xl:container '>
       <div className='flex w-full flex-col justify-center gap-3 text-start'>
         <TextElement type='t1' as='h1' className='!font-light '>
           Construimos historias a través del voluntariado.{' '}
