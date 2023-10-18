@@ -4,13 +4,13 @@ import { TextElement } from '@/components'
 
 const TechnologiesSection = () => (
   <section className='flex w-full flex-col items-center justify-center gap-10 bg-white'>
-    <div className='flex w-full flex-col gap-1'>
-      <TextElement type='t3' as='h1' className='font-semibold'>
+    <div className='flex w-full flex-col items-center gap-1 text-center'>
+      <TextElement type='t1' as='h1' className='font-semibold'>
         Tecnologías que usamos
       </TextElement>
       <TextElement type='base' as='p'>
-        Nuestro equipo de desarrollo trabaja con las últimas tecnologías para brindarle a nuestros usuarios la mejor
-        experiencia.
+        Nuestro equipo de desarrollo trabaja con las últimas tecnologías para brindarle
+        <br /> a nuestros usuarios la mejor experiencia.
       </TextElement>
     </div>
     <div className='lg:gap-estilo1 grid grid-cols-1 gap-10 md:grid-cols-2'>

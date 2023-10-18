@@ -7,16 +7,24 @@ interface Response {
 }
 
 export const dateStatusChipBuilder = (initiative: InitiativeInterface): Response => {
-  const currentDate = new Date().toISOString()
-  const deadLine = new Date(initiative.deadLine).toISOString()
-  const endDate = new Date(initiative.endDate).toISOString()
-  const canJoin = currentDate < deadLine
-  const isActive = currentDate < endDate
+  try {
+    const currentDate = new Date().toISOString()
+    const deadLine = new Date(initiative?.deadLine)?.toISOString()
+    const endDate = new Date(initiative?.endDate)?.toISOString()
+    const canJoin = currentDate < deadLine
+    const isActive = currentDate < endDate
 
-  const title = canJoin ? 'Inscripciones abiertas' : isActive ? 'Iniciativa en curso' : 'Iniciativa finalizada'
+    const title = canJoin ? 'Inscripciones abiertas' : isActive ? 'Iniciativa en curso' : 'Iniciativa finalizada'
 
-  return {
-    title,
-    color: canJoin ? 'success' : isActive ? 'success' : 'danger'
+    return {
+      title,
+      color: canJoin ? 'success' : isActive ? 'success' : 'danger'
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      title: 'Error',
+      color: 'danger'
+    }
   }
 }

@@ -20,4 +20,6 @@ export interface UserInterface {
   orgName: null | string
   posts?: []
   reviews: ReviewInterface[]
+  createdAt: Date
+  updatedAt: Date
 }

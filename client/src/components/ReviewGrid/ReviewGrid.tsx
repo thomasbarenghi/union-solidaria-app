@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ReviewGrid = ({ reviews, isLoading = false, isCurrent = false }: Props) => (
-  <div className='grid grid-cols-2 gap-5 lg:grid-cols-3  lg:gap-y-9 '>
+  <div className='grid grid-cols-1 gap-5 lg:grid-cols-3  lg:gap-y-9 '>
     {isLoading && <Skeleton />}
     {!isLoading && (reviews.length < 1 || reviews === undefined) ? (
       <EmptySkeleton isCurrent={isCurrent} />

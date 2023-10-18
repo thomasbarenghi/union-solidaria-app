@@ -62,8 +62,8 @@ const LoginForm = () => {
   }
 
   return (
-    <div className='mx-auto flex max-w-sm flex-col items-center gap-4'>
-      <form className='flex flex-col items-center gap-4' onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+    <div className=' flex flex-col items-center gap-4 w-full'>
+      <form className='w-full flex flex-col items-center gap-4' onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <Input
           type='email'
           name='email'

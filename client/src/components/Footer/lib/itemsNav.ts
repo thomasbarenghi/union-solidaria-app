@@ -7,6 +7,11 @@ export const itemsNav = [
     visible: true
   },
   {
+    name: 'Donar',
+    href: Routes.DONATION,
+    visible: true
+  },
+  {
     name: 'Ayuda',
     href: Routes.HELP,
     visible: true

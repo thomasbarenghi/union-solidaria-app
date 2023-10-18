@@ -63,11 +63,11 @@ export class UsersService {
       if (!user) throw new NotFoundException("User doesn't exist");
       return user;
     } else {
-      console.log('username');
+      console.log('username', id);
       const user = await this.userModel
         .findOne({ username: id })
         .populate(populateUser(true, true, true));
-
+console.log(user);
       if (!user) throw new NotFoundException("User doesn't exist");
       return user;
     }

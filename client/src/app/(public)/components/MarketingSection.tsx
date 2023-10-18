@@ -8,7 +8,7 @@ interface Props {
 
 const ContentItem = ({ title, description }: Props) => (
   <div className='flex flex-col gap-1'>
-    <TextElement type='subtitle' as='h3' className='w-full font-semibold'>
+    <TextElement type='t3' as='h3' className='w-full font-semibold'>
       {title}
     </TextElement>
     <TextElement type='base' as='p' className='w-full font-light'>
@@ -19,7 +19,7 @@ const ContentItem = ({ title, description }: Props) => (
 
 const Marketing = () => (
   <section className='flex flex-col gap-10'>
-    <TextElement type='t2' as='h1' className=' w-full font-light'>
+    <TextElement type='t2' as='h1' className=' w-full text-center lg:text-start !font-light'>
       Únete a nuestra <b className='font-semibold'> revolución de solidaridad</b>
     </TextElement>
     <div className='grid grid-cols-1 gap-10 lg:grid-cols-3'>
