@@ -1,5 +1,5 @@
 'use client'
-import { Tabs, Tab } from '@nextui-org/react'
+import { Tabs, Tab, Skeleton } from '@nextui-org/react'
 import { Key } from 'react'
 
 interface TabBarItemProps {
@@ -17,6 +17,7 @@ interface TabBarProps {
   tabClassName?: string
   tabContentClassName?: string
   cursorClassName?: string
+  isLoading?: boolean
 }
 
 const TabBar = ({
@@ -27,34 +28,42 @@ const TabBar = ({
   tabListClassName = 'p-0 gap-6 ',
   tabClassName,
   tabContentClassName = 'p-4',
-  cursorClassName
+  cursorClassName,
+  isLoading = false
 }: TabBarProps) => (
-  <Tabs
-    // className='w-full whitespace-nowrap'
-    classNames={{
-      // tabList: tabListClassName,
-      // cursor: 'bg-white',
-      tab: tabClassName,
-      //  panel: 'py-0',
-      // base: `${withHr ? 'border-b pb-2' : ''}`,
-      tabContent: tabContentClassName,
-      cursor: cursorClassName
-    }}
-    variant={variant}
-    onSelectionChange={(index) => {
-      void onSelectionChange(index)
-    }}
-    radius='full'
-  >
-    {items?.map(
-      ({ title, content, visible = true }, index) =>
-        visible && (
-          <Tab key={title} title={title} className='px-0'>
-            {content}
-          </Tab>
-        )
+  <>
+    {isLoading ? (
+      <>
+        <div className='flex gap-2'>
+          <Skeleton className='h-[30px] w-[100px] rounded-full' />
+          <Skeleton className='h-[30px] w-[100px] rounded-full' />
+        </div>
+        <div>{items[0].content}</div>
+      </>
+    ) : (
+      <Tabs
+        classNames={{
+          tab: tabClassName,
+          tabContent: tabContentClassName,
+          cursor: cursorClassName
+        }}
+        variant={variant}
+        onSelectionChange={(index) => {
+          void onSelectionChange(index)
+        }}
+        radius='full'
+      >
+        {items?.map(
+          ({ title, content, visible = true }, index) =>
+            visible && (
+              <Tab key={title} title={title} className='px-0'>
+                {content}
+              </Tab>
+            )
+        )}
+      </Tabs>
     )}
-  </Tabs>
+  </>
 )
 
 export default TabBar

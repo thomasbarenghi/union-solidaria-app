@@ -7,8 +7,8 @@ interface Response {
 }
 
 export const statusChipBuilder = (initiative: InitiativeInterface, currentUser: UserInterface): Response => {
-  const isOwner = currentUser._id === initiative.owner._id
-  const volunteer = initiative.volunteers.find((volunteer) => volunteer.user._id === currentUser._id)
+  const isOwner = currentUser._id === initiative?.owner?._id
+  const volunteer = initiative?.volunteers?.find((volunteer) => volunteer.user._id === currentUser._id)
   const status = volunteer?.status
 
   const title =

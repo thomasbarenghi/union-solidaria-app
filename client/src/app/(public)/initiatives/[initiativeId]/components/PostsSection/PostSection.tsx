@@ -8,7 +8,7 @@ interface Props {
 }
 
 const PostSection = ({ data, isLoading }: Props) => (
-  <div className='flex gap-6'>
+  <div className='flex gap-6 lg:flex-row flex-col-reverse'>
     <PublicationFlex posts={data?.posts} isLoading={isLoading} />
     <Sidebar data={data} isLoading={isLoading} />
   </div>

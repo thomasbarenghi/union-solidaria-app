@@ -15,7 +15,7 @@ const VolunteerItemSkeleton = () => (
     </div>
     <div className='flex gap-2'>
       <Skeleton className='h-[30px] w-[80px] rounded-full' />
-      <Skeleton className='h-[30px] w-[80px] rounded-full' />
+      <Skeleton className='h-[30px] w-[80px] rounded-full hidden lg:visible' />
     </div>
   </div>
 )

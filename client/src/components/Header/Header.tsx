@@ -10,6 +10,7 @@ import { useState } from 'react'
 import Routes from '@/utils/constants/routes.const'
 import { useAppSelector } from '@/redux/hooks'
 import { usePathname } from 'next/navigation'
+import MobileMenu from './MobileMenu'
 
 interface Props {
   theme?: 'light' | 'transparent'
@@ -23,6 +24,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
   const bgColor = isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent'
   const textColor = isScrolled ? 'text-black' : theme === 'transparent' ? 'text-white' : 'text-black'
   const isMobile = window.innerWidth < 768
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const logo = isMobile
     ? isScrolled
@@ -45,6 +47,8 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
   console.log('Header', pathname)
   return (
     <Navbar
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
       className={stylesNavbar}
       classNames={{
         wrapper: 'p-0 h-auto w-full max-w-full flex justify-between  2xl:container',
@@ -58,20 +62,21 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
       shouldHideOnScroll={false}
       onScrollPositionChange={(position) => handleScroll(position)}
     >
-      <NextLink href={Routes.HOME}>
-        <NavbarBrand>
-          <Image src={logo} alt='Logo' width={isMobile ? 66 : 165} height={35} />
-        </NavbarBrand>
-      </NextLink>
+      <div className='flex gap-3'>
+        <MobileMenu isOpen={isMenuOpen} toggle={() => setIsMenuOpen(!isMenuOpen)} theme={theme} isScrolled={isScrolled} />
+        <NextLink href={Routes.HOME}>
+          <NavbarBrand>
+            <Image src={logo} alt='Logo' width={isMobile ? 66 : 165} height={35} />
+          </NavbarBrand>
+        </NextLink>
+      </div>
       {layout === 'full' && (
-        <div className='flex items-center justify-end gap-12'>
+        <div className='flex items-center justify-end gap-10'>
           <NavbarContent className=' hidden gap-8 p-0 lg:flex' justify='center'>
-            {itemsNav.map((item, index) => (
+            {itemsNav(false).map((item, index) => (
               <NextLink key={index} href={item.href}>
                 <NavbarItem key={index} isActive={pathname === item.href}>
-                  {/* <Link color='foreground' className={`font-light ${textColor}`} href={item.href} as={NextLink}> */}
                   {item.name}
-                  {/* </Link> */}
                 </NavbarItem>
               </NextLink>
             ))}
@@ -79,6 +84,13 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
           <NavbarContent>
             <NavbarItem className='flex items-center gap-2'>
               {auth.isLogged && <Button title='Donar' size='md' href={Routes.DONATION} />}
+              <Button
+                variant='faded'
+                className='hidden border-0 bg-green-50 text-green-800 lg:flex'
+                color='default'
+                title='Donar'
+                href={Routes.DONATION}
+              />
               <ProfileAction />
             </NavbarItem>
           </NavbarContent>
