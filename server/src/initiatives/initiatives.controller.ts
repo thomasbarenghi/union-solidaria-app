@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
@@ -84,7 +83,7 @@ export class InitiativesController {
     }
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateInitiativeDto: UpdateInitiativeDto,
@@ -107,13 +106,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/subscribe')
+  @Put(':id/subscribe')
   subscribeUserToInitiative(
+    @Param('id') id: string,
     @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ) {
     try {
       return this.initiativesService.subscribeUserToInitiative(
-        subscribeUserToInitiativeDto,
+        subscribeUserToInitiativeDto, id
       );
     } catch (error) {
       console.error(error);
@@ -121,12 +121,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/subscription-status')
+  @Put(':id/subscription-status')
   updateSubscriptionStatus(
+    @Param('id') id: string,
     @Body() updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ) {
     try {
       return this.initiativesService.updateSubscriptionStatus(
+        id,
         updateSubscriptionStatusDto,
       );
     } catch (error) {
@@ -135,13 +137,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/unsubscribe')
+  @Put(':id/unsubscribe')
   unsubscribeUserFromInitiative(
+    @Param('id') id: string,
     @Body() unsubscribeUserFromInitiativeDto: UnsubscribeUserToInitiativeDto,
   ) {
     try {
       return this.initiativesService.unsubscribeUserFromInitiative(
-        unsubscribeUserFromInitiativeDto,
+        unsubscribeUserFromInitiativeDto, id
       );
     } catch (error) {
       console.error(error);

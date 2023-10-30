@@ -1,3 +1,4 @@
+import { NotAcceptableException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 const saltRounds = 10; // Número de rondas de sal para la encriptación. Cuanto mayor sea el número, más lenta será la encriptación y más segura.
 
@@ -18,6 +19,11 @@ export const comparePasswords = async (
 ): Promise<boolean> => {
   try {
     const match = await bcrypt.compare(plainPassword, hashedPassword);
+
+    if (!match) {
+      throw new NotAcceptableException('Invalid password');
+    }
+
     return match;
   } catch (error) {
     throw new Error('Error al comparar las contraseñas');

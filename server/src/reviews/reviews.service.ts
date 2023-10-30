@@ -12,6 +12,8 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/users/entities/user.entity';
 import { Initiative } from 'src/initiatives/entities/initiative.entity';
+import { findUser } from 'src/users/utils';
+import { findInitiative } from 'src/initiatives/utils';
 
 @Injectable()
 export class ReviewsService {
@@ -21,23 +23,15 @@ export class ReviewsService {
     @InjectModel(Initiative.name) private initiativeModel: Model<Initiative>,
   ) {}
   async create(createReviewDto: CreateReviewDto) {
-    const author = await this.userModel
-      .findById(createReviewDto.authorId)
-      .catch(() => {
-        throw new NotFoundException('User not found');
-      });
-
-    const initiative = await this.initiativeModel
-      .findById(createReviewDto.initiativeId)
-      .catch(() => {
-        throw new NotFoundException('Initiative not found');
-      });
-
-    const initiativeAuthor = await this.userModel
-      .findById(initiative.owner)
-      .catch(() => {
-        throw new NotFoundException('Initiative author not found');
-      });
+    const author = await findUser(createReviewDto.authorId, this.userModel);
+    const initiative = await findInitiative(
+      createReviewDto.initiativeId,
+      this.initiativeModel,
+    );
+    const initiativeAuthor = await findUser(
+      initiative.owner._id.toString(),
+      this.userModel,
+    );
 
     const alreadyReviewed = await this.reviewModel.findOne({
       author: author._id.toString(),
@@ -66,11 +60,7 @@ export class ReviewsService {
     initiative.reviews.push(review._id);
     author.reviews.push(review._id);
     initiativeAuthor.reviews.push(review._id);
-
-    await initiative.save();
-    await author.save();
-    await initiativeAuthor.save();
-
+    await Promise.all([initiative.save(), author.save(), initiativeAuthor.save()]);
     return review;
   }
 
