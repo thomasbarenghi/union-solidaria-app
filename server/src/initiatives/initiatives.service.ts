@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
 import { UpdateInitiativeDto } from './dto/update-initiative.dto';
 import { buildQueryInitiative } from 'src/utils/initiativeFilter.utils';
@@ -82,8 +79,9 @@ export class InitiativesService {
 
   async subscribeUserToInitiative(
     subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
+    initiativeId: string,
   ): Promise<object> {
-    const { userId, initiativeId } = subscribeUserToInitiativeDto;
+    const { userId } = subscribeUserToInitiativeDto;
     const initiative = await findInitiative(initiativeId, this.initiativeModel);
     const user = await findUser(userId, this.userModel);
     await checkSubscription(
@@ -108,7 +106,6 @@ export class InitiativesService {
     updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ): Promise<object> {
     const { userId, status } = updateSubscriptionStatusDto;
-    console.log('updateSubscriptionStatusDto', updateSubscriptionStatusDto);
     const initiative = await findInitiative(initiativeId, this.initiativeModel);
     const user = await findUser(userId, this.userModel);
 
@@ -135,8 +132,9 @@ export class InitiativesService {
 
   async unsubscribeUserFromInitiative(
     unsubscribeUserToInitiativeDto: UnsubscribeUserToInitiativeDto,
+    initiativeId: string,
   ): Promise<object> {
-    const { userId, initiativeId } = unsubscribeUserToInitiativeDto;
+    const { userId } = unsubscribeUserToInitiativeDto;
     const initiative = await findInitiative(initiativeId, this.initiativeModel);
     const user = await findUser(userId, this.userModel);
     await checkSubscription(
@@ -149,12 +147,11 @@ export class InitiativesService {
 
     const { user: userModed, initiative: initiativeModed } =
       await unsubscribeUserFromInitiative(user, initiative);
-
     user.initiatives = userModed.initiatives;
     user.markModified('initiatives');
     initiative.volunteers = initiativeModed.volunteers;
     initiative.markModified('volunteers');
-    Promise.all([user.save(), initiative.save()]);
+    await Promise.all([user.save(), initiative.save()]);
     return {
       message: `User ${user._id} unsubscribed from initiative ${initiative._id} successfully.`,
     };

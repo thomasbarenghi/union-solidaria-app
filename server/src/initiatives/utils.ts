@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { populateInitiative } from 'src/constants/populateInitiative.const';
 import { Initiative } from './entities/initiative.entity';
 import { Model } from 'mongoose';
@@ -12,11 +12,11 @@ export const findInitiative = async (
   afterAction?: 'delete' | 'update',
   updateInitiativeDto?: UpdateInitiativeDto,
 ) => {
-  console.log('findInitiative', id);
   const initiative = await initiativeModel
     .findOne({ _id: id })
     .populate(populateInitiative())
-    .exec().catch(() => {
+    .exec()
+    .catch(() => {
       throw new NotFoundException('Initiative not found');
     });
 
@@ -59,8 +59,13 @@ export const checkSubscription = async (
   userModel: Model<User>,
   type: 'subscribe' | 'unsubscribe' | 'update',
 ) => {
-  const initiative = await findInitiative(initiativeId, initiativeModel);
   const user = await findUser(userId, userModel);
+  const isOrganization = user.role === 'organization';
+  if (isOrganization && type === 'subscribe') {
+    throw new ConflictException('Organization cannot subscribe to initiatives');
+  }
+
+  const initiative = await findInitiative(initiativeId, initiativeModel);
 
   const isSubscribed = initiative.volunteers.find(
     (subscription) => subscription.user._id.toString() === user._id.toString(),
@@ -84,11 +89,11 @@ export const unsubscribeUserFromInitiative = async (
   initiative: Initiative,
 ) => {
   initiative.volunteers = initiative.volunteers.filter((subscription) => {
-    return subscription.user.toString() !== user._id.toString();
+    return subscription.user._id.toString() !== user._id.toString();
   });
 
   user.initiatives = user.initiatives.filter((initiative) => {
-    return initiative.toString() !== initiative._id.toString();
+    return initiative._id.toString() !== initiative._id.toString();
   });
 
   return {

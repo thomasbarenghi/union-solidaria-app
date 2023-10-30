@@ -106,13 +106,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/subscribe')
+  @Put(':id/subscribe')
   subscribeUserToInitiative(
+    @Param('id') id: string,
     @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ) {
     try {
       return this.initiativesService.subscribeUserToInitiative(
-        subscribeUserToInitiativeDto,
+        subscribeUserToInitiativeDto, id
       );
     } catch (error) {
       console.error(error);
@@ -136,13 +137,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/unsubscribe')
+  @Put(':id/unsubscribe')
   unsubscribeUserFromInitiative(
+    @Param('id') id: string,
     @Body() unsubscribeUserFromInitiativeDto: UnsubscribeUserToInitiativeDto,
   ) {
     try {
       return this.initiativesService.unsubscribeUserFromInitiative(
-        unsubscribeUserFromInitiativeDto,
+        unsubscribeUserFromInitiativeDto, id
       );
     } catch (error) {
       console.error(error);
