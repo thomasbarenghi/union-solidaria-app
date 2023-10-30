@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId, PopulatedDoc } from 'mongoose';
 import { IsNotEmpty, IsEmail } from 'class-validator';
-import { InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
+import { Initiative, InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
 import { forwardRef } from '@nestjs/common';
 
 export type SessionDocument = HydratedDocument<User>;
@@ -70,7 +70,7 @@ export class User {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],
     default: [],
   })
-  initiatives?: mongoose.Schema.Types.ObjectId[];
+  initiatives?: Array<PopulatedDoc<Initiative & Document>>;
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Initiative' }],

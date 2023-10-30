@@ -2,7 +2,6 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
-  ConflictException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,9 +9,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './entities/user.entity';
 import { encryptPassword } from 'src/utils/bcrypt.utils';
-import { populateUser } from 'src/constants/populateUser.const';
 import { Initiative } from 'src/initiatives/entities/initiative.entity';
 import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
+import { checkUniqueEmail, checkUniqueUsername, findUser } from './utils';
+import { findInitiative } from 'src/initiatives/utils';
 
 @Injectable()
 export class UsersService {
@@ -22,18 +22,8 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const email = await this.userModel.findOne({
-      email: createUserDto.email,
-    });
-
-    if (email) throw new ConflictException('Email already exists');
-
-    const username = await this.userModel.findOne({
-      username: createUserDto.username,
-    });
-
-    if (username) throw new ConflictException('Username already exists');
-
+    await checkUniqueEmail(createUserDto.email, this.userModel);
+    await checkUniqueUsername(createUserDto.username, this.userModel);
     createUserDto.password = await encryptPassword(createUserDto.password);
     return await new this.userModel(createUserDto).save();
   }
@@ -45,39 +35,29 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const idPattern = /^[0-9a-f]{24}$/i;
-    const emailPattern = /\S+@\S+\.\S+/;
-    if (id && idPattern.test(id)) {
-      return await this.userModel
-        .findById(id)
-        .populate(populateUser(true, true, true))
-        .catch(() => {
-          throw new NotFoundException("User doesn't exist");
-        });
-    } else if (id && emailPattern.test(id)) {
-      console.log('email');
-      const user = await this.userModel
-        .findOne({ email: id })
-        .populate(populateUser(true, true, true));
-
-      if (!user) throw new NotFoundException("User doesn't exist");
-      return user;
-    } else {
-      console.log('username', id);
-      const user = await this.userModel
-        .findOne({ username: id })
-        .populate(populateUser(true, true, true));
-console.log(user);
-      if (!user) throw new NotFoundException("User doesn't exist");
-      return user;
-    }
-  }
-
-  async findOneByEmail(email: string) {
-    return await this.userModel.findOne({ email: email });
+    return await findUser(id, this.userModel);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await findUser(id, this.userModel);
+    if (updateUserDto.newPassword && updateUserDto.oldPassword) {
+      const isMatch = await user.comparePassword(updateUserDto.oldPassword);
+      if (!isMatch) {
+        throw new BadRequestException('Incorrect password');
+      }
+      updateUserDto.password = await encryptPassword(updateUserDto.newPassword);
+      delete updateUserDto.oldPassword;
+      delete updateUserDto.newPassword;
+    }
+
+    if (updateUserDto.email) {
+      await checkUniqueEmail(updateUserDto.email, this.userModel);
+    }
+
+    if (updateUserDto.username) {
+      await checkUniqueUsername(updateUserDto.username, this.userModel);
+    }
+
     return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       new: true,
     });
@@ -91,16 +71,8 @@ console.log(user);
 
   async modifyFavorites(modifyFavoriteDto: ModifyFavoriteDto) {
     const { userId, initiativeId } = modifyFavoriteDto;
-
-    const user = await this.userModel.findById(userId).catch(() => {
-      throw new NotFoundException('User not found');
-    });
-
-    const initiative = await this.initiativeModel
-      .findById(initiativeId)
-      .catch(() => {
-        throw new NotFoundException('Initiative not found');
-      });
+    const user = await findUser(userId, this.userModel);
+    const initiative = await findInitiative(initiativeId, this.initiativeModel);
 
     const existingFavorite = user.favorites.find(
       (favorite) => favorite.toString() === initiative._id.toString(),
