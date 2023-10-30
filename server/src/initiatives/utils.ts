@@ -12,10 +12,13 @@ export const findInitiative = async (
   afterAction?: 'delete' | 'update',
   updateInitiativeDto?: UpdateInitiativeDto,
 ) => {
+  console.log('findInitiative', id);
   const initiative = await initiativeModel
     .findOne({ _id: id })
     .populate(populateInitiative())
-    .exec();
+    .exec().catch(() => {
+      throw new NotFoundException('Initiative not found');
+    });
 
   if (!initiative) {
     throw new NotFoundException('Initiative not found');
@@ -60,7 +63,7 @@ export const checkSubscription = async (
   const user = await findUser(userId, userModel);
 
   const isSubscribed = initiative.volunteers.find(
-    (subscription) => subscription.user.toString() === user._id.toString(),
+    (subscription) => subscription.user._id.toString() === user._id.toString(),
   );
 
   if (type === 'subscribe') {

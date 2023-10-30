@@ -104,9 +104,11 @@ export class InitiativesService {
   }
 
   async updateSubscriptionStatus(
+    initiativeId: string,
     updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ): Promise<object> {
-    const { userId, initiativeId, status } = updateSubscriptionStatusDto;
+    const { userId, status } = updateSubscriptionStatusDto;
+    console.log('updateSubscriptionStatusDto', updateSubscriptionStatusDto);
     const initiative = await findInitiative(initiativeId, this.initiativeModel);
     const user = await findUser(userId, this.userModel);
 
@@ -119,7 +121,7 @@ export class InitiativesService {
     );
 
     initiative.volunteers = initiative.volunteers.map((subscription) => {
-      if (subscription.user.toString() === user._id.toString()) {
+      if (subscription.user._id.toString() === user._id.toString()) {
         subscription.status = status;
       }
       return subscription;

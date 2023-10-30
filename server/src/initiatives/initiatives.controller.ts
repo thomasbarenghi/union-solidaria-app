@@ -120,12 +120,14 @@ export class InitiativesController {
     }
   }
 
-  @Put('/subscription-status')
+  @Put(':id/subscription-status')
   updateSubscriptionStatus(
+    @Param('id') id: string,
     @Body() updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ) {
     try {
       return this.initiativesService.updateSubscriptionStatus(
+        id,
         updateSubscriptionStatusDto,
       );
     } catch (error) {

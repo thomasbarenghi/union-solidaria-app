@@ -10,6 +10,9 @@ import { User } from 'src/users/entities/user.entity';
 import { Initiative } from 'src/initiatives/entities/initiative.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { findInitiative } from 'src/initiatives/utils';
+import { findUser } from 'src/users/utils';
+import { findPost } from './utils';
 
 @Injectable()
 export class PostsService {
@@ -21,25 +24,11 @@ export class PostsService {
 
   async create(createPostDto: CreatePostDto) {
     const { authorId, initiativeId, ...rest } = createPostDto;
-
-    const initiative = await this.initiativeModel
-      .findById(initiativeId)
-      .catch(() => {
-        throw new NotFoundException('Error finding initiative');
-      });
-
-    const author = await this.userModel.findById(authorId).catch(() => {
-      throw new NotFoundException('Error finding user');
-    });
-
-    if (!initiative || !author)
-      throw new NotFoundException('Initiative or user not found');
-
-    const isOwner = author._id.toString() === initiative.owner.toString();
-
+    const initiative = await findInitiative(initiativeId, this.initiativeModel);
+    const author = await findUser(authorId, this.userModel);
+    const isOwner = author._id.toString() === initiative.owner._id.toString();
     if (!isOwner)
       throw new BadRequestException('User is not the owner of this initiative');
-
     const post = await this.postModel
       .create({
         ...rest,
@@ -51,12 +40,8 @@ export class PostsService {
       });
 
     initiative.posts.push(post._id);
-    await initiative.save();
-
     author.posts.push(post._id);
-
-    await author.save();
-
+    Promise.all([initiative.save(), author.save()]);
     return post;
   }
 
@@ -67,9 +52,7 @@ export class PostsService {
   }
 
   async findOne(id: string) {
-    return await this.postModel.findById(id).catch(() => {
-      throw new NotFoundException("Post doesn't exist");
-    });
+    return await findPost(id, this.postModel);
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
