@@ -15,7 +15,7 @@ export const findUser = async (id: string, userModel: Model<User>) => {
   if (idPattern.test(id)) {
     user = await userModel.findById(id);
   } else if (emailPattern.test(id)) {
-    user = await userModel.findOne({ email: id });
+    user = await userModel.findOne({ email: id.toLowerCase() });
   } else {
     user = await userModel.findOne({ username: id });
   }

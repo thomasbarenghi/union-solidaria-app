@@ -9,7 +9,6 @@ import {
   UnauthorizedException,
   Res,
   Get,
-  Redirect,
   NotAcceptableException,
 } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/auth/local/local.auth.guard';
@@ -55,9 +54,10 @@ export class AuthController {
   }
 
   @Get('/logout')
-  async logout(@Res() res: Response): Promise<any> {
+  async logout(@Request() req): Promise<any> {
     try {
-      return res.status(200).json({ message: 'Logout successful' });
+      const { sessionid } = req.headers;
+      return await this.authService.deleteSessionById(sessionid);
     } catch (error) {
       throw new UnauthorizedException();
     }

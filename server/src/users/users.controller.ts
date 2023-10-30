@@ -6,20 +6,18 @@ import {
   Param,
   Put,
   Delete,
-  BadRequestException,
   UseInterceptors,
   UploadedFiles,
-  InternalServerErrorException,
-  Patch,
+  InternalServerErrorException
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
-import { changePassword } from 'src/utils/changePassword.utils';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { removeEmptyProperties } from 'src/utils/removeEmptyProperties.utils';
 import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -58,7 +56,7 @@ export class UsersController {
     }
   }
 
-  @Patch(':id')
+  @Put(':id')
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: 'bannerImage', maxCount: 1 },
@@ -84,26 +82,6 @@ export class UsersController {
           updateUserDto[key] = response;
         }
       }
-
-      const currentUser = await this.usersService.findOne(userId);
-
-      if (!currentUser) throw new BadRequestException('User not found');
-
-      if (
-        updateUserDto?.newPassword?.length >= 0 &&
-        updateUserDto?.oldPassword?.length >= 0
-      ) {
-        const newPass = await changePassword(
-          updateUserDto.oldPassword,
-          updateUserDto.newPassword,
-          currentUser.password,
-        );
-        updateUserDto.password = newPass;
-      }
-
-      delete updateUserDto?.oldPassword;
-      delete updateUserDto?.newPassword;
-
       updateUserDto = removeEmptyProperties(updateUserDto);
       return await this.usersService.update(userId, updateUserDto);
     } catch (error) {
@@ -126,6 +104,19 @@ export class UsersController {
   modifyFavorites(@Body() modifyFavoriteDto: ModifyFavoriteDto) {
     try {
       return this.usersService.modifyFavorites(modifyFavoriteDto);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Put(':id/edit-password')
+  async updatePassword(
+    @Param('id') userId: string,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
+    try {
+      return await this.usersService.updatePassword(updatePasswordDto, userId);
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException();

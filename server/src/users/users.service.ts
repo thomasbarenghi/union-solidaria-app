@@ -13,6 +13,7 @@ import { Initiative } from 'src/initiatives/entities/initiative.entity';
 import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
 import { checkUniqueEmail, checkUniqueUsername, findUser } from './utils';
 import { findInitiative } from 'src/initiatives/utils';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +26,7 @@ export class UsersService {
     await checkUniqueEmail(createUserDto.email, this.userModel);
     await checkUniqueUsername(createUserDto.username, this.userModel);
     createUserDto.password = await encryptPassword(createUserDto.password);
+    createUserDto.email = createUserDto.email.toLowerCase();
     return await new this.userModel(createUserDto).save();
   }
 
@@ -38,19 +40,22 @@ export class UsersService {
     return await findUser(id, this.userModel);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await findUser(id, this.userModel);
-    if (updateUserDto.newPassword && updateUserDto.oldPassword) {
-      const isMatch = await user.comparePassword(updateUserDto.oldPassword);
-      if (!isMatch) {
-        throw new BadRequestException('Incorrect password');
-      }
-      updateUserDto.password = await encryptPassword(updateUserDto.newPassword);
-      delete updateUserDto.oldPassword;
-      delete updateUserDto.newPassword;
+  async updatePassword(updatePasswordDto: UpdatePasswordDto, userId: string) {
+    const user = await findUser(userId, this.userModel);
+    const isMatch = await user.comparePassword(updatePasswordDto.oldPassword);
+    if (!isMatch) {
+      throw new BadRequestException('Incorrect password');
     }
+    user.password = await encryptPassword(updatePasswordDto.newPassword);
+    await user.save();
+    return {
+      message: 'Password updated',
+    };
+  }
 
+  async update(id: string, updateUserDto: UpdateUserDto) {
     if (updateUserDto.email) {
+      updateUserDto.email = updateUserDto.email.toLowerCase();
       await checkUniqueEmail(updateUserDto.email, this.userModel);
     }
 

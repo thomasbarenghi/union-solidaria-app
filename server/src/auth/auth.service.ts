@@ -35,4 +35,13 @@ export class AuthService {
       throw new Error('Error while fetching sessions: ' + error.message);
     }
   }
+
+  async deleteSessionById(sessionId: string) {
+    await this.authModel.deleteOne({
+      'session.sessionId': sessionId,
+    });
+    return {
+      message: 'Logout successful',
+    };
+  }
 }
