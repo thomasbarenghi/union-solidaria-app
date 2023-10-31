@@ -1,4 +1,4 @@
-import { Header, Footer } from '@/components'
+import { Footer } from '@/components'
 
 interface Props {
   children: React.ReactNode
@@ -6,7 +6,6 @@ interface Props {
 
 const HelpLayout = ({ children }: Props) => (
   <main className='flex min-h-screen flex-col'>
-    <Header />
     {children}
     <Footer />
   </main>

@@ -9,8 +9,13 @@
     @apply mt-[-20px] py-[40px];
   }
 
+  .section-padding-x-1 {
+    @apply px-6 sm:px-10 md:px-14 lg:px-12 xl:px-24;
+  }
+
   .section-padding-1 {
-    @apply px-6 py-20 sm:px-10 md:px-14 lg:px-16 xl:px-24;
+    @extend .section-padding-x-1;
+    @apply py-20;
   }
 
   .container-section > section {

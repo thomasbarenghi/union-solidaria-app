@@ -5,25 +5,25 @@ interface QuestionAnswer {
 
 export const questionsAnswers: QuestionAnswer[] = [
   {
-    question: 'How many team members can I invite?',
+    question: '¿Qué es Union Solidaria?',
     answer:
-      'You can invite up to 2 additional users on the Free plan. There is no limit on team members for the Premium plan.'
+      'Union Solidaria es una organizacion que busca conectar a las personas con ONGs que necesitan ayuda.'
   },
   {
-    question: 'What is the maximum file upload size?',
-    answer: 'No more than 2GB. All files in your account must fit your allotted storage space.'
+    question: '¿Cómo puedo ayudar?',
+    answer: 'Puedes ayudar de muchas maneras, desde donar dinero hasta donar tu tiempo participando en iniciativas.'
   },
   {
-    question: 'How do I reset my password?',
+    question: '¿Cómo puedo donar?',
     answer:
-      'Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.'
+      'Puedes donar dinero a través de nuestra plataforma, en unionsolidaria.com/donate .'
   },
   {
-    question: 'Can I cancel my subscription?',
-    answer: 'Yes! Send us a message and we’ll process your request no questions asked.'
+    question: '¿Cómo puedo participar de una iniciativa?',
+    answer: 'Para participar de una iniciativa, debes registrarte en nuestra plataforma y luego postularte a la iniciativa que quieras participar.'
   },
   {
-    question: 'Do you provide additional support?',
-    answer: 'Chat and email support is available 24/7. Phone lines are open during normal business hours.'
+    question: 'Soy una ONG, ¿cómo puedo publicar una iniciativa?',
+    answer: 'Para publicar una iniciativa, debes registrarte en nuestra plataforma y luego publicar tu iniciativa.'
   }
 ]

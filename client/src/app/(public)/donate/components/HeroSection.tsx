@@ -1,16 +1,20 @@
-import { Hero, TextElement } from '@/components'
+import { TextElement } from '@/components'
 
 const HeroSection = () => (
-  <Hero
-    imageSrc='https://images.unsplash.com/photo-1512358958014-b651a7ee1773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-    height='min-h-[45vh] '
-  >
-    <div className='flex w-full flex-col items-center justify-between gap-4 lg:flex-row'>
-      <TextElement type='t2' as='h1' className='w-full text-center !font-light text-white lg:text-start'>
-        Tu donación puede <b className='font-semibold'>cambiar vidas</b>
-      </TextElement>
+  <section className='section-padding-x-1 min-h-[40vh] mt-[95px] flex  justify-center bg-gradient-to-r from-[#ECFBF9] to-[#E5FCDE] '>
+    <div className=' flex w-full flex-col gap-10 py-14 xl:container  lg:flex-row lg:gap-[60px] '>
+      <div className='flex w-full flex-col justify-center items-center gap-2 text-center'>
+        <TextElement type='t1' as='h1' className='!font-light '>
+          Nuestra causa se sostiene con tu ayuda,
+          <b className='font-semibold'> tu donación nos mantiene activos.</b>
+        </TextElement>
+        <TextElement type='base' as='p' className='lg:max-w-[70vw] '>
+          Cada donación que recibimos es un pilar fundamental que sostiene nuestras iniciativas y nos permite continuar
+          nuestra labor en pro de un mundo mejor. Tu apoyo nos mantiene activos y nos inspira a seguir haciendo el bien.
+        </TextElement>
+      </div>
     </div>
-  </Hero>
+  </section>
 )
 
 export default HeroSection

@@ -31,7 +31,12 @@ const Account = () => (
           <hr className='w-full' />
         </div>
         <div className='flex flex-col gap-3'>
-          <TabBar variant='underlined' items={tabItems} />
+          <TabBar
+            items={tabItems}
+            variant='solid'
+            tabContentClassName='group-data-[selected=true]:text-white px-4 '
+            cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
+          />
         </div>
       </section>
     </article>

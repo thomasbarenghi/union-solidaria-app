@@ -8,7 +8,7 @@ interface Props {
 
 const VolunteersSection = ({ data, isLoading }: Props) => (
   <div className='flex flex-col gap-6'>
-    <VolunteerFlex volunteers={data?.volunteers} initiative={data} />
+    <VolunteerFlex volunteers={data?.volunteers} initiative={data} isLoading={isLoading} />
   </div>
 )
 

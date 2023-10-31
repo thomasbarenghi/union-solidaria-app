@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId, PopulatedDoc } from 'mongoose';
 import { IsNotEmpty } from 'class-validator';
 
 export type SessionDocument = HydratedDocument<Initiative>;
@@ -59,7 +59,7 @@ export class Initiative {
   @Prop({
      type: mongoose.Schema.Types.ObjectId, ref: 'User' ,
   })
-  owner: mongoose.Schema.Types.ObjectId;
+  owner: PopulatedDoc<Initiative & Document>
 
   @Prop({ required: true })
   @IsNotEmpty({ message: 'startHour is required' })
@@ -99,7 +99,7 @@ export class Initiative {
 
 class Volunteer {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  user: mongoose.Schema.Types.ObjectId;
+  user: PopulatedDoc<Initiative & Document>;
 
   @Prop({ required: true })
   status: 'pending' | 'accepted' | 'rejected';

@@ -13,7 +13,7 @@ const bootstrap = async () => {
   ConfigModule.forRoot();
   app.enableCors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: "*",
   });
   app.useGlobalPipes(new ValidationPipe());
   

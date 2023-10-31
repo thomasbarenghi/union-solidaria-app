@@ -9,12 +9,10 @@ import {
   UnauthorizedException,
   Res,
   Get,
-  Redirect,
   NotAcceptableException,
 } from '@nestjs/common';
 import { LocalAuthGuard } from 'src/auth/local/local.auth.guard';
 import { Response } from 'express';
-import { GoogleOauthGuard } from './google/google-oauth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -32,34 +30,6 @@ export class AuthController {
       };
     } catch (error) {
       console.log('error', error);
-      throw new NotAcceptableException();
-    }
-  }
-
-  @Get('/google')
-  @UseGuards(GoogleOauthGuard)
-  async googleAuth() {
-    return;
-  }
-
-  @Get('/google/callback')
-  @UseGuards(GoogleOauthGuard)
-  @Redirect()
-  async googleAuthRedirect(
-    @Session() session,
-    @Request() req,
-  ) {
-    try {
-      const { session, user } = req;
-
-      const slug = session.redirectURL ?? process.env.GOOGLE_DEFAULT_REDIRECT;
-
-      delete req.session.redirectURL;
-      const url = user
-        ? `${process.env.CLIENT_URL}${slug}?userId=${user.id}&sessionId=${session.sessionId}`
-        : `${process.env.CLIENT_URL}/login?failed=true`;
-      return { url };
-    } catch (error) {
       throw new NotAcceptableException();
     }
   }
@@ -84,9 +54,10 @@ export class AuthController {
   }
 
   @Get('/logout')
-  async logout(@Res() res: Response): Promise<any> {
+  async logout(@Request() req): Promise<any> {
     try {
-      return res.status(200).json({ message: 'Logout successful' });
+      const { sessionid } = req.headers;
+      return await this.authService.deleteSessionById(sessionid);
     } catch (error) {
       throw new UnauthorizedException();
     }
