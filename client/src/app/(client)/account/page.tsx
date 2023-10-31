@@ -1,10 +1,9 @@
-import Edit from './_components/GeneralForm'
-import PasswordForm from './_components/PasswordForm'
 import { TabBar, TextElement, UsersHero } from '@/components'
 import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
+import { accountTabItemsBuilder } from './accountTabItemsBuilder'
 
 export const metadata: Metadata = {
   title: 'Cuenta | Union Solidaria'
@@ -13,18 +12,7 @@ export const metadata: Metadata = {
 const Account = async () => {
   const session = await getServerSession(nextauthOptions)
   const { data: user } = await getUser(session?.user?.email ?? '')
-
-  const tabItems = [
-    {
-      title: 'Informacion general',
-      content: <Edit currentUser={user} />
-    },
-    {
-      title: 'Contraseña',
-      content: <PasswordForm session={session} />
-    }
-  ]
-
+  const tabItems = accountTabItemsBuilder(user, session)
   return (
     <>
       <UsersHero user={user} />
