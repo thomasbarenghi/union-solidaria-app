@@ -1,10 +1,10 @@
 import { Button, Hero, TextElement } from '@/components'
-import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
+import { User } from 'next-auth'
 import Image from 'next/image'
 
 interface Props {
-  user: UserInterface
+  user: User
   withAccountButton?: boolean
   isLoading?: boolean
   withInitiativesButton?: boolean
