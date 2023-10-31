@@ -1,11 +1,12 @@
 'use client'
 import { UsersHero } from '@/components'
-import { useAppSelector } from '@/redux/hooks'
-import { loggedUserSelector } from '@/redux/selectors/users'
+import { useSession } from 'next-auth/react'
 
 const HeroSec = () => {
-  const currentUser = useAppSelector(loggedUserSelector)
-  return <UsersHero user={currentUser} />
+  const { data: session, status } = useSession()
+
+  // TODO: improve loading state handling
+  return <UsersHero user={status === 'loading' ? {} : session.user} isLoading={status === 'loading'} />
 }
 
 export default HeroSec
