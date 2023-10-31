@@ -9,7 +9,7 @@ export const getUserByEmail = async (email: string) => {
   if (!email) return { user: undefined, error: { status: 400, message: 'no email was passed' } }
 
   const { data, error } = await customFetch<FetchUserByEmailStatus, UserInterface>({
-    url: `${serverUrl}${Endpoints.USER_BY_EMAIL(email)}`,
+    url: `${serverUrl.concat(Endpoints.USER_BY_EMAIL(email))}`,
     errors: {
       400: { message: 'email is undefined or an empty string' },
       404: { message: 'user not found' }

@@ -21,7 +21,7 @@ export const initiativesApi = createApi({
         return {
           url: Endpoints.INITIATIVES(''),
           method: 'POST',
-          body: bodyFormData
+          body: JSON.stringify(bodyFormData)
         }
       }
     })
