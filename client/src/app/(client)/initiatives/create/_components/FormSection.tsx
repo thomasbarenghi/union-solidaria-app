@@ -12,8 +12,8 @@ import Multimedia from './MultimediaInputs'
 // import Routes from '@/utils/constants/routes.const'
 import { Button, TextElement } from '@/components'
 import { useSession } from 'next-auth/react'
-import { postInitiative } from '@/services/initiatives/post-initiative.service'
-import { objectToFormData } from '@/utils/functions/objectToFormData.utils'
+import { postRequest } from '@/services/apiRequests.service'
+import Endpoints from '@/utils/constants/endpoints.const'
 
 export interface FormProps {
   title: string
@@ -56,7 +56,7 @@ const FormSec = () => {
   const onSubmit = async (data: any) => {
     const initiativeData = {
       ...data,
-      ownerId: session?.user.id,
+      owner: session?.user.id,
       startDate: new Date(data.startDate),
       endDate: new Date(data.endDate),
       thumbnail: data.thumbnail[0],
@@ -72,9 +72,11 @@ const FormSec = () => {
     // console.log(formData)
 
     // const { initiative, error } = await postInitiative(session?.user.id, formData)
-    const { initiative, error } = await postInitiative(session?.user.id, objectToFormData(initiativeData))
+    const { data: response, error } = await postRequest(Endpoints.INITIATIVES(), initiativeData, true, {
+      sessionId: session?.token.sessionId
+    })
 
-    console.log(initiative)
+    console.log(response)
     console.log(error)
 
     // try {

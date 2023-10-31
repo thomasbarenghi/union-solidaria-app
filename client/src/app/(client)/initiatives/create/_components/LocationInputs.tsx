@@ -74,7 +74,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
         />
         <Input
           type='text'
-          name='adress'
+          name='address'
           label='Direccion de encuentro'
           placeholder='Direccion de encuentro'
           hookForm={{
@@ -87,7 +87,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
               required: { value: true, message: 'Este campo es requerido' }
             }
           }}
-          errorMessage={errors?.adress?.message}
+          errorMessage={errors?.address?.message}
         />
       </div>
     </div>
