@@ -1,4 +1,4 @@
-'use state'
+'use client'
 import { StripeButton, Slider, TextElement } from '@/components'
 import { IDonationPayment } from '@/interfaces'
 import { createDonationToPlatform } from '@/services/stripe/payments.service'
