@@ -9,6 +9,8 @@ const Endpoints = {
   USER_BY_ID: (userId: string) => `/api/users/${userId}`,
   // TODO: implement endpoint to search user by email in the backend
   USER_BY_EMAIL: (userId: string) => `/api/users/${userId}`,
+  UPDATE_DATA: (userId: string) => `/api/users/update-data/${userId}`,
+  UPDATE_PASSWORD: (userId: string) => `/api/users/update-password/${userId}`,
   REVIEWS: '/api/reviews',
   DONATION_TO_PLATFORM: '/api/stripe/create-checkout-session',
   MODIFY_FAVORITE: '/api/users/favorites',
