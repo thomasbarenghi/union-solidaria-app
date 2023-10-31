@@ -1,4 +1,3 @@
-'use client'
 import { InitiativeInterface } from '@/interfaces'
 
 interface Response {
