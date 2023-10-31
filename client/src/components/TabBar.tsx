@@ -17,6 +17,7 @@ interface TabBarProps {
   tabClassName?: string
   tabContentClassName?: string
   cursorClassName?: string
+  selectedKey?: Key
   isLoading?: boolean
 }
 
@@ -29,7 +30,8 @@ const TabBar = ({
   tabClassName,
   tabContentClassName = 'p-4',
   cursorClassName,
-  isLoading = false
+  isLoading = false,
+  selectedKey
 }: TabBarProps) => (
   <>
     {isLoading ? (
@@ -42,6 +44,7 @@ const TabBar = ({
       </>
     ) : (
       <Tabs
+        selectedKey={selectedKey}
         classNames={{
           tab: tabClassName,
           tabContent: tabContentClassName,

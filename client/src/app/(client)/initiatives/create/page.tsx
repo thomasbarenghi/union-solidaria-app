@@ -1,5 +1,5 @@
-import FormSec from './components/FormSection'
-import HeroSec from './components/HeroSection'
+import FormSec from './_components/FormSection'
+import HeroSec from './_components/HeroSection'
 import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 
 const FormPage = async () => {
   const session = await getServerSession(nextauthOptions)
-
   if (session === null) redirect(Routes.LOGIN)
-
   return (
     <>
       <HeroSec />

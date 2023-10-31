@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
-import RegisterForm from './components/Form'
+import RegisterForm from './_components/Form'
 import { TextElement } from '@/components'
-import Base from '../components/BaseLayout'
+import Base from '../_components/BaseLayout'
 
 const Register = () => (
   <Base image='https://images.unsplash.com/photo-1485309086598-f9d010ad3972?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=100'>

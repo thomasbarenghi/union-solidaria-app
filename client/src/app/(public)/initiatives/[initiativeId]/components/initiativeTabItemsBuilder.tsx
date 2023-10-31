@@ -1,14 +1,15 @@
 import { InitiativeInterface, UserInterface } from '@/interfaces'
 import InfoSection from './InfoSection/InfoSection'
 import PostSection from './PostsSection/PostSection'
-import VolunteersSection from './VolunteersSection/VolunteersSection'
-import ConfigSection from './ConfigSection/ConfigSection'
+import VolunteersSection from './VolunteersSection'
+import ConfigSection from './ConfigSection'
 
 export const initiativeTabItemsBuilder = (
   currentUser: UserInterface,
   isLoading: boolean,
   data: InitiativeInterface
 ) => {
+  console.log('currentUser', currentUser)
   const isOrg = currentUser?.role === 'organization'
   const isCurrent = currentUser?._id === data?.owner?._id
   return [

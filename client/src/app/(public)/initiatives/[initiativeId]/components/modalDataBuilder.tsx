@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/brace-style */
 /* eslint-disable @typescript-eslint/indent */
-import { InitiativeInterface, UserInterface } from '@/interfaces'
+import { InitiativeInterface } from '@/interfaces'
 import { Key } from 'react'
 import SubscribeContent from './Modal/SubscribeContent'
 import { handlers } from './handlers'
@@ -24,13 +24,13 @@ interface Response {
 export const modalDataBuilder = (
   router: AppRouterInstance,
   initiative: InitiativeInterface,
-  currentUser: UserInterface,
+  currentUserId: string,
   tabIndex?: Key,
   mutator?: any
 ): Response => {
   console.log('tabIndex', tabIndex)
-  const isOwner = currentUser._id === initiative?.owner?._id
-  const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUser?._id)
+  const isOwner = currentUserId === initiative?.owner?._id
+  const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUserId)
   const isVolunteer = Boolean(volunteer)
   const status = volunteer?.status
   const ended = new Date(initiative?.endDate) < new Date()
@@ -48,6 +48,11 @@ export const modalDataBuilder = (
     hiddeTrigger: false
   }
 
+if (tabIndex === 'Informacion') tabIndex = 0
+if (tabIndex === 'Publicaciones') tabIndex = 1
+if (tabIndex === 'Voluntarios') tabIndex = 2
+if (tabIndex === 'Configuracion') tabIndex = 3
+
   // Casos index 0
   // Voluntario no inscrito (Opcion de inscribirse)
   // Voluntario inscrito y aceptado (Opcion de salirse)
@@ -60,7 +65,7 @@ export const modalDataBuilder = (
     if (!isVolunteer && !ended) {
       content.triggerText = 'Inscríbete ahora'
       content.onConfirm = () => {
-        void handlers.handleSubscribe(currentUser._id, initiative._id, mutator)
+        void handlers.handleSubscribe(currentUserId, initiative._id, mutator)
       }
       content.confirmText = 'Inscribirse'
       content.children = <SubscribeContent />
@@ -78,7 +83,7 @@ export const modalDataBuilder = (
       content.triggerText = 'Cancelar suscripción'
       content.children = <CancelSubscription />
       content.onConfirm = () => {
-        void handlers.handleUnsubscribe(currentUser._id, initiative._id, mutator)
+        void handlers.handleUnsubscribe(currentUserId, initiative._id, mutator)
       }
       content.confirmText = 'Cancelar suscripción'
       content.title = 'Cancelar suscripción'
@@ -88,7 +93,7 @@ export const modalDataBuilder = (
       content.triggerText = 'Cancelar solicitud'
       content.children = <CancelSubscription />
       content.onConfirm = () => {
-        void handlers.handleUnsubscribe(currentUser._id, initiative._id, mutator)
+        void handlers.handleUnsubscribe(currentUserId, initiative._id, mutator)
       }
       content.confirmText = 'Cancelar solicitud'
       content.title = 'Cancelar solicitud'

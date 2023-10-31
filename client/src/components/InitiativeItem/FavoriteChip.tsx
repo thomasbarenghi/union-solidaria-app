@@ -1,20 +1,19 @@
 'use client'
 import useSWR from 'swr'
-import { useAppSelector } from '@/redux/hooks'
-import { loggedUserSelector, currentAuthSelector } from '@/redux/selectors/users'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Image from 'next/image'
 import { InitiativeInterface } from '@/interfaces'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   initiative: InitiativeInterface
 }
 
 const FavoriteChip = ({ initiative }: Props) => {
-  const loggedUser = useAppSelector(loggedUserSelector)
-  const auth = useAppSelector(currentAuthSelector)
-  const { data: currentUser, mutate } = useSWR(Endpoints.USER_BY_ID(loggedUser.username))
+  const { data: session, status } = useSession()
+  const { data: loggedUser } = useSWR(Endpoints.USER_BY_ID(session?.user?.id ?? ''))
+  const { data: currentUser, mutate } = useSWR(Endpoints.USER_BY_ID(loggedUser?.username))
   const isFavorite = currentUser?.favorites?.some((favorite: InitiativeInterface) => favorite._id === initiative._id)
 
   const handleFavorite = async () => {
@@ -22,7 +21,7 @@ const FavoriteChip = ({ initiative }: Props) => {
       await putRequest(Endpoints.MODIFY_FAVORITE, {
         userId: loggedUser._id,
         initiativeId: initiative._id
-      })
+      }, false)
       await mutate()
     } catch (error) {
       console.log(error)
@@ -31,7 +30,7 @@ const FavoriteChip = ({ initiative }: Props) => {
 
   return (
     <>
-      {auth.isLogged && (
+      {status === 'authenticated' && (
         <button
           className='absolute right-1 top-1 z-10 aspect-square rounded-2xl bg-white p-4'
           onClick={() => {

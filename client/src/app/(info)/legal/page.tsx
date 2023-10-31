@@ -1,7 +1,7 @@
 import { Header, TabBar } from '@/components'
 import type { Metadata } from 'next'
 import { items } from './itemsTab'
-import HeroSection from './components/HeroSection'
+import HeroSection from './_components/HeroSection'
 
 export const metadata: Metadata = {
   title: 'Legales | Union Solidaria'

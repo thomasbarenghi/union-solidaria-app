@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
-import LoginForm from './components/Form'
+import LoginForm from './_components/Form'
 import { TextElement } from '@/components'
-import Base from '../components/BaseLayout'
+import Base from '../_components/BaseLayout'
 
 const Login = () => (
   <Base image='https://images.unsplash.com/photo-1516558781830-2c603b601b59?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=100'>
