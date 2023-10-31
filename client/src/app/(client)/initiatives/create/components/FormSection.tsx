@@ -1,16 +1,19 @@
 'use client'
 import { useRef } from 'react'
-import { useAppSelector } from '@/redux/hooks'
+// import { useAppSelector } from '@/redux/hooks'
 import { useForm } from 'react-hook-form'
 import GeneralInfo from './GeneralInputs'
 import LocationInfo from './LocationInputs'
 import DateTime from './DateTimeInputs'
 import Multimedia from './MultimediaInputs'
-import { usePostInitiativesMutation } from '@/redux/services/initiatives.service'
-import { loggedUserSelector } from '@/redux/selectors/users'
-import { useRouter } from 'next/navigation'
-import Routes from '@/utils/constants/routes.const'
+// import { usePostInitiativesMutation } from '@/redux/services/initiatives.service'
+// import { loggedUserSelector } from '@/redux/selectors/users'
+// import { useRouter } from 'next/navigation'
+// import Routes from '@/utils/constants/routes.const'
 import { Button, TextElement } from '@/components'
+import { useSession } from 'next-auth/react'
+import { postInitiative } from '@/services/initiatives/post-initiative.service'
+import { objectToFormData } from '@/utils/functions/objectToFormData.utils'
 
 export interface FormProps {
   title: string
@@ -31,10 +34,11 @@ export interface FormProps {
 }
 
 const FormSec = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
-  const { _id } = useAppSelector(loggedUserSelector)
-  const [addPost] = usePostInitiativesMutation()
+  const { data: session } = useSession()
+  // const { _id } = useAppSelector(loggedUserSelector)
+  // const [addPost] = usePostInitiativesMutation()
   const {
     register,
     formState: { errors },
@@ -45,26 +49,49 @@ const FormSec = () => {
     mode: 'onChange'
   })
 
-  const cleanForm = () => {
-    formRef.current?.reset()
-  }
+  // const cleanForm = () => {
+  //   formRef.current?.reset()
+  // }
 
   const onSubmit = async (data: any) => {
-    try {
-      const formData = {
-        ...data,
-        ownerId: _id,
-        startDate: new Date(data.startDate).toISOString(),
-        endDate: new Date(data.endDate).toISOString(),
-        thumbnail: data.thumbnail[0],
-        deadLine: new Date(data.deadLine).toISOString()
-      }
-      const res = await addPost(formData).unwrap()
-      cleanForm()
-      router.push(Routes.INDIVIDUAL_INITIATIVE(res._id))
-    } catch (err) {
-      alert('Error al crear la iniciativa')
+    const initiativeData = {
+      ...data,
+      ownerId: session?.user.id,
+      startDate: new Date(data.startDate),
+      endDate: new Date(data.endDate),
+      thumbnail: data.thumbnail[0],
+      deadLine: new Date(data.deadLine)
     }
+    // const formData = new FormData()
+
+    // for (const key in initiativeData) {
+    //   formData.append(key, initiativeData[key])
+    // }
+
+    console.log(initiativeData)
+    // console.log(formData)
+
+    // const { initiative, error } = await postInitiative(session?.user.id, formData)
+    const { initiative, error } = await postInitiative(session?.user.id, objectToFormData(initiativeData))
+
+    console.log(initiative)
+    console.log(error)
+
+    // try {
+    //   const formData = {
+    //     ...data,
+    //     ownerId: _id,
+    //     startDate: new Date(data.startDate).toISOString(),
+    //     endDate: new Date(data.endDate).toISOString(),
+    //     thumbnail: data.thumbnail[0],
+    //     deadLine: new Date(data.deadLine).toISOString()
+    //   }
+    //   const res = await addPost(formData).unwrap()
+    //   cleanForm()
+    //   router.push(Routes.INDIVIDUAL_INITIATIVE(res._id))
+    // } catch (err) {
+    //   alert('Error al crear la iniciativa')
+    // }
   }
 
   return (

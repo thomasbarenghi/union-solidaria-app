@@ -16,7 +16,7 @@ const LoginForm = () => {
   const router = useRouter()
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
     handleSubmit,
     setError
   } = useForm<LoginFormValues>({
@@ -96,7 +96,7 @@ const LoginForm = () => {
             errorMessage={errors?.password?.message?.toString()}
           />
         </div>
-        <Button type='submit' fullWidth isLoading={isSubmitting || isSubmitted}>
+        <Button type='submit' fullWidth isLoading={isSubmitting}>
           Iniciar sesion
         </Button>
       </form>

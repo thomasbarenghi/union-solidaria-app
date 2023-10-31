@@ -1,14 +1,15 @@
 import { Input } from '@/components'
-import { FieldValues, UseFormGetValues, UseFormRegister } from 'react-hook-form'
+import { UpdatePasswordFormValues } from '@/interfaces'
+import { UseFormGetValues, UseFormRegister } from 'react-hook-form'
 
 interface GeneralInfoProps {
   errors: any
   register: UseFormRegister<any>
-  getValues: UseFormGetValues<FieldValues>
+  getValues: UseFormGetValues<UpdatePasswordFormValues>
 }
 
 const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
-  <div className='flex grid-cols-2 flex-col gap-4 w-full lg:grid'>
+  <div className='flex w-full grid-cols-2 flex-col gap-4 lg:grid'>
     <Input
       type='text'
       name='oldPassword'
@@ -17,10 +18,6 @@ const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
       hookForm={{
         register,
         validations: {
-          pattern: {
-            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-            message: 'La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula y un numero'
-          },
           required: {
             value: getValues()?.oldPassword?.length > 0,
             message: 'Este campo es requerido'
@@ -37,10 +34,6 @@ const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
       hookForm={{
         register,
         validations: {
-          pattern: {
-            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-            message: 'La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula y un numero'
-          },
           required: {
             value: getValues()?.oldPassword?.length > 0,
             message: 'Este campo es requerido'
