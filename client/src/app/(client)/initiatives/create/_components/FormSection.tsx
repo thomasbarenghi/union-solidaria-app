@@ -1,14 +1,13 @@
 'use client'
-import { useRef } from 'react'
-import { useForm } from 'react-hook-form'
-import GeneralInfo from './GeneralInputs'
-import LocationInfo from './LocationInputs'
-import DateTime from './DateTimeInputs'
-import Multimedia from './MultimediaInputs'
 import { Button, TextElement } from '@/components'
-import { useSession } from 'next-auth/react'
 import { postRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
+import { useSession } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import DateTime from './DateTimeInputs'
+import GeneralInfo from './GeneralInputs'
+import LocationInfo from './LocationInputs'
+import Multimedia from './MultimediaInputs'
 
 export interface FormProps {
   title: string
@@ -29,7 +28,6 @@ export interface FormProps {
 }
 
 const FormSec = () => {
-  const formRef = useRef<HTMLFormElement>(null)
   const { data: session } = useSession()
   const {
     register,
@@ -75,7 +73,6 @@ const FormSec = () => {
         className='flex w-full flex-col gap-8'
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onSubmit={handleSubmit(onSubmit)}
-        ref={formRef}
       >
         <TextElement type='t3' as='h1' className='font-semibold'>
           Crear iniciativa
