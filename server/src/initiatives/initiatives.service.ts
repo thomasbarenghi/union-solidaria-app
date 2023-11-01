@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, ConflictException } from '@nestjs/common';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
 import { UpdateInitiativeDto } from './dto/update-initiative.dto';
 import { buildQueryInitiative } from 'src/utils/initiativeFilter.utils';
@@ -27,6 +27,8 @@ export class InitiativesService {
       createInitiativeDto.owner.toString(),
       this.userModel,
     );
+
+    if(owner.role === "volunteer") throw new ConflictException("User is not an organization")
 
     const initiative = await this.initiativeModel
       .create(createInitiativeDto)

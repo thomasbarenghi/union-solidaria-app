@@ -5,9 +5,9 @@ import Image from 'next/image'
 
 interface Props {
   user: UserInterface
-  withAccountButton?: boolean
+  withAccountButton: boolean
   isLoading?: boolean
-  withInitiativesButton?: boolean
+  withInitiativesButton: boolean
 }
 
 const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = false }: Props) => (
@@ -30,10 +30,10 @@ const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = f
       </div>
     </div>
     <div className='flex gap-2'>
-      {withAccountButton === true && (
+      {withAccountButton && (
         <Button variant='flat' className='bg-green-50' title='Editar cuenta' href='/account' />
       )}
-      {withInitiativesButton === true && <Button title='Crear iniciativa' href={Routes.CREATE_INITIATIVE} />}
+      {withInitiativesButton && <Button title='Crear iniciativa' href={Routes.CREATE_INITIATIVE} />}
     </div>
   </div>
 )

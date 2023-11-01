@@ -13,9 +13,11 @@ const Account = async () => {
   const session = await getServerSession(nextauthOptions)
   const { data: user } = await getUser(session?.user?.email ?? '')
   const tabItems = accountTabItemsBuilder(user, session)
+  const isCurrentUser = Boolean(session?.user.id === user._id)
+  const isOrg = Boolean(user?.role === 'organization')
   return (
     <>
-      <UsersHero user={user} />
+      <UsersHero user={user} withAccountButton={isCurrentUser} withInitiativesButton={isOrg && isCurrentUser} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-6'>
           <div className='flex flex-col gap-2'>
