@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 const FormPage = async () => {
   const session = await getServerSession(nextauthOptions)
   if (session === null) redirect(Routes.LOGIN)
+  if (session.user.role === 'volunteer') redirect(Routes.EDIT_ACCOUNT)
+
   return (
     <>
       <HeroSec />
