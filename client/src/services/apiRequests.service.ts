@@ -1,31 +1,20 @@
 import { serverUrl } from '@/utils/constants/env.const'
-import axios, { type AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig, type AxiosResponse } from 'axios'
 
 interface Response {
   data: any
   error: boolean
-  success: boolean
+  success?: boolean
 }
 
-export const putRequest = async (
-  url: string,
-  data: any,
-  withFiles: boolean,
-  headers?: object
-): Promise<Response> => {
+export const putRequest = async (url: string, data: any, withFiles: boolean, headers?: object): Promise<Response> => {
   try {
-    const response: AxiosResponse = await axios.put(
-      `${serverUrl}${url}`,
-      data,
-      {
-        headers: {
-          ...headers,
-          'Content-Type': !withFiles
-            ? 'application/json'
-            : 'multipart/form-data'
-        }
+    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
+      headers: {
+        ...headers,
+        'Content-Type': !withFiles ? 'application/json' : 'multipart/form-data'
       }
-    )
+    })
 
     return {
       data: response.data,
@@ -42,45 +31,24 @@ export const putRequest = async (
   }
 }
 
-export const postRequest = async (
-  url: string,
-  data: object = {},
-  withFiles: boolean,
-  headers?: object
-): Promise<Response> => {
+export const postRequest = async (url: string, data: object = {}, config?: AxiosRequestConfig): Promise<Response> => {
   try {
-    const response: AxiosResponse = await axios.post(
-      `${serverUrl}${url}`,
-      data,
-      {
-        headers: {
-          ...headers,
-          'Content-Type': !withFiles
-            ? 'application/json'
-            : 'multipart/form-data'
-        }
-      }
-    )
+    const response: AxiosResponse = await axios.post(`${serverUrl}${url}`, data, { ...config })
 
     return {
       data: response.data,
-      error: false,
-      success: true
+      error: false
     }
   } catch (error) {
     console.error('Error postRequest:', error)
     return {
       data: error,
-      error: true,
-      success: false
+      error: true
     }
   }
 }
 
-export const deleteRequest = async (
-  url: string,
-  headers: object = {}
-): Promise<Response> => {
+export const deleteRequest = async (url: string, headers: object = {}): Promise<Response> => {
   try {
     const response = await fetch(`${serverUrl}${url}`, {
       method: 'DELETE',
@@ -114,7 +82,6 @@ export const getRequest = async (
     cache?: 'force-cache' | 'no-store' | 'no-cache'
   }
 ): Promise<Response> => {
-  console.log('getRequest', next)
   try {
     const response = await fetch(`${serverUrl}${url}`, {
       next: {
@@ -129,7 +96,6 @@ export const getRequest = async (
       }
     })
     const responsejson = await response.json()
-    console.log('response', responsejson, next)
     return {
       data: responsejson,
       error: !response.ok,
