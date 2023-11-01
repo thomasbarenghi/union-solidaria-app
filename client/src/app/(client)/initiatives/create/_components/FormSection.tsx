@@ -1,15 +1,10 @@
 'use client'
 import { useRef } from 'react'
-// import { useAppSelector } from '@/redux/hooks'
 import { useForm } from 'react-hook-form'
 import GeneralInfo from './GeneralInputs'
 import LocationInfo from './LocationInputs'
 import DateTime from './DateTimeInputs'
 import Multimedia from './MultimediaInputs'
-// import { usePostInitiativesMutation } from '@/redux/services/initiatives.service'
-// import { loggedUserSelector } from '@/redux/selectors/users'
-// import { useRouter } from 'next/navigation'
-// import Routes from '@/utils/constants/routes.const'
 import { Button, TextElement } from '@/components'
 import { useSession } from 'next-auth/react'
 import { postRequest } from '@/services/apiRequests.service'
@@ -30,70 +25,48 @@ export interface FormProps {
   endHour: string
   extraInfo: string
   themes: string[]
-  thumbnail?: any
+  thumbnail?: FileList
 }
 
 const FormSec = () => {
-  // const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
   const { data: session } = useSession()
-  // const { _id } = useAppSelector(loggedUserSelector)
-  // const [addPost] = usePostInitiativesMutation()
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
     control,
+    reset,
     setValue
-  } = useForm({
+  } = useForm<FormProps>({
     mode: 'onChange'
   })
 
-  // const cleanForm = () => {
-  //   formRef.current?.reset()
-  // }
-
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormProps) => {
     const initiativeData = {
       ...data,
       owner: session?.user.id,
       startDate: new Date(data.startDate),
       endDate: new Date(data.endDate),
-      thumbnail: data.thumbnail[0],
+      thumbnail: data.thumbnail?.[0],
       deadLine: new Date(data.deadLine)
     }
-    // const formData = new FormData()
 
-    // for (const key in initiativeData) {
-    //   formData.append(key, initiativeData[key])
-    // }
-
-    console.log(initiativeData)
-    // console.log(formData)
-
-    // const { initiative, error } = await postInitiative(session?.user.id, formData)
-    const { data: response, error } = await postRequest(Endpoints.INITIATIVES(), initiativeData, true, {
-      sessionId: session?.token.sessionId
+    const { data: response, error } = await postRequest(Endpoints.INITIATIVES(), initiativeData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        sessionId: session?.token.sessionId
+      }
     })
 
-    console.log(response)
-    console.log(error)
+    if (error) {
+      alert('Ocurrió un error al crear la iniciativa')
+      console.log('ERROR: ', response)
+      return
+    }
 
-    // try {
-    //   const formData = {
-    //     ...data,
-    //     ownerId: _id,
-    //     startDate: new Date(data.startDate).toISOString(),
-    //     endDate: new Date(data.endDate).toISOString(),
-    //     thumbnail: data.thumbnail[0],
-    //     deadLine: new Date(data.deadLine).toISOString()
-    //   }
-    //   const res = await addPost(formData).unwrap()
-    //   cleanForm()
-    //   router.push(Routes.INDIVIDUAL_INITIATIVE(res._id))
-    // } catch (err) {
-    //   alert('Error al crear la iniciativa')
-    // }
+    alert('Iniciativa creada')
+    reset()
   }
 
   return (
@@ -111,7 +84,7 @@ const FormSec = () => {
         <LocationInfo errors={errors} register={register} control={control} setValue={setValue} />
         <DateTime errors={errors} register={register} />
         <Multimedia errors={errors} register={register} />
-        <Button type='submit' title='Crear iniciativa' />
+        <Button type='submit' title='Crear iniciativa' isLoading={isSubmitting} />
       </form>
     </section>
   )
