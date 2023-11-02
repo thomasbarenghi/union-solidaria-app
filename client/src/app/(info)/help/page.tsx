@@ -1,6 +1,6 @@
 import { Header, HelpHero } from '@/components'
-import FAQs from './components/FaqsSection'
-import Contact from './components/ContactSection'
+import FAQs from './_components/FaqsSection'
+import Contact from './_components/ContactSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

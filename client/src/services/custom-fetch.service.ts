@@ -32,10 +32,10 @@ export const customFetch = async <Status extends number, DataType = any>(
 
   try {
     const res = await fetch(url, { ...init })
+    const data = await res.json()
     const isStatusHandled = Object.keys(extendedErrors).includes(res.status.toString())
 
     if (!isStatusHandled) {
-      const data = await res.json()
       return {
         data: undefined,
         error: {
@@ -47,7 +47,6 @@ export const customFetch = async <Status extends number, DataType = any>(
     }
 
     if (extendedErrors[res.status as Status | DefaultHandledStatus] === null) {
-      const data = await res.json()
       return { data, error: null }
     }
 
@@ -55,11 +54,12 @@ export const customFetch = async <Status extends number, DataType = any>(
       data: undefined,
       error: {
         status: res.status as Status | DefaultHandledStatus,
-        ...extendedErrors[res.status as Status | DefaultHandledStatus]
+        ...extendedErrors[res.status as Status | DefaultHandledStatus],
+        serverError: data
       }
     }
   } catch (error) {
     console.log(error)
-    return { data: undefined, error: { status: 500, ...extendedErrors[500] } }
+    return { data: undefined, error: { status: 500, ...extendedErrors[500], serverError: error } }
   }
 }

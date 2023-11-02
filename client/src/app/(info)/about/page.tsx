@@ -1,9 +1,9 @@
-import HeroSection from './components/HeroSection'
-import MissionVisionSection from './components/Content'
-import TechnologiesSection from './components/TechnologiesSection'
+import HeroSection from './_components/HeroSection'
+import MissionVisionSection from './_components/Content'
+import TechnologiesSection from './_components/TechnologiesSection'
 import type { Metadata } from 'next'
 import { Header } from '@/components'
-import TeamSection from './components/TeamSection'
+import TeamSection from './_components/TeamSection'
 
 export const metadata: Metadata = {
   title: 'Nosotros | Union Solidaria'

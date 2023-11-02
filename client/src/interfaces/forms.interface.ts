@@ -21,3 +21,10 @@ export interface RegisterFormValues {
   role: Role
   orgName?: string
 }
+
+export interface UpdatePasswordFormValues {
+  oldPassword: string
+  newPassword: string
+}
+
+export interface UpdateUserFormValues extends Partial<Omit<RegisterFormValues, 'role'>> {}

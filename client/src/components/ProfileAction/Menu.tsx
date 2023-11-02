@@ -1,15 +1,16 @@
 'use client'
-import { useAppSelector } from '@/redux/hooks'
-import { loggedUserSelector } from '@/redux/selectors/users'
 import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
-import clsx from 'clsx'
 import NextLink from 'next/link'
 import { signOut } from 'next-auth/react'
+import { UserInterface } from '@/interfaces'
 
-const Menu = () => {
-  const currentUser = useAppSelector(loggedUserSelector)
-  const items: ItemNavInterface[] = itemsNavBuilder(currentUser)
-  const dangerStyle = clsx('text-red-800', 'hover:!bg-red-50', 'hover:text-red-800')
+interface Props {
+  user: UserInterface
+}
+
+const Menu = ({ user }: Props) => {
+  const items: ItemNavInterface[] = itemsNavBuilder(user)
+  const dangerStyle = 'text-red-800 hover:!bg-red-50 hover:text-red-800'
   return (
     <div className='flex w-full flex-col'>
       {items.map((item, index) => (

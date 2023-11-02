@@ -1,5 +1,5 @@
-import Privacy from './components/PrivacyTab'
-import Terms from './components/TermsTab'
+import Privacy from './_components/PrivacyTab'
+import Terms from './_components/TermsTab'
 
 export const items = [
   {

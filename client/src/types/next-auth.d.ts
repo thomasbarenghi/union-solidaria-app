@@ -51,7 +51,7 @@ declare module 'next-auth' {
     token: {
       accessToken?: string
       idToken?: string
-      sessionId?: string
+      sessionId: string
       provider: string
     }
   }

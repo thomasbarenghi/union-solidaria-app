@@ -8,9 +8,9 @@ import NextLink from 'next/link'
 import clsx from 'clsx'
 import { useState } from 'react'
 import Routes from '@/utils/constants/routes.const'
-import { useAppSelector } from '@/redux/hooks'
 import { usePathname } from 'next/navigation'
 import MobileMenu from './MobileMenu'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   theme?: 'light' | 'transparent'
@@ -19,7 +19,7 @@ interface Props {
 
 const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
   const pathname = usePathname()
-  const auth = useAppSelector((state) => state.authSession.auth)
+  const { status } = useSession()
   const [isScrolled, setIsScrolled] = useState(false)
   const bgColor = isScrolled ? 'bg-[#FFFFFFF1]' : 'bg-transparent'
   const textColor = isScrolled ? 'text-black' : theme === 'transparent' ? 'text-white' : 'text-black'
@@ -89,14 +89,18 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
           </NavbarContent>
           <NavbarContent>
             <NavbarItem className='flex items-center gap-2'>
-              {auth.isLogged && <Button title='Donar' size='md' href={Routes.DONATION} />}
-              <Button
-                variant='faded'
-                className='hidden border-0 bg-green-50 text-green-800 lg:flex'
-                color='default'
-                title='Donar'
-                href={Routes.DONATION}
-              />
+              {status === 'authenticated' && <Button title='Donar' size='md' href={Routes.DONATION} />}
+              {
+              status === 'unauthenticated' && (
+                <Button
+                  variant='faded'
+                  className='hidden border-0 bg-green-50 text-green-800 lg:flex'
+                  color='default'
+                  title='Donar'
+                  href={Routes.DONATION}
+                />
+              )
+             }
               <ProfileAction />
             </NavbarItem>
           </NavbarContent>

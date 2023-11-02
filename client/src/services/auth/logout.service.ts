@@ -17,9 +17,10 @@ export const logoutUser = async (sessionId: string) => {
       401: { message: 'Invalid credentials' }
     },
     init: {
-      method: 'POST',
-      body: JSON.stringify({ sessionId }),
+      // TODO: The method should be POST
+      method: 'GET',
       headers: {
+        sessionId,
         'Content-Type': 'application/json'
       }
     }

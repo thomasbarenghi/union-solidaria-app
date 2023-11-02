@@ -1,5 +1,5 @@
-import HeroSection from './components/HeroSection'
-import InitiativesSection from './components/InitiativesSection'
+import HeroSection from './_components/HeroSection'
+import InitiativesSection from './_components/InitiativesSection'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
