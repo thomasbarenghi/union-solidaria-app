@@ -7,26 +7,19 @@ interface Response {
   success?: boolean
 }
 
-export const putRequest = async (url: string, data: any, withFiles: boolean, headers?: object): Promise<Response> => {
+export const putRequest = async (url: string, data: object = {}, config?: AxiosRequestConfig): Promise<Response> => {
   try {
-    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
-      headers: {
-        ...headers,
-        'Content-Type': !withFiles ? 'application/json' : 'multipart/form-data'
-      }
-    })
+    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, { ...config })
 
     return {
       data: response.data,
-      error: false,
-      success: true
+      error: false
     }
   } catch (error) {
     console.error('Error putRequest:', error)
     return {
       data: error,
-      error: true,
-      success: false
+      error: true
     }
   }
 }

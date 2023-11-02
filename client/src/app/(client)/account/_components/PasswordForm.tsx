@@ -5,9 +5,10 @@ import { useForm } from 'react-hook-form'
 import PasswordInfo from './PasswordInfo'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
+import { Session } from 'next-auth'
 
 interface Props {
-  session: any
+  session: Session
 }
 
 const PasswordForm = ({ session }: Props) => {
@@ -21,7 +22,9 @@ const PasswordForm = ({ session }: Props) => {
   })
 
   const onSubmit = async (data: any) => {
-    await putRequest(Endpoints.UPDATE_PASSWORD(session?.user?.id ?? ''), data, false, { sessionId: session?.token?.sessionId })
+    await putRequest(Endpoints.UPDATE_PASSWORD(session?.user?.id ?? ''), data, {
+      headers: { sessionId: session.user.id }
+    })
   }
 
   return (

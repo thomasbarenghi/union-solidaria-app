@@ -7,7 +7,7 @@ export const handlers = {
       await putRequest(Endpoints.SUBSCRIBE, {
         userId,
         initiativeId
-      }, false)
+      })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiativeId))
     } catch (error) {
       console.log(error)
@@ -18,7 +18,7 @@ export const handlers = {
       await putRequest(Endpoints.UNSUBSCRIBE, {
         userId,
         initiativeId
-      }, false)
+      })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiativeId))
     } catch (error) {
       console.log(error)

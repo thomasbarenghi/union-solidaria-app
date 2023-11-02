@@ -1,16 +1,26 @@
 import { Button, Hero, TextElement } from '@/components'
 import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
+import { type User } from 'next-auth'
 import Image from 'next/image'
 
 interface Props {
-  user: UserInterface
-  withAccountButton: boolean
+  // TODO: remove UserInterface
+  user: User | UserInterface | undefined
+  withAccountButton?: boolean
   isLoading?: boolean
-  withInitiativesButton: boolean
+  withInitiativesButton?: boolean
 }
 
-const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = false }: Props) => (
+const Content = ({
+  user,
+  withAccountButton,
+  withInitiativesButton
+}: {
+  user: User | UserInterface
+  withAccountButton: boolean
+  withInitiativesButton: boolean
+}) => (
   <div className='flex items-center justify-between'>
     <div className='flex items-center gap-4'>
       <Image
@@ -25,14 +35,12 @@ const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = f
           {user?.firstName + ' ' + user?.lastName}
         </TextElement>
         <TextElement type='small' as='p' className=' text-white'>
-          @{user?.username}
+          {`@${user?.username}`}
         </TextElement>
       </div>
     </div>
     <div className='flex gap-2'>
-      {withAccountButton && (
-        <Button variant='flat' className='bg-green-50' title='Editar cuenta' href='/account' />
-      )}
+      {withAccountButton && <Button variant='flat' className='bg-green-50' title='Editar cuenta' href='/account' />}
       {withInitiativesButton && <Button title='Crear iniciativa' href={Routes.CREATE_INITIATIVE} />}
     </div>
   </div>
@@ -40,12 +48,13 @@ const Content = ({ user, withAccountButton, withInitiativesButton, isLoading = f
 
 const UsersHero = ({ user, withAccountButton = false, isLoading = false, withInitiativesButton = false }: Props) => (
   <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading}>
-    <Content
-      user={user}
-      withAccountButton={withAccountButton}
-      isLoading={isLoading}
-      withInitiativesButton={withInitiativesButton}
-    />
+    {!isLoading ? (
+      <Content
+        user={user as User}
+        withAccountButton={withAccountButton}
+        withInitiativesButton={withInitiativesButton}
+      />
+    ) : null}
   </Hero>
 )
 

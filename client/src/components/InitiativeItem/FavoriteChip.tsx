@@ -21,7 +21,7 @@ const FavoriteChip = ({ initiative }: Props) => {
       await putRequest(Endpoints.MODIFY_FAVORITE, {
         userId: loggedUser._id,
         initiativeId: initiative._id
-      }, false)
+      })
       await mutate()
     } catch (error) {
       console.log(error)

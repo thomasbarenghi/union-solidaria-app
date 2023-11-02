@@ -26,7 +26,7 @@ const FormSec = ({ currentUser }: Props) => {
       profileImage: data.profileImage[0] ?? '',
       bannerImage: data.bannerImage[0] ?? ''
     }
-    const { error } = await putRequest(Endpoints.USER_BY_ID(currentUser._id), formData, true)
+    const { error } = await putRequest(Endpoints.USER_BY_ID(currentUser._id), formData)
     // TODO: handle error case
     if (error) return
     alert('Cambio exitoso')

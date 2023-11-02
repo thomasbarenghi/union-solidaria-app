@@ -31,7 +31,9 @@ const ConfigSection = ({ initiative, isLoading }: Props) => {
         deadLine: new Date(data.deadLine).toISOString()
       }
       console.log(formData)
-      await putRequest(Endpoints.INITIATIVES_BY_ID(initiative._id), formData, true)
+      await putRequest(Endpoints.INITIATIVES_BY_ID(initiative._id), formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiative._id))
     } catch (err) {
       console.log(err)

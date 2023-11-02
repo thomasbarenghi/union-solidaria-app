@@ -6,7 +6,7 @@ const HeroSec = () => {
   const { data: session, status } = useSession()
 
   // TODO: improve loading state handling
-  return <UsersHero user={status === 'loading' ? {} : session.user} isLoading={status === 'loading'} />
+  return <UsersHero user={session?.user} isLoading={status === 'loading'} />
 }
 
 export default HeroSec
