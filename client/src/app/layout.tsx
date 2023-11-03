@@ -1,4 +1,4 @@
-import './globals.scss'
+import './globals.css'
 import NextUiProvider from '@/context/providers/nextUi.provider'
 import { Outfit } from 'next/font/google'
 import AuthSessionProvider from '@/context/providers/AuthSessionProvider'

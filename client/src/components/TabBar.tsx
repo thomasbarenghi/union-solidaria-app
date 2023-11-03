@@ -12,61 +12,62 @@ interface TabBarProps {
   items: TabBarItemProps[]
   variant: 'underlined' | 'solid' | 'light' | 'bordered'
   onSelectionChange?: (index: Key) => void
-  withHr?: boolean
-  tabListClassName?: string
   tabClassName?: string
   tabContentClassName?: string
   cursorClassName?: string
   selectedKey?: Key
   isLoading?: boolean
+  isError?: boolean
 }
 
 const TabBar = ({
   items,
   variant,
   onSelectionChange = (index: Key) => {},
-  withHr = false,
-  tabListClassName = 'p-0 gap-6 ',
   tabClassName,
   tabContentClassName = 'p-4',
   cursorClassName,
   isLoading = false,
+  isError,
   selectedKey
-}: TabBarProps) => (
-  <>
-    {isLoading ? (
-      <>
-        <div className='flex gap-2'>
-          <Skeleton className='h-[30px] w-[100px] rounded-full' />
-          <Skeleton className='h-[30px] w-[100px] rounded-full' />
-        </div>
-        <div>{items[0].content}</div>
-      </>
-    ) : (
-      <Tabs
-        selectedKey={selectedKey}
-        classNames={{
-          tab: tabClassName,
-          tabContent: tabContentClassName,
-          cursor: cursorClassName
-        }}
-        variant={variant}
-        onSelectionChange={(index) => {
-          void onSelectionChange(index)
-        }}
-        radius='full'
-      >
-        {items?.map(
-          ({ title, content, visible = true }, index) =>
-            visible && (
-              <Tab key={title} title={title} className='px-0'>
-                {content}
-              </Tab>
-            )
-        )}
-      </Tabs>
-    )}
-  </>
-)
+}: TabBarProps) => {
+  const Tag = isError ? 'div' : Skeleton
+  return (
+    <>
+      {isLoading || isError ? (
+        <>
+          <div className='flex gap-2'>
+            <Tag className='h-[30px] w-[100px] rounded-full bg-gray-100' />
+            <Tag className='h-[30px] w-[100px] rounded-full bg-gray-100' />
+          </div>
+          <div>{items[0].content}</div>
+        </>
+      ) : (
+        <Tabs
+          selectedKey={selectedKey}
+          classNames={{
+            tab: tabClassName,
+            tabContent: tabContentClassName,
+            cursor: cursorClassName
+          }}
+          variant={variant}
+          onSelectionChange={(index) => {
+            void onSelectionChange(index)
+          }}
+          radius='full'
+        >
+          {items?.map(
+            ({ title, content, visible = true }, index) =>
+              visible && (
+                <Tab key={title} title={title} className='px-0'>
+                  {content}
+                </Tab>
+              )
+          )}
+        </Tabs>
+      )}
+    </>
+  )
+}
 
 export default TabBar
