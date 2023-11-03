@@ -32,7 +32,7 @@ const Profile = async ({ params }: Props) => {
   )
 
   return (
-    <>
+    <main className='flex min-h-screen flex-col'>
       <HeroSec user={user} session={session} isError={error} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-4 '>
@@ -46,7 +46,7 @@ const Profile = async ({ params }: Props) => {
           />
         </section>
       </article>
-    </>
+    </main>
   )
 }
 

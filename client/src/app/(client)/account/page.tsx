@@ -11,39 +11,36 @@ export const metadata: Metadata = {
 
 const Account = async () => {
   const session = await getServerSession(nextauthOptions)
-  const { data: user, error } = await getUser(session?.user?.email ?? '')
+  const { data: user } = await getUser(session?.user?.email ?? '')
   const tabItems = accountTabItemsBuilder(user, session)
   const isCurrentUser = Boolean(session?.user.id === user._id)
   const isOrg = Boolean(user?.role === 'organization')
   return (
-    <>
+    <main className='flex min-h-screen flex-col'>
       <UsersHero
         user={user}
         withAccountButton={isCurrentUser}
         withInitiativesButton={isOrg && isCurrentUser}
-        isError={error}
       />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
-        {!error && (
-          <section className='flex w-full flex-col gap-6'>
-            <div className='flex flex-col gap-2'>
-              <TextElement type='t3' as='h1' className='font-semibold'>
-                Editar cuenta
-              </TextElement>
-              <hr className='w-full' />
-            </div>
-            <div className='flex flex-col gap-3'>
-              <TabBar
-                items={tabItems}
-                variant='solid'
-                tabContentClassName='group-data-[selected=true]:text-white px-4 '
-                cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
-              />
-            </div>
-          </section>
-        )}
+        <section className='flex w-full flex-col gap-6'>
+          <div className='flex flex-col gap-2'>
+            <TextElement type='t3' as='h1' className='font-semibold'>
+              Editar cuenta
+            </TextElement>
+            <hr className='w-full' />
+          </div>
+          <div className='flex flex-col gap-3'>
+            <TabBar
+              items={tabItems}
+              variant='solid'
+              tabContentClassName='group-data-[selected=true]:text-white px-4 '
+              cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
+            />
+          </div>
+        </section>
       </article>
-    </>
+    </main>
   )
 }
 

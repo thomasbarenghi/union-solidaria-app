@@ -21,9 +21,8 @@ interface Props {
 const Home = async ({ params, searchParams }: Props) => {
   const { data, error: initiativeError } = await getInitiative(params.initiativeId)
   const session = await getServerSession(nextauthOptions)
-  const { data: loggedUser, error: userError } = await getUser(session?.user?.email ?? '')
+  const { data: loggedUser } = await getUser(session?.user?.email ?? '')
   const isLogged = Boolean(session?.user?.email)
-  if (userError || initiativeError) throw new Error('Error al cargar la iniciativa')
   return (
     <>
       <Header />

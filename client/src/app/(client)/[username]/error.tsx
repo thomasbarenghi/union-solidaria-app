@@ -16,13 +16,13 @@ const Error = ({ reset }: Props) => (
         <div className='min-h-[70vh] flex flex-col items-center justify-center'>
           <Image src='/icon/Frame1.svg' alt='Hero' fill className='z-[-1] ' />
           <TextElement as='h1' type='t1' className='!font-light text-center'>
-            Ocurrió un error <b className='font-semibold'>al cargar la iniciativa.</b>
+            Ocurrió un error <b className='font-semibold'>al cargar el usuario.</b>
           </TextElement>
           <TextElement as='p' type='base' className='text-center'>
-            Esto puede deberse a un error de conexión o a que la iniciativa no existe
+            Esto puede deberse a un error de conexión o a que el usuario no existe
           </TextElement>
           <div className='flex gap-2'>
-            <Button href={Routes.INITIATIVES} title='Volver a iniciativas' className='mt-4' />
+            <Button href={Routes.HOME} title='Volver al inicio' className='mt-4' />
             <Button onClick={reset} title='Reintentar' className='mt-4' variant='flat' />
           </div>
         </div>

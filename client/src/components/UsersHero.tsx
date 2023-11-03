@@ -10,7 +10,7 @@ interface Props {
   withAccountButton?: boolean
   isLoading?: boolean
   withInitiativesButton?: boolean
-  isError: boolean
+  isError?: boolean
 }
 
 const Content = ({
@@ -47,8 +47,8 @@ const Content = ({
   </div>
 )
 
-const UsersHero = ({ user, withAccountButton = false, isLoading = false, withInitiativesButton = false, isError }: Props) => (
-  <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading} isError={isError}>
+const UsersHero = ({ user, withAccountButton = false, withInitiativesButton = false, isLoading = false }: Props) => (
+  <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading}>
     {!isLoading ? (
       <Content
         user={user as User}

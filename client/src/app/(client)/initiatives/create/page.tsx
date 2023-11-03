@@ -16,14 +16,13 @@ const FormPage = async () => {
   const { data, error } = await getUser(session?.user?.email ?? '')
   if (session === null) redirect(Routes.LOGIN)
   if (session.user.role === 'volunteer') redirect(Routes.EDIT_ACCOUNT)
-  if (error) throw new Error('Error al cargar los datos del usuario')
   return (
-    <>
+    <main className='flex min-h-screen flex-col'>
       <UsersHero user={data} isLoading={false} isError={error} />
       <article className='section-padding-1 container-section article-layout-1 listContainer'>
         {!error && <FormSec />}
       </article>
-    </>
+    </main>
   )
 }
 
