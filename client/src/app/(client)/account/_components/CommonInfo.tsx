@@ -1,4 +1,5 @@
 import { Input } from '@/components'
+import { emailPattern, firstNamePattern, lastNamePattern, usernamePattern } from '@/utils/constants/pattern.const'
 import { UseFormRegister } from 'react-hook-form'
 
 interface GeneralInfoProps {
@@ -8,7 +9,7 @@ interface GeneralInfoProps {
 }
 
 const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
-  <div className='flex flex-col gap-4 w-full'>
+  <div className='flex w-full flex-col gap-4'>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
       <Input
         type='text'
@@ -19,8 +20,10 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
         hookForm={{
           register,
           validations: {
-            maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-            minLength: { value: 5, message: 'Minimo 5 caracteres' },
+            pattern: {
+              value: firstNamePattern.value,
+              message: firstNamePattern.message
+            },
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
@@ -35,8 +38,10 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
         hookForm={{
           register,
           validations: {
-            maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-            minLength: { value: 5, message: 'Minimo 5 caracteres' },
+            pattern: {
+              value: lastNamePattern.value,
+              message: lastNamePattern.message
+            },
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
@@ -52,8 +57,8 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
           register,
           validations: {
             pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: 'Debe ser un email valido'
+              value: emailPattern.value,
+              message: emailPattern.message
             },
             required: { value: true, message: 'Este campo es requerido' }
           }
@@ -70,8 +75,8 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
           register,
           validations: {
             pattern: {
-              value: /^[a-zA-Z0-9 ]{5,30}$/,
-              message: 'Debe ser de 5 a 30 caracteres, solo numeros y letras'
+              value: usernamePattern.value,
+              message: usernamePattern.message
             },
             required: { value: true, message: 'Este campo es requerido' }
           }
@@ -116,7 +121,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             }
           }
         }}
-        errorMessage={errors?.thumbnail?.message?.toString()}
+        errorMessage={errors?.bannerImage?.message?.toString()}
       />
     </div>
   </div>

@@ -3,7 +3,7 @@ import { technologies, TechnologyItem } from '../_lib/technologies'
 import { TextElement } from '@/components'
 
 const TechnologiesSection = () => (
-  <section className='flex w-full flex-col items-center justify-center gap-10 bg-white'>
+  <section className='flex w-full flex-col items-center justify-center gap-10 bg-white 2xl:container'>
     <div className='flex w-full flex-col items-center gap-1 text-center'>
       <TextElement type='t1' as='h1' className='font-semibold'>
         Tecnologías que usamos

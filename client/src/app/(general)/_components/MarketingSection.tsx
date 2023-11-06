@@ -18,8 +18,8 @@ const ContentItem = ({ title, description }: Props) => (
 )
 
 const Marketing = () => (
-  <section className='flex flex-col gap-10'>
-    <TextElement type='t2' as='h1' className=' w-full text-center lg:text-start !font-light'>
+  <section className='flex flex-col gap-10 2xl:container'>
+    <TextElement type='t2' as='h1' className=' w-full text-center !font-light lg:text-start'>
       Únete a nuestra <b className='font-semibold'> revolución de solidaridad</b>
     </TextElement>
     <div className='grid grid-cols-1 gap-10 lg:grid-cols-3'>

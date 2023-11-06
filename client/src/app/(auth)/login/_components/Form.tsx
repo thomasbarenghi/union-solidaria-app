@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import Routes from '@/utils/constants/routes.const'
 import { FetchError } from '@/interfaces/error.interface'
 import { FetchLoginStatus } from '@/types/fetch-status'
+import { emailPattern, passwordPattern } from '@/utils/constants/pattern.const'
 // import GoogleButton from './google'
 
 const LoginForm = () => {
@@ -62,8 +63,8 @@ const LoginForm = () => {
   }
 
   return (
-    <div className=' flex flex-col items-center gap-4 w-full'>
-      <form className='w-full flex flex-col items-center gap-4' onSubmit={handleSubmit(onSubmit)} ref={formRef}>
+    <div className=' flex w-full flex-col items-center gap-4'>
+      <form className='flex w-full flex-col items-end gap-4' onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <Input
           type='email'
           name='email'
@@ -73,30 +74,32 @@ const LoginForm = () => {
             register,
             validations: {
               pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: 'Debe ser un email valido'
+                value: emailPattern.value,
+                message: emailPattern.message
               },
               required: { value: true, message: 'Este campo es requerido' }
             }
           }}
           errorMessage={errors?.email?.message?.toString()}
         />
-        <div className='relative flex w-full items-center'>
-          <Input
-            type={visibility ? 'text' : 'password'}
-            name='password'
-            label='Contraseña'
-            placeholder='Contraseña'
-            hookForm={{
-              register,
-              validations: {
-                required: { value: true, message: 'Este campo es requerido' }
-              }
-            }}
-            errorMessage={errors?.password?.message?.toString()}
-          />
-        </div>
-        <Button type='submit' fullWidth isLoading={isSubmitting}>
+        <Input
+          type={visibility ? 'text' : 'password'}
+          name='password'
+          label='Contraseña'
+          placeholder='Contraseña'
+          hookForm={{
+            register,
+            validations: {
+              pattern: {
+                value: passwordPattern.value,
+                message: passwordPattern.message
+              },
+              required: { value: true, message: 'Este campo es requerido' }
+            }
+          }}
+          errorMessage={errors?.password?.message?.toString()}
+        />
+        <Button type='submit' className='mt-2' fullWidth isLoading={isSubmitting}>
           Iniciar sesion
         </Button>
       </form>

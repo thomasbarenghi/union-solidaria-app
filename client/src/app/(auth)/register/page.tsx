@@ -3,6 +3,11 @@ import Routes from '@/utils/constants/routes.const'
 import RegisterForm from './_components/Form'
 import { TextElement } from '@/components'
 import Base from '../_components/BaseLayout'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Registro | Union Solidaria'
+}
 
 const Register = () => (
   <Base image='https://images.unsplash.com/photo-1485309086598-f9d010ad3972?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=100'>
@@ -10,7 +15,7 @@ const Register = () => (
       <div className='flex h-full flex-col justify-center gap-5'>
         <div>
           <TextElement type='t2' as='h1' className='text-center'>
-            Te damos la <b>bienvenida</b>
+            Crear una <b>cuenta</b>
           </TextElement>
           <TextElement type='base' as='p' className='text-center'>
             Ingresa tus datos

@@ -1,5 +1,6 @@
 import { Input } from '@/components'
 import { UpdatePasswordFormValues } from '@/interfaces'
+import { passwordPattern } from '@/utils/constants/pattern.const'
 import { UseFormGetValues, UseFormRegister } from 'react-hook-form'
 
 interface GeneralInfoProps {
@@ -11,13 +12,17 @@ interface GeneralInfoProps {
 const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
   <div className='flex w-full grid-cols-2 flex-col gap-4 lg:grid'>
     <Input
-      type='text'
+      type='password'
       name='oldPassword'
       label='Contraseña actual'
       placeholder='Contraseña actual'
       hookForm={{
         register,
         validations: {
+          pattern: {
+            value: passwordPattern.value,
+            message: passwordPattern.message
+          },
           required: {
             value: getValues()?.oldPassword?.length > 0,
             message: 'Este campo es requerido'
@@ -27,20 +32,24 @@ const SecurityInfo = ({ errors, register, getValues }: GeneralInfoProps) => (
       errorMessage={errors?.oldPassword?.message?.toString()}
     />
     <Input
-      type='text'
+      type='password'
       name='newPassword'
       label='Contraseña nueva'
       placeholder='Contraseña nueva'
       hookForm={{
         register,
         validations: {
+          pattern: {
+            value: passwordPattern.value,
+            message: passwordPattern.message
+          },
           required: {
             value: getValues()?.oldPassword?.length > 0,
             message: 'Este campo es requerido'
           }
         }
       }}
-      errorMessage={errors?.oldPassword?.message?.toString()}
+      errorMessage={errors?.newPassword?.message?.toString()}
     />
   </div>
 )

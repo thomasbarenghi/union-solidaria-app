@@ -1,8 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId, PopulatedDoc } from 'mongoose';
 import { IsNotEmpty, IsEmail } from 'class-validator';
-import { Initiative, InitiativeSchema } from 'src/initiatives/entities/initiative.entity';
-import { forwardRef } from '@nestjs/common';
+import { Initiative } from 'src/initiatives/entities/initiative.entity';
 
 export type SessionDocument = HydratedDocument<User>;
 

@@ -7,6 +7,16 @@ import Routes from '@/utils/constants/routes.const'
 import { RegisterFormValues } from '@/interfaces/forms.interface'
 import { Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
+import { nextIsDisabled } from '../nextIsDisabled'
+import {
+  emailPattern,
+  firstNamePattern,
+  lastNamePattern,
+  organizationNamePattern,
+  passwordPattern,
+  phonePattern,
+  usernamePattern
+} from '@/utils/constants/pattern.const'
 
 const roles: Array<{ value: Role; label: string }> = [
   {
@@ -30,8 +40,8 @@ const RegisterForm = () => {
     handleSubmit,
     setValue,
     control,
-    watch,
-    reset
+    reset,
+    getValues
   } = useForm<RegisterFormValues & { repeatPassword: string }>({
     mode: 'onChange'
   })
@@ -66,8 +76,10 @@ const RegisterForm = () => {
             hookForm={{
               register,
               validations: {
-                maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-                minLength: { value: 5, message: 'Minimo 5 caracteres' },
+                pattern: {
+                  value: firstNamePattern.value,
+                  message: firstNamePattern.message
+                },
                 required: { value: true, message: 'Este campo es requerido' }
               }
             }}
@@ -81,8 +93,10 @@ const RegisterForm = () => {
             hookForm={{
               register,
               validations: {
-                maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-                minLength: { value: 5, message: 'Minimo 5 caracteres' },
+                pattern: {
+                  value: lastNamePattern.value,
+                  message: lastNamePattern.message
+                },
                 required: { value: true, message: 'Este campo es requerido' }
               }
             }}
@@ -96,7 +110,6 @@ const RegisterForm = () => {
             hookForm={{
               register,
               validations: {
-                required: { value: true, message: 'Este campo es requerido' },
                 validate: (value: string) => {
                   const date = new Date(value)
                   const minDate = new Date()
@@ -109,7 +122,8 @@ const RegisterForm = () => {
                     return 'La fecha debe ser maximo 100 años antes de hoy'
                   }
                   return true
-                }
+                },
+                required: { value: true, message: 'Este campo es requerido' }
               }
             }}
             errorMessage={errors?.birthday?.message?.toString()}
@@ -127,8 +141,8 @@ const RegisterForm = () => {
               register,
               validations: {
                 pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: 'Debe ser un email valido'
+                  value: emailPattern.value,
+                  message: emailPattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -144,8 +158,8 @@ const RegisterForm = () => {
               register,
               validations: {
                 pattern: {
-                  value: /^\+[0-9]{1,3} [0-9]{1,3} [0-9]{4,12}$/i,
-                  message: 'Debe ser un telefono valido, con codigo de pais y codigo de area. Ejemplo: +54 11 33338888'
+                  value: phonePattern.value,
+                  message: phonePattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -161,8 +175,8 @@ const RegisterForm = () => {
               register,
               validations: {
                 pattern: {
-                  value: /^[a-zA-Z0-9 ]{5,30}$/,
-                  message: 'Debe ser de 5 a 30 caracteres, solo numeros y letras'
+                  value: usernamePattern.value,
+                  message: usernamePattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -182,8 +196,8 @@ const RegisterForm = () => {
               register,
               validations: {
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-                  message: 'La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula y un numero'
+                  value: passwordPattern.value,
+                  message: passwordPattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -199,12 +213,12 @@ const RegisterForm = () => {
               register,
               validations: {
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-                  message: 'La contraseña debe tener al menos 8 caracteres, una mayuscula, una minuscula y un numero'
+                  value: passwordPattern.value,
+                  message: passwordPattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' },
                 validate: (val: string) => {
-                  if (watch('password') !== val) {
+                  if (getValues()?.password !== val) {
                     return 'Las contraseñas no coinciden'
                   }
                 }
@@ -244,8 +258,11 @@ const RegisterForm = () => {
               hookForm={{
                 register,
                 validations: {
-                  required: { value: true, message: 'Este campo es requerido' },
-                  maxLength: { value: 60, message: 'Maximo 60 caracteres' }
+                  pattern: {
+                    value: organizationNamePattern.value,
+                    message: organizationNamePattern.message
+                  },
+                  required: { value: true, message: 'Este campo es requerido' }
                 }
               }}
               errorMessage={errors?.orgName?.message?.toString()}
@@ -260,12 +277,22 @@ const RegisterForm = () => {
           </Button>
         )}
         {step < 3 && (
-          <Button type='button' className='w-full' onClick={() => setStep(step + 1)}>
+          <Button
+            type='button'
+            className='w-full'
+            onClick={() => setStep(step + 1)}
+            isDisabled={nextIsDisabled(step, getValues, errors)}
+          >
             Siguiente
           </Button>
         )}
         {step === 3 && (
-          <Button type='submit' fullWidth isLoading={isSubmitting || isSubmitted}>
+          <Button
+            type='submit'
+            fullWidth
+            isLoading={isSubmitting || isSubmitted}
+            isDisabled={nextIsDisabled(step, getValues, errors)}
+          >
             Crear usuario
           </Button>
         )}

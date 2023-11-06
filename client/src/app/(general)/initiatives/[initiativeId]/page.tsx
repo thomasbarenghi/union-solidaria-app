@@ -7,10 +7,6 @@ import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
 import { Footer, Header } from '@/components'
 
-export const metadata: Metadata = {
-  title: 'Iniciativa | Union Solidaria'
-}
-
 interface Props {
   params: {
     initiativeId: string
@@ -18,7 +14,14 @@ interface Props {
   searchParams: Record<string, string>
 }
 
-const Home = async ({ params, searchParams }: Props) => {
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
+  const { data } = await getInitiative(props.params.initiativeId)
+  return {
+    title: `${data?.title} | Union Solidaria`
+  }
+}
+
+const Initiative = async ({ params, searchParams }: Props) => {
   const { data, error: initiativeError } = await getInitiative(params.initiativeId)
   const session = await getServerSession(nextauthOptions)
   const { data: loggedUser } = await getUser(session?.user?.email ?? '')
@@ -44,4 +47,4 @@ const Home = async ({ params, searchParams }: Props) => {
   )
 }
 
-export default Home
+export default Initiative

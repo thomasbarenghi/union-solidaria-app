@@ -2,8 +2,8 @@ import { TextElement } from '@/components'
 import Image from 'next/image'
 
 const HeroSection = () => (
-  <section className='section-padding-x-1 mt-[95px] flex  justify-center bg-gradient-to-r from-[#e0e7ff] to-[#ccfbf1] '>
-    <div className=' flex flex-col lg:flex-row w-full gap-4 lg:gap-[60px]  py-14 xl:container '>
+  <section className='section-padding-x-1 flex w-full items-center  justify-center bg-gradient-to-r from-[#e0e7ff] to-[#ccfbf1] '>
+    <div className=' flex w-full flex-col items-center justify-center gap-4 py-14 2xl:container  lg:flex-row lg:gap-[60px] '>
       <div className='flex w-full flex-col justify-center gap-3 text-start'>
         <TextElement type='t1' as='h1' className='!font-light '>
           Construimos historias a través del voluntariado.{' '}
@@ -15,10 +15,8 @@ const HeroSection = () => (
           construir un mundo más justo y equitativo a través de la acción voluntaria.
         </TextElement>
       </div>
-      <div>
-        <div className='relative aspect-[4/3] lg:w-[500px] w-full '>
-          <Image src='/image/publicAbout/hero.png' alt='Hero' fill className='object-contain' />
-        </div>
+      <div className='relative aspect-[4/3] lg:min-w-[450px] '>
+        <Image src='/image/publicAbout/hero.png' alt='Hero' fill className='object-contain' />
       </div>
     </div>
   </section>

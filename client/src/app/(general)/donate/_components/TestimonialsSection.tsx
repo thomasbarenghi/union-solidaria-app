@@ -19,7 +19,7 @@ const TestimonialItem = ({ testimonial }: { testimonial: Testimonial }) => (
 )
 
 const TestimonialsSection = () => (
-  <section className='flex flex-col items-center gap-10'>
+  <section className='flex flex-col items-center gap-10 2xl:container'>
     <div className='flex flex-col gap-1'>
       <TextElement as='h2' type='t1' className='text-center !font-light'>
         Testimonios de <b className='!font-semibold'>donadores</b>
@@ -28,7 +28,7 @@ const TestimonialsSection = () => (
         Personas que confian en nosotros y nos apoyan para seguir haciendo el bien.
       </TextElement>
     </div>
-    <div className='flex max-w-[85%] md:max-w-[95%] lg:max-w-[75%] flex-col gap-10 md:flex-row '>
+    <div className='flex max-w-[85%] flex-col gap-10 md:max-w-[95%] md:flex-row lg:max-w-[75%] '>
       {testimonials.map((testimonial, index) => (
         <TestimonialItem testimonial={testimonial} key={index} />
       ))}

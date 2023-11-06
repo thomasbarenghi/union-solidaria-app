@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { PostsModule } from './posts/posts.module';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthMiddleware } from './auth/auth.middleware';
     AuthModule,
     ReviewsModule,
     PostsModule,
+    StripeModule,
   ],
   controllers: [],
   providers: [],

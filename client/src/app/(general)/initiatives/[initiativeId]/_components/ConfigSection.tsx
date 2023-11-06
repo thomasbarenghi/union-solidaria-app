@@ -5,6 +5,7 @@ import Endpoints from '@/utils/constants/endpoints.const'
 import { useForm } from 'react-hook-form'
 import { Button, Input, Textarea } from '@/components'
 import { useSWRConfig } from 'swr'
+import { descriptionPattern, extraInfoPattern, hour12Pattern, titlePattern } from '@/utils/constants/pattern.const'
 
 interface Props {
   initiative: InitiativeInterface
@@ -15,7 +16,8 @@ const ConfigSection = ({ initiative }: Props) => {
   const {
     register,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    getValues
   } = useForm({
     mode: 'onChange'
   })
@@ -56,8 +58,10 @@ const ConfigSection = ({ initiative }: Props) => {
             hookForm={{
               register,
               validations: {
-                maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-                minLength: { value: 5, message: 'Minimo 5 caracteres' },
+                pattern: {
+                  value: titlePattern.value,
+                  message: titlePattern.message
+                },
                 required: { value: true, message: 'Este campo es requerido' }
               }
             }}
@@ -72,8 +76,10 @@ const ConfigSection = ({ initiative }: Props) => {
             hookForm={{
               register,
               validations: {
-                maxLength: { value: 500, message: 'Maximo 500 caracteres' },
-                minLength: { value: 50, message: 'Minimo 50 caracteres' },
+                pattern: {
+                  value: descriptionPattern.value,
+                  message: descriptionPattern.message
+                },
                 required: { value: true, message: 'Este campo es requerido' }
               }
             }}
@@ -112,11 +118,17 @@ const ConfigSection = ({ initiative }: Props) => {
               validations: {
                 required: { value: true, message: 'Este campo es requerido' },
                 validate: (value: string) => {
+                  const deadline = new Date(getValues()?.deadLine).getTime()
                   const date = new Date(value)
                   const currentDate = new Date()
                   if (date < currentDate) {
                     return 'La fecha no puede ser anterior a la actual'
                   }
+
+                  if (deadline > date.getTime()) {
+                    return 'La fecha de inicio no puede ser antes a la fecha limite de inscripcion'
+                  }
+
                   return true
                 }
               }
@@ -134,11 +146,17 @@ const ConfigSection = ({ initiative }: Props) => {
               validations: {
                 required: { value: true, message: 'Este campo es requerido' },
                 validate: (value: string) => {
+                  const startDate = new Date(getValues()?.startDate).getTime()
                   const date = new Date(value)
                   const currentDate = new Date()
                   if (date < currentDate) {
                     return 'La fecha no puede ser anterior a la actual'
                   }
+
+                  if (startDate > date.getTime()) {
+                    return 'La fecha de finalizacion no puede ser antes a la fecha de inicio'
+                  }
+
                   return true
                 }
               }
@@ -155,8 +173,8 @@ const ConfigSection = ({ initiative }: Props) => {
               register,
               validations: {
                 pattern: {
-                  value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
-                  message: 'La hora debe ser en formato 12 horas, ejemplo: 10:30 AM'
+                  value: hour12Pattern.value,
+                  message: hour12Pattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -173,8 +191,8 @@ const ConfigSection = ({ initiative }: Props) => {
               register,
               validations: {
                 pattern: {
-                  value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
-                  message: 'La hora debe ser en formato 12 horas, ejemplo: 10:30 AM'
+                  value: hour12Pattern.value,
+                  message: hour12Pattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' }
               }
@@ -190,8 +208,10 @@ const ConfigSection = ({ initiative }: Props) => {
             hookForm={{
               register,
               validations: {
-                maxLength: { value: 80, message: 'Maximo 80 caracteres' },
-                minLength: { value: 5, message: 'Minimo 5 caracteres' },
+                pattern: {
+                  value: extraInfoPattern.value,
+                  message: extraInfoPattern.message
+                },
                 required: { value: true, message: 'Este campo es requerido' }
               }
             }}

@@ -23,7 +23,7 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
         hookForm={{
           register,
           validations: {
-            required: false,
+            required: { value: true, message: 'Este campo es requerido' },
             validate: (value: FileList) => {
               if (value.length > 0) {
                 if (value[0].size > 5000000) {

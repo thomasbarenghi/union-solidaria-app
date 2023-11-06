@@ -7,7 +7,7 @@ interface Props {
 }
 
 const HelpHero = ({ imageSrc, title, description }: Props) => (
-  <Hero imageSrc={imageSrc} height='min-h-[50vh]'>
+  <Hero imageSrc={imageSrc} height='h-[50vh]'>
     <div className='flex w-full flex-col  gap-1'>
       <TextElement type='t1' as='h1' className='w-full text-center !font-light text-white lg:text-start'>
         {title}

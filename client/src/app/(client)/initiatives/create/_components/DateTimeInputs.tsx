@@ -1,12 +1,14 @@
 import { Input, TextElement } from '@/components'
+import { extraInfoPattern, hour12Pattern } from '@/utils/constants/pattern.const'
 import { UseFormRegister } from 'react-hook-form'
 
 interface DateTimeProps {
   errors: any
   register: UseFormRegister<any>
+  getValues: any
 }
 
-const DateTime = ({ errors, register }: DateTimeProps) => (
+const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
       <TextElement type='subtitle' as='h2'>
@@ -25,11 +27,17 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
           validations: {
             required: { value: true, message: 'Este campo es requerido' },
             validate: (value: string) => {
+              const deadline = new Date(getValues()?.deadLine).getTime()
               const date = new Date(value)
               const currentDate = new Date()
               if (date < currentDate) {
                 return 'La fecha no puede ser anterior a la actual'
               }
+
+              if (deadline > date.getTime()) {
+                return 'La fecha de inicio no puede ser antes a la fecha limite de inscripcion'
+              }
+
               return true
             }
           }
@@ -46,11 +54,17 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
           validations: {
             required: { value: true, message: 'Este campo es requerido' },
             validate: (value: string) => {
+              const startDate = new Date(getValues()?.startDate).getTime()
               const date = new Date(value)
               const currentDate = new Date()
               if (date < currentDate) {
                 return 'La fecha no puede ser anterior a la actual'
               }
+
+              if (startDate > date.getTime()) {
+                return 'La fecha de finalizacion no puede ser antes a la fecha de inicio'
+              }
+
               return true
             }
           }
@@ -66,8 +80,8 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
           register,
           validations: {
             pattern: {
-              value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
-              message: 'La hora debe ser en formato 12 horas, ejemplo: 10:30 AM'
+              value: hour12Pattern.value,
+              message: hour12Pattern.message
             },
             required: { value: true, message: 'Este campo es requerido' }
           }
@@ -83,8 +97,8 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
           register,
           validations: {
             pattern: {
-              value: /^(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)$/,
-              message: 'La hora debe ser en formato 12 horas, ejemplo: 10:30 AM'
+              value: hour12Pattern.value,
+              message: hour12Pattern.message
             },
             required: { value: true, message: 'Este campo es requerido' }
           }
@@ -99,8 +113,10 @@ const DateTime = ({ errors, register }: DateTimeProps) => (
         hookForm={{
           register,
           validations: {
-            maxLength: { value: 80, message: 'Maximo 80 caracteres' },
-            minLength: { value: 5, message: 'Minimo 5 caracteres' },
+            pattern: {
+              value: extraInfoPattern.value,
+              message: extraInfoPattern.message
+            },
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}

@@ -1,4 +1,4 @@
-import { Header } from '@/components'
+import { Footer, Header } from '@/components'
 import HeroSection from './_components/HeroSection'
 import InitiativesSection from './_components/InitiativesSection'
 import MarketingSection from './_components/MarketingSection'
@@ -14,11 +14,13 @@ const Home = async () => {
   return (
     <>
       <Header theme='light' />
-      <HeroSection />
-      <article className='section-padding-1 container-section article-layout-1'>
+      <main className='flex flex-col items-center section-padding-1 pt-[100px] gap-24'>
+        <HeroSection />
         <InitiativesSection initiatives={data} isError={error} />
         <MarketingSection />
-      </article>
+      </main>
+      <Footer />
+
     </>
   )
 }

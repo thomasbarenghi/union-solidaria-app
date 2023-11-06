@@ -20,7 +20,7 @@ const ContentItem = ({ title, description }: ContentItemProps) => (
 )
 
 const MissionVisionSection = () => (
-  <section className='flex flex-col items-center justify-center gap-10'>
+  <section className='flex flex-col items-center justify-center gap-10 2xl:container'>
     <div className='flex w-full flex-col items-center gap-1 text-center'>
       <TextElement type='t1' as='h2' className='!font-semibold'>
         Misión y Visión

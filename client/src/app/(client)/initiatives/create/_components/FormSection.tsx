@@ -8,6 +8,9 @@ import DateTime from './DateTimeInputs'
 import GeneralInfo from './GeneralInputs'
 import LocationInfo from './LocationInputs'
 import Multimedia from './MultimediaInputs'
+import { toast } from 'sonner'
+import Routes from '@/utils/constants/routes.const'
+import { useRouter } from 'next/navigation'
 
 export interface FormProps {
   title: string
@@ -28,13 +31,14 @@ export interface FormProps {
 }
 
 const FormSec = () => {
+  const router = useRouter()
   const { data: session } = useSession()
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
     control,
-    reset,
+    getValues,
     setValue
   } = useForm<FormProps>({
     mode: 'onChange'
@@ -58,13 +62,13 @@ const FormSec = () => {
     })
 
     if (error) {
-      alert('Ocurrió un error al crear la iniciativa')
+      toast.error('Ocurrió un error al crear la iniciativa')
       console.log('ERROR: ', response)
       return
     }
 
-    alert('Iniciativa creada')
-    reset()
+    router.push(Routes.INITIATIVES)
+    toast.success('Iniciativa creada con éxito')
   }
 
   return (
@@ -79,7 +83,7 @@ const FormSec = () => {
         </TextElement>
         <GeneralInfo errors={errors} register={register} control={control} setValue={setValue} />
         <LocationInfo errors={errors} register={register} control={control} setValue={setValue} />
-        <DateTime errors={errors} register={register} />
+        <DateTime errors={errors} register={register} getValues={getValues} />
         <Multimedia errors={errors} register={register} />
         <Button type='submit' title='Crear iniciativa' isLoading={isSubmitting} />
       </form>

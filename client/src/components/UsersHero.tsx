@@ -22,7 +22,7 @@ const Content = ({
   withAccountButton: boolean
   withInitiativesButton: boolean
 }) => (
-  <div className='flex items-center justify-between'>
+  <div className='flex flex-col justify-between gap-4 md:flex-row md:items-center'>
     <div className='flex items-center gap-4'>
       <Image
         src={user?.profileImage}
