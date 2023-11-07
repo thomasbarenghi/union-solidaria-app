@@ -8,7 +8,7 @@ import {
   Delete,
   UseInterceptors,
   UploadedFiles,
-  InternalServerErrorException
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,6 +18,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { removeEmptyProperties } from 'src/utils/removeEmptyProperties.utils';
 import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
 @Controller('users')
 export class UsersController {
@@ -100,10 +101,13 @@ export class UsersController {
     }
   }
 
-  @Put('favorites')
-  modifyFavorites(@Body() modifyFavoriteDto: ModifyFavoriteDto) {
+  @Put(':id/favorites')
+  modifyFavorites(
+    @Param('id') userId: string,
+    @Body() modifyFavoriteDto: ModifyFavoriteDto,
+  ) {
     try {
-      return this.usersService.modifyFavorites(modifyFavoriteDto);
+      return this.usersService.modifyFavorites(userId, modifyFavoriteDto);
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException();
@@ -117,6 +121,22 @@ export class UsersController {
   ) {
     try {
       return await this.usersService.updatePassword(updatePasswordDto, userId);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Put(':id/edit-organization')
+  async updateOrganization(
+    @Param('id') userId: string,
+    @Body() updateOrganizationDto: UpdateOrganizationDto,
+  ) {
+    try {
+      return await this.usersService.updateOrganization(
+        updateOrganizationDto,
+        userId,
+      );
     } catch (error) {
       console.error(error);
       throw new InternalServerErrorException();

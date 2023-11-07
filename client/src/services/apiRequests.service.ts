@@ -9,7 +9,9 @@ interface Response {
 
 export const putRequest = async (url: string, data: object = {}, config?: AxiosRequestConfig): Promise<Response> => {
   try {
-    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, { ...config })
+    const response: AxiosResponse = await axios.put(`${serverUrl}${url}`, data, {
+      ...config
+    })
 
     return {
       data: response.data,

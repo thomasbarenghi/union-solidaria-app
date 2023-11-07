@@ -10,6 +10,7 @@ interface Props {
   withAccountButton?: boolean
   isLoading?: boolean
   withInitiativesButton?: boolean
+  isError?: boolean
 }
 
 const Content = ({
@@ -21,7 +22,7 @@ const Content = ({
   withAccountButton: boolean
   withInitiativesButton: boolean
 }) => (
-  <div className='flex items-center justify-between'>
+  <div className='flex flex-col justify-between gap-4 md:flex-row md:items-center'>
     <div className='flex items-center gap-4'>
       <Image
         src={user?.profileImage}
@@ -46,7 +47,7 @@ const Content = ({
   </div>
 )
 
-const UsersHero = ({ user, withAccountButton = false, isLoading = false, withInitiativesButton = false }: Props) => (
+const UsersHero = ({ user, withAccountButton = false, withInitiativesButton = false, isLoading = false }: Props) => (
   <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading}>
     {!isLoading ? (
       <Content

@@ -2,6 +2,7 @@ import { Input, MultiSelect, TextElement, Textarea } from '@/components'
 import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { opportunities } from '@/services/mock/opportunities.service'
 import { themes } from '@/services/mock/themes.service'
+import { descriptionPattern, titlePattern } from '@/utils/constants/pattern.const'
 
 interface GeneralInfoProps {
   errors: any
@@ -27,8 +28,10 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
         hookForm={{
           register,
           validations: {
-            maxLength: { value: 60, message: 'Maximo 60 caracteres' },
-            minLength: { value: 5, message: 'Minimo 5 caracteres' },
+            pattern: {
+              value: titlePattern.value,
+              message: titlePattern.message
+            },
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}
@@ -42,8 +45,10 @@ const GeneralInfo = ({ errors, register, control, setValue }: GeneralInfoProps) 
         hookForm={{
           register,
           validations: {
-            maxLength: { value: 500, message: 'Maximo 500 caracteres' },
-            minLength: { value: 50, message: 'Minimo 50 caracteres' },
+            pattern: {
+              value: descriptionPattern.value,
+              message: descriptionPattern.message
+            },
             required: { value: true, message: 'Este campo es requerido' }
           }
         }}

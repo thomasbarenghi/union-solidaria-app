@@ -2,18 +2,20 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './entities/user.entity';
-import { encryptPassword } from 'src/utils/bcrypt.utils';
+import { encryptPassword, comparePasswords } from 'src/utils/bcrypt.utils';
 import { Initiative } from 'src/initiatives/entities/initiative.entity';
 import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
 import { checkUniqueEmail, checkUniqueUsername, findUser } from './utils';
 import { findInitiative } from 'src/initiatives/utils';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
 @Injectable()
 export class UsersService {
@@ -42,7 +44,10 @@ export class UsersService {
 
   async updatePassword(updatePasswordDto: UpdatePasswordDto, userId: string) {
     const user = await findUser(userId, this.userModel);
-    const isMatch = await user.comparePassword(updatePasswordDto.oldPassword);
+    const isMatch = await comparePasswords(
+      updatePasswordDto.oldPassword,
+      user.password,
+    );
     if (!isMatch) {
       throw new BadRequestException('Incorrect password');
     }
@@ -74,18 +79,18 @@ export class UsersService {
     });
   }
 
-  async modifyFavorites(modifyFavoriteDto: ModifyFavoriteDto) {
-    const { userId, initiativeId } = modifyFavoriteDto;
+  async modifyFavorites(userId: string, modifyFavoriteDto: ModifyFavoriteDto) {
+    const { initiativeId } = modifyFavoriteDto;
     const user = await findUser(userId, this.userModel);
     const initiative = await findInitiative(initiativeId, this.initiativeModel);
 
     const existingFavorite = user.favorites.find(
-      (favorite) => favorite.toString() === initiative._id.toString(),
+      (favorite) => favorite._id.toString() === initiative._id.toString(),
     );
 
     if (existingFavorite) {
       user.favorites = user.favorites.filter(
-        (favorite) => favorite.toString() !== initiative._id.toString(),
+        (favorite) => favorite._id.toString() !== initiative._id.toString(),
       );
     } else {
       user.favorites.push(initiative._id);
@@ -97,6 +102,21 @@ export class UsersService {
       message: `Initiative ${initiative.title} ${
         existingFavorite ? 'removed from' : 'added to'
       } favorites`,
+    };
+  }
+
+  async updateOrganization(
+    updateOrganizationDto: UpdateOrganizationDto,
+    userId: string,
+  ) {
+    const user = await findUser(userId, this.userModel);
+    if (user.role !== 'organization') {
+      throw new ConflictException('User is not an organization');
+    }
+    user.orgName = updateOrganizationDto.orgName;
+    await user.save();
+    return {
+      message: 'Organization updated',
     };
   }
 }

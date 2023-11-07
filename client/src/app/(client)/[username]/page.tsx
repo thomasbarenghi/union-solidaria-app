@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import HeroSec from './_components/HeroSection'
+import Hero from './_components/Hero'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
@@ -21,17 +21,19 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 
 const Profile = async ({ params }: Props) => {
   const session = await getServerSession(nextauthOptions)
-  const { data: user } = await getUser(params.username.slice(3))
+  const { data: user, error } = await getUser(params.username.slice(3))
   const tabItems = profileTabItemsBuilder(
     user?.role === 'organization',
     user?.username === session?.user.username,
+    error,
+    error,
     false,
     user
   )
 
   return (
-    <>
-      <HeroSec user={user} session={session} />
+    <main className='flex min-h-screen flex-col'>
+      <Hero user={user} session={session} isError={error} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-4 '>
           <TabBar
@@ -40,10 +42,11 @@ const Profile = async ({ params }: Props) => {
             tabContentClassName='group-data-[selected=true]:text-white px-4 '
             cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
             isLoading={false}
+            isError={error}
           />
         </section>
       </article>
-    </>
+    </main>
   )
 }
 

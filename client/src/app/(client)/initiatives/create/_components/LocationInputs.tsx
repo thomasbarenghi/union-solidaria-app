@@ -2,6 +2,7 @@ import { Input, SimpleSelect, TextElement } from '@/components'
 import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
 import { useState } from 'react'
+import { addressPattern } from '@/utils/constants/pattern.const'
 
 interface LocationInfoProps {
   errors: any
@@ -81,8 +82,8 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
             register,
             validations: {
               pattern: {
-                value: /^[a-zA-Z0-9 ]{5,80}$/,
-                message: 'Debe ser de 5 a 80 caracteres, solo numeros y letras'
+                value: addressPattern.value,
+                message: addressPattern.message
               },
               required: { value: true, message: 'Este campo es requerido' }
             }

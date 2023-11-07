@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .listContainer {
+    @apply relative z-[2] flex w-full max-w-[100vw] flex-col items-center rounded-r-3xl rounded-t-3xl bg-white px-6 sm:px-10 md:px-12 lg:px-12 xl:px-12 2xl:px-12;
+    @apply flex flex-col gap-6;
+    @apply mt-[-20px] py-[40px];
+  }
+
+  .section-padding-x-1 {
+    @apply px-6 sm:px-10 md:px-14 lg:px-12 xl:px-24;
+  }
+
+  .section-padding-y-1 {
+    @apply py-20;
+  }
+
+  .section-padding-1 {
+    @apply px-6 py-20 sm:px-10 md:px-14 lg:px-12 xl:px-24;
+  }
+
+  .container-section > section {
+    @apply xl:container;
+  }
+
+  .article-layout-1 {
+    @apply flex w-full flex-col items-center justify-center gap-16;
+  }
+}

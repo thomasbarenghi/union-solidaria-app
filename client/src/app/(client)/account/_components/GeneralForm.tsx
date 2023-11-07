@@ -1,21 +1,26 @@
 'use client'
 import { Button } from '@/components'
 import { useForm } from 'react-hook-form'
-import CommonInfo from './CommonInfo'
+import CommonInfo from './GeneralInputs'
 import { UserInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
+import { Session } from 'next-auth'
+import { toast } from 'sonner'
+import { useSWRConfig } from 'swr'
 
 interface Props {
   currentUser: UserInterface
+  session: Session
 }
 
-const FormSec = ({ currentUser }: Props) => {
+const FormSec = ({ currentUser, session }: Props) => {
+  const { mutate } = useSWRConfig()
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-    reset
+    resetField
   } = useForm({
     mode: 'onChange'
   })
@@ -26,11 +31,18 @@ const FormSec = ({ currentUser }: Props) => {
       profileImage: data.profileImage[0] ?? '',
       bannerImage: data.bannerImage[0] ?? ''
     }
-    const { error } = await putRequest(Endpoints.USER_BY_ID(currentUser._id), formData)
+    const { error } = await putRequest(Endpoints.USER_BY_ID(currentUser._id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        sessionId: session.token.sessionId
+      }
+    })
     // TODO: handle error case
-    if (error) return
-    alert('Cambio exitoso')
-    reset()
+    if (error) return toast.error('Ha ocurrido un error al actualizar la información')
+    mutate(Endpoints.USER_BY_EMAIL(currentUser.email))
+    toast.success('Se ha actualizado la información correctamente')
+    resetField('profileImage')
+    resetField('bannerImage')
   }
 
   return (

@@ -13,12 +13,12 @@ const Explore = async () => {
   const session = await getServerSession(nextauthOptions)
   const { data: loggedUser } = await getUser(session?.user?.email ?? '')
   return (
-    <>
+    <main className='flex min-h-screen flex-col'>
       <HeroSection />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <Content currentUser={loggedUser} />
       </article>
-    </>
+    </main>
   )
 }
 
