@@ -84,11 +84,22 @@ export class InitiativesController {
   }
 
   @Put(':id')
-  update(
+  @UseInterceptors(FileInterceptor('thumbnail'))
+  async update(
     @Param('id') id: string,
     @Body() updateInitiativeDto: UpdateInitiativeDto,
+    @UploadedFile() thumbnail: Express.Multer.File,
   ) {
+    console.log(
+      '🚀 ~ InitiativesController ~ updateInitiativeDto:',
+      updateInitiativeDto,
+    );
     try {
+      if (thumbnail) {
+        updateInitiativeDto.thumbnail =
+          await this.cloudinaryService.uploadImage(thumbnail);
+      }
+
       return this.initiativesService.update(id, updateInitiativeDto);
     } catch (error) {
       console.error(error);
@@ -113,7 +124,8 @@ export class InitiativesController {
   ) {
     try {
       return this.initiativesService.subscribeUserToInitiative(
-        subscribeUserToInitiativeDto, id
+        subscribeUserToInitiativeDto,
+        id,
       );
     } catch (error) {
       console.error(error);
@@ -144,7 +156,8 @@ export class InitiativesController {
   ) {
     try {
       return this.initiativesService.unsubscribeUserFromInitiative(
-        unsubscribeUserFromInitiativeDto, id
+        unsubscribeUserFromInitiativeDto,
+        id,
       );
     } catch (error) {
       console.error(error);

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import HeroSec from './_components/HeroSection'
+import Hero from './_components/Hero'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
@@ -33,7 +33,7 @@ const Profile = async ({ params }: Props) => {
 
   return (
     <main className='flex min-h-screen flex-col'>
-      <HeroSec user={user} session={session} isError={error} />
+      <Hero user={user} session={session} isError={error} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-4 '>
           <TabBar

@@ -18,10 +18,17 @@ const FavoriteChip = ({ initiative }: Props) => {
 
   const handleFavorite = async () => {
     try {
-      await putRequest(Endpoints.MODIFY_FAVORITE, {
-        userId: loggedUser._id,
-        initiativeId: initiative._id
-      })
+      await putRequest(
+        Endpoints.MODIFY_FAVORITE(loggedUser._id),
+        {
+          initiativeId: initiative._id
+        },
+        {
+          headers: {
+            sessionId: session?.token.sessionId
+          }
+        }
+      )
       await mutate()
     } catch (error) {
       console.log(error)

@@ -7,7 +7,7 @@ interface Props {
   isError: boolean
 }
 
-const HeroSec = ({ user, session, isError }: Props) => (
+const Hero = ({ user, session, isError }: Props) => (
   <UsersHero
     isLoading={false}
     user={user}
@@ -17,4 +17,4 @@ const HeroSec = ({ user, session, isError }: Props) => (
   />
 )
 
-export default HeroSec
+export default Hero

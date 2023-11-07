@@ -21,9 +21,8 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
 
   const handleSubscription = async (status: 'pending' | 'accepted' | 'rejected') => {
     try {
-      await putRequest(Endpoints.UPDATE_SUBSCRIPTION, {
+      await putRequest(Endpoints.UPDATE_SUBSCRIPTION(initiative._id), {
         userId: item.user._id,
-        initiativeId: initiative._id,
         status
       })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiative._id))
@@ -33,8 +32,8 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
   }
 
   return (
-    <div className='relative flex flex-col sm:flex-row  w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
-      <div className='flex flex-col sm:flex-row items-start sm:items-center justify-start w-full gap-4'>
+    <div className='relative flex w-full cursor-pointer  flex-col items-center justify-between gap-3 rounded-2xl border border-solid border-slate-200 p-6 sm:flex-row'>
+      <div className='flex w-full flex-col items-start justify-start gap-4 sm:flex-row sm:items-center'>
         <User
           name={firstName + ' ' + lastName}
           description={<Link href={Routes.PROFILE(username)}>{username}</Link>}
@@ -46,7 +45,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
           <Chip color={chipType}>{chipText}</Chip>
         </div>
       </div>
-      <div className='w-full flex justify-start sm:justify-end'>
+      <div className='flex w-full justify-start sm:justify-end'>
         {item.status === 'pending' && (
           <div className='flex gap-1'>
             <Button
@@ -78,6 +77,19 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
               size='sm'
               onClick={() => {
                 void handleSubscription('rejected')
+              }}
+            />
+          </div>
+        )}
+        {item.status === 'rejected' && (
+          <div>
+            <Button
+              title='Aceptar'
+              color='success'
+              variant='solid'
+              size='sm'
+              onClick={() => {
+                void handleSubscription('accepted')
               }}
             />
           </div>

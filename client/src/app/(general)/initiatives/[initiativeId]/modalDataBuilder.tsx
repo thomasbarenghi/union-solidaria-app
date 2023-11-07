@@ -28,7 +28,6 @@ export const modalDataBuilder = (
   tabIndex?: Key,
   mutator?: any
 ): Response => {
-  console.log('tabIndex', tabIndex)
   const isOwner = currentUserId === initiative?.owner?._id
   const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUserId)
   const isVolunteer = Boolean(volunteer)
@@ -48,10 +47,10 @@ export const modalDataBuilder = (
     hiddeTrigger: false
   }
 
-if (tabIndex === 'Informacion') tabIndex = 0
-if (tabIndex === 'Publicaciones') tabIndex = 1
-if (tabIndex === 'Voluntarios') tabIndex = 2
-if (tabIndex === 'Configuracion') tabIndex = 3
+  if (tabIndex === 'Informacion') tabIndex = 0
+  if (tabIndex === 'Publicaciones') tabIndex = 1
+  if (tabIndex === 'Voluntarios') tabIndex = 2
+  if (tabIndex === 'Configuracion') tabIndex = 3
 
   // Casos index 0
   // Voluntario no inscrito (Opcion de inscribirse)

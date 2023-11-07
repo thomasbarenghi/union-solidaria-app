@@ -25,6 +25,7 @@ export interface RegisterFormValues {
 export interface UpdatePasswordFormValues {
   oldPassword: string
   newPassword: string
+  repeatNewPassword: string
 }
 
 export interface UpdateUserFormValues extends Partial<Omit<RegisterFormValues, 'role'>> {}

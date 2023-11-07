@@ -47,25 +47,23 @@ export const updateInitiative = async (
   updateInitiativeDto: UpdateInitiativeDto,
   initiativeModel: Model<Initiative>,
 ) => {
+  console.log(updateInitiativeDto);
   return await initiativeModel.findByIdAndUpdate(id, updateInitiativeDto, {
     new: true,
   });
 };
 
 export const checkSubscription = async (
-  initiativeId: string,
-  userId: string,
+  initiative: Initiative,
+  user: User,
   initiativeModel: Model<Initiative>,
   userModel: Model<User>,
   type: 'subscribe' | 'unsubscribe' | 'update',
 ) => {
-  const user = await findUser(userId, userModel);
   const isOrganization = user.role === 'organization';
   if (isOrganization && type === 'subscribe') {
     throw new ConflictException('Organization cannot subscribe to initiatives');
   }
-
-  const initiative = await findInitiative(initiativeId, initiativeModel);
 
   const isSubscribed = initiative.volunteers.find(
     (subscription) => subscription.user._id.toString() === user._id.toString(),

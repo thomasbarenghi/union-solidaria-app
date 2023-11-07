@@ -32,7 +32,7 @@ export const checkUniqueEmail = async (
   userModel: Model<User>,
 ) => {
   const existingUser = await userModel.findOne({ email: email });
-  if (existingUser) {
+  if (existingUser && existingUser.email !== email) {
     throw new NotFoundException('Email already in use');
   }
 };
@@ -42,7 +42,7 @@ export const checkUniqueUsername = async (
   userModel: Model<User>,
 ) => {
   const existingUser = await userModel.findOne({ username: username });
-  if (existingUser) {
+  if (existingUser && existingUser.username !== username) {
     throw new NotFoundException('Username already in use');
   }
 };

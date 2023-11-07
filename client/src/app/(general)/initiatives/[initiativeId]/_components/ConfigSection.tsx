@@ -15,7 +15,7 @@ const ConfigSection = ({ initiative }: Props) => {
   const { mutate } = useSWRConfig()
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
     getValues
   } = useForm({
@@ -28,7 +28,7 @@ const ConfigSection = ({ initiative }: Props) => {
         ...data,
         startDate: new Date(data.startDate).toISOString(),
         endDate: new Date(data.endDate).toISOString(),
-        thumbnail: data.thumbnail[0] !== undefined ? data.thumbnail[0] : initiative.thumbnail,
+        thumbnail: data.thumbnail[0] !== undefined ? data.thumbnail[0] : undefined,
         deadLine: new Date(data.deadLine).toISOString()
       }
       console.log(formData)
@@ -239,7 +239,7 @@ const ConfigSection = ({ initiative }: Props) => {
             errorMessage={errors?.thumbnail?.message?.toString()}
           />
         </div>
-        <Button type='submit' title='Guardar cambios' />
+        <Button type='submit' title='Guardar cambios' isLoading={isSubmitting} />
       </form>
     </div>
   )
