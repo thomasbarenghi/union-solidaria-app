@@ -17,6 +17,15 @@ import {
   phonePattern,
   usernamePattern
 } from '@/utils/constants/pattern.const'
+import Routes from '@/utils/constants/routes.const'
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { nextIsDisabled } from '../nextIsDisabled'
+
+export interface FormValues extends RegisterFormValues {
+  repeatPassword: string
+}
 
 const roles: Array<{ value: Role; label: string }> = [
   {
@@ -41,17 +50,18 @@ const RegisterForm = () => {
     setValue,
     control,
     reset,
-    getValues
-  } = useForm<RegisterFormValues & { repeatPassword: string }>({
+    getValues,
+    watch
+  } = useForm<FormValues>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FormValues) => {
     try {
-      delete data.repeatPassword
+      const { repeatPassword, ...values } = data
       const birthday = new Date(data.birthday)
       const formData = {
-        ...data,
+        ...values,
         birthday
       }
       const { error } = await signupUser(formData)
