@@ -18,7 +18,7 @@ interface Props {
 const ModalManager = ({ data, currentIndex, currentUserId, isLogged }: Props) => {
   const router = useRouter()
   const { mutate } = useSWRConfig()
-  const modalData = modalDataBuilder(router, data, currentUserId, currentIndex, mutate)
+  const modalData = modalDataBuilder(router, data, currentUserId, mutate, currentIndex)
   return (
     <>
       {modalData.withModal && isLogged && !modalData.hiddeTrigger && (

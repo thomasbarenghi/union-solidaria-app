@@ -1,4 +1,4 @@
-import { Modal, ReviewForm } from '@/components'
+import { Modal, ReviewForm, ReviewFormData } from '@/components'
 import { ReviewInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
@@ -27,7 +27,12 @@ const EditModal = ({ review }: DeleteModalProps) => (
   </Modal>
 )
 
-const Form = (props: any) => {
+interface FormProps {
+  handleClose?: () => void
+  review: ReviewInterface
+}
+
+const Form = (props: FormProps) => {
   const { mutate } = useSWRConfig()
   const { username } = useParams()
   console.log(props)
@@ -35,11 +40,11 @@ const Form = (props: any) => {
     register,
     formState: { errors, isSubmitting },
     handleSubmit
-  } = useForm<any>({
+  } = useForm<ReviewFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ReviewFormData) => {
     const { error } = await putRequest(Endpoints.EDIT_REVIEW(props.review._id), data)
     if (error) {
       console.error(error)
@@ -48,7 +53,9 @@ const Form = (props: any) => {
 
     mutate(Endpoints.USER_BY_EMAIL((username.slice(3) as string) ?? ''))
     toast.success('Comentario enviado con éxito')
-    props.handleClose()
+    if (props?.handleClose) {
+      props.handleClose()
+    }
   }
 
   return (
@@ -64,7 +71,11 @@ const Form = (props: any) => {
   )
 }
 
-const Trigger = (props: any) => (
+interface TriggerProps {
+  onOpen?: () => void
+}
+
+const Trigger = (props: TriggerProps) => (
   <Image src='/icon/pen.svg' onClick={props.onOpen} alt='Edit' width={20} height={20} className='cursor-pointer' />
 )
 

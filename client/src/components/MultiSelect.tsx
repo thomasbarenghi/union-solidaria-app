@@ -8,10 +8,11 @@ import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 interface Props {
   names: Array<{ value: string; label: string }>
   name: string
-  setSelected: (data: any[]) => void
+  setSelected: (data: string[]) => void
   selectedValue?: string[]
   label?: string
   errorMessage?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field?: ControllerRenderProps<FieldValues, any>
 }
 

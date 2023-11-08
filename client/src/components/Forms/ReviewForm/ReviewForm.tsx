@@ -1,13 +1,15 @@
-import { Button, Input, Textarea } from '..'
+import { ReviewInterface } from '@/interfaces'
+import { Button, Input, ReviewFormData, Textarea } from '../..'
+import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
 
 interface Props {
-  handleSubmit: any
-  onSubmit: any
-  register: any
-  errors: any
+  handleSubmit: UseFormHandleSubmit<ReviewFormData, undefined>
+  onSubmit: (data: ReviewFormData) => Promise<string | number | undefined>
+  register: UseFormRegister<ReviewFormData>
+  errors: FieldErrors<ReviewFormData>
   isSubmitting: boolean
   mode: 'create' | 'edit'
-  review?: any
+  review?: ReviewInterface
 }
 
 const ReviewForm = ({ handleSubmit, onSubmit, register, errors, isSubmitting, mode, review }: Props) => (
@@ -15,7 +17,7 @@ const ReviewForm = ({ handleSubmit, onSubmit, register, errors, isSubmitting, mo
     <Input
       type='number'
       name='rating'
-      defaultValue={mode === 'edit' ? review.rating : ''}
+      defaultValue={mode === 'edit' ? review?.rating?.toString() : ''}
       label='Rating'
       placeholder='Del 1 al 5'
       max={5}
@@ -30,7 +32,7 @@ const ReviewForm = ({ handleSubmit, onSubmit, register, errors, isSubmitting, mo
     />
     <Textarea
       name='body'
-      defaultValue={mode === 'edit' ? review.body : ''}
+      defaultValue={mode === 'edit' ? review?.body : ''}
       label='Comentario'
       hookForm={{
         register,
