@@ -44,7 +44,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
   const handleScroll = (position: number) => {
     setIsScrolled(position > 0)
   }
-  console.log('Header', pathname)
+
   return (
     <Navbar
       isMenuOpen={isMenuOpen}
@@ -90,8 +90,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
           <NavbarContent>
             <NavbarItem className='flex items-center gap-2'>
               {status === 'authenticated' && <Button title='Donar' size='md' href={Routes.DONATION} />}
-              {
-              status === 'unauthenticated' && (
+              {status === 'unauthenticated' && (
                 <Button
                   variant='faded'
                   className='hidden border-0 bg-green-50 text-green-800 lg:flex'
@@ -99,8 +98,7 @@ const Header = ({ theme = 'transparent', layout = 'full' }: Props) => {
                   title='Donar'
                   href={Routes.DONATION}
                 />
-              )
-             }
+              )}
               <ProfileAction />
             </NavbarItem>
           </NavbarContent>
