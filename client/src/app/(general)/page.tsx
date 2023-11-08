@@ -14,13 +14,12 @@ const Home = async () => {
   return (
     <>
       <Header theme='light' />
-      <main className='flex flex-col items-center section-padding-1 pt-[100px] gap-24'>
+      <main className='section-padding-1 flex flex-col items-center gap-24 pt-[100px]'>
         <HeroSection />
         <InitiativesSection initiatives={data} isError={error} />
         <MarketingSection />
       </main>
       <Footer />
-
     </>
   )
 }
