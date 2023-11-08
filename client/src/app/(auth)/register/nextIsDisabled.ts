@@ -1,22 +1,22 @@
-export const nextIsDisabled = (step: number, getValues: any, errors: any) => {
+import { type FormValues } from '@/app/(auth)/register/_components/Form'
+import { type FieldErrors, type UseFormWatch } from 'react-hook-form'
+
+export const nextIsDisabled = (step: number, watch: UseFormWatch<FormValues>, errors: FieldErrors<FormValues>) => {
+  const hasErrors = Object.keys(errors).length !== 0
+  let isDisabled = false
+
   if (step === 0) {
-    console.log(step, getValues()?.birthday, errors)
-    const withErrors = 'firstName' in errors || 'lastName' in errors || 'birthday' in errors
-    return !(getValues()?.firstName && getValues()?.lastName && getValues()?.birthday && !withErrors)
+    isDisabled = !watch('firstName') || !watch('lastName') || !watch('birthday') || hasErrors
   }
   if (step === 1) {
-    const withErrors = 'email' in errors || 'phone' in errors || 'username' in errors
-    return !(getValues()?.email && getValues()?.phone && getValues()?.username && !withErrors)
+    isDisabled = !watch('email') || !watch('phone') || !watch('username') || hasErrors
   }
   if (step === 2) {
-    const withErrors = 'password' in errors || 'repeatPassword' in errors
-    return !(getValues()?.password && getValues()?.repeatPassword && !withErrors)
+    isDisabled = !watch('password') || !watch('repeatPassword') || hasErrors
   }
   if (step === 3) {
-    const validOrgName =
-      getValues()?.role === 'organization' ? getValues()?.orgName?.length > 0 && Object.keys(errors).length === 0 : true
-    return !(getValues()?.role && validOrgName)
+    isDisabled = watch('role') === 'organization' ? hasErrors : false
   }
 
-  return true
+  return isDisabled
 }

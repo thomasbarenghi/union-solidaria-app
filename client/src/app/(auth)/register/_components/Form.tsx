@@ -1,13 +1,7 @@
 'use client'
 import { Button, Input, SimpleSelect } from '@/components'
-import { useRef, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
-import Routes from '@/utils/constants/routes.const'
-import { RegisterFormValues } from '@/interfaces/forms.interface'
-import { Role } from '@/interfaces'
+import { type RegisterFormValues, type Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
-import { nextIsDisabled } from '../nextIsDisabled'
 import {
   emailPattern,
   firstNamePattern,
@@ -291,7 +285,7 @@ const RegisterForm = () => {
             type='button'
             className='w-full'
             onClick={() => setStep(step + 1)}
-            isDisabled={nextIsDisabled(step, getValues, errors)}
+            isDisabled={nextIsDisabled(step, watch, errors)}
           >
             Siguiente
           </Button>
@@ -301,7 +295,7 @@ const RegisterForm = () => {
             type='submit'
             fullWidth
             isLoading={isSubmitting || isSubmitted}
-            isDisabled={nextIsDisabled(step, getValues, errors)}
+            isDisabled={nextIsDisabled(step, watch, errors)}
           >
             Crear usuario
           </Button>
