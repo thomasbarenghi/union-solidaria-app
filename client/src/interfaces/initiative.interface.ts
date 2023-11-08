@@ -1,4 +1,5 @@
 import { PostInterface } from './post.interface'
+import { ReviewInterface } from './review.interface'
 import { UserInterface } from './user.interface'
 
 export interface InitiativeInterface {
@@ -27,7 +28,7 @@ export interface InitiativeInterface {
   updatedAt: Date
   locations: string
   languages: string[]
-  reviews: string[]
+  reviews: ReviewInterface[]
   owner: UserInterface
 }
 

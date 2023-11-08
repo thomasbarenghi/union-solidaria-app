@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   InternalServerErrorException,
+  Put,
 } from '@nestjs/common';
 
 import { ReviewsService } from './reviews.service';
@@ -49,7 +50,7 @@ export class ReviewsController {
     }
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
     try {
       return this.reviewsService.update(id, updateReviewDto);

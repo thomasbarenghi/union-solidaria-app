@@ -7,7 +7,7 @@ interface InputProps {
   name: string
   label?: string
   wrapperIntupClassName?: string
-  placeholder: string
+  placeholder?: string
   className?: string
   handleChange?: (e: string) => void
   errorMessage?: string
@@ -16,6 +16,8 @@ interface InputProps {
     validations: RegisterOptions
   }
   defaultValue?: string
+  max?: number
+  min?: number
 }
 
 const Input = ({
@@ -27,7 +29,9 @@ const Input = ({
   placeholder = '',
   className = '',
   hookForm,
-  defaultValue = ''
+  defaultValue = '',
+  max,
+  min
 }: InputProps) => {
   const HookForm = hookForm?.register(name, hookForm?.validations)
   return (
@@ -39,6 +43,8 @@ const Input = ({
       name={name}
       defaultValue={defaultValue}
       autoComplete='off'
+      min={min}
+      max={max}
       classNames={{
         inputWrapper:
           '!bg-white !text-black border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',

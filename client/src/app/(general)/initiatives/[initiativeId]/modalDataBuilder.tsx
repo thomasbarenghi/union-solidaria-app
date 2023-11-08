@@ -3,22 +3,27 @@
 import { InitiativeInterface } from '@/interfaces'
 import { Key } from 'react'
 import SubscribeContent from './_components/Modal/SubscribeContent'
+import ReviewContent from './_components/Modal/ReviewContent'
 import { handlers } from './handlers'
 import CancelSubscription from './_components/Modal/CancelSubscription'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import Routes from '@/utils/constants/routes.const'
+import { KeyedMutator } from 'swr'
 
 interface Response {
   triggerText: string
-  onConfirm: any
-  onCancel: any
+  onConfirm: () => void
+  onCancel: () => void
   confirmText: string
   cancelText: string
   withModal: boolean
-  onClick: any
+  onClick: () => void
   title: string
-  children: any
+  children: JSX.Element
   hiddeTrigger: boolean
+  withControls?: boolean
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full'
+  passProps: boolean
 }
 
 export const modalDataBuilder = (
@@ -26,15 +31,17 @@ export const modalDataBuilder = (
   initiative: InitiativeInterface,
   currentUserId: string,
   tabIndex?: Key,
-  mutator?: any
+  mutator?: KeyedMutator<any>
 ): Response => {
   const isOwner = currentUserId === initiative?.owner?._id
   const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUserId)
   const isVolunteer = Boolean(volunteer)
   const status = volunteer?.status
   const ended = new Date(initiative?.endDate) < new Date()
+  const alreadyReviewed = initiative?.reviews?.some((review) => review.author === currentUserId)
+  console.log('alreadyReviewed', alreadyReviewed)
 
-  const content = {
+  const content: Response = {
     triggerText: '',
     onConfirm: () => console.log('confirm'),
     onCancel: () => console.log('cancel'),
@@ -44,7 +51,10 @@ export const modalDataBuilder = (
     onClick: () => console.log('click'),
     title: '',
     children: <></>,
-    hiddeTrigger: false
+    hiddeTrigger: false,
+    withControls: true,
+    size: 'sm',
+    passProps: false
   }
 
   if (tabIndex === 'Informacion') tabIndex = 0
@@ -71,11 +81,21 @@ export const modalDataBuilder = (
       content.title = 'Inscribirse a la iniciativa'
     }
     // Voluntario inscrito, aceptado y finalizado (Opcion de dejar reseña)
-    else if (isVolunteer && ended && status === 'accepted') {
+    else if (isVolunteer && ended && status === 'accepted' && !alreadyReviewed) {
       content.triggerText = 'Dejar reseña'
       content.onConfirm = () => console.log('confirm')
       content.confirmText = 'Dejar reseña'
       content.title = 'Dejar una reseña'
+      content.children = <ReviewContent />
+      content.withControls = false
+      content.size = 'md'
+      content.passProps = true
+    }
+    // Voluntario inscrito, aceptado, finalizado y dejo una review previa (Opcion de ver perfil del dueño)
+    else if (isVolunteer && ended && status === 'accepted' && alreadyReviewed) {
+      content.triggerText = 'Ver perfil del dueño'
+      content.withModal = false
+      content.onClick = () => router.push(Routes.PROFILE(initiative.owner._id))
     }
     // Voluntario inscrito y aceptado (Opcion de salirse)
     else if (isVolunteer && !ended && status === 'accepted') {

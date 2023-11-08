@@ -12,7 +12,7 @@ interface Props {
 
 const FavoriteChip = ({ initiative }: Props) => {
   const { data: session, status } = useSession()
-  const { data: loggedUser } = useSWR(Endpoints.USER_BY_ID(session?.user?.id ?? ''))
+  const { data: loggedUser } = useSWR(Endpoints.USER_BY_ID(session?.user?.username ?? ''))
   const { data: currentUser, mutate } = useSWR(Endpoints.USER_BY_ID(loggedUser?.username))
   const isFavorite = currentUser?.favorites?.some((favorite: InitiativeInterface) => favorite._id === initiative._id)
 

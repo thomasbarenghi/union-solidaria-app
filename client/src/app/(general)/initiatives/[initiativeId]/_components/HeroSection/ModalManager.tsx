@@ -31,7 +31,9 @@ const ModalManager = ({ data, currentIndex, currentUserId, isLogged }: Props) =>
           triggerText={modalData.triggerText}
           confirmText={modalData.confirmText}
           cancelText={modalData.cancelText}
-          size='sm'
+          withControls={modalData.withControls}
+          size={modalData.size}
+          passProps={modalData.passProps}
         >
           {modalData.children}
         </Modal>

@@ -1,6 +1,7 @@
-import { InitiativeGrid, ReviewGrid } from '@/components'
+import { InitiativeGrid } from '@/components'
 import { UserInterface } from '@/interfaces'
 import Favorites from './Favorites'
+import Reviews from './Reviews'
 
 export const profileTabItemsBuilder = (
   isOrg: boolean,
@@ -28,8 +29,6 @@ export const profileTabItemsBuilder = (
   },
   {
     title: isOrg ? 'Reseñas recibidas' : 'Reseñas',
-    content: (
-      <ReviewGrid reviews={currentUser?.reviews} isLoading={isLoading} isCurrent={isCurrent} isError={isErrorReview} />
-    )
+    content: <Reviews currentUser={currentUser} isCurrent={isCurrent} />
   }
 ]

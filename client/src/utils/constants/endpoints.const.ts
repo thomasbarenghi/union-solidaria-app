@@ -17,7 +17,10 @@ const Endpoints = {
   UPDATE_SUBSCRIPTION: (id: string) => `/api/initiatives/${id}/subscription-status`,
   UNSUBSCRIBE: (id: string) => `/api/initiatives/${id}/unsubscribe`,
   SUBSCRIBE: (id: string) => `/api/initiatives/${id}/subscribe`,
-  UPDATE_ORGANIZATION: (userId: string) => `/api/users/${userId}/edit-organization`
+  UPDATE_ORGANIZATION: (userId: string) => `/api/users/${userId}/edit-organization`,
+  POST_REVIEW: '/api/reviews',
+  EDIT_REVIEW: (reviewId: string) => `/api/reviews/${reviewId}`,
+  DELETE_REVIEW: (reviewId: string) => `/api/reviews/${reviewId}`
 }
 
 export default Endpoints

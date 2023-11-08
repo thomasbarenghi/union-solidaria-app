@@ -42,11 +42,11 @@ const RegisterForm = () => {
     control,
     reset,
     getValues
-  } = useForm<RegisterFormValues & { repeatPassword: string }>({
+  } = useForm<RegisterFormValues>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: RegisterFormValues) => {
     try {
       delete data.repeatPassword
       const birthday = new Date(data.birthday)

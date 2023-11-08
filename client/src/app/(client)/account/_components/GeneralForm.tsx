@@ -39,7 +39,7 @@ const FormSec = ({ currentUser, session }: Props) => {
     })
     // TODO: handle error case
     if (error) return toast.error('Ha ocurrido un error al actualizar la información')
-    mutate(Endpoints.USER_BY_EMAIL(currentUser.email))
+    mutate(Endpoints.USER_BY_EMAIL(currentUser.username))
     toast.success('Se ha actualizado la información correctamente')
     resetField('profileImage')
     resetField('bannerImage')

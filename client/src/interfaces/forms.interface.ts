@@ -20,6 +20,7 @@ export interface RegisterFormValues {
   birthday: Date
   role: Role
   orgName?: string
+  repeatPassword?: string
 }
 
 export interface UpdatePasswordFormValues {
