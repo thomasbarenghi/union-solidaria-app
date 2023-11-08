@@ -8,7 +8,7 @@ interface Props {
   data: InitiativeInterface
 }
 
-const VolunteersSection = ({ data }: Props) => {
+const Volunteers = ({ data }: Props) => {
   const { data: initiative } = useSWR(Endpoints.INITIATIVES_BY_ID(data._id), {
     fallbackData: data
   })
@@ -19,4 +19,4 @@ const VolunteersSection = ({ data }: Props) => {
   )
 }
 
-export default VolunteersSection
+export default Volunteers

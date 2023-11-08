@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { TeamMembers, TeamMember } from '../_lib/team'
+import { teamMembers, TeamMember } from '../_lib/team.lib'
 import { Button, TextElement } from '@/components'
 import Link from 'next/link'
 import Routes from '@/utils/constants/routes.const'
@@ -28,7 +28,7 @@ const TeamItem = ({ name, position, image, linkedin }: TeamMember) => (
   </div>
 )
 
-const TeamSection = () => (
+const Team = () => (
   <section className='flex flex-col  items-center justify-start gap-14 lg:flex-row lg:justify-between'>
     <div className='flex w-full flex-col items-start  gap-3 '>
       <div className='flex w-full flex-col items-start  gap-1 '>
@@ -50,7 +50,7 @@ const TeamSection = () => (
       </Button>
     </div>
     <div className='flex w-full max-w-[85%] flex-col justify-between gap-10 md:flex-row lg:max-w-none lg:justify-end lg:gap-5'>
-      {TeamMembers.map((teamMember: TeamMember, index) => (
+      {teamMembers.map((teamMember: TeamMember, index) => (
         <TeamItem
           name={teamMember.name}
           position={teamMember.position}
@@ -63,4 +63,4 @@ const TeamSection = () => (
   </section>
 )
 
-export default TeamSection
+export default Team

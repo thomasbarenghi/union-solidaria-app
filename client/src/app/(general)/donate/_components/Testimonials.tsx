@@ -18,7 +18,7 @@ const TestimonialItem = ({ testimonial }: { testimonial: Testimonial }) => (
   </div>
 )
 
-const TestimonialsSection = () => (
+const Testimonials = () => (
   <section className='flex flex-col items-center gap-10 2xl:container'>
     <div className='flex flex-col gap-1'>
       <TextElement as='h2' type='t1' className='text-center !font-light'>
@@ -36,4 +36,4 @@ const TestimonialsSection = () => (
   </section>
 )
 
-export default TestimonialsSection
+export default Testimonials

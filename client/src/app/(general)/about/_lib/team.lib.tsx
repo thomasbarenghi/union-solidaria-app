@@ -5,7 +5,7 @@ export interface TeamMember {
   linkedin: string
 }
 
-export const TeamMembers: TeamMember[] = [
+export const teamMembers: TeamMember[] = [
   {
     name: 'Manuel Fernandez',
     position: 'Frontend Developer',

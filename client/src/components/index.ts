@@ -35,3 +35,5 @@ export { default as PublicationItemPlaceholder } from './PublicationItem/Publica
 export { default as VolunteerItemSkeleton } from './VolunteerItem/Skeleton'
 export { default as VolunteerItemPlaceholder } from './VolunteerItem/VolunteerItemPlaceholder'
 export { default as ReviewForm } from './Forms/ReviewForm'
+export { default as InitiativeDynamicForm } from './Forms/InitiativeForm/InitiativeForm'
+export type { InitiativeFormData } from './Forms/InitiativeForm/form.interface'

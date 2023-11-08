@@ -1,14 +1,16 @@
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { Input } from '@/components'
 import { emailPattern, firstNamePattern, lastNamePattern, usernamePattern } from '@/utils/constants/pattern.const'
-import { UseFormRegister } from 'react-hook-form'
+import { UserInterface } from '@/interfaces'
+import { EditAccountFormData } from '../../forms.interface'
 
 interface GeneralInfoProps {
-  errors: any
-  register: UseFormRegister<any>
-  currentUser: any
+  errors: FieldErrors<EditAccountFormData>
+  register: UseFormRegister<EditAccountFormData>
+  currentUser: UserInterface
 }
 
-const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
+const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
       <Input
@@ -92,7 +94,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
           register,
           validations: {
             required: false,
-            validate: (value: any) => {
+            validate: (value: FileList) => {
               if (value.length > 0) {
                 if (value[0].size > 5000000) {
                   return 'La imagen no debe pesar mas de 5MB'
@@ -101,7 +103,7 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
             }
           }
         }}
-        errorMessage={errors?.thumbnail?.message?.toString()}
+        errorMessage={errors?.profileImage?.message?.toString()}
       />
       <Input
         type='file'
@@ -127,4 +129,4 @@ const GeneralInfo = ({ errors, register, currentUser }: GeneralInfoProps) => (
   </div>
 )
 
-export default GeneralInfo
+export default EditAccountFormInputs

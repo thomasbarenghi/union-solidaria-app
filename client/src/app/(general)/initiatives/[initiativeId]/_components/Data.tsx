@@ -1,6 +1,6 @@
 'use client'
 import { TabBar } from '@/components'
-import { initiativeTabItemsBuilder } from '../initiativeTabItemsBuilder'
+import { buildInitiativeTabs } from '../buildInitiativeTabs'
 import { useCallback } from 'react'
 import { InitiativeInterface, UserInterface } from '@/interfaces'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
@@ -10,11 +10,11 @@ interface Props {
   currentUser: UserInterface
 }
 
-const DataSection = ({ data, currentUser }: Props) => {
+const Data = ({ data, currentUser }: Props) => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const tabItems = initiativeTabItemsBuilder(currentUser, data)
+  const tabItems = buildInitiativeTabs(currentUser, data)
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -29,9 +29,7 @@ const DataSection = ({ data, currentUser }: Props) => {
   return (
     <section className='flex w-full flex-col gap-4'>
       <TabBar
-        onSelectionChange={async (index) => router.push(
-          pathname + '?' + createQueryString('idx', index.toString())
-        )}
+        onSelectionChange={async (index) => router.push(pathname + '?' + createQueryString('idx', index.toString()))}
         selectedKey={searchParams?.get('idx') ?? 'Informacion'}
         items={tabItems}
         variant='solid'
@@ -42,4 +40,4 @@ const DataSection = ({ data, currentUser }: Props) => {
   )
 }
 
-export default DataSection
+export default Data

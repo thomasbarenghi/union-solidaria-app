@@ -1,9 +1,9 @@
-import { TabBar, TextElement } from '@/components'
 import type { Metadata } from 'next'
 import { Session, getServerSession } from 'next-auth'
+import { TabBar, TextElement } from '@/components'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
-import { accountTabItemsBuilder } from './accountTabItemsBuilder'
+import { buildAccountTabs } from './buildAccountTabs'
 import Hero from './_components/Hero'
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const Account = async () => {
   const session = await getServerSession(nextauthOptions)
   const { data: user } = await getUser(session?.user?.email ?? '')
-  const tabItems = accountTabItemsBuilder(user, session as Session)
+  const tabItems = buildAccountTabs(user, session as Session)
   return (
     <main className='flex min-h-screen flex-col'>
       <Hero session={session as Session} currentUser={user} />

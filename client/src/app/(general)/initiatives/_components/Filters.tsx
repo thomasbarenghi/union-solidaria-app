@@ -7,14 +7,14 @@ import Modal from './Modal'
 
 interface Props {
   query: Record<string, string>
-  setQuery: (query: any) => void
+  setQuery: React.Dispatch<React.SetStateAction<Record<string, string>>>
 }
 
 const SearchSection = ({ query, setQuery }: Props) => {
   const searchHandler = (queryObj: Record<string, string>) => {
-    setQuery((prev: any) => ({ ...prev, ...queryObj }))
+    setQuery((prev: Record<string, string>) => ({ ...prev, ...queryObj }))
     if (query.country.length > 0) {
-      setQuery((prev: any) => ({ ...prev, province: '' }))
+      setQuery((prev: Record<string, string>) => ({ ...prev, province: '' }))
     }
   }
 

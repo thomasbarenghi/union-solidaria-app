@@ -1,14 +1,18 @@
+import { FieldErrors, UseFormGetValues, UseFormRegister } from 'react-hook-form'
 import { Input, TextElement } from '@/components'
 import { extraInfoPattern, hour12Pattern } from '@/utils/constants/pattern.const'
-import { UseFormRegister } from 'react-hook-form'
+import { InitiativeFormData } from '../form.interface'
+import { InitiativeInterface } from '@/interfaces'
 
 interface DateTimeProps {
-  errors: any
-  register: UseFormRegister<any>
-  getValues: any
+  errors: FieldErrors<InitiativeFormData>
+  register: UseFormRegister<InitiativeFormData>
+  getValues: UseFormGetValues<InitiativeFormData>
+  mode: 'create' | 'edit'
+  initiative?: InitiativeInterface
 }
 
-const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
+const DateTimeInputs = ({ errors, register, getValues, mode, initiative }: DateTimeProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
       <TextElement type='subtitle' as='h2'>
@@ -22,6 +26,9 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
         name='startDate'
         label='Fecha de inicio'
         placeholder='Fecha de inicio'
+        defaultValue={
+          mode === 'edit' && initiative?.startDate ? new Date(initiative?.startDate)?.toISOString()?.substr(0, 10) : ''
+        }
         hookForm={{
           register,
           validations: {
@@ -48,6 +55,9 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
         type='date'
         name='endDate'
         label='Fecha de finalizacion'
+        defaultValue={
+          mode === 'edit' && initiative?.endDate ? new Date(initiative?.endDate)?.toISOString()?.substr(0, 10) : ''
+        }
         placeholder='Fecha de finalizacion'
         hookForm={{
           register,
@@ -75,6 +85,7 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
         type='text'
         name='startHour'
         label='Hora de inicio'
+        defaultValue={mode === 'edit' ? initiative?.startHour : ''}
         placeholder='Hora de inicio'
         hookForm={{
           register,
@@ -91,6 +102,7 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
       <Input
         type='text'
         name='endHour'
+        defaultValue={mode === 'edit' ? initiative?.endHour : ''}
         label='Hora de finalizacion'
         placeholder='Hora de finalizacion'
         hookForm={{
@@ -109,6 +121,7 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
         type='text'
         name='extraInfo'
         label='Informacion Extra'
+        defaultValue={mode === 'edit' ? initiative?.extraInfo : ''}
         placeholder='Informacion Extra'
         hookForm={{
           register,
@@ -126,4 +139,4 @@ const DateTime = ({ errors, register, getValues }: DateTimeProps) => (
   </div>
 )
 
-export default DateTime
+export default DateTimeInputs

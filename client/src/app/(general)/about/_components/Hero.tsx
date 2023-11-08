@@ -1,7 +1,7 @@
 import { TextElement } from '@/components'
 import Image from 'next/image'
 
-const HeroSection = () => (
+const Hero = () => (
   <section className='section-padding-x-1 flex w-full items-center  justify-center bg-gradient-to-r from-[#e0e7ff] to-[#ccfbf1] '>
     <div className=' flex w-full flex-col items-center justify-center gap-4 py-14 2xl:container  lg:flex-row lg:gap-[60px] '>
       <div className='flex w-full flex-col justify-center gap-3 text-start'>
@@ -22,4 +22,4 @@ const HeroSection = () => (
   </section>
 )
 
-export default HeroSection
+export default Hero

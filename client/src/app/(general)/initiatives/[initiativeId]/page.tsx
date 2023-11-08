@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import HeroSection from './_components/HeroSection/HeroSection'
+import Hero from './_components/Hero/Hero'
 import { getInitiative } from '@/services/initiatives/getInitiative.service'
-import DataSection from './_components/DataSection'
+import Data from './_components/Data'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
@@ -31,7 +31,7 @@ const Initiative = async ({ params, searchParams }: Props) => {
     <>
       <Header />
       <main className='flex min-h-screen flex-col'>
-        <HeroSection
+        <Hero
           initiative={data}
           currentUserId={loggedUser._id}
           currentIndex={searchParams.idx}
@@ -40,7 +40,7 @@ const Initiative = async ({ params, searchParams }: Props) => {
           isLoading={false}
         />
         <article className='section-padding-1 container-section listContainer article-layout-1 !py-14'>
-          <DataSection data={data} currentUser={loggedUser} />
+          <Data data={data} currentUser={loggedUser} />
         </article>
       </main>
       <Footer />

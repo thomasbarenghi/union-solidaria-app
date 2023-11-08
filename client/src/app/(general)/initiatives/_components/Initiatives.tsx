@@ -1,13 +1,13 @@
 'use client'
 import useSWR from 'swr'
+import { useState } from 'react'
 import { InitiativeGrid, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Filters from './Filters'
-import { useState } from 'react'
 import { buildQueryString } from '@/utils/functions/buildQueryString.utils'
 
 const InitiativesSection = () => {
-  const [query, setQuery] = useState({
+  const [query, setQuery] = useState<Record<string, string>>({
     title: '',
     country: '',
     province: '',

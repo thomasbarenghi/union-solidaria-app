@@ -1,38 +1,44 @@
 'use client'
-import { Button, Input } from '@/components'
-import { UpdatePasswordFormValues } from '@/interfaces'
+import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
+import { Button, Input } from '@/components'
+import { Session } from 'next-auth'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
-import { Session } from 'next-auth'
-
 import { passwordPattern } from '@/utils/constants/pattern.const'
-import { toast } from 'sonner'
+import { ChangePasswordFormData } from '../../forms.interface'
 
 interface Props {
   session: Session
 }
 
-const PasswordForm = ({ session }: Props) => {
+const ChangePasswordForm = ({ session }: Props) => {
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
     getValues,
     reset
-  } = useForm<UpdatePasswordFormValues>({
+  } = useForm<ChangePasswordFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: any) => {
-    const { error } = await putRequest(Endpoints.UPDATE_PASSWORD(session?.user?.id ?? ''), data, {
-      headers: { sessionId: session.token.sessionId }
-    })
+  const onSubmit = async (data: ChangePasswordFormData) => {
+    try {
+      const { data: response, error } = await putRequest(Endpoints.UPDATE_PASSWORD(session?.user?.id ?? ''), data, {
+        headers: { sessionId: session.token.sessionId }
+      })
 
-    if (error) return toast.error('Ha ocurrido un error al actualizar la contraseña')
+      if (error) {
+        console.error(response)
+        return toast.error('Ha ocurrido un error al actualizar la contraseña')
+      }
 
-    toast.success('Se ha actualizado la contraseña correctamente')
-    reset()
+      toast.success('Se ha actualizado la contraseña correctamente')
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -107,4 +113,4 @@ const PasswordForm = ({ session }: Props) => {
   )
 }
 
-export default PasswordForm
+export default ChangePasswordForm

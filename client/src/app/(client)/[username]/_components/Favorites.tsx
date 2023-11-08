@@ -1,6 +1,6 @@
 'use client'
-import { InitiativeGrid } from '@/components'
 import useSWR from 'swr'
+import { InitiativeGrid } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { UserInterface } from '@/interfaces'
 

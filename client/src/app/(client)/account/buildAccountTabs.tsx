@@ -1,10 +1,10 @@
 import { Session } from 'next-auth'
-import Edit from './_components/GeneralForm'
-import PasswordForm from './_components/PasswordForm'
 import { UserInterface } from '@/interfaces'
+import Edit from './_components/Account/EditAccountForm'
+import PasswordForm from './_components/Account/ChangePasswordForm'
 import OrganizationForm from './_components/OrganizationForm'
 
-export const accountTabItemsBuilder = (currentUser: UserInterface, session: Session) => [
+export const buildAccountTabs = (currentUser: UserInterface, session: Session) => [
   {
     title: 'Informacion general',
     content: <Edit currentUser={currentUser} session={session} />

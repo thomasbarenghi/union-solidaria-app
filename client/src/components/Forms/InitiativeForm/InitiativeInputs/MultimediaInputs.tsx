@@ -1,12 +1,13 @@
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { Input, TextElement } from '@/components'
-import { UseFormRegister } from 'react-hook-form'
+import { InitiativeFormData } from '../form.interface'
 
 interface LocationInfoProps {
-  errors: any
-  register: UseFormRegister<any>
+  errors: FieldErrors<InitiativeFormData>
+  register: UseFormRegister<InitiativeFormData>
 }
 
-const Multimedia = ({ errors, register }: LocationInfoProps) => (
+const MultimediaInputs = ({ errors, register }: LocationInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
       <TextElement type='subtitle' as='h2'>
@@ -23,7 +24,6 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
         hookForm={{
           register,
           validations: {
-            required: { value: true, message: 'Este campo es requerido' },
             validate: (value: FileList) => {
               if (value.length > 0) {
                 if (value[0].size > 5000000) {
@@ -39,4 +39,4 @@ const Multimedia = ({ errors, register }: LocationInfoProps) => (
   </div>
 )
 
-export default Multimedia
+export default MultimediaInputs

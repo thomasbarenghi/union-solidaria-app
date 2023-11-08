@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import Hero from './_components/Hero'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
-import { profileTabItemsBuilder } from './_components/profileTabItemsBuilder'
 import { TabBar } from '@/components'
+import Hero from './_components/Hero'
+import { buildProfileTabs } from './buildProfileTabs'
 
 interface Props {
   params: {
@@ -20,12 +20,11 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 }
 
 const Profile = async ({ params }: Props) => {
-  const session = await getServerSession(nextauthOptions)
   const { data: user, error } = await getUser(params.username.slice(3))
-  const tabItems = profileTabItemsBuilder(
+  const session = await getServerSession(nextauthOptions)
+  const tabItems = buildProfileTabs(
     user?.role === 'organization',
     user?.username === session?.user.username,
-    error,
     error,
     false,
     user

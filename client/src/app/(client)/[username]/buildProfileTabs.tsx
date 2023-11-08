@@ -1,13 +1,12 @@
 import { InitiativeGrid } from '@/components'
 import { UserInterface } from '@/interfaces'
-import Favorites from './Favorites'
-import Reviews from './Reviews'
+import Favorites from './_components/Favorites'
+import Reviews from './_components/Reviews'
 
-export const profileTabItemsBuilder = (
+export const buildProfileTabs = (
   isOrg: boolean,
   isCurrent: boolean,
   isError: boolean,
-  isErrorReview: boolean,
   isLoading: boolean,
   currentUser: UserInterface
 ) => [

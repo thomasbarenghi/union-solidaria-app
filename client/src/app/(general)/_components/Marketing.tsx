@@ -1,5 +1,5 @@
 import { TextElement } from '@/components'
-import { ValuePropositionItem, valueProposition } from '../_lib/valueProposition'
+import { ValuePropositionItem, valueProposition } from '../_lib/valueProposition.lib'
 
 interface Props {
   title: string

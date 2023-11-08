@@ -3,7 +3,7 @@ export interface MissionAndVisionItem {
   description: string
 }
 
-export const missionAndVision: MissionAndVisionItem[] = [
+export const missionVision: MissionAndVisionItem[] = [
   {
     title: '✨ Misión y Visión',
     description:

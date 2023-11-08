@@ -6,11 +6,11 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 interface Props {
-  names: Array<{ value: string, label: string }>
+  names: Array<{ value: string; label: string }>
   name: string
   placeholder: string
   setSelected: (data: string) => void
-  selectedValue?: string
+  selectedValue?: string[] | undefined
   label?: string
   labelClass?: string
   errorMessage?: string
@@ -20,7 +20,7 @@ interface Props {
 const SimpleSelect = ({ names, name, selectedValue, label, errorMessage = '', setSelected, field }: Props) => (
   <Select
     {...field}
-    defaultSelectedKeys={selectedValue ? [selectedValue] : []}
+    defaultSelectedKeys={selectedValue ?? ['']}
     items={names}
     label={label}
     labelPlacement='outside'

@@ -1,5 +1,5 @@
 'use client'
-import { questionsAnswers } from '../_lib/questionsAnswers'
+import { questionsAnswers } from '../_lib/questionsAnswers.lib'
 import { Accordion, AccordionItem } from '@nextui-org/react'
 
 const FAQs = () => (

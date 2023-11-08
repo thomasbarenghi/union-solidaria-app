@@ -1,17 +1,21 @@
+import { Control, Controller, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { Input, SimpleSelect, TextElement } from '@/components'
-import { Control, Controller, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
 import { useState } from 'react'
 import { addressPattern } from '@/utils/constants/pattern.const'
+import { InitiativeFormData } from '../form.interface'
+import { InitiativeInterface } from '@/interfaces'
 
 interface LocationInfoProps {
-  errors: any
-  register: UseFormRegister<any>
+  errors: FieldErrors<InitiativeFormData>
+  register: UseFormRegister<InitiativeFormData>
   control: Control<any>
-  setValue: UseFormSetValue<any>
+  setValue: UseFormSetValue<InitiativeFormData>
+  mode: 'create' | 'edit'
+  initiative?: InitiativeInterface
 }
 
-const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps) => {
+const LocationInputs = ({ errors, register, control, setValue, mode, initiative }: LocationInfoProps) => {
   const [country, setCountry] = useState<string>('Argentina')
 
   const activeProvinces = () => {
@@ -44,6 +48,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
             <SimpleSelect
               name='country'
               field={field}
+              selectedValue={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
               label='Elige un pais'
               setSelected={(selected) => {
                 setValue('country', selected)
@@ -63,6 +68,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
             <SimpleSelect
               field={field}
               name='province'
+              selectedValue={mode === 'edit' ? [initiative?.province ?? ''] : ['']}
               label='Elige una provincia/estado/departamento'
               setSelected={(selected) => {
                 setValue('province', selected)
@@ -77,6 +83,7 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
           type='text'
           name='address'
           label='Direccion de encuentro'
+          defaultValue={mode === 'edit' ? initiative?.address : ''}
           placeholder='Direccion de encuentro'
           hookForm={{
             register,
@@ -95,4 +102,4 @@ const LocationInfo = ({ errors, register, control, setValue }: LocationInfoProps
   )
 }
 
-export default LocationInfo
+export default LocationInputs

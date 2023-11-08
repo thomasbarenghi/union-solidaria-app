@@ -1,9 +1,9 @@
-import HeroSection from './_components/Hero'
-import Content from './_components/Content'
 import type { Metadata } from 'next'
-import { getUser } from '@/services/user/getUser.service'
 import { getServerSession } from 'next-auth'
 import { nextauthOptions } from '@/utils/constants/auth.const'
+import { getUser } from '@/services/user/getUser.service'
+import HeroSection from './_components/Hero'
+import Content from './_components/Content'
 
 export const metadata: Metadata = {
   title: 'Explorar | Union Solidaria'

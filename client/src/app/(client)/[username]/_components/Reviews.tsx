@@ -1,6 +1,6 @@
 'use client'
-import { ReviewGrid } from '@/components'
 import useSWR from 'swr'
+import { ReviewGrid } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { UserInterface } from '@/interfaces'
 

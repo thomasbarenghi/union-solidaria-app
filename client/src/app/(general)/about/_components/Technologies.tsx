@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { technologies, TechnologyItem } from '../_lib/technologies'
+import { technologies, TechnologyItem } from '../_lib/technologies.lib'
 import { TextElement } from '@/components'
 
-const TechnologiesSection = () => (
+const Technologies = () => (
   <section className='flex w-full flex-col items-center justify-center gap-10 bg-white 2xl:container'>
     <div className='flex w-full flex-col items-center gap-1 text-center'>
       <TextElement type='t1' as='h1' className='font-semibold'>
@@ -33,4 +33,4 @@ const TechnologiesSection = () => (
   </section>
 )
 
-export default TechnologiesSection
+export default Technologies

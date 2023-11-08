@@ -3,7 +3,7 @@ import { Button, TextElement } from '@/components'
 import Routes from '@/utils/constants/routes.const'
 import { srcData } from './heroSrcData'
 
-const HeroSection = () => (
+const Hero = () => (
   <section className='flex w-full flex-col items-center justify-between 2xl:container  2xl:min-h-[0px]'>
     <div className='section-padding-x-1 flex w-full flex-col items-center justify-center gap-2 py-5 lg:w-[70%] lg:px-0 lg:py-10 '>
       <TextElement as='h1' type='t1' className='text-center !font-light'>
@@ -37,4 +37,4 @@ const FlexImages = () => (
   </div>
 )
 
-export default HeroSection
+export default Hero

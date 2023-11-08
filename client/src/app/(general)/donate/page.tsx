@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import DonateSec from './_components/DonateSection'
+import Donate from './_components/Donate'
 import { Footer, Header, TextElement } from '@/components'
-import TestimonialsSection from './_components/TestimonialsSection'
+import Testimonials from './_components/Testimonials'
 
 export const metadata: Metadata = {
   title: 'Donar | Unión Solidaria'
@@ -27,8 +27,8 @@ const DonationPage = () => (
         </div>
       </section>
       <article className='section-padding-x-1 flex w-full flex-col items-center gap-24'>
-        <TestimonialsSection />
-        <DonateSec />
+        <Testimonials />
+        <Donate />
       </article>
     </main>
     <Footer />

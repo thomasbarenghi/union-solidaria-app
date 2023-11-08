@@ -1,9 +1,9 @@
 'use client'
+import useSWR from 'swr'
+import { Session } from 'next-auth'
 import { UsersHero } from '@/components'
 import { UserInterface } from '@/interfaces'
 import Endpoints from '@/utils/constants/endpoints.const'
-import { Session } from 'next-auth'
-import useSWR from 'swr'
 
 interface Props {
   session: Session

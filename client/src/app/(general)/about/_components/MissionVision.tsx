@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/indent */
-
 import { TextElement } from '@/components'
-import { missionAndVision, MissionAndVisionItem } from '../_lib/missionAndVision'
+import { missionVision, MissionAndVisionItem } from '../_lib/missionVision.lib'
 
 interface ContentItemProps {
   title: string
@@ -19,7 +17,7 @@ const ContentItem = ({ title, description }: ContentItemProps) => (
   </div>
 )
 
-const MissionVisionSection = () => (
+const MissionVision = () => (
   <section className='flex flex-col items-center justify-center gap-10 2xl:container'>
     <div className='flex w-full flex-col items-center gap-1 text-center'>
       <TextElement type='t1' as='h2' className='!font-semibold'>
@@ -31,11 +29,11 @@ const MissionVisionSection = () => (
       </TextElement>
     </div>
     <div className='grid grid-cols-1 gap-10 lg:grid-cols-3'>
-      {missionAndVision.map((item: MissionAndVisionItem, index) => (
+      {missionVision.map((item: MissionAndVisionItem, index) => (
         <ContentItem title={item.title} key={index} description={item.description} />
       ))}
     </div>
   </section>
 )
 
-export default MissionVisionSection
+export default MissionVision

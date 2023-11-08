@@ -1,11 +1,11 @@
 'use client'
-import { StripeButton, Slider, TextElement } from '@/components'
-import { IDonationPayment } from '@/interfaces'
-import { createDonationToPlatform } from '@/services/stripe/payments.service'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
+import { StripeButton, Slider, TextElement } from '@/components'
+import { IDonationPayment } from '@/interfaces'
+import { createDonationToPlatform } from '@/services/stripe/payments.service'
 
 const Donation = () => {
   const router = useRouter()
@@ -53,7 +53,7 @@ const Donation = () => {
   )
 }
 
-const DonateSec = () => (
+const Donate = () => (
   <section className='flex flex-col items-center gap-14 2xl:container lg:flex-row'>
     <div className='flex flex-col gap-1'>
       <TextElement type='t1' as='h1' className='font-light'>
@@ -69,4 +69,4 @@ const DonateSec = () => (
   </section>
 )
 
-export default DonateSec
+export default Donate

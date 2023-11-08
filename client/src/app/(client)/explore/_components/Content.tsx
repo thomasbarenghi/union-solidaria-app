@@ -1,8 +1,8 @@
 'use client'
+import { useState } from 'react'
 import { PublicationFlex } from '@/components'
 import { InitiativeInterface, UserInterface } from '@/interfaces'
 import { PostInterface } from '@/interfaces/post.interface'
-import { useState } from 'react'
 import Sidebar from './Sidebar'
 
 interface ContentSectionProps {
