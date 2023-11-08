@@ -8,7 +8,7 @@ import { handlers } from './handlers'
 import CancelSubscription from './_components/Modal/CancelSubscription'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import Routes from '@/utils/constants/routes.const'
-import { KeyedMutator } from 'swr'
+import { ScopedMutator } from 'swr/_internal'
 
 interface Response {
   triggerText: string
@@ -30,8 +30,8 @@ export const modalDataBuilder = (
   router: AppRouterInstance,
   initiative: InitiativeInterface,
   currentUserId: string,
-  tabIndex?: Key,
-  mutator?: KeyedMutator<any>
+  mutator: ScopedMutator,
+  tabIndex?: Key
 ): Response => {
   const isOwner = currentUserId === initiative?.owner?._id
   const volunteer = initiative?.volunteers?.find((volunteer) => volunteer?.user?._id === currentUserId)

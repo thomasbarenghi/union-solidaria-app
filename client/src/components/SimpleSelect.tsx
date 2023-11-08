@@ -14,6 +14,7 @@ interface Props {
   label?: string
   labelClass?: string
   errorMessage?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field?: ControllerRenderProps<FieldValues, any>
 }
 

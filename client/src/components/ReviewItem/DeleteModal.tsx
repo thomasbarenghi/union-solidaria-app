@@ -43,7 +43,11 @@ const DeleteModal = ({ reviewId }: DeleteModalProps) => {
   )
 }
 
-const Trigger = (props: any) => (
+interface TriggerProps {
+  onOpen?: () => void
+}
+
+const Trigger = (props: TriggerProps) => (
   <Image src='/icon/trash.svg' onClick={props.onOpen} alt='Delete' width={20} height={20} className='cursor-pointer' />
 )
 

@@ -21,6 +21,7 @@ const MarkdownRenderer = ({ documentRoute }: Props) => {
 
   useEffect(() => {
     void fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

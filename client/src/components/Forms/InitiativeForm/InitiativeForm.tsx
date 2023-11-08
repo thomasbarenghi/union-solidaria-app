@@ -19,6 +19,7 @@ interface Props {
   errors: FieldErrors<InitiativeFormData>
   register: UseFormRegister<InitiativeFormData>
   getValues: UseFormGetValues<InitiativeFormData>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   setValue: UseFormSetValue<InitiativeFormData>
   isSubmitting: boolean

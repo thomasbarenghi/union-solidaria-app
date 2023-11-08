@@ -11,6 +11,7 @@ interface InputProps {
   handleChange?: (e: string) => void
   errorMessage?: string
   hookForm?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>
     validations: RegisterOptions
   }

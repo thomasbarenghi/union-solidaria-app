@@ -9,6 +9,7 @@ import { InitiativeInterface } from '@/interfaces'
 interface LocationInfoProps {
   errors: FieldErrors<InitiativeFormData>
   register: UseFormRegister<InitiativeFormData>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>
   setValue: UseFormSetValue<InitiativeFormData>
   mode: 'create' | 'edit'
