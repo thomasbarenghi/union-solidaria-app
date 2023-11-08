@@ -41,7 +41,7 @@ export class ReviewsService {
     if (alreadyReviewed) throw new ConflictException('Already reviewed');
 
     const isPartOfInitiative = initiative.volunteers.find(
-      (member) => member.user.toString() === author._id.toString(),
+      (member) => member.user._id.toString() === author._id.toString(),
     );
 
     if (!isPartOfInitiative)
@@ -60,7 +60,11 @@ export class ReviewsService {
     initiative.reviews.push(review._id);
     author.reviews.push(review._id);
     initiativeAuthor.reviews.push(review._id);
-    await Promise.all([initiative.save(), author.save(), initiativeAuthor.save()]);
+    await Promise.all([
+      initiative.save(),
+      author.save(),
+      initiativeAuthor.save(),
+    ]);
     return review;
   }
 
@@ -77,7 +81,14 @@ export class ReviewsService {
   }
 
   async update(id: string, updateReviewDto: UpdateReviewDto) {
-    return await this.reviewModel.findByIdAndUpdate(id, updateReviewDto);
+    const review = await this.reviewModel.findById(id).catch(() => {
+      throw new NotFoundException('Review not found');
+    });
+
+    review.set(updateReviewDto);
+    await review.save();
+
+    return review;
   }
 
   async remove(id: string) {

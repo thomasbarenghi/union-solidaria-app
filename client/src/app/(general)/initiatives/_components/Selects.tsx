@@ -25,52 +25,50 @@ const Selects = (props: Props) => {
   }
 
   return (
-    <>
-      <div className='flex min-w-[200px] flex-row gap-3 md:flex-col '>
+    <div className='flex min-w-[200px] flex-row gap-3 md:flex-col '>
+      <SimpleSelect
+        name='country'
+        label='Pais de iniciativa'
+        selectedValue={[query.country]}
+        setSelected={(selected) => {
+          handleChange('country', selected)
+        }}
+        names={countries}
+        placeholder='Selecciona una opción'
+      />
+      {props.query.country.length > 0 && (
         <SimpleSelect
-          name='country'
-          label='Pais de iniciativa'
-          selectedValue={query.country}
+          name='province'
+          label='Elige el estado/provincia'
+          selectedValue={[query.province]}
           setSelected={(selected) => {
-            handleChange('country', selected)
+            handleChange('province', selected)
           }}
-          names={countries}
-          placeholder='Selecciona una opción'
+          names={activeProvinces()}
+          placeholder='Elige una provincia/estado/departamento'
         />
-        {props.query.country.length > 0 && (
-          <SimpleSelect
-            name='province'
-            label='Elige el estado/provincia'
-            selectedValue={query.province}
-            setSelected={(selected) => {
-              handleChange('province', selected)
-            }}
-            names={activeProvinces()}
-            placeholder='Elige una provincia/estado/departamento'
-          />
-        )}
-        <SimpleSelect
-          name='opportunities'
-          label='Elige una Oportunidad'
-          selectedValue={query.opportunities}
-          setSelected={(selected) => {
-            handleChange('opportunities', selected)
-          }}
-          names={opportunities}
-          placeholder='Elige una opportunities'
-        />
-        <SimpleSelect
-          name='themes'
-          label='Elige un Tema'
-          selectedValue={query.themes}
-          setSelected={(selected) => {
-            handleChange('themes', selected)
-          }}
-          names={themes}
-          placeholder='Elige un Tema'
-        />
-      </div>
-    </>
+      )}
+      <SimpleSelect
+        name='opportunities'
+        label='Elige una Oportunidad'
+        selectedValue={[query.opportunities]}
+        setSelected={(selected) => {
+          handleChange('opportunities', selected)
+        }}
+        names={opportunities}
+        placeholder='Elige una opportunities'
+      />
+      <SimpleSelect
+        name='themes'
+        label='Elige un Tema'
+        selectedValue={[query.themes]}
+        setSelected={(selected) => {
+          handleChange('themes', selected)
+        }}
+        names={themes}
+        placeholder='Elige un Tema'
+      />
+    </div>
   )
 }
 

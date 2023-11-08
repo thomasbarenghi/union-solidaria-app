@@ -1,4 +1,3 @@
-
 'use client'
 import { signIn, useSession } from 'next-auth/react'
 import { Button, DynamicPopover } from '..'
@@ -8,7 +7,7 @@ import useSWR from 'swr'
 
 const ProfileAction = () => {
   const { data: session } = useSession()
-  const { data: user } = useSWR(Endpoints.USER_BY_ID(session?.user?.id ?? ''))
+  const { data: user } = useSWR(Endpoints.USER_BY_ID(session?.user?.username ?? ''))
   const status = session ? 'authenticated' : 'unauthenticated'
   return (
     <>

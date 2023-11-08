@@ -1,7 +1,7 @@
 import { Footer, Header } from '@/components'
-import HeroSection from './_components/HeroSection'
-import InitiativesSection from './_components/InitiativesSection'
-import MarketingSection from './_components/MarketingSection'
+import Hero from './_components/Hero'
+import Initiatives from './_components/Initiatives'
+import Marketing from './_components/Marketing'
 import type { Metadata } from 'next'
 import { getInitiatives } from '@/services/initiatives/getInitiatives.service'
 
@@ -15,9 +15,9 @@ const Home = async () => {
     <>
       <Header theme='light' />
       <main className='section-padding-1 flex flex-col items-center gap-24 pt-[100px]'>
-        <HeroSection />
-        <InitiativesSection initiatives={data} isError={error} />
-        <MarketingSection />
+        <Hero />
+        <Initiatives initiatives={data} isError={error} />
+        <Marketing />
       </main>
       <Footer />
     </>

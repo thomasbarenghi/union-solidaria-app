@@ -245,7 +245,7 @@ const RegisterForm = () => {
                 name='role'
                 field={field}
                 label='¿Que tipo de usuario eres?'
-                selectedValue={getValues('role')}
+                selectedValue={[getValues('role')]}
                 setSelected={(selected) => {
                   setValue('role', selected as Role)
                   setRole(selected)

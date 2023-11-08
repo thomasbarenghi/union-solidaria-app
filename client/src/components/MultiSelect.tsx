@@ -6,10 +6,10 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 interface Props {
-  names: Array<{ value: string, label: string }>
+  names: Array<{ value: string; label: string }>
   name: string
   setSelected: (data: any[]) => void
-  selectedValue?: string
+  selectedValue?: string[]
   label?: string
   errorMessage?: string
   field?: ControllerRenderProps<FieldValues, any>
@@ -18,14 +18,14 @@ interface Props {
 const MultiSelect = ({ names, name, selectedValue, label, errorMessage = '', field, setSelected }: Props) => (
   <Select
     {...field}
-    defaultSelectedKeys={selectedValue ? [selectedValue] : []}
+    defaultSelectedKeys={selectedValue}
     items={names}
     label={label}
     name={name}
     labelPlacement='outside'
     size='md'
     selectionMode='multiple'
-    onSelectionChange={(selected) => setSelected(Array.from(selected))}
+    // onSelectionChange={(selected) => setSelected(Array.from(selected))}
     placeholder='Selecciona una opción'
     className='w-full'
     classNames={{

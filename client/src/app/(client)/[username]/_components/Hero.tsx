@@ -1,9 +1,10 @@
+import { Session } from 'next-auth'
 import { UsersHero } from '@/components'
 import { UserInterface } from '@/interfaces'
 
 interface Props {
   user: UserInterface
-  session: any
+  session: Session | null
   isError: boolean
 }
 

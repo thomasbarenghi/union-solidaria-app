@@ -34,7 +34,11 @@ export const populateInitiative = () => {
           select: 'title _id thumbnail',
         },
       ],
-    }
+    },
+    {
+      path: 'reviews',
+      model: 'Review',
+    },
   ];
 
   return baseConfig;

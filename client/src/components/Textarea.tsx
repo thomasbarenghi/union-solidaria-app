@@ -6,7 +6,7 @@ interface InputProps {
   name: string
   label?: string
   wrapperIntupClassName?: string
-  placeholder: string
+  placeholder?: string
   className?: string
   handleChange?: (e: string) => void
   errorMessage?: string
