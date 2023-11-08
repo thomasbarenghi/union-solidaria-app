@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { nextIsDisabled } from '../nextIsDisabled'
+import { toast } from 'sonner'
 
 export interface FormValues extends RegisterFormValues {
   repeatPassword: string
@@ -39,7 +40,7 @@ const RegisterForm = () => {
   const [step, setStep] = useState<number>(0)
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
     handleSubmit,
     setValue,
     control,
@@ -52,19 +53,20 @@ const RegisterForm = () => {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const { repeatPassword, ...values } = data
-      const birthday = new Date(data.birthday)
+      if (data.role === 'volunteer') delete data.orgName
+      const { repeatPassword, birthday, ...values } = data
       const formData = {
         ...values,
-        birthday
+        birthday: new Date(birthday)
       }
       const { error } = await signupUser(formData)
+
       if (error !== null) throw new Error(error.message)
       reset()
       router.push(Routes.LOGIN)
     } catch (error) {
       console.log(error)
-      alert('Error al crear usuario')
+      toast.error('Error al crear usuario')
     }
   }
 
@@ -243,6 +245,7 @@ const RegisterForm = () => {
                 name='role'
                 field={field}
                 label='¿Que tipo de usuario eres?'
+                selectedValue={getValues('role')}
                 setSelected={(selected) => {
                   setValue('role', selected as Role)
                   setRole(selected)
@@ -291,12 +294,7 @@ const RegisterForm = () => {
           </Button>
         )}
         {step === 3 && (
-          <Button
-            type='submit'
-            fullWidth
-            isLoading={isSubmitting || isSubmitted}
-            isDisabled={nextIsDisabled(step, watch, errors)}
-          >
+          <Button type='submit' fullWidth isLoading={isSubmitting} isDisabled={nextIsDisabled(step, watch, errors)}>
             Crear usuario
           </Button>
         )}
