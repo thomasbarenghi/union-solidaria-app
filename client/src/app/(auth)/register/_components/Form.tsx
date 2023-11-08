@@ -1,13 +1,7 @@
 'use client'
 import { Button, Input, SimpleSelect } from '@/components'
-import { useRef, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
-import Routes from '@/utils/constants/routes.const'
-import { RegisterFormValues } from '@/interfaces/forms.interface'
-import { Role } from '@/interfaces'
+import { type RegisterFormValues, type Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
-import { nextIsDisabled } from '../nextIsDisabled'
 import {
   emailPattern,
   firstNamePattern,
@@ -17,6 +11,16 @@ import {
   phonePattern,
   usernamePattern
 } from '@/utils/constants/pattern.const'
+import Routes from '@/utils/constants/routes.const'
+import { useRouter } from 'next/navigation'
+import { useRef, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { nextIsDisabled } from '../nextIsDisabled'
+import { toast } from 'sonner'
+
+export interface FormValues extends RegisterFormValues {
+  repeatPassword: string
+}
 
 const roles: Array<{ value: Role; label: string }> = [
   {
@@ -36,31 +40,33 @@ const RegisterForm = () => {
   const [step, setStep] = useState<number>(0)
   const {
     register,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
     handleSubmit,
     setValue,
     control,
     reset,
-    getValues
-  } = useForm<RegisterFormValues>({
+    getValues,
+    watch
+  } = useForm<FormValues>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: RegisterFormValues) => {
+  const onSubmit = async (data: FormValues) => {
     try {
-      delete data.repeatPassword
-      const birthday = new Date(data.birthday)
+      if (data.role === 'volunteer') delete data.orgName
+      const { repeatPassword, birthday, ...values } = data
       const formData = {
-        ...data,
-        birthday
+        ...values,
+        birthday: new Date(birthday)
       }
       const { error } = await signupUser(formData)
+
       if (error !== null) throw new Error(error.message)
       reset()
       router.push(Routes.LOGIN)
     } catch (error) {
       console.log(error)
-      alert('Error al crear usuario')
+      toast.error('Error al crear usuario')
     }
   }
 
@@ -239,6 +245,7 @@ const RegisterForm = () => {
                 name='role'
                 field={field}
                 label='¿Que tipo de usuario eres?'
+                selectedValue={[getValues('role')]}
                 setSelected={(selected) => {
                   setValue('role', selected as Role)
                   setRole(selected)
@@ -281,18 +288,13 @@ const RegisterForm = () => {
             type='button'
             className='w-full'
             onClick={() => setStep(step + 1)}
-            isDisabled={nextIsDisabled(step, getValues, errors)}
+            isDisabled={nextIsDisabled(step, watch, errors)}
           >
             Siguiente
           </Button>
         )}
         {step === 3 && (
-          <Button
-            type='submit'
-            fullWidth
-            isLoading={isSubmitting || isSubmitted}
-            isDisabled={nextIsDisabled(step, getValues, errors)}
-          >
+          <Button type='submit' fullWidth isLoading={isSubmitting} isDisabled={nextIsDisabled(step, watch, errors)}>
             Crear usuario
           </Button>
         )}
