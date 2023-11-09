@@ -12,7 +12,7 @@ const VolunteerItemPlaceholder = () => (
     </div>
     <div className='flex gap-2'>
       <div className='h-[30px] w-[80px] rounded-full bg-gray-100' />
-      <div className='h-[30px] w-[80px] rounded-full bg-gray-100 hidden lg:visible' />
+      <div className='hidden h-[30px] w-[80px] rounded-full bg-gray-100 lg:visible' />
     </div>
   </div>
 )

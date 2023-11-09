@@ -7,7 +7,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ data }: SidebarProps) => (
-  <div className='flex h-max w-full lg:w-auto lg:min-w-[300px] flex-col gap-3 rounded-2xl border border-solid border-slate-200 p-6 '>
+  <div className='flex h-max w-full flex-col gap-3 rounded-2xl border border-solid border-slate-200 p-6 lg:w-auto lg:min-w-[300px] '>
     <div className='flex flex-col gap-1'>
       <User
         classNames={{

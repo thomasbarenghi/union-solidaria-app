@@ -14,12 +14,12 @@ export const statusChipBuilder = (initiative: InitiativeInterface, currentUserId
     status === 'pending'
       ? 'Ingreso solicitado'
       : status === 'accepted'
-        ? 'Eres miembro'
-        : status === 'rejected'
-          ? 'Ingreso rechazado'
-          : isOwner
-            ? 'Eres el dueño'
-            : 'No eres miembro'
+      ? 'Eres miembro'
+      : status === 'rejected'
+      ? 'Ingreso rechazado'
+      : isOwner
+      ? 'Eres el dueño'
+      : 'No eres miembro'
 
   return {
     title,
@@ -27,9 +27,9 @@ export const statusChipBuilder = (initiative: InitiativeInterface, currentUserId
       status === 'pending'
         ? 'warning'
         : status === 'accepted'
-          ? 'success'
-          : status === 'rejected'
-            ? 'danger'
-            : 'secondary'
+        ? 'success'
+        : status === 'rejected'
+        ? 'danger'
+        : 'secondary'
   }
 }

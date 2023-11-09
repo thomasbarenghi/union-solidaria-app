@@ -9,7 +9,9 @@ interface Props {
 const HeroSkeleton = ({ height = 'h-[55vh]', isError }: Props) => {
   const Tag = isError ? 'div' : Skeleton
   return (
-    <Tag className={`${height} container-section section-padding-1 flex overflow-hidden rounded-br-[40px] bg-gray-100`} />
+    <Tag
+      className={`${height} container-section section-padding-1 flex overflow-hidden rounded-br-[40px] bg-gray-100`}
+    />
   )
 }
 
