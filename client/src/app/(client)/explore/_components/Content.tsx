@@ -8,7 +8,6 @@ interface ContentSectionProps {
 }
 
 const ContentSection = ({ currentUser }: ContentSectionProps) => {
-  console.log(currentUser?.initiatives)
   const allPosts = currentUser?.initiatives
     ?.map((initiative: InitiativeInterface) => initiative?.posts)
     .flat()
