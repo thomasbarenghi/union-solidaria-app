@@ -9,6 +9,7 @@ import CancelSubscription from './_components/Modal/CancelSubscription'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import Routes from '@/utils/constants/routes.const'
 import { ScopedMutator } from 'swr/_internal'
+import CreatePost from './_components/Modal/CreatePost'
 
 interface Response {
   triggerText: string
@@ -83,7 +84,6 @@ export const modalDataBuilder = (
     // Voluntario inscrito, aceptado y finalizado (Opcion de dejar reseña)
     else if (isVolunteer && ended && status === 'accepted' && !alreadyReviewed) {
       content.triggerText = 'Dejar reseña'
-      content.onConfirm = () => console.log('confirm')
       content.confirmText = 'Dejar reseña'
       content.title = 'Dejar una reseña'
       content.children = <ReviewContent />
@@ -136,12 +136,16 @@ export const modalDataBuilder = (
   else if (isOwner) {
     // En index 1 mostrar boton de crear publicacion
     if (tabIndex?.toString() === '1') {
-      content.triggerText = 'Crear publicación'
-      content.withModal = false
+      content.triggerText = 'Crear publicacion'
+      content.confirmText = 'Publicar'
+      content.title = 'Crear publicacion'
+      content.children = <CreatePost />
+      content.withControls = false
+      content.size = 'lg'
+      content.passProps = true
     } else {
       content.hiddeTrigger = true
     }
   }
-  console.log('content', content)
   return content
 }

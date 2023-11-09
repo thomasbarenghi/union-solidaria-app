@@ -17,9 +17,9 @@ const InitiativeItem = ({ item }: Props) => (
         <div className='l relative aspect-[1/1]  w-full'>
           <Image src={item.thumbnail} fill alt='Vercel Logo' className='aspect-[1/1] rounded-2xl object-cover' />
         </div>
-        <div className='flex flex-col items-start gap-2'>
+        <div className='flex flex-col items-start gap-2 overflow-hidden'>
           <div>
-            <TextElement type='base' as='h1' className='!font-semibold'>
+            <TextElement type='base' as='h1' className='text-ellipsis !font-semibold'>
               {item.title}
             </TextElement>
             <TextElement type='small' as='p'>

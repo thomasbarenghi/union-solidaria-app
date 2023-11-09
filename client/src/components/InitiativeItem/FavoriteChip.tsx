@@ -31,7 +31,7 @@ const FavoriteChip = ({ initiative }: Props) => {
       )
       await mutate()
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   InternalServerErrorException,
+  Put,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -46,7 +47,7 @@ export class PostsController {
     }
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     try {
       return this.postsService.update(id, updatePostDto);

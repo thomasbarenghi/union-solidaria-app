@@ -21,15 +21,14 @@ interface Props {
 }
 
 const HeroSection = ({ initiative, isLoading = false, currentIndex, currentUserId, isLogged, isError }: Props) => {
-  console.log('fl', initiative)
   const { data } = useSWR(Endpoints.INITIATIVES_BY_ID(initiative._id), {
     fallbackData: initiative
   })
   return (
     <Hero imageSrc={data?.thumbnail} isLoading={isLoading} height='h-[50vh] ' isError={isError}>
-      <div className='flex items-center justify-between py-10'>
+      <div className='flex items-center justify-between overflow-hidden py-10'>
         <div className='flex flex-col gap-2'>
-          <TextElement type='t2' as='h1' className='w-full !font-semibold text-white'>
+          <TextElement type='t2' as='h1' className='w-full text-ellipsis !font-semibold text-white'>
             {data?.title}
           </TextElement>
           <Link href={Routes.PROFILE(data?.owner?.username)}>

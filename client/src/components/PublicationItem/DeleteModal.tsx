@@ -12,22 +12,23 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ reviewId }: DeleteModalProps) => {
-  const { username } = useParams()
+  const { initiativeId } = useParams()
   const { mutate } = useSWRConfig()
+
   const handleDelete = async () => {
-    const { error } = await deleteRequest(Endpoints.DELETE_REVIEW(reviewId))
+    const { error } = await deleteRequest(Endpoints.DELETE_PUBLICATION(reviewId))
     if (error) {
       console.error(error)
-      return toast.error('Ocurrió un error al eliminar el comentario')
+      return toast.error('Ocurrió un error al eliminar la publicacion')
     }
-    mutate(Endpoints.USER_BY_EMAIL((username.slice(3) as string) ?? ''))
-    toast.success('Comentario eliminado con éxito')
+    mutate(Endpoints.INITIATIVES_BY_ID(initiativeId as string))
+    toast.success('Publicacion eliminada con éxito')
   }
 
   return (
     <Modal
       triggerClassName='border-0 bg-green-50'
-      title='Eliminar reseña'
+      title='Eliminar publicacion'
       onConfirm={async () => await handleDelete()}
       confirmText='Eliminar'
       cancelText='Cancelar'
@@ -35,7 +36,7 @@ const DeleteModal = ({ reviewId }: DeleteModalProps) => {
     >
       <div className='flex flex-col gap-1'>
         <TextElement type='base' as='p'>
-          Estas a punto de eliminar esta reseña. ¿Estás seguro?
+          Estas a punto de eliminar esta publicacion. ¿Estás seguro?
         </TextElement>
       </div>
     </Modal>

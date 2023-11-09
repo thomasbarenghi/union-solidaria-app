@@ -15,7 +15,7 @@ const Hero = () => (
           construir un mundo más justo y equitativo a través de la acción voluntaria.
         </TextElement>
       </div>
-      <div className='relative aspect-[4/3] lg:min-w-[450px] '>
+      <div className='relative aspect-[4/3] w-full lg:w-auto lg:min-w-[450px] '>
         <Image src='/image/publicAbout/hero.png' alt='Hero' fill className='object-contain' />
       </div>
     </div>

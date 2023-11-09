@@ -1,5 +1,5 @@
 'use client'
-import { ReviewForm, ReviewFormData } from '@/components'
+import { PostDynamicForm, type PostFormData } from '@/components'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -12,7 +12,7 @@ interface Props {
   handleClose?: () => void
 }
 
-const SubscribeContent = (props: Props) => {
+const CreatePost = (props: Props) => {
   const { mutate } = useSWRConfig()
   const { initiativeId } = useParams()
   const { data: session } = useSession()
@@ -21,33 +21,42 @@ const SubscribeContent = (props: Props) => {
     formState: { errors, isSubmitting },
     handleSubmit,
     reset
-  } = useForm<ReviewFormData>({
+  } = useForm<PostFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: ReviewFormData) => {
-    const formData = {
-      ...data,
-      authorId: session?.user?.id,
-      initiativeId
-    }
+  const onSubmit = async (data: PostFormData) => {
+    try {
+      const formData = {
+        ...data,
+        authorId: session?.user?.id,
+        initiativeId
+      }
 
-    const { error } = await postRequest(Endpoints.POST_REVIEW, formData)
-    if (error) {
+      const { error } = await postRequest(Endpoints.POST_PUBLICATION, formData)
+
+      if (error) {
+        console.error(error)
+        return toast.error('Ocurrió un error al crear la publicación')
+      }
+
+      mutate(Endpoints.INITIATIVES_BY_ID(initiativeId as string))
+      toast.success('Publicacion enviado con éxito')
+
+      if (props?.handleClose) {
+        props.handleClose()
+      }
+
+      reset()
+    } catch (error) {
       console.error(error)
-      return toast.error('Ocurrió un error al enviar el comentario')
+      toast.error('Ocurrió un error al crear la publicación')
     }
-    mutate(Endpoints.INITIATIVES_BY_ID(initiativeId as string))
-    toast.success('Comentario enviado con éxito')
-    if (props?.handleClose) {
-      props.handleClose()
-    }
-    reset()
   }
 
   return (
     <div className='flex flex-col gap-1'>
-      <ReviewForm
+      <PostDynamicForm
         handleSubmit={handleSubmit}
         onSubmit={onSubmit}
         register={register}
@@ -59,4 +68,4 @@ const SubscribeContent = (props: Props) => {
   )
 }
 
-export default SubscribeContent
+export default CreatePost

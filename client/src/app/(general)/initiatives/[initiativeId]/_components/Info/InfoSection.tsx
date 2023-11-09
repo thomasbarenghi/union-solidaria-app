@@ -8,7 +8,7 @@ interface Props {
 }
 
 const InfoSection = ({ data }: Props) => (
-  <div className='flex flex-col gap-6'>
+  <div className='flex flex-col gap-6 overflow-hidden text-ellipsis'>
     <OrganizationInfo currentInitiative={data} />
     <InitiativeGeneralInfo currentInitiative={data} />
     <InitiativeDateInfo currentInitiative={data} />

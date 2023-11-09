@@ -10,7 +10,7 @@ export const handlers = {
       })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiativeId))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   },
   handleUnsubscribe: async (userId: string, initiativeId: string, mutate: ScopedMutator) => {
@@ -20,7 +20,7 @@ export const handlers = {
       })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiativeId))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

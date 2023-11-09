@@ -29,7 +29,7 @@ export class AuthController {
         message: 'Login successful',
       };
     } catch (error) {
-      console.log('error', error);
+      console.error(error);
       throw new NotAcceptableException();
     }
   }

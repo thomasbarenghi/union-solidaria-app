@@ -22,8 +22,6 @@ const FormSec = () => {
     mode: 'onChange'
   })
 
-  console.log('opportunities log', getValues('opportunities'))
-
   const onSubmit = async (data: InitiativeFormData) => {
     try {
       const initiativeData = {
