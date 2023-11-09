@@ -20,7 +20,10 @@ const Endpoints = {
   UPDATE_ORGANIZATION: (userId: string) => `/api/users/${userId}/edit-organization`,
   POST_REVIEW: '/api/reviews',
   EDIT_REVIEW: (reviewId: string) => `/api/reviews/${reviewId}`,
-  DELETE_REVIEW: (reviewId: string) => `/api/reviews/${reviewId}`
+  DELETE_REVIEW: (reviewId: string) => `/api/reviews/${reviewId}`,
+  POST_PUBLICATION: '/api/posts',
+  DELETE_PUBLICATION: (publicationId: string) => `/api/posts/${publicationId}`,
+  EDIT_PUBLICATION: (publicationId: string) => `/api/posts/${publicationId}`
 }
 
 export default Endpoints

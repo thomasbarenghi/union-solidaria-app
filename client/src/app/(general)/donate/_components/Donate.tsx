@@ -29,7 +29,7 @@ const Donation = () => {
       const { sessionUrl } = await createDonationToPlatform(payment)
       router.push(sessionUrl)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Ha ocurrido un error al procesar tu donación')
     }
   }

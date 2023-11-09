@@ -13,9 +13,9 @@ const Error = ({ reset }: Props) => (
     <Header theme='light' />
     <main className='flex flex-col'>
       <article className='section-padding-1 container-section listContainer article-layout-1 !py-14'>
-        <div className='min-h-[70vh] flex flex-col items-center justify-center'>
+        <div className='flex min-h-[70vh] flex-col items-center justify-center'>
           <Image src='/icon/Frame1.svg' alt='Hero' fill className='z-[-1] ' />
-          <TextElement as='h1' type='t1' className='!font-light text-center'>
+          <TextElement as='h1' type='t1' className='text-center !font-light'>
             Ocurrió un error <b className='font-semibold'>al cargar la iniciativa.</b>
           </TextElement>
           <TextElement as='p' type='base' className='text-center'>
@@ -30,7 +30,6 @@ const Error = ({ reset }: Props) => (
     </main>
     <Footer />
   </>
-
 )
 
 export default Error

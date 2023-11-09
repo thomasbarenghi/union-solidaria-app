@@ -4,7 +4,6 @@ import { InitiativeInterface } from '@/interfaces'
 
 interface Props {
   data: InitiativeInterface
-
 }
 
 const OwnerAvatar = ({ data }: Props) => (
@@ -19,7 +18,6 @@ const OwnerAvatar = ({ data }: Props) => (
       className: 'aspect-square h-[30px] w-[30px]'
     }}
   />
-
 )
 
 export default OwnerAvatar

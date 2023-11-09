@@ -8,7 +8,6 @@ interface Props {
   data: InitiativeInterface
   currentUserId: string
   isLogged: boolean
-
 }
 
 const Chips = ({ data, currentUserId, isLogged }: Props) => {
@@ -35,7 +34,6 @@ const Chips = ({ data, currentUserId, isLogged }: Props) => {
         {dateChipData.title}
       </Chip>
     </div>
-
   )
 }
 

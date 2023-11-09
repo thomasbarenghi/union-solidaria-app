@@ -10,7 +10,7 @@ interface PublicationFlexProps {
 }
 
 const PublicationFlex = ({ posts, isLoading = false, isError = false }: PublicationFlexProps) => (
-  <div className='flex flex-col gap-5 w-full'>
+  <div className='flex w-full flex-col gap-5'>
     {isLoading && <FlexSkeleton />}
     {!isLoading && (posts?.length < 1 || posts === undefined) ? (
       <Placeholder isError={isError} />

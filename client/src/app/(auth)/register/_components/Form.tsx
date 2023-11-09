@@ -65,7 +65,7 @@ const RegisterForm = () => {
       reset()
       router.push(Routes.LOGIN)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.error('Error al crear usuario')
     }
   }

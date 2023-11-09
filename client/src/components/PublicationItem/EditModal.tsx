@@ -1,18 +1,18 @@
-import { Modal, ReviewForm, ReviewFormData } from '@/components'
-import { ReviewInterface } from '@/interfaces'
+import { Modal, PostDynamicForm, type PostFormData } from '@/components'
+import { PostInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useSWRConfig } from 'swr'
-import { useParams } from 'next/navigation'
 
 interface DeleteModalProps {
-  review: ReviewInterface
+  item: PostInterface
 }
 
-const EditModal = ({ review }: DeleteModalProps) => (
+const EditModal = ({ item }: DeleteModalProps) => (
   <Modal
     triggerClassName='border-0 bg-green-50'
     title='Editar reseña'
@@ -23,49 +23,50 @@ const EditModal = ({ review }: DeleteModalProps) => (
     passProps
     withControls={false}
   >
-    <Form review={review} />
+    <Form item={item} />
   </Modal>
 )
 
 interface FormProps {
   handleClose?: () => void
-  review: ReviewInterface
+  item: PostInterface
 }
 
 const Form = (props: FormProps) => {
   const { mutate } = useSWRConfig()
-  const { username } = useParams()
+  const { initiativeId } = useParams()
+  console.log(props)
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit
-  } = useForm<ReviewFormData>({
+  } = useForm<PostFormData>({
     mode: 'onChange'
   })
 
-  const onSubmit = async (data: ReviewFormData) => {
-    const { error } = await putRequest(Endpoints.EDIT_REVIEW(props.review._id), data)
+  const onSubmit = async (data: PostFormData) => {
+    const { error } = await putRequest(Endpoints.EDIT_PUBLICATION(props.item._id), data)
     if (error) {
       console.error(error)
-      return toast.error('Ocurrió un error al enviar el comentario')
+      return toast.error('Ocurrió un error al enviar la publicacion')
     }
 
-    mutate(Endpoints.USER_BY_EMAIL((username.slice(3) as string) ?? ''))
-    toast.success('Comentario enviado con éxito')
+    mutate(Endpoints.INITIATIVES_BY_ID(initiativeId as string))
+    toast.success('Publicacion enviada con éxito')
     if (props?.handleClose) {
       props.handleClose()
     }
   }
 
   return (
-    <ReviewForm
+    <PostDynamicForm
       handleSubmit={handleSubmit}
       onSubmit={onSubmit}
       register={register}
       errors={errors}
       isSubmitting={isSubmitting}
       mode='edit'
-      review={props.review}
+      post={props.item}
     />
   )
 }

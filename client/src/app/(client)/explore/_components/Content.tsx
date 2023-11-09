@@ -1,5 +1,3 @@
-'use client'
-import { useState } from 'react'
 import { PublicationFlex } from '@/components'
 import { InitiativeInterface, UserInterface } from '@/interfaces'
 import { PostInterface } from '@/interfaces/post.interface'
@@ -10,22 +8,15 @@ interface ContentSectionProps {
 }
 
 const ContentSection = ({ currentUser }: ContentSectionProps) => {
-  const [activeInitiativeId, setActiveInitiativeId] = useState<string>('')
-
   const allPosts = currentUser?.initiatives
     ?.map((initiative: InitiativeInterface) => initiative?.posts)
     .flat()
-    .sort((a: PostInterface, b: PostInterface) => new Date(a?.createdAt).getTime() - new Date(b?.createdAt).getTime())
-    .filter((post: PostInterface) => post?.initiative?._id === activeInitiativeId || activeInitiativeId === '')
+    .sort((a: PostInterface, b: PostInterface) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
   return (
-    <section className='flex gap-5'>
-      <Sidebar
-        initiatives={currentUser?.initiatives}
-        activeInitiativeId={activeInitiativeId}
-        setActiveInitiativeId={setActiveInitiativeId}
-      />
+    <section className='flex flex-col-reverse gap-5 lg:flex-row'>
       <PublicationFlex posts={allPosts} isLoading={false} />
+      <Sidebar initiatives={currentUser?.initiatives.slice(0, 5)} />
     </section>
   )
 }

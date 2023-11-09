@@ -27,7 +27,7 @@ const VolunteerItem = ({ item, initiative }: PublicationItemProps) => {
       })
       await mutate(Endpoints.INITIATIVES_BY_ID(initiative._id))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 

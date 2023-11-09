@@ -11,7 +11,7 @@ const Footer = () => (
       </TextElement>
     </div>
     <div className='flex flex-col gap-1'>
-      <TextElement type='base' as='h3' className='text-white !font-semibold'>
+      <TextElement type='base' as='h3' className='!font-semibold text-white'>
         Quizas te interese
       </TextElement>
       <Nav items={itemsNav} textStyles='text-white font-light' />

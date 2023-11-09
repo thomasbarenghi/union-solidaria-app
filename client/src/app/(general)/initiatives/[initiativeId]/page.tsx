@@ -26,7 +26,7 @@ const Initiative = async ({ params, searchParams }: Props) => {
   const session = await getServerSession(nextauthOptions)
   const { data: loggedUser } = await getUser(session?.user?.email ?? '')
   const isLogged = Boolean(session?.user?.email)
-  console.log('data', data)
+
   return (
     <>
       <Header />

@@ -26,7 +26,7 @@ const Menu = ({ user }: Props) => {
         onClick={async () => {
           void signOut({ redirect: false })
         }}
-        className={`w-full font-semibold rounded-xl bg-white p-2 text-start hover:bg-slate-100 ${dangerStyle}`}
+        className={`w-full rounded-xl bg-white p-2 text-start font-semibold hover:bg-slate-100 ${dangerStyle}`}
       >
         Cerrar sesión
       </button>

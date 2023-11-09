@@ -59,7 +59,7 @@ export const customFetch = async <Status extends number, DataType = any>(
       }
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return { data: undefined, error: { status: 500, ...extendedErrors[500], serverError: error } }
   }
 }

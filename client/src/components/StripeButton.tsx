@@ -5,7 +5,10 @@ interface Props {
 }
 
 const StripeButton = ({ children, align, onClick }: Props) => (
-  <button onClick={onClick} className='rounded-3xl border-none px-8 py-4 text-small font-semibold leading-[100%] text-white whitespace-nowrap bg-primary'>
+  <button
+    onClick={onClick}
+    className='whitespace-nowrap rounded-3xl border-none bg-primary px-8 py-4 text-small font-semibold leading-[100%] text-white'
+  >
     {children}
   </button>
 )
