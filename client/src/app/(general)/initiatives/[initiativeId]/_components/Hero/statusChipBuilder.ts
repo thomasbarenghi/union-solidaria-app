@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import { InitiativeInterface } from '@/interfaces'
 
 interface Response {
