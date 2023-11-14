@@ -1,50 +1,61 @@
-import { Hero } from '@/components'
+import { Button, Hero, TextElement } from '@/components'
 import { UserInterface } from '@/interfaces'
+import Routes from '@/utils/constants/routes.const'
+import { type User } from 'next-auth'
 import Image from 'next/image'
-import Link from 'next/link'
 
 interface Props {
-  user: UserInterface
-  withButton?: boolean
-  buttonText?: string
-  buttonAction?: () => void
-  buttonLink?: string
+  // TODO: remove UserInterface
+  user: User | UserInterface | undefined
+  withAccountButton?: boolean
   isLoading?: boolean
+  withInitiativesButton?: boolean
+  isError?: boolean
 }
 
-const Content = ({ user, withButton, buttonText, buttonAction, buttonLink = '', isLoading = false }: Props) => (
-  <div className='flex items-center justify-between'>
+const Content = ({
+  user,
+  withAccountButton,
+  withInitiativesButton
+}: {
+  user: User | UserInterface
+  withAccountButton: boolean
+  withInitiativesButton: boolean
+}) => (
+  <div className='flex flex-col justify-between gap-4 md:flex-row md:items-center'>
     <div className='flex items-center gap-4'>
       <Image
         src={user?.profileImage}
         alt='Picture of the author'
-        width={80}
-        height={80}
-        className='aspect-square rounded-full border border-white object-cover p-2'
+        width={70}
+        height={70}
+        className='aspect-square rounded-full border border-white object-cover p-1'
       />
       <div>
-        <h1 className=' titulo-2 w-full font-semibold text-white'>{user?.firstName + ' ' + user?.lastName}</h1>
-        <p className=' bodyText w-full text-white'>@{user?.username}</p>
+        <TextElement type='subtitle' as='h1' className='w-full !font-semibold text-white'>
+          {user?.firstName + ' ' + user?.lastName}
+        </TextElement>
+        <TextElement type='small' as='p' className=' text-white'>
+          {`@${user?.username}`}
+        </TextElement>
       </div>
     </div>
-    {withButton === true && (
-      <Link href={buttonLink} className='primaryButton' onClick={buttonAction}>
-        {buttonText}
-      </Link>
-    )}
+    <div className='flex gap-2'>
+      {withAccountButton && <Button variant='flat' className='bg-green-50' title='Editar cuenta' href='/account' />}
+      {withInitiativesButton && <Button title='Crear iniciativa' href={Routes.CREATE_INITIATIVE} />}
+    </div>
   </div>
 )
 
-const UsersHero = ({ user, withButton, buttonText, buttonAction, buttonLink = '', isLoading = false }: Props) => (
-  <Hero imageSrc={user?.bannerImage} height='min-h-[50vh] !rounded-none' isLoading={isLoading}>
-    <Content
-      user={user}
-      withButton={withButton}
-      buttonText={buttonText}
-      buttonAction={buttonAction}
-      buttonLink={buttonLink}
-      isLoading={isLoading}
-    />
+const UsersHero = ({ user, withAccountButton = false, withInitiativesButton = false, isLoading = false }: Props) => (
+  <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading}>
+    {!isLoading ? (
+      <Content
+        user={user as User}
+        withAccountButton={withAccountButton}
+        withInitiativesButton={withInitiativesButton}
+      />
+    ) : null}
   </Hero>
 )
 

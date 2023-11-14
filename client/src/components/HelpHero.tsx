@@ -1,4 +1,4 @@
-import { Hero } from '@/components'
+import { Hero, TextElement } from '@/components'
 
 interface Props {
   imageSrc: string
@@ -7,10 +7,14 @@ interface Props {
 }
 
 const HelpHero = ({ imageSrc, title, description }: Props) => (
-  <Hero imageSrc={imageSrc} height='min-h-[50vh]'>
+  <Hero imageSrc={imageSrc} height='h-[50vh]'>
     <div className='flex w-full flex-col  gap-1'>
-      <h1 className='titulo-2   w-full text-start font-light text-white'>{title}</h1>
-      <p className='bodyText   w-full text-start font-light text-white'>{description}</p>
+      <TextElement type='t1' as='h1' className='w-full text-center !font-light text-white lg:text-start'>
+        {title}
+      </TextElement>
+      <TextElement type='base' as='p' className='w-full text-center !font-light text-white lg:text-start'>
+        {description}
+      </TextElement>
     </div>
   </Hero>
 )

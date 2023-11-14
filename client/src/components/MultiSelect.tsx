@@ -6,34 +6,35 @@ import { Select, SelectItem } from '@nextui-org/react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
 interface Props {
-  names: Array<{ value: string, label: string }>
+  names: Array<{ value: string; label: string }>
   name: string
-  setSelected: (data: any[]) => void
-  selectedValue?: string
+  setSelected: (data: string[]) => void
+  selectedValue?: string[]
   label?: string
   errorMessage?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field?: ControllerRenderProps<FieldValues, any>
 }
 
 const MultiSelect = ({ names, name, selectedValue, label, errorMessage = '', field, setSelected }: Props) => (
   <Select
     {...field}
-    defaultSelectedKeys={selectedValue ? [selectedValue] : []}
+    defaultSelectedKeys={selectedValue}
     items={names}
     label={label}
     name={name}
     labelPlacement='outside'
     size='md'
     selectionMode='multiple'
-    onSelectionChange={(selected) => setSelected(Array.from(selected))}
+    // onSelectionChange={(selected) => setSelected(Array.from(selected))}
     placeholder='Selecciona una opción'
     className='w-full'
     classNames={{
       trigger:
         '!text-black placeholder:text-gray-400 placeholder:font-light !bg-white border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',
-      label: 'smalltext  gap-1 font-normal !text-black',
-      errorMessage: 'smalltext text-red-800',
-      value: 'smalltext !text-black',
+      label: 'text-sm font-light leading-[155%]  gap-1 font-normal !text-black',
+      errorMessage: 'text-sm font-light leading-[155%] text-red-800',
+      value: 'text-sm font-light leading-[155%] !text-black',
       selectorIcon: '!text-black'
     }}
     errorMessage={errorMessage}

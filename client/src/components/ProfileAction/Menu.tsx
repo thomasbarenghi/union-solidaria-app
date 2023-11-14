@@ -1,14 +1,16 @@
 'use client'
-import { useAppSelector } from '@/redux/hooks'
-import { currentUserSelector } from '@/redux/selectors/users'
 import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
-import clsx from 'clsx'
 import NextLink from 'next/link'
+import { signOut } from 'next-auth/react'
+import { UserInterface } from '@/interfaces'
 
-const Menu = () => {
-  const currentUser = useAppSelector(currentUserSelector)
-  const items: ItemNavInterface[] = itemsNavBuilder(currentUser)
-  const dangerStyle = clsx('text-red-800', 'hover:!bg-red-100', 'hover:text-red-800')
+interface Props {
+  user: UserInterface
+}
+
+const Menu = ({ user }: Props) => {
+  const items: ItemNavInterface[] = itemsNavBuilder(user)
+  const dangerStyle = 'text-red-800 hover:!bg-red-50 hover:text-red-800'
   return (
     <div className='flex w-full flex-col'>
       {items.map((item, index) => (
@@ -20,6 +22,14 @@ const Menu = () => {
           {item.label}
         </NextLink>
       ))}
+      <button
+        onClick={async () => {
+          void signOut({ redirect: false })
+        }}
+        className={`w-full rounded-xl bg-white p-2 text-start font-semibold hover:bg-slate-100 ${dangerStyle}`}
+      >
+        Cerrar sesión
+      </button>
     </div>
   )
 }

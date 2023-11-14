@@ -3,14 +3,13 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseInterceptors,
   UploadedFile,
-  BadRequestException,
   Query,
   Put,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { InitiativesService } from './initiatives.service';
 import { CreateInitiativeDto } from './dto/create-initiative.dto';
@@ -20,6 +19,7 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { convertToArray } from 'src/utils/convertToArray.utils';
 import { UpdateSubscriptionStatusDto } from './dto/update-subscription-status.dto';
 import { SubscribeUserToInitiativeDto } from './dto/subscribe-user-to-initiative.dto';
+import { UnsubscribeUserToInitiativeDto } from './dto/unsubscribe-user-from-initiative.dto';
 
 @Controller('initiatives')
 export class InitiativesController {
@@ -36,12 +36,8 @@ export class InitiativesController {
   ) {
     try {
       if (thumbnail) {
-        const response = await this.cloudinaryService
-          .uploadImage(thumbnail)
-          .catch(() => {
-            throw new BadRequestException('Invalid file type.');
-          });
-        createInitiativeDto.thumbnail = response.secure_url;
+        createInitiativeDto.thumbnail =
+          await this.cloudinaryService.uploadImage(thumbnail);
       }
 
       createInitiativeDto.themes = convertToArray(createInitiativeDto.themes);
@@ -63,49 +59,109 @@ export class InitiativesController {
     @Query('themes') themes: string,
     @Query('opportunities') opportunities: string,
   ) {
-    return this.initiativesService.findAll(
-      country,
-      province,
-      title,
-      themes,
-      opportunities,
-    );
+    try {
+      return this.initiativesService.findAll(
+        country,
+        province,
+        title,
+        themes,
+        opportunities,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.initiativesService.findOne(id);
+    try {
+      return this.initiativesService.findOne(id);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
-  @Patch(':id')
-  update(
+  @Put(':id')
+  @UseInterceptors(FileInterceptor('thumbnail'))
+  async update(
     @Param('id') id: string,
     @Body() updateInitiativeDto: UpdateInitiativeDto,
+    @UploadedFile() thumbnail: Express.Multer.File,
   ) {
-    return this.initiativesService.update(id, updateInitiativeDto);
+    console.log(
+      '🚀 ~ InitiativesController ~ updateInitiativeDto:',
+      updateInitiativeDto,
+    );
+    try {
+      if (thumbnail) {
+        updateInitiativeDto.thumbnail =
+          await this.cloudinaryService.uploadImage(thumbnail);
+      }
+
+      return this.initiativesService.update(id, updateInitiativeDto);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.initiativesService.remove(id);
+    try {
+      return this.initiativesService.remove(id);
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
-  @Post('/subscribe')
+  @Put(':id/subscribe')
   subscribeUserToInitiative(
     @Param('id') id: string,
     @Body() subscribeUserToInitiativeDto: SubscribeUserToInitiativeDto,
   ) {
-    return this.initiativesService.subscribeUserToInitiative(
-      subscribeUserToInitiativeDto,
-    );
+    try {
+      return this.initiativesService.subscribeUserToInitiative(
+        subscribeUserToInitiativeDto,
+        id,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 
-  @Put('/subscription-status')
+  @Put(':id/subscription-status')
   updateSubscriptionStatus(
+    @Param('id') id: string,
     @Body() updateSubscriptionStatusDto: UpdateSubscriptionStatusDto,
   ) {
-    return this.initiativesService.updateSubscriptionStatus(
-      updateSubscriptionStatusDto,
-    );
+    try {
+      return this.initiativesService.updateSubscriptionStatus(
+        id,
+        updateSubscriptionStatusDto,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @Put(':id/unsubscribe')
+  unsubscribeUserFromInitiative(
+    @Param('id') id: string,
+    @Body() unsubscribeUserFromInitiativeDto: UnsubscribeUserToInitiativeDto,
+  ) {
+    try {
+      return this.initiativesService.unsubscribeUserFromInitiative(
+        unsubscribeUserFromInitiativeDto,
+        id,
+      );
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException();
+    }
   }
 }

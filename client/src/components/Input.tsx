@@ -7,15 +7,18 @@ interface InputProps {
   name: string
   label?: string
   wrapperIntupClassName?: string
-  placeholder: string
+  placeholder?: string
   className?: string
   handleChange?: (e: string) => void
   errorMessage?: string
   hookForm?: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>
     validations: RegisterOptions
   }
   defaultValue?: string
+  max?: number
+  min?: number
 }
 
 const Input = ({
@@ -27,7 +30,9 @@ const Input = ({
   placeholder = '',
   className = '',
   hookForm,
-  defaultValue = ''
+  defaultValue = '',
+  max,
+  min
 }: InputProps) => {
   const HookForm = hookForm?.register(name, hookForm?.validations)
   return (
@@ -38,11 +43,14 @@ const Input = ({
       labelPlacement='outside'
       name={name}
       defaultValue={defaultValue}
+      autoComplete='off'
+      min={min}
+      max={max}
       classNames={{
         inputWrapper:
           '!bg-white !text-black border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',
-        label: 'smalltext  gap-1 font-normal !text-black',
-        errorMessage: 'smalltext text-red-800',
+        label: 'text-sm font-light leading-[155%]  gap-1 font-normal !text-black',
+        errorMessage: 'text-sm font-light leading-[155%] text-red-800',
         input: '!text-black placeholder:!text-gray-400 placeholder:font-light'
       }}
       className={className}

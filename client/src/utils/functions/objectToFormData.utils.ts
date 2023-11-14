@@ -13,7 +13,5 @@ export const objectToFormData = (obj: Record<string, any>): FormData => {
     }
   }
 
-  console.log('formData', formData)
-
   return formData
 }

@@ -1,76 +1,122 @@
 import {
   Injectable,
+  BadRequestException,
   NotFoundException,
-  InternalServerErrorException,
-  NotAcceptableException,
+  ConflictException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './entities/user.entity';
-import { encryptPassword } from 'src/utils/bcrypt.utils';
+import { encryptPassword, comparePasswords } from 'src/utils/bcrypt.utils';
+import { Initiative } from 'src/initiatives/entities/initiative.entity';
+import { ModifyFavoriteDto } from './dto/modify-favorite.dto';
+import { checkUniqueEmail, checkUniqueUsername, findUser } from './utils';
+import { findInitiative } from 'src/initiatives/utils';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateOrganizationDto } from './dto/update-organization.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Initiative.name) private initiativeModel: Model<Initiative>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const existingEmail = await this.userModel.findOne({
-      email: createUserDto.email,
-    });
-
-    const existingUsername = await this.userModel.findOne({
-      username: createUserDto.username,
-    });
-
-    if (existingEmail || existingUsername) {
-      throw new NotAcceptableException('Email or username already exists');
-    }
-
+    await checkUniqueEmail(createUserDto.email, this.userModel);
+    await checkUniqueUsername(createUserDto.username, this.userModel);
     createUserDto.password = await encryptPassword(createUserDto.password);
+    createUserDto.email = createUserDto.email.toLowerCase();
     return await new this.userModel(createUserDto).save();
   }
 
   async findAll() {
-    try {
-      return await this.userModel.find();
-    } catch (error) {
-      throw new InternalServerErrorException('Something went wrong');
-    }
+    return await this.userModel.find().catch(() => {
+      throw new BadRequestException();
+    });
   }
 
   async findOne(id: string) {
-    try {
-      return await this.userModel.findById({ _id: id });
-    } catch (error) {
-      throw new NotFoundException();
-    }
+    return await findUser(id, this.userModel);
   }
 
-  async findOneByEmail(email: string) {
-    try {
-      return await this.userModel.findOne({ email: email });
-    } catch (error) {
-      throw new NotFoundException();
+  async updatePassword(updatePasswordDto: UpdatePasswordDto, userId: string) {
+    const user = await findUser(userId, this.userModel);
+    const isMatch = await comparePasswords(
+      updatePasswordDto.oldPassword,
+      user.password,
+    );
+    if (!isMatch) {
+      throw new BadRequestException('Incorrect password');
     }
+    user.password = await encryptPassword(updatePasswordDto.newPassword);
+    await user.save();
+    return {
+      message: 'Password updated',
+    };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    try {
-      return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
-        new: true,
-      });
-    } catch (error) {
-      throw new InternalServerErrorException();
+    if (updateUserDto.email) {
+      updateUserDto.email = updateUserDto.email.toLowerCase();
+      await checkUniqueEmail(updateUserDto.email, this.userModel);
     }
+
+    if (updateUserDto.username) {
+      await checkUniqueUsername(updateUserDto.username, this.userModel);
+    }
+
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
+      new: true,
+    });
   }
 
   async remove(id: string) {
-    try {
-      return await this.userModel.findOneAndDelete({ _id: id });
-    } catch (error) {
-      throw new InternalServerErrorException();
+    return await this.userModel.findOneAndDelete({ _id: id }).catch(() => {
+      throw new NotFoundException("User doesn't exist");
+    });
+  }
+
+  async modifyFavorites(userId: string, modifyFavoriteDto: ModifyFavoriteDto) {
+    const { initiativeId } = modifyFavoriteDto;
+    const user = await findUser(userId, this.userModel);
+    const initiative = await findInitiative(initiativeId, this.initiativeModel);
+
+    const existingFavorite = user.favorites.find(
+      (favorite) => favorite._id.toString() === initiative._id.toString(),
+    );
+
+    if (existingFavorite) {
+      user.favorites = user.favorites.filter(
+        (favorite) => favorite._id.toString() !== initiative._id.toString(),
+      );
+    } else {
+      user.favorites.push(initiative._id);
     }
+
+    await user.save();
+
+    return {
+      message: `Initiative ${initiative.title} ${
+        existingFavorite ? 'removed from' : 'added to'
+      } favorites`,
+    };
+  }
+
+  async updateOrganization(
+    updateOrganizationDto: UpdateOrganizationDto,
+    userId: string,
+  ) {
+    const user = await findUser(userId, this.userModel);
+    if (user.role !== 'organization') {
+      throw new ConflictException('User is not an organization');
+    }
+    user.orgName = updateOrganizationDto.orgName;
+    await user.save();
+    return {
+      message: 'Organization updated',
+    };
   }
 }

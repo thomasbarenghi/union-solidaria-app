@@ -1,7 +1,9 @@
+import { PostInterface } from './post.interface'
+import { ReviewInterface } from './review.interface'
 import { UserInterface } from './user.interface'
 
 export interface InitiativeInterface {
-  id: string
+  _id: string
   title: string
   description: string
   deadLine: Date
@@ -9,14 +11,14 @@ export interface InitiativeInterface {
   endDate: Date
   galery: string
   thumbnail: string
-  volunteers: any[]
+  volunteers: VolunteersInterface[]
   categories: string[]
   opportunities: string[]
   country: string
   province: string
-  adress: string
+  address: string
   reviewsId: string[]
-  postsId: string[]
+  posts: PostInterface[]
   ownerId: string
   startHour: string
   endHour: string
@@ -26,6 +28,11 @@ export interface InitiativeInterface {
   updatedAt: Date
   locations: string
   languages: string[]
-  reviews: string[]
+  reviews: ReviewInterface[]
   owner: UserInterface
+}
+
+export interface VolunteersInterface {
+  status: 'accepted' | 'pending' | 'rejected'
+  user: UserInterface
 }

@@ -26,7 +26,7 @@ interface SliderValueLabelProps {
 }
 
 const SliderValueLabel = ({ children }: SliderValueLabelProps) => (
-  <span className='smalltext absolute  bottom-5 left-1/2 -translate-x-1/2  transform  rounded-full font-bold text-green-800'>
+  <span className='absolute  bottom-5 left-1/2  -translate-x-1/2 transform rounded-full  text-sm  font-bold leading-[155%] text-green-800'>
     ${children}
   </span>
 )

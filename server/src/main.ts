@@ -13,10 +13,10 @@ const bootstrap = async () => {
   ConfigModule.forRoot();
   app.enableCors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: '*',
   });
   app.useGlobalPipes(new ValidationPipe());
-  
+
   app.use(cookieParser());
   app.setGlobalPrefix('api/');
   // Raw body for stripe web hook
@@ -26,7 +26,7 @@ const bootstrap = async () => {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 3600000,
+        maxAge: 31536000000,
       },
       store: new MongoDBStore({
         collection: 'sessions',

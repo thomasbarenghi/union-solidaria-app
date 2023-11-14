@@ -30,13 +30,11 @@ const Nav = ({
   return (
     <div className={`${divFlexStyles} ${divCenterAbsolute}  ${className}`}>
       {items.map((item, index) =>
-        item.visible
-          ? (
-            <Link href={item.href} key={index}>
-              <p className={`${itemClassName} ${textStyles} `}>{item.name}</p>
-            </Link>
-            )
-          : null
+        item.visible ? (
+          <Link href={item.href} key={index}>
+            <p className={`${itemClassName} ${textStyles} `}>{item.name}</p>
+          </Link>
+        ) : null
       )}
     </div>
   )

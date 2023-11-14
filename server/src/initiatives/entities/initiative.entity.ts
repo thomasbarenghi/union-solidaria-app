@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId, PopulatedDoc } from 'mongoose';
 import { IsNotEmpty } from 'class-validator';
 
 export type SessionDocument = HydratedDocument<Initiative>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Initiative {
   _id: ObjectId;
 
@@ -56,9 +56,10 @@ export class Initiative {
   @IsNotEmpty({ message: 'address is required' })
   address: string;
 
-  @Prop({ required: true })
-  @IsNotEmpty({ message: 'owner is required' })
-  owner: string;
+  @Prop({
+     type: mongoose.Schema.Types.ObjectId, ref: 'User' ,
+  })
+  owner: PopulatedDoc<Initiative & Document>
 
   @Prop({ required: true })
   @IsNotEmpty({ message: 'startHour is required' })
@@ -76,17 +77,29 @@ export class Initiative {
   @IsNotEmpty({ message: 'themes is required' })
   themes: string[];
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: [] })
   donations?: string[];
 
   createdAt: Date;
 
   updatedAt: Date;
+
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+    default: [],
+  })
+  reviews?: mongoose.Schema.Types.ObjectId[];
+
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    default: [],
+  })
+  posts?: mongoose.Schema.Types.ObjectId[];
 }
 
 class Volunteer {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  user: mongoose.Schema.Types.ObjectId;
+  user: PopulatedDoc<Initiative & Document>;
 
   @Prop({ required: true })
   status: 'pending' | 'accepted' | 'rejected';

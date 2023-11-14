@@ -1,6 +1,6 @@
 import Routes from '@/utils/constants/routes.const'
 
-export const itemsNav = [
+export const itemsNav = (isMobile: boolean) => [
   {
     name: 'Inicio',
     href: Routes.HOME,
@@ -15,6 +15,11 @@ export const itemsNav = [
     name: 'Iniciativas',
     href: Routes.INITIATIVES,
     visible: true
+  },
+  {
+    name: 'Donar',
+    href: Routes.DONATION,
+    visible: isMobile
   },
   {
     name: 'Ayuda',

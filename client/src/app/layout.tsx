@@ -1,8 +1,12 @@
-import './globals.scss'
+import './globals.css'
 import NextUiProvider from '@/context/providers/nextUi.provider'
-import SWRProvider from '@/context/providers/swr.provider'
-import ReduxProvider from '@/context/providers/redux.provider'
 import { Outfit } from 'next/font/google'
+import AuthSessionProvider from '@/context/providers/AuthSessionProvider'
+import dynamic from 'next/dynamic'
+import { Toaster } from 'sonner'
+const SWRProvider = dynamic(async () => await import('@/context/providers/swr.provider'), {
+  ssr: false
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -18,11 +22,14 @@ const outfit = Outfit({
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang='es'>
     <body className={outfit.className}>
-      <ReduxProvider>
+      <AuthSessionProvider>
         <SWRProvider>
-          <NextUiProvider>{children}</NextUiProvider>
+          <NextUiProvider>
+            <Toaster richColors />
+            {children}
+          </NextUiProvider>
         </SWRProvider>
-      </ReduxProvider>
+      </AuthSessionProvider>
     </body>
   </html>
 )

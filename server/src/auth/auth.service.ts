@@ -13,18 +13,8 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(username);
-
-    if (!user) {
-      throw new NotAcceptableException('Could not find the user');
-    }
-
-    const passwordValid = await comparePasswords(password, user.password);
-
-    if (!passwordValid) {
-      throw new NotAcceptableException('Invalid password');
-    }
-
+    const user = await this.usersService.findOne(username);
+    await comparePasswords(password, user.password);
     return {
       id: user.id,
       email: user.email,
@@ -44,5 +34,14 @@ export class AuthService {
       console.log('Error findSessionById', error);
       throw new Error('Error while fetching sessions: ' + error.message);
     }
+  }
+
+  async deleteSessionById(sessionId: string) {
+    await this.authModel.deleteOne({
+      'session.sessionId': sessionId,
+    });
+    return {
+      message: 'Logout successful',
+    };
   }
 }

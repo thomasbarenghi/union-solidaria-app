@@ -7,7 +7,7 @@ interface Props {
 const ClientLayout = ({ children }: Props) => (
   <>
     <Header />
-    <main className='flex min-h-screen flex-col'>{children}</main>
+    {children}
     <Footer />
   </>
 )
