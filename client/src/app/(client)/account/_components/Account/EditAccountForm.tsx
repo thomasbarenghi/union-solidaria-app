@@ -58,7 +58,13 @@ const EditAccountForm = ({ currentUser, session }: Props) => {
   return (
     <section className='flex items-center  justify-center'>
       <form className='flex w-full flex-col items-start gap-5' onSubmit={handleSubmit(onSubmit)}>
-        <CommonInfo errors={errors} register={register} currentUser={currentUser} />
+        <CommonInfo
+          isSubmitting={isSubmitting}
+          errors={errors}
+          register={register}
+          currentUser={currentUser}
+          resetField={resetField}
+        />
         <Button type='submit' title='Guardar Cambios' isLoading={isSubmitting} />
       </form>
     </section>

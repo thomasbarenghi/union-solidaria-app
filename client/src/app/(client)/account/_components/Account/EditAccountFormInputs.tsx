@@ -1,19 +1,22 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, UseFormRegister, type UseFormResetField } from 'react-hook-form'
 import { Input } from '@/components'
 import { emailPattern, firstNamePattern, lastNamePattern, usernamePattern } from '@/utils/constants/pattern.const'
-import { UserInterface } from '@/interfaces'
+import { type UserInterface } from '@/interfaces'
 import { EditAccountFormData } from '../../forms.interface'
 
 interface GeneralInfoProps {
   errors: FieldErrors<EditAccountFormData>
   register: UseFormRegister<EditAccountFormData>
   currentUser: UserInterface
+  resetField: UseFormResetField<EditAccountFormData>
+  isSubmitting: boolean
 }
 
-const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoProps) => (
+const EditAccountFormInputs = ({ errors, register, currentUser, resetField, isSubmitting }: GeneralInfoProps) => (
   <div className='flex w-full flex-col gap-4'>
     <div className='flex grid-cols-2 flex-col gap-4 lg:grid'>
       <Input
+        isDisabled={isSubmitting}
         type='text'
         name='firstName'
         defaultValue={currentUser?.firstName}
@@ -32,6 +35,7 @@ const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoPro
         errorMessage={errors?.firstName?.message?.toString()}
       />
       <Input
+        isDisabled={isSubmitting}
         type='text'
         name='lastName'
         label='Apellido'
@@ -50,6 +54,7 @@ const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoPro
         errorMessage={errors?.lastName?.message?.toString()}
       />
       <Input
+        isDisabled={isSubmitting}
         type='email'
         name='email'
         label='Email'
@@ -68,6 +73,7 @@ const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoPro
         errorMessage={errors?.email?.message?.toString()}
       />
       <Input
+        isDisabled={isSubmitting}
         type='text'
         name='username'
         label='Nombre de usuario'
@@ -86,15 +92,19 @@ const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoPro
         errorMessage={errors?.username?.message?.toString()}
       />
       <Input
+        isDisabled={isSubmitting}
         type='file'
         name='profileImage'
         label='Imagen de perfil'
         placeholder='Selecciona una imagen'
+        isClearable
+        onClear={() => resetField('profileImage')}
         hookForm={{
           register,
           validations: {
             required: false,
             validate: (value: FileList) => {
+              if (value === undefined) return
               if (value.length > 0) {
                 if (value[0].size > 5000000) {
                   return 'La imagen no debe pesar mas de 5MB'
@@ -106,15 +116,19 @@ const EditAccountFormInputs = ({ errors, register, currentUser }: GeneralInfoPro
         errorMessage={errors?.profileImage?.message?.toString()}
       />
       <Input
+        isDisabled={isSubmitting}
         type='file'
         name='bannerImage'
         label='Imagen de portada'
         placeholder='Selecciona una imagen'
+        isClearable
+        onClear={() => resetField('bannerImage')}
         hookForm={{
           register,
           validations: {
             required: false,
             validate: (value: FileList) => {
+              if (value === undefined) return
               if (value.length > 0) {
                 if (value[0].size > 5000000) {
                   return 'La imagen no debe pesar mas de 5MB'
