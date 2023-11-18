@@ -47,7 +47,8 @@ const Input = (props: InputProps) => {
           '!bg-white !text-black border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',
         label: 'text-sm font-light leading-[155%]  gap-1 font-normal !text-black',
         errorMessage: 'text-sm font-light leading-[155%] text-red-800',
-        input: '!text-black placeholder:!text-gray-400 placeholder:font-light'
+        input: '!text-black placeholder:!text-gray-400 placeholder:font-light',
+        base: 'h-[100px]'
       }}
       className={className}
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
