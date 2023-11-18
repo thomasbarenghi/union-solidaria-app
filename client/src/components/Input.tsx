@@ -48,7 +48,7 @@ const Input = (props: InputProps) => {
         label: 'text-sm font-light leading-[155%]  gap-1 font-normal !text-black',
         errorMessage: 'text-sm font-light leading-[155%] text-red-800',
         input: '!text-black placeholder:!text-gray-400 placeholder:font-light',
-        base: 'h-[100px]'
+        base: 'h-[60px]'
       }}
       className={className}
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
