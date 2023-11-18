@@ -6,7 +6,7 @@ import { Session } from 'next-auth'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { passwordPattern } from '@/utils/constants/pattern.const'
-import { ChangePasswordFormData } from '../../forms.interface'
+import { ChangePasswordFormData } from '../forms.interface'
 
 interface Props {
   session: Session
