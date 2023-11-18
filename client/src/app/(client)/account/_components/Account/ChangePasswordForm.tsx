@@ -18,7 +18,8 @@ const ChangePasswordForm = ({ session }: Props) => {
     formState: { errors, isSubmitting },
     handleSubmit,
     getValues,
-    reset
+    reset,
+    watch
   } = useForm<ChangePasswordFormData>({
     mode: 'onChange'
   })
@@ -30,8 +31,8 @@ const ChangePasswordForm = ({ session }: Props) => {
       })
 
       if (error) {
-        console.error(response)
-        return toast.error('Ha ocurrido un error al actualizar la contraseña')
+        toast.error('Ha ocurrido un error al actualizar la contraseña')
+        throw new Error(response.message)
       }
 
       toast.success('Se ha actualizado la contraseña correctamente')
@@ -107,7 +108,12 @@ const ChangePasswordForm = ({ session }: Props) => {
             errorMessage={errors?.repeatNewPassword?.message?.toString()}
           />
         </div>
-        <Button type='submit' title='Guardar Cambios' isLoading={isSubmitting} />
+        <Button
+          type='submit'
+          title='Guardar Cambios'
+          isLoading={isSubmitting}
+          isDisabled={!watch('newPassword') || !watch('repeatNewPassword') || Object.keys(errors).length !== 0}
+        />
       </form>
     </section>
   )
