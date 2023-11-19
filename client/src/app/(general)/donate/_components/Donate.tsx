@@ -1,16 +1,17 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
-import { StripeButton, Slider, TextElement } from '@/components'
+import { StripeButton, TextElement } from '@/components'
+import { Slider } from '@nextui-org/react'
 import { IDonationPayment } from '@/interfaces'
 import { createDonationToPlatform } from '@/services/stripe/payments.service'
 
 const Donation = () => {
   const router = useRouter()
-  const min = 0
-  const max = 1000
+  const min = useMemo(() => 0, [])
+  const max = useMemo(() => 1000, [])
   const [value, setValue] = useState(min)
   const { data: session, status } = useSession()
 
@@ -33,10 +34,19 @@ const Donation = () => {
       toast.error('Ha ocurrido un error al procesar tu donación')
     }
   }
+
   return (
     <div className='flex w-full flex-col items-start gap-5 lg:flex-row'>
       <div className='flex w-full flex-col gap-0'>
-        <Slider min={5} max={1000} defaultValue={50} handleChange={handleChange} />
+        <Slider
+          label='Monto'
+          formatOptions={{ style: 'currency', currency: 'USD' }}
+          minValue={min}
+          maxValue={max}
+          step={1}
+          defaultValue={50}
+          onChange={handleChange}
+        />
         <div className='flex w-full justify-between'>
           <TextElement as='p' type='small' className='font-semibold text-green-800'>
             ${min}

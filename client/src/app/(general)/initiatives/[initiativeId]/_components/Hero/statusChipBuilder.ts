@@ -6,7 +6,10 @@ interface Response {
   color: 'default' | 'warning' | 'success' | 'secondary' | 'primary' | 'danger'
 }
 
-export const statusChipBuilder = (initiative: InitiativeInterface, currentUserId: string): Response => {
+export const statusChipBuilder = (
+  initiative: InitiativeInterface,
+  currentUserId: string | undefined = ''
+): Response => {
   const isOwner = currentUserId === initiative?.owner?._id
   const volunteer = initiative?.volunteers?.find((volunteer) => volunteer.user._id === currentUserId)
   const status = volunteer?.status

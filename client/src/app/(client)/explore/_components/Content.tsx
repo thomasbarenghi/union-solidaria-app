@@ -7,6 +7,8 @@ interface ContentSectionProps {
   currentUser: UserInterface
 }
 
+// TODO: La interfaz de la prop currentUser debe ser la de User de next-auth, y las inciativas deben conseguirse a traves del
+// futuro endpoint de iniciativas por userId
 const ContentSection = ({ currentUser }: ContentSectionProps) => {
   const allPosts = currentUser?.initiatives
     ?.map((initiative: InitiativeInterface) => initiative?.posts)

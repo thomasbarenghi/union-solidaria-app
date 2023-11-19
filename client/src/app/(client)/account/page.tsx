@@ -1,10 +1,13 @@
-import type { Metadata } from 'next'
-import { Session, getServerSession } from 'next-auth'
 import { TabBar, TextElement } from '@/components'
-import { nextauthOptions } from '@/utils/constants/auth.const'
 import { getUser } from '@/services/user/getUser.service'
-import { buildAccountTabs } from './buildAccountTabs'
+import { nextauthOptions } from '@/utils/constants/auth.const'
+import Routes from '@/utils/constants/routes.const'
+import type { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 import Hero from './_components/Hero'
+import { buildAccountTabs } from './buildAccountTabs'
+import { toast } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'Cuenta | Union Solidaria'
@@ -12,11 +15,15 @@ export const metadata: Metadata = {
 
 const Account = async () => {
   const session = await getServerSession(nextauthOptions)
-  const { data: user } = await getUser(session?.user?.email ?? '')
-  const tabItems = buildAccountTabs(user, session as Session)
+  if (!session) return redirect(Routes.LOGIN)
+  const { data: user, error, errorMessage } = await getUser(session?.user?.email ?? '')
+  const tabItems = buildAccountTabs(user, session)
+
+  if (error) toast.error(errorMessage)
+
   return (
     <main className='flex min-h-screen flex-col'>
-      <Hero session={session as Session} currentUser={user} />
+      <Hero session={session} currentUser={user} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-2'>
           <TextElement type='t3' as='h1' className='font-semibold'>
