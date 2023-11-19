@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import Hero from './_components/Hero'
 import { buildAccountTabs } from './buildAccountTabs'
+import { toast } from 'sonner'
 
 export const metadata: Metadata = {
   title: 'Cuenta | Union Solidaria'
@@ -15,8 +16,10 @@ export const metadata: Metadata = {
 const Account = async () => {
   const session = await getServerSession(nextauthOptions)
   if (!session) return redirect(Routes.LOGIN)
-  const { data: user } = await getUser(session?.user?.email ?? '')
+  const { data: user, error, errorMessage } = await getUser(session?.user?.email ?? '')
   const tabItems = buildAccountTabs(user, session)
+
+  if (error) toast.error(errorMessage)
 
   return (
     <main className='flex min-h-screen flex-col'>

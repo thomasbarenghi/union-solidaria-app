@@ -5,6 +5,7 @@ import { getUser } from '@/services/user/getUser.service'
 import { TabBar } from '@/components'
 import Hero from './_components/Hero'
 import { buildProfileTabs } from './buildProfileTabs'
+import { toast } from 'sonner'
 
 interface Props {
   params: {
@@ -20,7 +21,7 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 }
 
 const Profile = async ({ params }: Props) => {
-  const { data: user, error } = await getUser(params.username.slice(3))
+  const { data: user, error, errorMessage } = await getUser(params.username.slice(3))
   const session = await getServerSession(nextauthOptions)
   const tabItems = buildProfileTabs(
     user?.role === 'organization',
@@ -29,6 +30,8 @@ const Profile = async ({ params }: Props) => {
     false,
     user
   )
+
+  if (error) toast.error(errorMessage)
 
   return (
     <main className='flex min-h-screen flex-col'>
