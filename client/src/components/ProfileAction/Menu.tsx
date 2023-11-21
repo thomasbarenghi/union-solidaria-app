@@ -1,8 +1,8 @@
 'use client'
-import { itemsNavBuilder, ItemNavInterface } from './lib/itemsNav'
-import NextLink from 'next/link'
-import { signOut } from 'next-auth/react'
 import { UserInterface } from '@/interfaces'
+import { signOut } from 'next-auth/react'
+import NextLink from 'next/link'
+import { ItemNavInterface, itemsNavBuilder } from './lib/itemsNav'
 
 interface Props {
   user: UserInterface
@@ -24,7 +24,7 @@ const Menu = ({ user }: Props) => {
       ))}
       <button
         onClick={async () => {
-          void signOut({ redirect: false })
+          void signOut({ callbackUrl: process.env.NEXT_PUBLIC_BASE_URL })
         }}
         className={`w-full rounded-xl bg-white p-2 text-start font-semibold hover:bg-slate-100 ${dangerStyle}`}
       >

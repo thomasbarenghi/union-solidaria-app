@@ -2,12 +2,13 @@
 import { TabBar } from '@/components'
 import { buildInitiativeTabs } from '../buildInitiativeTabs'
 import { useCallback } from 'react'
-import { InitiativeInterface, UserInterface } from '@/interfaces'
+import { InitiativeInterface } from '@/interfaces'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { User } from 'next-auth'
 
 interface Props {
   data: InitiativeInterface
-  currentUser: UserInterface
+  currentUser: User | undefined
 }
 
 const Data = ({ data, currentUser }: Props) => {

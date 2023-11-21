@@ -6,7 +6,7 @@ import { dateStatusChipBuilder } from './dateStatusChipBuilder'
 
 interface Props {
   data: InitiativeInterface
-  currentUserId: string
+  currentUserId: string | undefined
   isLogged: boolean
 }
 

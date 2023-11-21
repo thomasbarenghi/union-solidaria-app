@@ -1,11 +1,10 @@
-import type { Metadata } from 'next'
-import Hero from './_components/Hero/Hero'
-import { getInitiative } from '@/services/initiatives/getInitiative.service'
-import Data from './_components/Data'
-import { getServerSession } from 'next-auth'
-import { nextauthOptions } from '@/utils/constants/auth.const'
-import { getUser } from '@/services/user/getUser.service'
 import { Footer, Header } from '@/components'
+import { getInitiative } from '@/services/initiatives/getInitiative.service'
+import { nextauthOptions } from '@/utils/constants/auth.const'
+import type { Metadata } from 'next'
+import { getServerSession } from 'next-auth'
+import Data from './_components/Data'
+import Hero from './_components/Hero/Hero'
 
 interface Props {
   params: {
@@ -24,8 +23,7 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 const Initiative = async ({ params, searchParams }: Props) => {
   const { data, error: initiativeError } = await getInitiative(params.initiativeId)
   const session = await getServerSession(nextauthOptions)
-  const { data: loggedUser } = await getUser(session?.user?.email ?? '')
-  const isLogged = Boolean(session?.user?.email)
+  const isLogged = Boolean(session)
 
   return (
     <>
@@ -33,14 +31,14 @@ const Initiative = async ({ params, searchParams }: Props) => {
       <main className='flex min-h-screen flex-col'>
         <Hero
           initiative={data}
-          currentUserId={loggedUser._id}
+          currentUserId={session?.user.id ?? ''}
           currentIndex={searchParams.idx}
           isLogged={isLogged}
           isError={initiativeError}
           isLoading={false}
         />
         <article className='section-padding-1 container-section listContainer article-layout-1 !py-14'>
-          <Data data={data} currentUser={loggedUser} />
+          <Data data={data} currentUser={session?.user ?? undefined} />
         </article>
       </main>
       <Footer />

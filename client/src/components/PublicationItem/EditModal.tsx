@@ -35,7 +35,6 @@ interface FormProps {
 const Form = (props: FormProps) => {
   const { mutate } = useSWRConfig()
   const { initiativeId } = useParams()
-  console.log(props)
   const {
     register,
     formState: { errors, isSubmitting },

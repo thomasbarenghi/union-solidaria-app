@@ -1,7 +1,7 @@
 import { Session } from 'next-auth'
 import { UserInterface } from '@/interfaces'
-import Edit from './_components/Account/EditAccountForm'
-import PasswordForm from './_components/Account/ChangePasswordForm'
+import Edit from './_components/EditAccountForm'
+import PasswordForm from './_components/ChangePasswordForm'
 import OrganizationForm from './_components/OrganizationForm'
 
 export const buildAccountTabs = (currentUser: UserInterface, session: Session) => [
