@@ -40,8 +40,6 @@ const Profile = async ({ params }: Props) => {
             items={tabItems}
             tabContentClassName='group-data-[selected=true]:text-white px-4 '
             cursorClassName='group-data-[selected=true]:bg-green-800 shadow-none '
-            isLoading={false}
-            isError={error}
           />
         </section>
       </article>

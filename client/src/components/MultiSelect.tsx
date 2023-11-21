@@ -1,32 +1,30 @@
-/* eslint-disable no-labels */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 'use client'
-
 import { Select, SelectItem } from '@nextui-org/react'
+import { ComponentProps } from 'react'
 import { ControllerRenderProps, FieldValues } from 'react-hook-form'
 
-interface Props {
+interface CustomProps {
   names: Array<{ value: string; label: string }>
   name: string
-  setSelected: (data: string[]) => void
-  selectedValue?: string[]
-  label?: string
+  setSelected: (data: string) => void
   errorMessage?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field?: ControllerRenderProps<FieldValues, any>
 }
 
-const MultiSelect = ({ names, name, selectedValue, label, errorMessage = '', field, setSelected }: Props) => (
+type DefaultProps = Omit<ComponentProps<typeof Select>, 'children'>
+type ExtendedProps = DefaultProps & CustomProps
+
+const MultiSelect = ({ ...props }: ExtendedProps) => (
   <Select
-    {...field}
-    defaultSelectedKeys={selectedValue}
-    items={names}
-    label={label}
-    name={name}
+    {...props.field}
+    defaultSelectedKeys={props.defaultSelectedKeys}
+    items={props.names}
+    label={props.label}
+    name={props.name}
     labelPlacement='outside'
     size='md'
     selectionMode='multiple'
-    // onSelectionChange={(selected) => setSelected(Array.from(selected))}
     placeholder='Selecciona una opción'
     className='w-full'
     classNames={{
@@ -37,8 +35,7 @@ const MultiSelect = ({ names, name, selectedValue, label, errorMessage = '', fie
       value: 'text-sm font-light leading-[155%] !text-black',
       selectorIcon: '!text-black'
     }}
-    errorMessage={errorMessage}
-    isInvalid={errorMessage.length > 0}
+    errorMessage={props.errorMessage}
   >
     {(obj) => <SelectItem key={obj.value}>{obj.label}</SelectItem>}
   </Select>
