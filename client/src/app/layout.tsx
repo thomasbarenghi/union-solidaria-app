@@ -1,7 +1,7 @@
 import './globals.css'
 import NextUiProvider from '@/context/providers/nextUi.provider'
 import { Outfit } from 'next/font/google'
-import AuthSessionProvider from '@/context/providers/AuthSessionProvider'
+import AuthSessionProvider from '@/context/providers/AuthSession.provider'
 import dynamic from 'next/dynamic'
 import { Toaster } from 'sonner'
 const SWRProvider = dynamic(async () => await import('@/context/providers/swr.provider'), {
