@@ -1,12 +1,10 @@
 import { Button, Hero, TextElement } from '@/components'
 import { UserInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
-import { type User } from 'next-auth'
 import Image from 'next/image'
 
 interface Props {
-  // TODO: remove UserInterface
-  user: User | UserInterface | undefined
+  user: UserInterface
   withAccountButton?: boolean
   isLoading?: boolean
   withInitiativesButton?: boolean
@@ -18,7 +16,7 @@ const Content = ({
   withAccountButton,
   withInitiativesButton
 }: {
-  user: User | UserInterface
+  user: UserInterface
   withAccountButton: boolean
   withInitiativesButton: boolean
 }) => (
@@ -50,11 +48,7 @@ const Content = ({
 const UsersHero = ({ user, withAccountButton = false, withInitiativesButton = false, isLoading = false }: Props) => (
   <Hero imageSrc={user?.bannerImage} height='min-h-[45vh] !rounded-none' isLoading={isLoading}>
     {!isLoading ? (
-      <Content
-        user={user as User}
-        withAccountButton={withAccountButton}
-        withInitiativesButton={withInitiativesButton}
-      />
+      <Content user={user} withAccountButton={withAccountButton} withInitiativesButton={withInitiativesButton} />
     ) : null}
   </Hero>
 )

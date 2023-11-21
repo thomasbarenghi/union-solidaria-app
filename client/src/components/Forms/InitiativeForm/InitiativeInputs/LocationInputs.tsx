@@ -49,7 +49,7 @@ const LocationInputs = ({ errors, register, control, setValue, mode, initiative 
             <SimpleSelect
               name='country'
               field={field}
-              selectedValue={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
+              defaultSelectedKeys={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
               label='Elige un pais'
               setSelected={(selected) => {
                 setValue('country', selected)
@@ -69,7 +69,7 @@ const LocationInputs = ({ errors, register, control, setValue, mode, initiative 
             <SimpleSelect
               field={field}
               name='province'
-              selectedValue={mode === 'edit' ? [initiative?.province ?? ''] : ['']}
+              defaultSelectedKeys={mode === 'edit' ? [initiative?.province ?? ''] : ['']}
               label='Elige una provincia/estado/departamento'
               setSelected={(selected) => {
                 setValue('province', selected)

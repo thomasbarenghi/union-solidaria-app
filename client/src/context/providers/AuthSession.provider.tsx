@@ -1,5 +1,4 @@
 'use client'
-
 import { type FC } from 'react'
 import { SessionProvider } from 'next-auth/react'
 

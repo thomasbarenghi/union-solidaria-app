@@ -1,6 +1,7 @@
+import { VerticalNavItemProps } from '@/components/Nav'
 import Routes from '@/utils/constants/routes.const'
 
-export const itemsNav = [
+export const itemsNav: VerticalNavItemProps[] = [
   {
     name: 'Acerca de',
     href: Routes.ABOUT,
