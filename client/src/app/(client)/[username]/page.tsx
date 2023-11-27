@@ -1,11 +1,12 @@
+import { TabBar } from '@/components'
+import { getUserByEmail } from '@/services/user/get-user.service'
+import { nextauthOptions } from '@/utils/constants/auth.const'
 import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
-import { nextauthOptions } from '@/utils/constants/auth.const'
-import { getUser } from '@/services/user/getUser.service'
-import { TabBar } from '@/components'
+import { notFound } from 'next/navigation'
+import { toast } from 'sonner'
 import Hero from './_components/Hero'
 import { buildProfileTabs } from './buildProfileTabs'
-import { toast } from 'sonner'
 
 interface Props {
   params: {
@@ -21,21 +22,24 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 }
 
 const Profile = async ({ params }: Props) => {
-  const { data: user, error, errorMessage } = await getUser(params.username.slice(3))
+  const { user, error } = await getUserByEmail(params.username.slice(3))
   const session = await getServerSession(nextauthOptions)
+
+  if (user === undefined) notFound()
+
   const tabItems = buildProfileTabs(
     user?.role === 'organization',
     user?.username === session?.user.username,
-    error,
+    !!error,
     false,
     user
   )
 
-  if (error) toast.error(errorMessage)
+  if (error) toast.error(error.message)
 
   return (
     <main className='flex min-h-screen flex-col'>
-      <Hero user={user} session={session} isError={error} />
+      <Hero user={user} sessionId={session?.user.id ?? ''} isError={!!error} />
       <article className='section-padding-1 container-section article-layout-1 listContainer !py-14'>
         <section className='flex w-full flex-col gap-4 '>
           <TabBar
