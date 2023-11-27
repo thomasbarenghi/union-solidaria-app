@@ -147,8 +147,8 @@ const EditAccountForm = ({ currentUser, session }: Props) => {
                   type='file'
                   {...register('profileImage', {
                     validate: (value) => {
-                      if (value) {
-                        if (value[0].size > 1000000) return 'La imagen no debe pesar mas de 5MB'
+                      if (value && value?.length !== 0) {
+                        if (value[0].size > 5000000) return 'La imagen no debe pesar mas de 5MB'
                       }
                       return undefined
                     }
@@ -177,8 +177,8 @@ const EditAccountForm = ({ currentUser, session }: Props) => {
                   type='file'
                   {...register('bannerImage', {
                     validate: (value) => {
-                      if (value) {
-                        if (value[0].size > 1000000) return 'La imagen no debe pesar mas de 5MB'
+                      if (value && value?.length !== 0) {
+                        if (value[0].size > 5000000) return 'La imagen no debe pesar mas de 5MB'
                       }
                       return undefined
                     }
