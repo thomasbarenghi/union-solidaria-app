@@ -1,7 +1,7 @@
 'use client'
-import Image from 'next/image'
-import { Button, Footer, Header, TextElement } from '@/components'
+import { Button, Header, TextElement } from '@/components'
 import Routes from '@/utils/constants/routes.const'
+import Image from 'next/image'
 
 interface Props {
   error: Error & { digest?: string }
@@ -28,7 +28,6 @@ const Error = ({ reset }: Props) => (
         </div>
       </article>
     </main>
-    <Footer />
   </>
 )
 
