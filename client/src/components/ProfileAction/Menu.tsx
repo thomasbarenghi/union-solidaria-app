@@ -1,7 +1,7 @@
 'use client'
 import { UserInterface } from '@/interfaces'
 import { signOut } from 'next-auth/react'
-import NextLink from 'next/link'
+import Link from 'next/link'
 import { ItemNavInterface, itemsNavBuilder } from './lib/itemsNav'
 
 interface Props {
@@ -14,13 +14,13 @@ const Menu = ({ user }: Props) => {
   return (
     <div className='flex w-full flex-col'>
       {items.map((item, index) => (
-        <NextLink
+        <Link
           href={item.href}
           className={`w-full rounded-xl p-2 hover:bg-slate-100 ${item.color === 'danger' ? dangerStyle : ''}`}
           key={index}
         >
           {item.label}
-        </NextLink>
+        </Link>
       ))}
       <button
         onClick={async () => {

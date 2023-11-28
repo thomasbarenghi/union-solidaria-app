@@ -18,7 +18,6 @@ const ProfileAction = () => {
       ) : (
         <Button
           title='Iniciar sesión'
-          href=''
           onClick={() => {
             signIn()
           }}
