@@ -1,14 +1,8 @@
-'use client'
 import { Button, Header, TextElement } from '@/components'
 import Routes from '@/utils/constants/routes.const'
 import Image from 'next/image'
 
-interface Props {
-  error: Error & { digest?: string }
-  reset: () => void
-}
-
-const Error = ({ reset }: Props) => (
+const ProfileNotFound = async () => (
   <>
     <Header theme='light' />
     <main className='flex flex-col'>
@@ -16,14 +10,13 @@ const Error = ({ reset }: Props) => (
         <div className='flex min-h-[70vh] flex-col items-center justify-center'>
           <Image src='/icon/Frame1.svg' alt='Hero' fill className='z-[-1] ' />
           <TextElement as='h1' type='t1' className='text-center !font-light'>
-            Ocurrió un error <b className='font-semibold'>al cargar el usuario.</b>
+            El usuario que intentas buscar <b className='font-semibold'>no existe.</b>
           </TextElement>
           <TextElement as='p' type='base' className='text-center'>
-            Esto puede deberse a un error de conexión o a que el usuario no existe
+            Asegurate de haber escrito correctamente el nombre de usuario
           </TextElement>
           <div className='flex gap-2'>
             <Button href={Routes.HOME} title='Volver al inicio' className='mt-4' />
-            <Button onClick={reset} title='Reintentar' className='mt-4' variant='flat' />
           </div>
         </div>
       </article>
@@ -31,4 +24,4 @@ const Error = ({ reset }: Props) => (
   </>
 )
 
-export default Error
+export default ProfileNotFound
