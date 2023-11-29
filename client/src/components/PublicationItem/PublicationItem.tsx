@@ -16,7 +16,7 @@ const PublicationItem = ({ item }: PublicationItemProps) => {
   const { data: session } = useSession()
   const isOwner = item?.author._id === session?.user?.id
   return (
-    <div className='relative flex w-full cursor-pointer flex-col items-start gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
+    <div className='relative flex w-full flex-col items-start gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
       <div className='flex w-full justify-between gap-4'>
         <User
           name={item.author?.orgName}
@@ -26,7 +26,7 @@ const PublicationItem = ({ item }: PublicationItemProps) => {
           }}
         />
         {isOwner && (
-          <div className='flex gap-2'>
+          <div className='flex gap-4'>
             <EditModal item={item} />
             <DeleteModal reviewId={item._id} />
           </div>

@@ -1,5 +1,5 @@
 const PublicationItemPlaceholder = () => (
-  <div className='relative flex w-full cursor-pointer flex-col items-start gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
+  <div className='relative flex w-full flex-col items-start gap-3 rounded-2xl border border-solid border-slate-200 p-6'>
     <div className='flex items-center justify-start gap-2'>
       <div className='h-[40px] w-[40px] rounded-full bg-gray-100' />
       <div className='flex flex-col gap-[4px] '>

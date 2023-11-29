@@ -48,7 +48,16 @@ interface TriggerProps {
 }
 
 const Trigger = (props: TriggerProps) => (
-  <Image src='/icon/trash.svg' onClick={props.onOpen} alt='Delete' width={20} height={20} className='cursor-pointer' />
+  <div className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-red-50'>
+    <Image
+      src='/icon/trash.svg'
+      onClick={props.onOpen}
+      alt='Delete'
+      width={20}
+      height={20}
+      className='cursor-pointer'
+    />
+  </div>
 )
 
 export default DeleteModal

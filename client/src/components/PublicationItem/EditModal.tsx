@@ -75,7 +75,9 @@ interface TriggerProps {
 }
 
 const Trigger = (props: TriggerProps) => (
-  <Image src='/icon/pen.svg' onClick={props.onOpen} alt='Edit' width={20} height={20} className='cursor-pointer' />
+  <div className='flex h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-slate-100'>
+    <Image src='/icon/pen.svg' onClick={props.onOpen} alt='Edit' width={20} height={20} />
+  </div>
 )
 
 export default EditModal

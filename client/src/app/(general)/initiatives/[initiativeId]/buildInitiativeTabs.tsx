@@ -15,7 +15,7 @@ export const buildInitiativeTabs = (currentUser: User | undefined, data: Initiat
     },
     {
       title: 'Publicaciones',
-      content: <PostSection data={data} />
+      content: <PostSection data={data} isCurrent={isCurrent} />
     },
     {
       title: 'Voluntarios',
