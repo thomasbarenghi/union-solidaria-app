@@ -3,8 +3,7 @@ import { Input, MultiSelect, TextElement, Textarea } from '@/components'
 import { opportunities } from '@/services/mock/opportunities.service'
 import { themes } from '@/services/mock/themes.service'
 import { descriptionPattern, titlePattern } from '@/utils/constants/pattern.const'
-import { InitiativeFormData } from '../form.interface'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, InitiativeInterface } from '@/interfaces'
 
 interface GeneralInfoProps {
   errors: FieldErrors<InitiativeFormData>

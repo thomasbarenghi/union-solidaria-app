@@ -3,8 +3,7 @@ import { Input, SimpleSelect, TextElement } from '@/components'
 import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
 import { useState } from 'react'
 import { addressPattern } from '@/utils/constants/pattern.const'
-import { InitiativeFormData } from '../form.interface'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, InitiativeInterface } from '@/interfaces'
 
 interface LocationInfoProps {
   errors: FieldErrors<InitiativeFormData>

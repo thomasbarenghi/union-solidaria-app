@@ -1,4 +1,5 @@
 import { TextElement } from '@/components'
+import { InitiativeFormData } from '@/interfaces'
 import { Button as ButtonNextUI } from '@nextui-org/react'
 import {
   type FieldErrors,
@@ -7,7 +8,6 @@ import {
   type UseFormTrigger,
   type UseFormWatch
 } from 'react-hook-form'
-import { type InitiativeFormData } from '../form.interface'
 
 interface LocationInfoProps {
   errors: FieldErrors<InitiativeFormData>

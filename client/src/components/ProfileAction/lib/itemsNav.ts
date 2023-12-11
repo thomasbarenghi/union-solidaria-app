@@ -17,15 +17,15 @@ export const itemsNavBuilder = (currentUser: UserInterface): ItemNavInterface[] 
     visible: true
   },
   {
-    key: Routes.PROFILE(currentUser?.username),
-    label: 'Mi cuenta',
-    href: Routes.PROFILE(currentUser?.username),
+    key: Routes.EXPLORE,
+    label: 'Feed',
+    href: Routes.EXPLORE,
     visible: true
   },
   {
-    key: Routes.INITIATIVES,
-    label: 'Iniciativas',
-    href: Routes.INITIATIVES,
+    key: Routes.PROFILE(currentUser?.username),
+    label: 'Mi cuenta',
+    href: Routes.PROFILE(currentUser?.username),
     visible: true
   },
   {

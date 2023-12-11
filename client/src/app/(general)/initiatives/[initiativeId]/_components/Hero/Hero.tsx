@@ -25,8 +25,8 @@ const HeroSection = ({ initiative, isLoading = false, currentIndex, currentUserI
     fallbackData: initiative
   })
   return (
-    <Hero imageSrc={data?.thumbnail} isLoading={isLoading} height='h-[50vh] ' isError={isError}>
-      <div className='flex items-center justify-between overflow-hidden py-10'>
+    <Hero imageSrc={data?.thumbnail} isLoading={isLoading} height='h-[65vh] lg:h-[50vh] ' isError={isError}>
+      <div className='flex flex-col items-start justify-between gap-4 overflow-hidden py-10 md:flex-row lg:items-center'>
         <div className='flex flex-col gap-2'>
           <TextElement type='t2' as='h1' className='w-full text-ellipsis !font-semibold text-white'>
             {data?.title}
