@@ -32,6 +32,14 @@ export class UsersService {
     return await new this.userModel(createUserDto).save();
   }
 
+  async findInitiativesByUserId(userId: string) {
+    const initiatives = await this.initiativeModel.find({
+      owner: userId,
+    });
+
+    return initiatives;
+  }
+
   async findAll() {
     return await this.userModel.find().catch(() => {
       throw new BadRequestException();
@@ -40,6 +48,14 @@ export class UsersService {
 
   async findOne(id: string) {
     return await findUser(id, this.userModel);
+  }
+
+  async findOneByUsername(username: string) {
+    return await this.userModel.findOne({ username: username });
+  }
+
+  async findOneByEmail(email: string) {
+    return await this.userModel.findOne({ email: email });
   }
 
   async updatePassword(updatePasswordDto: UpdatePasswordDto, userId: string) {

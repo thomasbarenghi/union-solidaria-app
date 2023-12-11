@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   InternalServerErrorException,
+  ConflictException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,6 +38,24 @@ export class UsersController {
     }
   }
 
+  @Get('username-validate/:username')
+  async validateUsername(@Param('username') username: string) {
+    const user = await this.usersService.findOneByUsername(username);
+    if (user) {
+      throw new ConflictException('Username already exists');
+    }
+    return 'Username available';
+  }
+
+  @Get('email-validate/:username')
+  async validateEmail(@Param('username') email: string) {
+    const user = await this.usersService.findOneByEmail(email);
+    if (user) {
+      throw new ConflictException('Email already exists');
+    }
+    return 'Email available';
+  }
+
   @Get()
   findAll() {
     try {
@@ -55,6 +74,11 @@ export class UsersController {
       console.error(error);
       throw new InternalServerErrorException("Couldn't find user");
     }
+  }
+
+  @Get(':id/initiatives')
+  findInitiatives(@Param('id') userId: string) {
+    return this.usersService.findInitiativesByUserId(userId);
   }
 
   @Put(':id')
@@ -119,12 +143,7 @@ export class UsersController {
     @Param('id') userId: string,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
-    try {
-      return await this.usersService.updatePassword(updatePasswordDto, userId);
-    } catch (error) {
-      console.error(error);
-      throw new InternalServerErrorException();
-    }
+    return await this.usersService.updatePassword(updatePasswordDto, userId);
   }
 
   @Put(':id/edit-organization')

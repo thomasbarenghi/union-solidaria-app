@@ -1,6 +1,6 @@
 'use client'
-import { InitiativeDynamicForm, type InitiativeFormData } from '@/components'
-import { type InitiativeInterface } from '@/interfaces'
+import { InitiativeDynamicForm } from '@/components'
+import { InitiativeFormData, type InitiativeInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { toast } from 'sonner'

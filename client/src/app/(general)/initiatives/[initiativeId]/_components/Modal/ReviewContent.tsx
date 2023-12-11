@@ -1,5 +1,5 @@
 'use client'
-import { ReviewForm, ReviewFormData } from '@/components'
+import { ReviewForm } from '@/components'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'next/navigation'
 import { useSession } from 'next-auth/react'
@@ -7,6 +7,7 @@ import { postRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import { toast } from 'sonner'
 import { useSWRConfig } from 'swr'
+import { ReviewFormData } from '@/interfaces'
 
 interface Props {
   handleClose?: () => void

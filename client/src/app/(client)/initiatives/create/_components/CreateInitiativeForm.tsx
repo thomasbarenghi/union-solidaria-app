@@ -1,5 +1,6 @@
 'use client'
-import { InitiativeDynamicForm, TextElement, type InitiativeFormData } from '@/components'
+import { InitiativeDynamicForm, TextElement } from '@/components'
+import { InitiativeFormData } from '@/interfaces'
 import { postRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Routes from '@/utils/constants/routes.const'
