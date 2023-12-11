@@ -1,5 +1,5 @@
-import { ReviewInterface } from '@/interfaces'
-import { Button, Input, ReviewFormData, Textarea } from '../..'
+import { ReviewFormData, ReviewInterface } from '@/interfaces'
+import { Button, Input, Textarea } from '..'
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
 
 interface Props {

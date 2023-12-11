@@ -1,12 +1,11 @@
 'use client'
 import { Button } from '@/components'
-import { type InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, type InitiativeInterface } from '@/interfaces'
 import { useForm } from 'react-hook-form'
 import DateTimeInputs from './InitiativeInputs/DateTimeInputs'
 import GeneralInputs from './InitiativeInputs/GeneralInputs'
 import LocationInputs from './InitiativeInputs/LocationInputs'
 import MultimediaInputs from './InitiativeInputs/MultimediaInputs'
-import { type InitiativeFormData } from './form.interface'
 
 interface Props {
   mode: 'create' | 'edit'

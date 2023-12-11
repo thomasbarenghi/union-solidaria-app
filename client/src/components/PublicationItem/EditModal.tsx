@@ -1,5 +1,5 @@
-import { Modal, PostDynamicForm, type PostFormData } from '@/components'
-import { PostInterface } from '@/interfaces'
+import { Modal, PostDynamicForm } from '@/components'
+import { PostFormData, PostInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Image from 'next/image'

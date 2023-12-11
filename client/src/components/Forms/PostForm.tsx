@@ -1,7 +1,6 @@
-import { PostInterface } from '@/interfaces'
-import { Button, Textarea } from '../..'
+import { PostFormData, PostInterface } from '@/interfaces'
+import { Button, Textarea } from '..'
 import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form'
-import { PostFormData } from './form.interface'
 
 interface Props {
   handleSubmit: UseFormHandleSubmit<PostFormData, undefined>
