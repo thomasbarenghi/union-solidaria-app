@@ -2,6 +2,7 @@
 import { Button, Input, SimpleSelect } from '@/components'
 import { type RegisterFormValues, type Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
+import Endpoints from '@/utils/constants/endpoints.const'
 import {
   emailPattern,
   firstNamePattern,
@@ -15,8 +16,8 @@ import Routes from '@/utils/constants/routes.const'
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { nextIsDisabled } from '../nextIsDisabled'
 import { toast } from 'sonner'
+import { nextIsDisabled } from '../nextIsDisabled'
 
 export interface FormValues extends RegisterFormValues {
   repeatPassword: string
@@ -79,6 +80,7 @@ const RegisterForm = () => {
             name='firstName'
             label='Nombre'
             placeholder='Nombre'
+            defaultValue={getValues('firstName')}
             hookForm={{
               register,
               validations: {
@@ -96,6 +98,7 @@ const RegisterForm = () => {
             name='lastName'
             label='Apellido'
             placeholder='Apellido'
+            defaultValue={getValues('lastName')}
             hookForm={{
               register,
               validations: {
@@ -113,6 +116,9 @@ const RegisterForm = () => {
             name='birthday'
             label='Fecha de nacimiento'
             placeholder='Fecha de nacimiento'
+            // The 'any' type is applied to the 'defaultValue' property to override the original typing of NextUI Input
+            // component, which is 'string' or 'undefined'
+            defaultValue={getValues('birthday') as any}
             hookForm={{
               register,
               validations: {
@@ -143,6 +149,7 @@ const RegisterForm = () => {
             name='email'
             label='Email'
             placeholder='Email'
+            defaultValue={getValues('email')}
             hookForm={{
               register,
               validations: {
@@ -150,7 +157,22 @@ const RegisterForm = () => {
                   value: emailPattern.value,
                   message: emailPattern.message
                 },
-                required: { value: true, message: 'Este campo es requerido' }
+                required: { value: true, message: 'Este campo es requerido' },
+                validate: {
+                  emailAvailable: async () => {
+                    try {
+                      const res = await fetch(
+                        `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_EMAIL(watch('email'))}`
+                      )
+                      if (res.status === 409) return 'Nombre de usuario no disponible'
+                      if (res.status === 200) return true
+                    } catch (error) {
+                      console.log(error)
+                      toast.error('Error al validar la disponibildad del nombre de usuario')
+                      return 'Ocurrió un error inesperado'
+                    }
+                  }
+                }
               }
             }}
             errorMessage={errors?.email?.message?.toString()}
@@ -160,6 +182,7 @@ const RegisterForm = () => {
             name='phone'
             label='Telefono'
             placeholder='Telefono'
+            defaultValue={getValues('phone') as string}
             hookForm={{
               register,
               validations: {
@@ -177,6 +200,7 @@ const RegisterForm = () => {
             name='username'
             label='Nombre de usuario'
             placeholder='Nombre de usuario'
+            defaultValue={getValues('username')}
             hookForm={{
               register,
               validations: {
@@ -184,7 +208,22 @@ const RegisterForm = () => {
                   value: usernamePattern.value,
                   message: usernamePattern.message
                 },
-                required: { value: true, message: 'Este campo es requerido' }
+                required: { value: true, message: 'Este campo es requerido' },
+                validate: {
+                  usernameAvailable: async () => {
+                    try {
+                      const res = await fetch(
+                        `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_USERNAME(watch('username'))}`
+                      )
+                      if (res.status === 409) return 'Nombre de usuario no disponible'
+                      if (res.status === 200) return true
+                    } catch (error) {
+                      console.log(error)
+                      toast.error('Error al validar la disponibildad del nombre de usuario')
+                      return 'Ocurrió un error inesperado'
+                    }
+                  }
+                }
               }
             }}
             errorMessage={errors?.username?.message?.toString()}
@@ -198,6 +237,7 @@ const RegisterForm = () => {
             name='password'
             label='Contraseña'
             placeholder='Contraseña'
+            defaultValue={getValues('password')}
             hookForm={{
               register,
               validations: {
@@ -215,6 +255,7 @@ const RegisterForm = () => {
             name='repeatPassword'
             label='Repite la contraseña'
             placeholder='Repite la contraseña'
+            defaultValue={getValues('repeatPassword')}
             hookForm={{
               register,
               validations: {
@@ -262,6 +303,7 @@ const RegisterForm = () => {
               name='orgName'
               label='Nombre de la organizacion'
               placeholder='Nombre de la organizacion'
+              defaultValue={getValues('orgName')}
               hookForm={{
                 register,
                 validations: {

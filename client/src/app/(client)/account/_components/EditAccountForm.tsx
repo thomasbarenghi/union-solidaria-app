@@ -116,7 +116,22 @@ const EditAccountForm = ({ currentUser, session }: Props) => {
                     value: emailPattern.value,
                     message: emailPattern.message
                   },
-                  required: { value: true, message: 'Este campo es requerido' }
+                  required: { value: true, message: 'Este campo es requerido' },
+                  validate: {
+                    emailAvailable: async () => {
+                      try {
+                        const res = await fetch(
+                          `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_EMAIL(watch('email'))}`
+                        )
+                        if (res.status === 409) return 'Nombre de usuario no disponible'
+                        if (res.status === 200) return true
+                      } catch (error) {
+                        console.log(error)
+                        toast.error('Error al validar la disponibildad del nombre de usuario')
+                        return 'Ocurrió un error inesperado'
+                      }
+                    }
+                  }
                 }
               }}
               errorMessage={errors?.email?.message?.toString()}
@@ -135,7 +150,22 @@ const EditAccountForm = ({ currentUser, session }: Props) => {
                     value: usernamePattern.value,
                     message: usernamePattern.message
                   },
-                  required: { value: true, message: 'Este campo es requerido' }
+                  required: { value: true, message: 'Este campo es requerido' },
+                  validate: {
+                    usernameAvailable: async () => {
+                      try {
+                        const res = await fetch(
+                          `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_USERNAME(watch('username'))}`
+                        )
+                        if (res.status === 409) return 'Nombre de usuario no disponible'
+                        if (res.status === 200) return true
+                      } catch (error) {
+                        console.log(error)
+                        toast.error('Error al validar la disponibildad del nombre de usuario')
+                        return 'Ocurrió un error inesperado'
+                      }
+                    }
+                  }
                 }
               }}
               errorMessage={errors?.username?.message?.toString()}
