@@ -10,7 +10,7 @@ const Endpoints = {
   // TODO: implement endpoint to search user by email in the backend
   USER_BY_EMAIL: (userId: string) => `/api/users/${userId}`,
   VALIDATE_USERNAME: (username: string) => `/api/users/username-validate/${username}`,
-  VALIDATE_EMAIL: (email: string) => `/api/users/username-validate/${email}`,
+  VALIDATE_EMAIL: (email: string) => `/api/users/email-validate/${email}`,
   UPDATE_DATA: (userId: string) => `/api/users/update-data/${userId}`,
   UPDATE_PASSWORD: (userId: string) => `/api/users/${userId}/edit-password`,
   REVIEWS: '/api/reviews',

@@ -1,8 +1,8 @@
 'use client'
 import { Button, Input, SimpleSelect } from '@/components'
+import { useFieldValidation } from '@/hooks/useFieldValidation'
 import { type RegisterFormValues, type Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
-import Endpoints from '@/utils/constants/endpoints.const'
 import {
   emailPattern,
   firstNamePattern,
@@ -47,10 +47,24 @@ const RegisterForm = () => {
     control,
     reset,
     getValues,
-    watch
+    watch,
+    setError
   } = useForm<FormValues>({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: {
+      birthday: undefined,
+      email: '',
+      firstName: '',
+      lastName: '',
+      orgName: '',
+      password: '',
+      phone: '',
+      repeatPassword: '',
+      role: undefined,
+      username: ''
+    }
   })
+  const { debouncedHandleChange, validation } = useFieldValidation(['username', 'email'], setError)
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -145,39 +159,6 @@ const RegisterForm = () => {
       {step === 1 && (
         <>
           <Input
-            type='email'
-            name='email'
-            label='Email'
-            placeholder='Email'
-            defaultValue={getValues('email')}
-            hookForm={{
-              register,
-              validations: {
-                pattern: {
-                  value: emailPattern.value,
-                  message: emailPattern.message
-                },
-                required: { value: true, message: 'Este campo es requerido' },
-                validate: {
-                  emailAvailable: async () => {
-                    try {
-                      const res = await fetch(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_EMAIL(watch('email'))}`
-                      )
-                      if (res.status === 409) return 'Nombre de usuario no disponible'
-                      if (res.status === 200) return true
-                    } catch (error) {
-                      console.log(error)
-                      toast.error('Error al validar la disponibildad del nombre de usuario')
-                      return 'Ocurrió un error inesperado'
-                    }
-                  }
-                }
-              }
-            }}
-            errorMessage={errors?.email?.message?.toString()}
-          />
-          <Input
             type='text'
             name='phone'
             label='Telefono'
@@ -196,11 +177,32 @@ const RegisterForm = () => {
             errorMessage={errors?.phone?.message?.toString()}
           />
           <Input
+            type='email'
+            name='email'
+            label='Email'
+            placeholder='Email'
+            defaultValue={getValues('email')}
+            endContent={validation.email?.icon}
+            hookForm={{
+              register,
+              validations: {
+                pattern: {
+                  value: emailPattern.value,
+                  message: emailPattern.message
+                },
+                required: { value: true, message: 'Este campo es requerido' },
+                onChange: async (e) => await debouncedHandleChange(e, 'email')
+              }
+            }}
+            errorMessage={errors?.email?.message?.toString()}
+          />
+          <Input
             type='text'
             name='username'
             label='Nombre de usuario'
             placeholder='Nombre de usuario'
             defaultValue={getValues('username')}
+            endContent={validation.username?.icon}
             hookForm={{
               register,
               validations: {
@@ -209,21 +211,7 @@ const RegisterForm = () => {
                   message: usernamePattern.message
                 },
                 required: { value: true, message: 'Este campo es requerido' },
-                validate: {
-                  usernameAvailable: async () => {
-                    try {
-                      const res = await fetch(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${Endpoints.VALIDATE_USERNAME(watch('username'))}`
-                      )
-                      if (res.status === 409) return 'Nombre de usuario no disponible'
-                      if (res.status === 200) return true
-                    } catch (error) {
-                      console.log(error)
-                      toast.error('Error al validar la disponibildad del nombre de usuario')
-                      return 'Ocurrió un error inesperado'
-                    }
-                  }
-                }
+                onChange: async (e) => await debouncedHandleChange(e, 'username')
               }
             }}
             errorMessage={errors?.username?.message?.toString()}
