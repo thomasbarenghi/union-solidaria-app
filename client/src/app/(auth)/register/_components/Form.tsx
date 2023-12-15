@@ -64,7 +64,7 @@ const RegisterForm = () => {
       username: ''
     }
   })
-  const { debouncedHandleChange, validation } = useFieldValidation(['username', 'email'], setError)
+  const { debouncedHandleChange, validation } = useFieldValidation(['username', 'email'], errors, setError)
 
   const onSubmit = async (data: FormValues) => {
     try {

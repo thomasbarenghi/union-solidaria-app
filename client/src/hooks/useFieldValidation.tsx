@@ -4,12 +4,16 @@ import { Spinner } from '@nextui-org/react'
 import { debounce } from 'lodash'
 import { Check, X } from 'lucide-react'
 import { useCallback, useState, type ChangeEvent } from 'react'
-import { type UseFormSetError } from 'react-hook-form'
+import { type FieldErrors, type UseFormSetError } from 'react-hook-form'
 import { toast } from 'sonner'
 
 type ValidationState = Partial<Record<keyof FormValues, { isValidating: boolean; isValid: boolean; icon: JSX.Element }>>
 
-export const useFieldValidation = (fields: Array<keyof FormValues>, setError: UseFormSetError<FormValues>) => {
+export const useFieldValidation = (
+  fields: Array<keyof FormValues>,
+  errors: FieldErrors<FormValues>,
+  setError: UseFormSetError<FormValues>
+) => {
   const initialState = Object.fromEntries(
     fields.map((field) => [field, { isValidating: false, isValid: false, icon: <div className='flex gap-4' /> }])
   )
@@ -69,6 +73,22 @@ export const useFieldValidation = (fields: Array<keyof FormValues>, setError: Us
           }
         }))
       } else if (res.status === 200) {
+        if (errors[field]) {
+          console.log('entro al 200 con error')
+          setValidation((prev) => ({
+            ...prev,
+            [field]: {
+              isValidating: false,
+              isValid: false,
+              icon: (
+                <div className='flex gap-4'>
+                  <X className='text-red-800' />
+                </div>
+              )
+            }
+          }))
+          return
+        }
         setValidation((prev) => ({
           ...prev,
           [field]: {
