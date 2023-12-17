@@ -175,7 +175,7 @@ export const nextauthOptions: NextAuthOptions = {
       const { token } = arg
       const { error } = await logoutUser(token.sessionId)
       if (error !== null) {
-        console.log(error)
+        console.error(error)
       }
     }
   }

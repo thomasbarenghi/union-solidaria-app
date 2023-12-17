@@ -90,7 +90,6 @@ const GeneralInputs = ({ errors, register, control, setValue, mode, initiative }
         rules={{
           required: { value: true, message: 'Este campo es requerido' },
           validate: (value) => {
-            console.log(value)
             if (value && value?.split(',').length < 2) return 'Debe contener al menos dos oportunidades'
             return true
           }

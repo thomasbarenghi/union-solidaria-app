@@ -13,8 +13,8 @@ export const changePassword = async (
     } else {
       throw new Error('Error al comparar las contraseñas');
     }
-  } catch (error:any) {
-    console.log('error', error);
+  } catch (error: any) {
+    console.error('error', error);
     throw new Error(error.message);
   }
 };
