@@ -1,5 +1,6 @@
 import { Button, TextElement } from '@/components'
 import { InitiativeInterface } from '@/interfaces'
+import Routes from '@/utils/constants/routes.const'
 import { User } from '@nextui-org/react'
 
 interface SidebarProps {
@@ -28,7 +29,7 @@ const Sidebar = ({ initiatives }: SidebarProps) => (
         />
       ))}
     </div>
-    <Button title='Ver mas' variant='flat' size='sm' className='bg-white' />
+    <Button title='Ver mas' variant='flat' href={Routes.INITIATIVES} size='sm' className='bg-white' />
   </div>
 )
 

@@ -31,7 +31,7 @@ export class AuthService {
         .sessionId;
       return parsedSessionId === sessionId;
     } catch (error) {
-      console.log('Error findSessionById', error);
+      console.error('Error findSessionById', error);
       throw new Error('Error while fetching sessions: ' + error.message);
     }
   }

@@ -35,7 +35,6 @@ export class StripeService {
   ): Promise<any> {
     const convertAmount = createStripeIntentDto.amount * 100;
     try {
-      console.log('api', stripeApiKey);
       await findUser(createStripeIntentDto.userId, this.userModel);
 
       const session = await this.stripeProvider.checkout.sessions.create({
@@ -63,7 +62,7 @@ export class StripeService {
       });
       return session.url;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw error;
     }
   }
@@ -90,9 +89,6 @@ export class StripeService {
         initiativeID: paymentEventMetadata.metadata.initiativeId,
         isGlobalDonation,
       };
-      console.log(
-        `El usuario de id ${paymentObject.userId} dono el monto de ${paymentObject.amount}$ a la iniciativa ${paymentObject.initiativeID}`,
-      );
     }
     return stripeEvent;
   }

@@ -49,7 +49,7 @@ const FavoriteChip = ({ initiative }: Props) => {
     <>
       {status === 'authenticated' && (
         <Button
-          className='absolute right-1 top-1 z-10 bg-opacity-100 text-red-500'
+          className='absolute right-1 top-1 z-10 bg-white text-red-500'
           variant='solid'
           isIconOnly
           isLoading={isLoading}

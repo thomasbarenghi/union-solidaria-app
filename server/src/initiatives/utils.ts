@@ -47,7 +47,6 @@ export const updateInitiative = async (
   updateInitiativeDto: UpdateInitiativeDto,
   initiativeModel: Model<Initiative>,
 ) => {
-  console.log(updateInitiativeDto);
   return await initiativeModel.findByIdAndUpdate(id, updateInitiativeDto, {
     new: true,
   });
