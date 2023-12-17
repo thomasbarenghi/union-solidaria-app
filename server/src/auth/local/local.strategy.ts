@@ -40,7 +40,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
 
       return user;
     } catch (error) {
-      console.log('Error validate local', error);
+      console.error('Error validate local', error);
     }
   }
 }
