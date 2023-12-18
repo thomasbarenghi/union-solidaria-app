@@ -1,9 +1,9 @@
 'use client'
 import { SearchInput } from '@/components'
 import { debounce } from 'lodash'
-import { useMemo } from 'react'
-import Selects from './Selects'
+import { useCallback } from 'react'
 import Modal from './Modal'
+import Selects from './Selects'
 
 interface Props {
   query: Record<string, string>
@@ -12,13 +12,14 @@ interface Props {
 
 const SearchSection = ({ query, setQuery }: Props) => {
   const searchHandler = (queryObj: Record<string, string>) => {
-    setQuery((prev: Record<string, string>) => ({ ...prev, ...queryObj }))
-    if (query.country.length > 0) {
-      setQuery((prev: Record<string, string>) => ({ ...prev, province: '' }))
-    }
+    setQuery((prev: Record<string, string>) => {
+      if (!queryObj.country) return { ...prev, ...queryObj }
+      if (queryObj.country === prev.country) return { ...prev, ...queryObj }
+      return { ...prev, ...queryObj, province: '' }
+    })
   }
 
-  const debouncedSearchHandler = useMemo(() => debounce(searchHandler, 1000), [])
+  const debouncedSearchHandler = useCallback(debounce(searchHandler, 1000), [])
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSearchHandler({ [event.target.name]: event.target.value })
