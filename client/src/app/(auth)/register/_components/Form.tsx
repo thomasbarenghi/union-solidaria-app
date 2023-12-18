@@ -1,5 +1,6 @@
 'use client'
 import { Button, Input, SimpleSelect } from '@/components'
+import { useFieldValidation } from '@/hooks/useFieldValidation'
 import { type RegisterFormValues, type Role } from '@/interfaces'
 import { signupUser } from '@/services/auth/signup.service'
 import {
@@ -15,8 +16,8 @@ import Routes from '@/utils/constants/routes.const'
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { nextIsDisabled } from '../nextIsDisabled'
 import { toast } from 'sonner'
+import { nextIsDisabled } from '../nextIsDisabled'
 
 export interface FormValues extends RegisterFormValues {
   repeatPassword: string
@@ -46,10 +47,24 @@ const RegisterForm = () => {
     control,
     reset,
     getValues,
-    watch
+    watch,
+    setError
   } = useForm<FormValues>({
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues: {
+      birthday: undefined,
+      email: '',
+      firstName: '',
+      lastName: '',
+      orgName: '',
+      password: '',
+      phone: '',
+      repeatPassword: '',
+      role: undefined,
+      username: ''
+    }
   })
+  const { debouncedHandleChange, validation } = useFieldValidation(['username', 'email'], errors, setError)
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -79,6 +94,7 @@ const RegisterForm = () => {
             name='firstName'
             label='Nombre'
             placeholder='Nombre'
+            defaultValue={getValues('firstName')}
             hookForm={{
               register,
               validations: {
@@ -96,6 +112,7 @@ const RegisterForm = () => {
             name='lastName'
             label='Apellido'
             placeholder='Apellido'
+            defaultValue={getValues('lastName')}
             hookForm={{
               register,
               validations: {
@@ -113,6 +130,9 @@ const RegisterForm = () => {
             name='birthday'
             label='Fecha de nacimiento'
             placeholder='Fecha de nacimiento'
+            // The 'any' type is applied to the 'defaultValue' property to override the original typing of NextUI Input
+            // component, which is 'string' or 'undefined'
+            defaultValue={getValues('birthday') as any}
             hookForm={{
               register,
               validations: {
@@ -139,27 +159,11 @@ const RegisterForm = () => {
       {step === 1 && (
         <>
           <Input
-            type='email'
-            name='email'
-            label='Email'
-            placeholder='Email'
-            hookForm={{
-              register,
-              validations: {
-                pattern: {
-                  value: emailPattern.value,
-                  message: emailPattern.message
-                },
-                required: { value: true, message: 'Este campo es requerido' }
-              }
-            }}
-            errorMessage={errors?.email?.message?.toString()}
-          />
-          <Input
             type='text'
             name='phone'
             label='Telefono'
             placeholder='Telefono'
+            defaultValue={getValues('phone') as string}
             hookForm={{
               register,
               validations: {
@@ -173,10 +177,32 @@ const RegisterForm = () => {
             errorMessage={errors?.phone?.message?.toString()}
           />
           <Input
+            type='email'
+            name='email'
+            label='Email'
+            placeholder='Email'
+            defaultValue={getValues('email')}
+            endContent={validation.email?.icon}
+            hookForm={{
+              register,
+              validations: {
+                pattern: {
+                  value: emailPattern.value,
+                  message: emailPattern.message
+                },
+                required: { value: true, message: 'Este campo es requerido' },
+                onChange: async (e) => await debouncedHandleChange(e, 'email')
+              }
+            }}
+            errorMessage={errors?.email?.message?.toString()}
+          />
+          <Input
             type='text'
             name='username'
             label='Nombre de usuario'
             placeholder='Nombre de usuario'
+            defaultValue={getValues('username')}
+            endContent={validation.username?.icon}
             hookForm={{
               register,
               validations: {
@@ -184,7 +210,8 @@ const RegisterForm = () => {
                   value: usernamePattern.value,
                   message: usernamePattern.message
                 },
-                required: { value: true, message: 'Este campo es requerido' }
+                required: { value: true, message: 'Este campo es requerido' },
+                onChange: async (e) => await debouncedHandleChange(e, 'username')
               }
             }}
             errorMessage={errors?.username?.message?.toString()}
@@ -198,6 +225,7 @@ const RegisterForm = () => {
             name='password'
             label='Contraseña'
             placeholder='Contraseña'
+            defaultValue={getValues('password')}
             hookForm={{
               register,
               validations: {
@@ -215,6 +243,7 @@ const RegisterForm = () => {
             name='repeatPassword'
             label='Repite la contraseña'
             placeholder='Repite la contraseña'
+            defaultValue={getValues('repeatPassword')}
             hookForm={{
               register,
               validations: {
@@ -262,6 +291,7 @@ const RegisterForm = () => {
               name='orgName'
               label='Nombre de la organizacion'
               placeholder='Nombre de la organizacion'
+              defaultValue={getValues('orgName')}
               hookForm={{
                 register,
                 validations: {

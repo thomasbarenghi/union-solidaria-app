@@ -25,12 +25,12 @@ interface Pattern {
 
 export const firstNamePattern: Pattern = {
   value: firstNameRegex,
-  message: 'First name must be at least 2 characters long'
+  message: 'El nombre debe contener al menos 2 caracteres'
 }
 
 export const lastNamePattern: Pattern = {
   value: lastNameRegex,
-  message: 'Last name must be at least 2 characters long'
+  message: 'El apellido debe contener al menos 2 caracteres'
 }
 
 export const emailPattern: Pattern = {
@@ -62,17 +62,17 @@ export const organizationNamePattern: Pattern = {
 
 export const titlePattern: Pattern = {
   value: titleRegex,
-  message: 'Title must be only letters and numbers, and at least 2 characters long'
+  message: 'El título debe contener al menos 2 caracteres y únicamente letras o números'
 }
 
 export const descriptionPattern: Pattern = {
   value: descriptionRegex,
-  message: 'Description must be only letters and numbers, and at least 2 characters long'
+  message: 'La descripción debe contener al menos 2 caracteres y únicamente letras o números'
 }
 
 export const addressPattern: Pattern = {
   value: addressRegex,
-  message: 'Address must be only letters and numbers, and at least 2 characters long'
+  message: 'La dirección debe contener al menos 2 caracteres y únicamente letras o números'
 }
 
 export const hour12Pattern: Pattern = {

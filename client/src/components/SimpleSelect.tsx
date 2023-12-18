@@ -18,14 +18,17 @@ type ExtendedProps = DefaultProps & CustomProps
 const SimpleSelect = ({ ...props }: ExtendedProps) => (
   <Select
     {...props.field}
-    defaultSelectedKeys={props.defaultSelectedKeys}
+    selectedKeys={props.defaultSelectedKeys}
     items={props.names}
     label={props.label}
     labelPlacement='outside'
     size='md'
     name={props.name}
     selectionMode='single'
-    onSelectionChange={(selected) => props.setSelected(Array.from(selected)[0].toString())}
+    onChange={(e) => {
+      if (!e.target.value) return
+      props.setSelected(e.target.value)
+    }}
     placeholder='Selecciona una opción'
     className='w-full'
     classNames={{
