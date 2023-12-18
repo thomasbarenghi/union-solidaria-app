@@ -15,7 +15,9 @@ const Placeholder = ({ isCurrent = false, isError }: Props) => (
           Aun no hay publicaciones por aqui
         </TextElement>
         <TextElement type='base' as='p' className='text-center'>
-          Cuando la organización publique algo, aparecerá aquí
+          {isCurrent
+            ? 'Aún no has creado ninguna publicación para esta iniciativa'
+            : 'Cuando la organización publique algo, aparecerá aquí'}
         </TextElement>
       </div>
     )}

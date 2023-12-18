@@ -1,19 +1,18 @@
-import { Session } from 'next-auth'
 import { UsersHero } from '@/components'
 import { UserInterface } from '@/interfaces'
 
 interface Props {
   user: UserInterface
-  session: Session | null
+  sessionId: string
   isError: boolean
 }
 
-const Hero = ({ user, session, isError }: Props) => (
+const Hero = ({ user, sessionId, isError }: Props) => (
   <UsersHero
     isLoading={false}
     user={user}
-    withAccountButton={user?._id === session?.user.id}
-    withInitiativesButton={user?.role === 'organization' && user?._id === session?.user.id}
+    withAccountButton={user?._id === sessionId}
+    withInitiativesButton={user?.role === 'organization' && user?._id === sessionId}
     isError={isError}
   />
 )

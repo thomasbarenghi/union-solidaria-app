@@ -1,26 +1,16 @@
 'use client'
-import { useSession } from 'next-auth/react'
-import { useForm } from 'react-hook-form'
-import { InitiativeDynamicForm, TextElement, type InitiativeFormData } from '@/components'
-import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
+import { InitiativeDynamicForm, TextElement } from '@/components'
+import { InitiativeFormData } from '@/interfaces'
 import { postRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Routes from '@/utils/constants/routes.const'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 const FormSec = () => {
   const router = useRouter()
   const { data: session } = useSession()
-  const {
-    register,
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    control,
-    getValues,
-    setValue
-  } = useForm<InitiativeFormData>({
-    mode: 'onChange'
-  })
 
   const onSubmit = async (data: InitiativeFormData) => {
     try {
@@ -58,17 +48,7 @@ const FormSec = () => {
         <TextElement type='t3' as='h1' className='font-semibold'>
           Crear iniciativa
         </TextElement>
-        <InitiativeDynamicForm
-          errors={errors}
-          register={register}
-          getValues={getValues}
-          control={control}
-          setValue={setValue}
-          isSubmitting={isSubmitting}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-          mode='create'
-        />
+        <InitiativeDynamicForm onSubmit={onSubmit} mode='create' />
       </div>
     </section>
   )

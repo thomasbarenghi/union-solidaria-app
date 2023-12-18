@@ -29,7 +29,7 @@ const Selects = (props: Props) => {
       <SimpleSelect
         name='country'
         label='Pais de iniciativa'
-        selectedValue={[query.country]}
+        defaultSelectedKeys={[query.country]}
         setSelected={(selected) => {
           handleChange('country', selected)
         }}
@@ -40,7 +40,7 @@ const Selects = (props: Props) => {
         <SimpleSelect
           name='province'
           label='Elige el estado/provincia'
-          selectedValue={[query.province]}
+          defaultSelectedKeys={[query.province]}
           setSelected={(selected) => {
             handleChange('province', selected)
           }}
@@ -51,7 +51,7 @@ const Selects = (props: Props) => {
       <SimpleSelect
         name='opportunities'
         label='Elige una Oportunidad'
-        selectedValue={[query.opportunities]}
+        defaultSelectedKeys={[query.opportunities]}
         setSelected={(selected) => {
           handleChange('opportunities', selected)
         }}
@@ -61,7 +61,7 @@ const Selects = (props: Props) => {
       <SimpleSelect
         name='themes'
         label='Elige un Tema'
-        selectedValue={[query.themes]}
+        defaultSelectedKeys={[query.themes]}
         setSelected={(selected) => {
           handleChange('themes', selected)
         }}

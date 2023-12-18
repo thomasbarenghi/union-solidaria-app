@@ -1,8 +1,7 @@
 import { FieldErrors, UseFormGetValues, UseFormRegister } from 'react-hook-form'
 import { Input, TextElement } from '@/components'
 import { extraInfoPattern, hour12Pattern } from '@/utils/constants/pattern.const'
-import { InitiativeFormData } from '../form.interface'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, InitiativeInterface } from '@/interfaces'
 
 interface DateTimeProps {
   errors: FieldErrors<InitiativeFormData>

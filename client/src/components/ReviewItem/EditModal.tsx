@@ -1,5 +1,5 @@
-import { Modal, ReviewForm, ReviewFormData } from '@/components'
-import { ReviewInterface } from '@/interfaces'
+import { Modal, ReviewForm } from '@/components'
+import { ReviewFormData, ReviewInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
 import Image from 'next/image'

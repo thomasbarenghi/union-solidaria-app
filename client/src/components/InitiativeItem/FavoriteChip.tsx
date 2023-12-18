@@ -1,10 +1,13 @@
 'use client'
-import useSWR from 'swr'
+import { InitiativeInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
-import Image from 'next/image'
-import { InitiativeInterface } from '@/interfaces'
+import { Button } from '@nextui-org/react'
+import { Session } from 'next-auth'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import useSWR from 'swr'
 
 interface Props {
   initiative: InitiativeInterface
@@ -12,14 +15,18 @@ interface Props {
 
 const FavoriteChip = ({ initiative }: Props) => {
   const { data: session, status } = useSession()
-  const { data: loggedUser } = useSWR(Endpoints.USER_BY_ID(session?.user?.username ?? ''))
-  const { data: currentUser, mutate } = useSWR(Endpoints.USER_BY_ID(loggedUser?.username))
-  const isFavorite = currentUser?.favorites?.some((favorite: InitiativeInterface) => favorite._id === initiative._id)
+  const {
+    data: { favorites },
+    mutate
+  } = useSWR(Endpoints.USER_BY_ID(session?.user?.username ?? ''))
+  const [isLoading, setIsLoading] = useState(false)
+  const isFavorite = favorites?.some((favorite: InitiativeInterface) => favorite._id === initiative._id)
 
   const handleFavorite = async () => {
+    setIsLoading(true)
     try {
       await putRequest(
-        Endpoints.MODIFY_FAVORITE(loggedUser._id),
+        Endpoints.MODIFY_FAVORITE((session as Session).user.id),
         {
           initiativeId: initiative._id
         },
@@ -31,27 +38,41 @@ const FavoriteChip = ({ initiative }: Props) => {
       )
       await mutate()
     } catch (error) {
+      toast.error('Ocurrió un error inesperado. Por favor inténtelo luego.')
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <>
       {status === 'authenticated' && (
-        <button
-          className='absolute right-1 top-1 z-10 aspect-square rounded-2xl bg-white p-4'
+        <Button
+          className='absolute right-1 top-1 z-10 bg-white text-red-500'
+          variant='solid'
+          isIconOnly
+          isLoading={isLoading}
           onClick={() => {
             void handleFavorite()
           }}
         >
-          <Image
-            src={isFavorite === true ? '/icon/heart-filled.svg' : '/icon/heart.svg'}
-            alt='heart icon'
+          <svg
             width={24}
             height={24}
-            className='cursor-pointer'
-          />
-        </button>
+            viewBox='0 0 24 24'
+            fill={isFavorite ? 'red' : 'none'}
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              d='M12.62 20.81c-.34.12-.9.12-1.24 0C8.48 19.82 2 15.69 2 8.69 2 5.6 4.49 3.1 7.56 3.1c1.82 0 3.43.88 4.44 2.24a5.53 5.53 0 0 1 4.44-2.24C19.51 3.1 22 5.6 22 8.69c0 7-6.48 11.13-9.38 12.12Z'
+              stroke='red'
+              strokeWidth={1.5}
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </svg>
+        </Button>
       )}
     </>
   )

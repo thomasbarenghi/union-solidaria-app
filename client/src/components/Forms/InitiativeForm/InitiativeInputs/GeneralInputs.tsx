@@ -3,8 +3,7 @@ import { Input, MultiSelect, TextElement, Textarea } from '@/components'
 import { opportunities } from '@/services/mock/opportunities.service'
 import { themes } from '@/services/mock/themes.service'
 import { descriptionPattern, titlePattern } from '@/utils/constants/pattern.const'
-import { InitiativeFormData } from '../form.interface'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, InitiativeInterface } from '@/interfaces'
 
 interface GeneralInfoProps {
   errors: FieldErrors<InitiativeFormData>
@@ -91,18 +90,18 @@ const GeneralInputs = ({ errors, register, control, setValue, mode, initiative }
         rules={{
           required: { value: true, message: 'Este campo es requerido' },
           validate: (value) => {
-            if (value.split(',').length < 2) return 'Debe contener al menos dos oportunidades'
+            if (value && value?.split(',').length < 2) return 'Debe contener al menos dos oportunidades'
             return true
           }
         }}
         render={({ field }) => (
           <MultiSelect
             names={opportunities.slice(1)}
-            selectedValue={mode === 'edit' ? initiative?.opportunities[0].split(',') : []}
+            defaultSelectedKeys={mode === 'edit' ? initiative?.opportunities[0].split(',') : []}
             name='opportunities'
             field={field}
             setSelected={(selected) => {
-              setValue('opportunities', selected)
+              setValue('opportunities', [selected])
             }}
             label='Oportunidades'
             errorMessage={errors?.opportunities?.message}
@@ -115,17 +114,17 @@ const GeneralInputs = ({ errors, register, control, setValue, mode, initiative }
         rules={{
           required: { value: true, message: 'Este campo es requerido' },
           validate: (value) => {
-            if (value.split(',').length < 2) return 'Debe contener al menos dos tematicas'
+            if (value?.split(',').length < 2) return 'Debe contener al menos dos tematicas'
             return true
           }
         }}
         render={({ field }) => (
           <MultiSelect
             field={field}
-            selectedValue={mode === 'edit' ? initiative?.themes[0].split(',') : []}
+            defaultSelectedKeys={mode === 'edit' ? initiative?.themes[0].split(',') : []}
             name='themes'
             names={themes.slice(1)}
-            setSelected={(selected) => setValue('themes', selected)}
+            setSelected={(selected) => setValue('themes', [selected])}
             label='Tematicas'
             errorMessage={errors?.themes?.message}
           />

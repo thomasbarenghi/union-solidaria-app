@@ -1,34 +1,24 @@
 'use client'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeDynamicForm } from '@/components'
+import { InitiativeFormData, type InitiativeInterface } from '@/interfaces'
 import { putRequest } from '@/services/apiRequests.service'
 import Endpoints from '@/utils/constants/endpoints.const'
-import { useForm } from 'react-hook-form'
-import { InitiativeDynamicForm, InitiativeFormData } from '@/components'
-import { useSWRConfig } from 'swr'
 import { toast } from 'sonner'
+import { useSWRConfig } from 'swr'
 
 interface Props {
   initiative: InitiativeInterface
 }
 
 const Config = ({ initiative }: Props) => {
+  const defaultValues = {
+    opportunities: initiative?.opportunities[0].split(','),
+    themes: initiative?.themes[0].split(','),
+    country: initiative?.province,
+    province: initiative?.province
+  }
+
   const { mutate } = useSWRConfig()
-  const {
-    register,
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    control,
-    setValue,
-    getValues
-  } = useForm<InitiativeFormData>({
-    mode: 'onChange',
-    defaultValues: {
-      opportunities: initiative?.opportunities[0].split(','),
-      themes: initiative?.themes[0].split(','),
-      country: initiative?.province,
-      province: initiative?.province
-    }
-  })
 
   const onSubmit = async (data: InitiativeFormData) => {
     try {
@@ -59,18 +49,7 @@ const Config = ({ initiative }: Props) => {
 
   return (
     <div className='flex gap-6'>
-      <InitiativeDynamicForm
-        errors={errors}
-        register={register}
-        getValues={getValues}
-        control={control}
-        setValue={setValue}
-        isSubmitting={isSubmitting}
-        handleSubmit={handleSubmit}
-        onSubmit={onSubmit}
-        mode='edit'
-        initiative={initiative}
-      />
+      <InitiativeDynamicForm onSubmit={onSubmit} mode='edit' initiative={initiative} defaultValues={defaultValues} />
     </div>
   )
 }

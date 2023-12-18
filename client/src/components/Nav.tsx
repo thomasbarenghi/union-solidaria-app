@@ -10,7 +10,7 @@ interface VerticalNavProps {
   className?: string
 }
 
-interface VerticalNavItemProps {
+export interface VerticalNavItemProps {
   name: string
   href: string
   visible: boolean

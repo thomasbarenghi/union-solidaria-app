@@ -1,12 +1,10 @@
 'use client'
 import { Textarea as TextareaUI } from '@nextui-org/react'
+import { ComponentProps } from 'react'
 import { RegisterOptions, UseFormRegister } from 'react-hook-form'
 
-interface InputProps {
+interface CustomProps {
   name: string
-  label?: string
-  wrapperIntupClassName?: string
-  placeholder?: string
   className?: string
   handleChange?: (e: string) => void
   errorMessage?: string
@@ -15,30 +13,22 @@ interface InputProps {
     register: UseFormRegister<any>
     validations: RegisterOptions
   }
-  defaultValue?: string
   rows?: number
 }
 
-const Textarea = ({
-  name,
-  label,
-  handleChange = () => {},
-  errorMessage = '',
-  placeholder = '',
-  className = '',
-  hookForm,
-  defaultValue = '',
-  rows = 1
-}: InputProps) => {
-  const HookForm = hookForm?.register(name, hookForm?.validations)
+type DefaultProps = ComponentProps<typeof TextareaUI>
+type ExtendedProps = DefaultProps & CustomProps
+
+const Textarea = ({ ...props }: ExtendedProps) => {
+  const HookForm = props.hookForm?.register(props.name, props.hookForm?.validations)
   return (
     <TextareaUI
       {...HookForm}
-      label={label}
+      label={props.label}
       labelPlacement='outside'
-      name={name}
-      defaultValue={defaultValue}
-      minRows={rows}
+      name={props.name}
+      defaultValue={props.defaultValue}
+      minRows={props.rows}
       classNames={{
         inputWrapper:
           '!bg-white !text-black border border-solid border-gray-300 px-3 py-2 text-start rounded-2xl hover:!bg-gray-100 focus:!bg-white',
@@ -46,13 +36,11 @@ const Textarea = ({
         errorMessage: 'text-sm font-light leading-[155%] text-red-800',
         input: '!text-black placeholder:!text-gray-400 placeholder:font-light !p-0'
       }}
-      className={className}
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      className={props.className}
       onChange={async (e: React.ChangeEvent<HTMLInputElement>) => await HookForm?.onChange(e)}
-      onValueChange={(value: string) => handleChange(value)}
-      placeholder={placeholder}
-      isInvalid={errorMessage.length > 0}
-      errorMessage={errorMessage}
+      onValueChange={(value: string) => props.handleChange && props?.handleChange(value)}
+      placeholder={props.placeholder}
+      errorMessage={props.errorMessage}
     />
   )
 }

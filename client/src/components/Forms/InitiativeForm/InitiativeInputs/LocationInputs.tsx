@@ -3,8 +3,7 @@ import { Input, SimpleSelect, TextElement } from '@/components'
 import { countries, argentinaProvinces, uruguayProvinces, colombiaProvinces } from '@/services/mock/locations.service'
 import { useState } from 'react'
 import { addressPattern } from '@/utils/constants/pattern.const'
-import { InitiativeFormData } from '../form.interface'
-import { InitiativeInterface } from '@/interfaces'
+import { InitiativeFormData, InitiativeInterface } from '@/interfaces'
 
 interface LocationInfoProps {
   errors: FieldErrors<InitiativeFormData>
@@ -49,7 +48,7 @@ const LocationInputs = ({ errors, register, control, setValue, mode, initiative 
             <SimpleSelect
               name='country'
               field={field}
-              selectedValue={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
+              defaultSelectedKeys={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
               label='Elige un pais'
               setSelected={(selected) => {
                 setValue('country', selected)
@@ -69,7 +68,7 @@ const LocationInputs = ({ errors, register, control, setValue, mode, initiative 
             <SimpleSelect
               field={field}
               name='province'
-              selectedValue={mode === 'edit' ? [initiative?.province ?? ''] : ['']}
+              defaultSelectedKeys={mode === 'edit' ? [initiative?.province ?? ''] : ['']}
               label='Elige una provincia/estado/departamento'
               setSelected={(selected) => {
                 setValue('province', selected)

@@ -22,7 +22,7 @@ export class AuthMiddleware implements NestMiddleware {
         throw new UnauthorizedException('Invalid session');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new UnauthorizedException('Invalid session or server error');
     }
   }

@@ -1,12 +1,13 @@
-import { InitiativeInterface, UserInterface } from '@/interfaces'
+import { type InitiativeInterface } from '@/interfaces'
+import { type User } from 'next-auth'
+import ConfigSection from './_components/Config'
 import InfoSection from './_components/Info/InfoSection'
 import PostSection from './_components/Posts/Posts'
 import VolunteersSection from './_components/Volunteers'
-import ConfigSection from './_components/Config'
 
-export const buildInitiativeTabs = (currentUser: UserInterface, data: InitiativeInterface) => {
+export const buildInitiativeTabs = (currentUser: User | undefined, data: InitiativeInterface) => {
   const isOrg = currentUser?.role === 'organization'
-  const isCurrent = currentUser?._id === data?.owner?._id
+  const isCurrent = currentUser?.id === data.owner._id
   return [
     {
       title: 'Informacion',
@@ -14,7 +15,7 @@ export const buildInitiativeTabs = (currentUser: UserInterface, data: Initiative
     },
     {
       title: 'Publicaciones',
-      content: <PostSection data={data} />
+      content: <PostSection data={data} isCurrent={isCurrent} />
     },
     {
       title: 'Voluntarios',

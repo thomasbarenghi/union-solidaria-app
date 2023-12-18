@@ -47,7 +47,7 @@ export class InitiativesController {
 
       return this.initiativesService.create(createInitiativeDto);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -90,10 +90,6 @@ export class InitiativesController {
     @Body() updateInitiativeDto: UpdateInitiativeDto,
     @UploadedFile() thumbnail: Express.Multer.File,
   ) {
-    console.log(
-      '🚀 ~ InitiativesController ~ updateInitiativeDto:',
-      updateInitiativeDto,
-    );
     try {
       if (thumbnail) {
         updateInitiativeDto.thumbnail =

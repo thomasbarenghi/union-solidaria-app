@@ -84,15 +84,14 @@ export const getRequest = async (
         tags: next?.tags
       },
       cache: next?.cache,
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         ...headers
       }
     })
-    const responsejson = await response.json()
+    const data = await response.json()
     return {
-      data: responsejson,
+      data,
       error: !response.ok,
       success: response.ok
     }
