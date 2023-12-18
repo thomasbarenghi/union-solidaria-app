@@ -11,7 +11,7 @@ interface CustomProps {
   onClear?: () => void
   errorMessage?: string
   className?: string
-  hookForm: {
+  hookForm?: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>
     validations: RegisterOptions
@@ -24,7 +24,7 @@ type DefaultProps = ComponentProps<typeof InputUI>
 type ExtendedProps = DefaultProps & CustomProps
 
 const Input = ({ hookForm, name, type, ...props }: ExtendedProps) => {
-  const HookForm = hookForm.register(name, hookForm?.validations)
+  const HookForm = hookForm?.register(name, hookForm?.validations)
 
   return (
     <InputUI

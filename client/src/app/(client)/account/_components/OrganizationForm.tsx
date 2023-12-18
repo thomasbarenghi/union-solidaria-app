@@ -52,6 +52,19 @@ const OrganizationForm = ({ session, currentUser }: Props) => {
             isDisabled
             label='Nombre de la organizacion'
             placeholder='Nombre de la organizacion'
+            hookForm={{
+              register,
+              validations: {
+                pattern: {
+                  value: organizationNamePattern.value,
+                  message: organizationNamePattern.message
+                },
+                required: {
+                  value: true,
+                  message: 'Este campo es requerido'
+                }
+              }
+            }}
           />
           <Button title='Guardar Cambios' isDisabled />
         </form>
