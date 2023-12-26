@@ -14,11 +14,10 @@ const ContentSection = ({ currentUser }: ContentSectionProps) => {
     ?.map((initiative: InitiativeInterface) => initiative?.posts)
     .flat()
     .sort((a: PostInterface, b: PostInterface) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-
   return (
     <section className='flex flex-col-reverse gap-5 lg:flex-row'>
       <PublicationFlex posts={allPosts} isLoading={false} />
-      <Sidebar initiatives={currentUser?.initiatives.slice(0, 5)} />
+      {currentUser?.initiatives?.length > 0 && <Sidebar initiatives={currentUser?.initiatives?.slice(0, 5)} />}
     </section>
   )
 }
