@@ -51,6 +51,7 @@ const LocationInputs = ({ errors, register, control, setValue, mode, initiative 
               defaultSelectedKeys={mode === 'edit' ? [initiative?.country ?? ''] : ['']}
               label='Elige un pais'
               setSelected={(selected) => {
+                console.log(selected)
                 setValue('country', selected)
                 setCountry(selected)
               }}

@@ -2,6 +2,13 @@
 
 Union Solidaria is a platform that allows people to connect to different causes and organizations. It also allows organizations to create campaigns to improve the world.
 
+## Previous requirements
+
+- Create MongoDB database
+- Create Stripe account
+- Create Cloudinary account
+- Create Google account and get credentials for Google OAuth
+
 ## Technologies
 
 - [Next.js](https://nextjs.org/)

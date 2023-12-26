@@ -3,11 +3,10 @@ import useSWR from 'swr'
 import { useState } from 'react'
 import { InitiativeGrid, TextElement } from '@/components'
 import Endpoints from '@/utils/constants/endpoints.const'
-import Filters from './Filters'
 import { buildQueryString } from '@/utils/functions/buildQueryString.utils'
 
 const InitiativesSection = () => {
-  const [query, setQuery] = useState<Record<string, string>>({
+  const [query] = useState<Record<string, string>>({
     title: '',
     country: '',
     province: '',
@@ -27,7 +26,7 @@ const InitiativesSection = () => {
           Apoya a las iniciativas que más te gusten y ayudalas a cumplir sus objetivos.
         </TextElement>
       </div>
-      <Filters query={query} setQuery={setQuery} />
+      {/* <Filters query={query} setQuery={setQuery} /> */}
       <InitiativeGrid initiatives={data} isLoading={isLoading} isError={error} />
     </section>
   )
