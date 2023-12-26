@@ -2,6 +2,7 @@ import { Button, TextElement } from '@/components'
 import { InitiativeInterface } from '@/interfaces'
 import Routes from '@/utils/constants/routes.const'
 import { User } from '@nextui-org/react'
+import Link from 'next/link'
 
 interface SidebarProps {
   initiatives: InitiativeInterface[]
@@ -14,19 +15,21 @@ const Sidebar = ({ initiatives }: SidebarProps) => (
     </TextElement>
     <div className='flex flex-col gap-1'>
       {initiatives?.map((initiative: InitiativeInterface) => (
-        <User
-          key={initiative?._id}
-          classNames={{
-            name: ' !text-sm !leading-[155%] font-medium',
-            base: 'flex gap-3 items-center justify-start cursor-pointer'
-          }}
-          name={initiative?.title}
-          description={initiative?.country + ', ' + initiative?.province}
-          avatarProps={{
-            src: initiative?.thumbnail,
-            className: 'aspect-square h-[45px] w-[45px]'
-          }}
-        />
+        <Link href={`${Routes.INITIATIVES}/${initiative?._id}`} key={initiative?._id}>
+          <User
+            key={initiative?._id}
+            classNames={{
+              name: ' !text-sm !leading-[155%] font-medium',
+              base: 'flex gap-3 items-center justify-start cursor-pointer'
+            }}
+            name={initiative?.title}
+            description={initiative?.country + ', ' + initiative?.province}
+            avatarProps={{
+              src: initiative?.thumbnail,
+              className: 'aspect-square h-[45px] w-[45px]'
+            }}
+          />
+        </Link>
       ))}
     </div>
     <Button title='Ver mas' variant='flat' href={Routes.INITIATIVES} size='sm' className='bg-white' />
