@@ -18,7 +18,7 @@ type ExtendedProps = DefaultProps & CustomProps
 const SimpleSelect = ({ ...props }: ExtendedProps) => (
   <Select
     {...props.field}
-    selectedKeys={props.defaultSelectedKeys}
+    defaultSelectedKeys={props.defaultSelectedKeys}
     items={props.names}
     label={props.label}
     labelPlacement='outside'

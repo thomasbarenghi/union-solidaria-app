@@ -1,12 +1,11 @@
 import { TabBar } from '@/components'
-import { getUserByEmail } from '@/services/user/get-user.service'
 import { nextauthOptions } from '@/utils/constants/auth.const'
 import type { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
-import { toast } from 'sonner'
 import Hero from './_components/Hero'
 import { buildProfileTabs } from './buildProfileTabs'
+import { getUser } from '@/services/user/getUser.service'
 
 interface Props {
   params: {
@@ -22,7 +21,7 @@ export const generateMetadata = async (props: Props): Promise<Metadata> => {
 }
 
 const Profile = async ({ params }: Props) => {
-  const { user, error } = await getUserByEmail(params.username.slice(3))
+  const { data: user, error } = await getUser(params.username.slice(3))
   const session = await getServerSession(nextauthOptions)
 
   if (user === undefined) notFound()
@@ -34,8 +33,6 @@ const Profile = async ({ params }: Props) => {
     false,
     user
   )
-
-  if (error) toast.error(error.message)
 
   return (
     <main className='flex min-h-screen flex-col'>
